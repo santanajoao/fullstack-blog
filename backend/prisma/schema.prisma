@@ -6,3 +6,9 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Topic {
+  id Int @id @default(autoincrement())
+  name String @unique
+  imageUrl String @unique
+}
