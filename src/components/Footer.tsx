@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { BsGithub, BsLinkedin } from "react-icons/bs";
-import BlogLogo from "./BlogLogo";
+import Link from 'next/link';
+import { BsGithub, BsLinkedin } from 'react-icons/bs';
+import BlogLogo from './BlogLogo';
 
 export default function Footer() {
   return (
