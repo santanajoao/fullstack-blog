@@ -14,7 +14,7 @@ export default function PostItemLink({
   link, image, title, author, date, description,
 }: Props) {
   return (
-    <Link href={link} className="h-full w-full flex flex-col space-y-1 p-2">
+    <Link href={link} className="h-full w-full flex flex-col space-y-1 p-1">
       <Image
         width={224}
         src={image}
