@@ -8,7 +8,31 @@ datasource db {
 }
 
 model Topic {
-  id Int @id @default(autoincrement())
-  name String @unique
+  id       Int    @id @default(autoincrement())
+  name     String @unique
   imageUrl String @unique
+
+  posts     Post[]
+  topicPost TopicPost[]
+}
+
+model Post {
+  id          String      @id @default(uuid())
+  title       String
+  description String
+
+  topics      Topic[]
+  topicPost   TopicPost[]
+}
+
+model TopicPost {
+  topicId Int
+  topic   Topic @relation(fields: [topicId], references: [id])
+
+  postId String
+  post   Post   @relation(fields: [postId], references: [id])
+  
+  createdAt DateTime @default(now())
+
+  @@id([postId, topicId])
 }
