@@ -1,0 +1,39 @@
+services:
+  frontend:
+    stdin_open: true
+    tty: true
+    image: node:18.16.0-alpine
+    user: node
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+    working_dir: /home/node/app
+    volumes:
+      - ./frontend:/home/node/app
+    environment:
+      - API_PORT=3001
+    restart: on-failure
+  backend:
+    stdin_open: true
+    tty: true
+    image: node:18.16.0-alpine
+    user: node
+    ports:
+      - ${API_PORT}:${API_PORT}
+    depends_on:
+      - database
+    working_dir: /home/node/app
+    volumes:
+      - ./backend:/home/node/app
+    environment:
+      - API_PORT=${API_PORT}
+      - DATABASE_URL=${DB}://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+    restart: on-failure
+  database:
+    image: mysql:8.0.33
+    ports:
+      - 3306:3306
+    restart: on-failure
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
