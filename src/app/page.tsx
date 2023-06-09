@@ -78,7 +78,7 @@ export default function Home() {
               {topics.map(({ name, link, image }) => (
                 <li key={name} className="h-28 w-28 flex-shrink-0 rounded-2xl overflow-hidden relative">
                   <Link href={link} className="h-full w-full flex">
-                    <Image src={image} alt={name} height={500} width={500} className="h-full w-full object-cover"/>
+                    <Image src={image} alt={name} height={500} width={500} className="h-full w-full object-cover hover:scale-105 transition-transform"/>
                     <h3 className= "bg-black bg-opacity-20 px-1 rounded-lg text-white decoration-double absolute font-bold text-center z-10 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
                       {name}
                     </h3>
@@ -93,10 +93,10 @@ export default function Home() {
               Publicações em alta
             </h2>
 
-            <ul className="flex space-x-5 mt-3 overflow-y-auto max-w-full hidden-scroll">
+            <ul className="flex space-x-3 mt-3 overflow-y-auto max-w-full hidden-scroll">
               {posts.map(({ author, date, description, image, title, link }) => (
-                <li key={title} className="w-56 flex-shrink-0 overflow-hidden relative">
-                  <Link href={link} className="h-full w-full flex flex-col space-y-1">
+                <li key={title} className="w-60 flex-shrink-0 overflow-hidden relative rounded-2xl hover:brightness-95 bg-white transition-all">
+                  <Link href={link} className="h-full w-full flex flex-col space-y-1 p-2">
                     <Image src={image} alt={title} height={500} width={500} className="object-cover rounded-2xl"/>
                     <span className="text-xs">{`${author} - ${date}`}</span>
                     <h3 className="font-bold text-lg leading-5">
