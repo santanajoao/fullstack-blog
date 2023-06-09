@@ -1,9 +1,8 @@
-import Link from "next/link";
-import { Noto_Serif as NotoSerif } from "next/font/google";
-import Image from "next/image";
-import { BsGithub, BsLinkedin } from 'react-icons/bs';
-
-const notoSerif = NotoSerif({ weight: ['400'], subsets: ['latin'] });
+import Image from 'next/image';
+import Link from 'next/link';
+import Header from '@/components/Header';
+import Hero from '@/components/Hero';
+import Footer from '@/components/Footer';
 
 type Topics = {
   name: string,
@@ -35,39 +34,9 @@ const posts = [
 export default function Home() {
   return (
     <>
-      <header className="flex justify-between px-3 items-center py-2 border-b border-zinc-300 sm:px-5 sm:py-3">
-        <Link href="/">
-          <span className="font-bold text-2xl underline">Blog</span>
-        </Link>
-
-        <div className="space-x-3">
-          <Link href="/signup" className="px-3 py-1 rounded-md hover:bg-zinc-100 active:bg-zinc-200">
-            Cadastrar
-          </Link>
-
-          <Link href="/signin" className="bg-black text-white px-3 py-1 rounded-md">
-            Login
-          </Link>
-        </div>
-      </header>
-      
+      <Header />
       <main>
-        <section className="bg-[#7ff57d] py-24 px-3 sm:px-5 relative overflow-hidden">
-          <span className={`${notoSerif.className} block text-white uppercase text-5xl sm:text-6xl md:text-7xl text-right absolute right-0 top-1/2 -translate-y-1/2 blur-sm tracking-widest`}>
-            Escreva. Leia. Crie. Imagine. Compartilhe. Informe. Seja.
-          </span>
-
-          <div className="z-10 relative">
-            <h1 className={`${notoSerif.className} text-3xl sm:text-4xl max-w-lg mb-7`}>
-              Liberte sua criatividade. Compartilhe. Escreva.
-            </h1>
-            
-            <Link href="/write" className="bg-black text-white rounded-full px-3 py-2">
-              Começar a escrever
-            </Link>
-          </div>
-        </section>
-
+        <Hero />
         <section className="px-3 sm:px-5 py-4 sm:py-6 space-y-5">
           <article>
             <h2 className="font-bold text-lg sm:text-2xl">
@@ -110,31 +79,8 @@ export default function Home() {
           </article>
         </section>
       </main>
-      <footer className="px-3 sm:px-5 py-4 border-t border-zinc-300 flex justify-between items-center">
-        <div>
-          <Link href="/">
-            <span className="font-bold text-4xl underline pr-3 mr-3 border-r border-zinc-300 sm:pr-5 sm:mr-5">
-              Blog
-            </span>
-          </Link>
-          
-          <Link href="/cookies" className="text-xs underline hover:text-zinc-700">
-            Política de Cookies
-          </Link>
-        </div>
-
-        <div>
-          <div className="flex space-x-3">
-            <a href="https://github.com/santanajoao" target="_blank" rel="noopener noreferrer" className="text-3xl hover:text-zinc-700">
-              <BsGithub />
-            </a>
-
-            <a href="https://www.linkedin.com/in/joaopedrosantanac/" target="_blank" rel="noopener noreferrer" className="text-3xl hover:text-zinc-700">
-              <BsLinkedin />
-            </a>
-          </div>
-        </div>
-      </footer>
+      
+      <Footer />
     </>
   )
 }
