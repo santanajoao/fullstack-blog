@@ -45,9 +45,9 @@ export default function Home() {
 
             <ul className="flex space-x-3 mt-3 overflow-y-auto max-w-full hidden-scroll">
               {topics.map(({ name, link, image }) => (
-                <li key={name} className="h-28 w-28 flex-shrink-0 rounded-2xl overflow-hidden relative">
+                <li key={name} className="h-28 w-28 flex-shrink-0 rounded-2xl overflow-hidden relative group">
                   <Link href={link} className="h-full w-full flex">
-                    <Image src={image} alt={name} height={500} width={500} className="h-full w-full object-cover hover:scale-105 transition-transform"/>
+                    <Image src={image} alt={name} height={500} width={500} className="h-full w-full object-cover group-hover:scale-105 transition-transform"/>
                     <h3 className= "bg-black bg-opacity-20 px-1 rounded-lg text-white decoration-double absolute font-bold text-center z-10 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
                       {name}
                     </h3>
