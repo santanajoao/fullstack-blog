@@ -15,7 +15,7 @@ export default function PostItemLink({
 }: Props) {
   return (
     <Link href={link} className="h-full w-full flex flex-col space-y-1 p-2">
-      <Image src={image} alt={title} height={224} width={224} className="object-cover rounded-2xl"/>
+      <Image src={image} alt={title} height={224} width={224} className="object-cover rounded-2xl w-full"/>
       <span className="text-xs">{`${author} - ${date}`}</span>
       <h3 className="font-bold text-lg leading-5">
         {title}
