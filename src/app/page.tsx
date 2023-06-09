@@ -79,7 +79,7 @@ export default function Home() {
                 <li key={name} className="h-28 w-28 flex-shrink-0 rounded-2xl overflow-hidden relative">
                   <Link href={link} className="h-full w-full flex">
                     <Image src={image} alt={name} height={500} width={500} className="h-full w-full object-cover"/>
-                    <h3 className="absolute font-bold text-center z-10 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+                    <h3 className= "bg-black bg-opacity-20 px-1 rounded-lg text-white decoration-double absolute font-bold text-center z-10 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
                       {name}
                     </h3>
                   </Link>
