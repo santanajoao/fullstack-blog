@@ -62,9 +62,9 @@ export default function Home() {
               Publicações em alta
             </h2>
 
-            <ul className="flex space-x-3 mt-3 overflow-y-auto max-w-full hidden-scroll">
+            <ul className="flex space-x-1 mt-3 overflow-y-auto max-w-full hidden-scroll">
               {posts.map(({ author, date, description, image, title, link }) => (
-                <li key={title} className="w-60 flex-shrink-0 overflow-hidden relative rounded-2xl hover:brightness-95 bg-white transition-all">
+                <li key={title} className="w-60 flex-shrink-0 overflow-hidden relative rounded-2xl hover:brightness-90 bg-white transition-[filter]">
                   <Link href={link} className="h-full w-full flex flex-col space-y-1 p-2">
                     <Image src={image} alt={title} height={500} width={500} className="object-cover rounded-2xl"/>
                     <span className="text-xs">{`${author} - ${date}`}</span>
