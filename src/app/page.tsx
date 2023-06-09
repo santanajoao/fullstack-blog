@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Noto_Serif as NotoSerif } from "next/font/google";
 import Image from "next/image";
+import { BsGithub, BsLinkedin } from 'react-icons/bs';
 
 const notoSerif = NotoSerif({ weight: ['400'], subsets: ['latin'] });
 
@@ -34,7 +35,7 @@ const posts = [
 export default function Home() {
   return (
     <>
-      <header className="flex justify-between px-3 items-center py-2 border-b sm:px-5 sm:py-3">
+      <header className="flex justify-between px-3 items-center py-2 border-b border-zinc-300 sm:px-5 sm:py-3">
         <Link href="/">
           <span className="font-bold text-2xl underline">Blog</span>
         </Link>
@@ -109,6 +110,31 @@ export default function Home() {
           </article>
         </section>
       </main>
+      <footer className="px-3 sm:px-5 py-4 border-t border-zinc-300 flex justify-between items-center">
+        <div>
+          <Link href="/">
+            <span className="font-bold text-4xl underline pr-3 mr-3 border-r border-zinc-300 sm:pr-5 sm:mr-5">
+              Blog
+            </span>
+          </Link>
+          
+          <Link href="/cookies" className="text-xs underline hover:text-zinc-700">
+            Política de Cookies
+          </Link>
+        </div>
+
+        <div>
+          <div className="flex space-x-3">
+            <a href="https://github.com/santanajoao" target="_blank" rel="noopener noreferrer" className="text-3xl hover:text-zinc-700">
+              <BsGithub />
+            </a>
+
+            <a href="https://www.linkedin.com/in/joaopedrosantanac/" target="_blank" rel="noopener noreferrer" className="text-3xl hover:text-zinc-700">
+              <BsLinkedin />
+            </a>
+          </div>
+        </div>
+      </footer>
     </>
   )
 }
