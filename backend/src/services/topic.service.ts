@@ -1,8 +1,7 @@
-import { PrismaClient, Topic } from '@prisma/client';
+import { Topic } from '@prisma/client';
 import { AsyncServiceResponse } from '../types/ServiceResponse';
 import { getDateDaysAgo } from '../utils/dates';
-
-const prisma = new PrismaClient();
+import prisma from '../lib/prisma';
 
 const getPopularTopicIds = async (): AsyncServiceResponse<number[]> => {
   const dateSevenDaysAgo = getDateDaysAgo(7);
