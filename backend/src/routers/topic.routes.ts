@@ -1,8 +1,8 @@
 import { Router } from "express";
 import topicController from "../controllers/topic.controller";
 
-const router = Router();
+const topicRouter = Router();
 
-router.get('/', topicController.handleGetPopularTopics);
+topicRouter.get('/', topicController.handleGetPopularTopics);
 
-export default router;
+export default topicRouter;
