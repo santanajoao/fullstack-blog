@@ -1,8 +1,9 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Topic } from '@prisma/client';
+import { AsyncServiceResponse } from '../types/ServiceResponse';
 
 const prisma = new PrismaClient();
 
-const getPopularTopicIds = async () => {
+const getPopularTopicIds = async (): AsyncServiceResponse<number[]> => {
   const sevenDaysMs = 604800000;
   const dateMsSevenDaysAgo = Date.now() - sevenDaysMs;
   const dateSevenDaysAgo = new Date(dateMsSevenDaysAgo);
@@ -15,21 +16,21 @@ const getPopularTopicIds = async () => {
     },
   });
 
-  const topicIds = groupByTopicId.map((group) => group.topicId)
-  return topicIds;
+  const topicIds = groupByTopicId.map((group) => group.topicId);
+  return { status: 'SUCCESS', data: topicIds };
 };
 
-const getPopularTopics = async () => {
+const getPopularTopics = async (): AsyncServiceResponse<Topic[]> => {
   const topicIds = await getPopularTopicIds();
+  if (topicIds.status !== 'SUCCESS') return topicIds;
 
   const popularTopics = await prisma.topic.findMany({
-    select: { name: true },
     where: {
-      id: { in: topicIds },
+      id: { in: topicIds.data },
     },
   });
 
-  return popularTopics;
+  return { status: 'SUCCESS', data: popularTopics };
 };
 
 export default {
