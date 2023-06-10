@@ -3,14 +3,26 @@ import { AsyncServiceResponse } from '../types/ServiceResponse';
 
 const prisma = new PrismaClient();
 
+const getDateDaysAgo = (days: number): Date => {
+  const MS_PER_DAY = 86400000;
+  
+  const daysInMs = days * MS_PER_DAY;
+  const dateInMs = Date.now() - daysInMs;
+  const dateDaysAgo = new Date(dateInMs);
+  return dateDaysAgo;
+}
+
 const getPopularTopicIds = async (): AsyncServiceResponse<number[]> => {
-  const sevenDaysMs = 604800000;
-  const dateMsSevenDaysAgo = Date.now() - sevenDaysMs;
-  const dateSevenDaysAgo = new Date(dateMsSevenDaysAgo);
+  const dateSevenDaysAgo = getDateDaysAgo(7);
 
   const groupByTopicId = await prisma.topicPost.groupBy({
     by: ['topicId'],
-    _count: { _all: true },
+    orderBy: {
+      _count: {
+        postId: 'desc',
+      },
+    },
+    take: 10,
     where: {
       createdAt: { gte: dateSevenDaysAgo },
     },
