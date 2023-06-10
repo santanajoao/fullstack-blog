@@ -3,6 +3,6 @@ import topicController from "../controllers/topic.controller";
 
 const topicRouter = Router();
 
-topicRouter.get('/', topicController.handleGetPopularTopics);
+topicRouter.get('/popular', topicController.handleGetPopularTopics);
 
 export default topicRouter;

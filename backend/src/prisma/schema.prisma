@@ -10,14 +10,14 @@ datasource db {
 model Topic {
   id       Int    @id @default(autoincrement())
   name     String @unique
-  imageUrl String @unique
+  imageUrl String @unique @db.VarChar(300)
 
   posts     Post[]
   topicPost TopicPost[]
 }
 
 model Post {
-  id          String      @id @default(uuid())
+  id          Int      @id @default(autoincrement())
   title       String
   description String
 
@@ -29,7 +29,7 @@ model TopicPost {
   topicId Int
   topic   Topic @relation(fields: [topicId], references: [id])
 
-  postId String
+  postId Int
   post   Post   @relation(fields: [postId], references: [id])
   
   createdAt DateTime @default(now())
