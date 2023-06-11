@@ -23,10 +23,10 @@ const authors = [
 
 const posts = [
   { imageUrl: '/moda.jpg', createdAt: new Date('2023-02-23'), title: 'Combinações simples, mas estilosas para...', description: 'Se você é lowprofile provavelmente já teve dificuldade em variar suas...' },
-  { imageUrl: '/inteligencia-artificial.jpg', createdAt: new Date('2023-06-08'), title: 'A inteligência artificial vai te substituir?', description: 'Entenda o verdadeiro impacto do avanço das inteligências artificiais no seu trabalho e...' },
+  { imageUrl: '/inteligencia-artificial.jpg', createdAt: new Date('2023-06-08'), title: 'A inteligência artificial vai te substituir?', description: 'Entenda o verdadeiro impacto do avanço das inteligências artificiais no seu trabalho e...', likes: 10 },
   { imageUrl: '/esporte.jpg', createdAt: new Date('2023-06-08'), title: 'Quantas series fazer para hipertrofia?', description: 'Sempre ficou em dúvida em quantas seríes deve fazer? Sempre ouviu que cada caso é...' },
   { imageUrl: '/progamacao.jpg', createdAt: new Date('2023-06-07'), title: 'Como eu aprendi javascript', description: 'Você sempre sonhou em ser programador, mas não sabe por onde começar? Nesse post...' },
-  { imageUrl: '/musica.jpg', createdAt: new Date('2023-05-12'), title: 'Músicas para você que quer explorar o mundo...', description: 'Gosta de rock e cansou de ouvir só as mesmas músicas? Aqui mostrare para você desde a...' },
+  { imageUrl: '/musica.jpg', createdAt: new Date('2023-05-12'), title: 'Músicas para você que quer explorar o mundo...', description: 'Gosta de rock e cansou de ouvir só as mesmas músicas? Aqui mostrare para você desde a...', likes: 15 },
 ];
 
 const main = async () => {
