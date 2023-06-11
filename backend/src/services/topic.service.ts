@@ -1,42 +1,23 @@
 import { Topic } from '@prisma/client';
 import { AsyncServiceResponse } from '../types/ServiceResponse';
-import { getDateDaysAgo } from '../utils/dates';
 import prisma from '../lib/prisma';
+import topicPostHelpers from './helpers/topicPost.helpers';
 
-// refatorar essas funções
-const getPopularTopicIds = async (): Promise<void> => {
-  // const dateSevenDaysAgo = getDateDaysAgo(7);
+const getWeekPopularTopics = async (): AsyncServiceResponse<Topic[]> => {
+  const topicsPosts = await topicPostHelpers.getWeekTopicsPosts();
+  const topicIds = topicsPosts.map((topicPost) => topicPost.topicId);
 
-  // const groupByTopicId = await prisma.topicPost.groupBy({
-  //   by: ['topicId'],
-  //   orderBy: {
-  //     _count: {
-  //       postId: 'desc',
-  //     },
-  //   },
-  //   take: 10,
-  //   where: {
-  //     createdAt: { gte: dateSevenDaysAgo },
-  //   },
-  // });
+  const topics = await prisma.topic.findMany({
+    where: {
+      id: {
+        in: topicIds,
+      }
+    }
+  })
 
-  // const topicIds = groupByTopicId.map((group) => group.topicId);
-  // return { status: 'SUCCESS', data: topicIds };
-};
-
-const getPopularTopics = async (): Promise<void> => {
-  // const topicIds = await getPopularTopicIds();
-  // if (topicIds.status !== 'SUCCESS') return topicIds;
-
-  // const popularTopics = await prisma.topic.findMany({
-  //   where: {
-  //     id: { in: topicIds.data },
-  //   },
-  // });
-
-  // return { status: 'SUCCESS', data: popularTopics };
+  return { status: 'SUCCESS', data: topics };
 };
 
 export default {
-  getPopularTopics,
+  getWeekPopularTopics,
 };
