@@ -5,7 +5,11 @@ import cors from 'cors';
 
 const app = express();
 app.use(helmet());
-app.use(cors());
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+};
+app.use(cors(corsOptions));
 
 app.use('/topics', routers.topicRoutes);
 app.use('/posts', routers.postRoutes);
