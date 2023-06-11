@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Topic {
+  id        String @id @default(uuid())
+  name      String @unique
+  imageUrl  String @unique @db.VarChar(300)
+
+  posts     Post[]
+  topicPost TopicPost[]
+}
+
+model Author {
+  id String @id @default(uuid())
+  name String
+
+  posts Post[]
+}
+
+model Post {
+  id          String   @id @default(uuid())
+  imageUrl    String   @db.VarChar(300)
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  likes       Int      @default(0)
+
+  authorId    String
+  author Author @relation(fields: [authorId], references: [id])
+
+  topics      Topic[]
+  topicPost   TopicPost[]
+}
+
+model TopicPost {
+  topicId String
+  topic   Topic  @relation(fields: [topicId], references: [id])
+
+  postId  String
+  post    Post   @relation(fields: [postId], references: [id])
+  
+  @@id([postId, topicId])
+}
