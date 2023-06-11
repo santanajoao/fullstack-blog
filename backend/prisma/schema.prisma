@@ -24,11 +24,12 @@ model Author {
 }
 
 model Post {
-  id          String @id @default(uuid())
-  imageUrl    String @db.VarChar(300)
+  id          String   @id @default(uuid())
+  imageUrl    String   @db.VarChar(300)
   title       String
   description String
   createdAt   DateTime @default(now())
+  likes       Int      @default(0)
 
   authorId    String
   author Author @relation(fields: [authorId], references: [id])
