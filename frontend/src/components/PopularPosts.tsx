@@ -4,15 +4,17 @@ type Post = {
   id: string,
   title: string,
   description: string,
-  author: string,
   createdAt: string,
   imageUrl: string,
+  author: {
+    name: string,
+  }
 }
 
 export default async function PopularPosts() {
   const postResponse = await fetch('http://backend:3001/posts/popular');
   const popularPosts = await postResponse.json() as unknown as Post[];
-
+  
   return (
     <article>
       <h2 className="font-bold text-lg sm:text-2xl">
@@ -24,8 +26,8 @@ export default async function PopularPosts() {
           <li key={title} className="w-60 flex-shrink-0 overflow-hidden relative rounded-2xl hover:brightness-90 bg-white transition-[filter]">
             <PostItemLink
               title={title}
-              author={author}
-              date={createdAt}
+              date={new Date(createdAt)}
+              author={author.name}
               description={description}
               image={`${imageUrl}?size=232`}
               link={`/posts/${id}`}

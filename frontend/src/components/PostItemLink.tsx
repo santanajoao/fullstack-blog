@@ -1,3 +1,4 @@
+import { dateToDayMonthString } from '@/utils/date';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -6,13 +7,15 @@ interface Props {
   image: string;
   title: string;
   author: string;
-  date: string;
+  date: Date;
   description: string;
 }
 
-export default function   PostItemLink({
+export default function PostItemLink({
   link, image, title, author, date, description,
 }: Props) {
+  const dayMonth = dateToDayMonthString(date);
+  
   return (
     <Link href={link} className="h-full w-full flex flex-col space-y-1 p-1">
       <Image
@@ -22,7 +25,7 @@ export default function   PostItemLink({
         className="object-cover rounded-2xl w-full h-36"
         alt={title}
       />
-      <span className="text-xs">{`${author} - ${date}`}</span>
+      <span className="text-xs">{`${author} - ${dayMonth}`}</span>
       <h3 className="font-bold text-lg leading-5 line-clamp-3 break-words">
         {title}
       </h3>
