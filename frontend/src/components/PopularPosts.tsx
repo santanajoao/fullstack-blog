@@ -20,16 +20,16 @@ export default async function PopularPosts() {
       <h2 className="font-bold text-lg sm:text-2xl">
         Publicações em alta
       </h2>
-
-      <ul className="flex space-x-1 mt-3 overflow-y-auto max-w-full hidden-scroll">
+{/* flex space-x-1 mt-3 overflow-y-auto max-w-full hidden-scroll */}
+      <ul className="grid gap-5 mt-3">
         {popularPosts.map(({ author, createdAt, description, imageUrl, title, id }) => (
-          <li key={title} className="w-60 flex-shrink-0 overflow-hidden relative rounded-2xl hover:brightness-90 bg-white transition-[filter]">
+          <li key={title} className="w-full sm:w-60 border-t hover:brightness-90 bg-white transition-[filter]">
             <PostItemLink
               title={title}
               date={new Date(createdAt)}
               author={author.name}
               description={description}
-              image={`${imageUrl}?size=232`}
+              image={`${imageUrl}?size=580`}
               link={`/posts/${id}`}
             />
           </li>

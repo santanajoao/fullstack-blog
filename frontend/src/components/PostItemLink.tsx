@@ -17,12 +17,12 @@ export default function PostItemLink({
   const dayMonth = dateToDayMonthString(date);
   
   return (
-    <Link href={link} className="h-full w-full flex flex-col space-y-1 p-1">
+    <Link href={link} className="h-full w-full flex flex-col space-y-1 p-2 pb-3">
       <Image
-        width={232}
+        width={580}
         src={image}
-        height={144}
-        className="object-cover rounded-2xl w-full h-36"
+        height={326}
+        className="object-cover rounded-2xl w-full aspect-video"
         alt={title}
       />
       <span className="text-xs">{`${author} - ${dayMonth}`}</span>
