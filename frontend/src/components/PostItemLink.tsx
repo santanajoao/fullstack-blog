@@ -26,10 +26,10 @@ export default function PostItemLink({
         alt={title}
       />
       <span className="text-xs">{`${author} - ${dayMonth}`}</span>
-      <h3 className="font-bold text-lg leading-5 line-clamp-3 break-words">
+      <h3 className="font-bold text-lg leading-6 line-clamp-3 break-words">
         {title}
       </h3>
-      <p className="mt-1 text-justify line-clamp-4 break-words">{description}</p>
+      <p className="mt-1 text-justify line-clamp-4 break-words leading-5">{description}</p>
     </Link>
   );
 }
