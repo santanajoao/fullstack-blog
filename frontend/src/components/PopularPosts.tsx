@@ -12,7 +12,7 @@ type Post = {
 }
 
 export default async function PopularPosts() {
-  const postResponse = await fetch('http://backend:3001/posts/popular');
+  const postResponse = await fetch('http://backend:3001/posts/popular?quantity=12');
   const popularPosts = await postResponse.json() as unknown as Post[];
   
   return (

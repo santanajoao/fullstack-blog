@@ -5,7 +5,7 @@ const notoSerif = NotoSerif({ weight: ['400'], subsets: ['latin'] });
 
 export default function Hero() {
   return (
-    <section className="bg-[#7ff57d] py-24 px-3 sm:px-5 relative overflow-hidden">
+    <section className="bg-primaryGreen py-24 px-3 sm:px-5 relative overflow-hidden">
       <span className={`${notoSerif.className} block text-white uppercase text-5xl sm:text-6xl md:text-7xl text-right absolute right-0 top-1/2 -translate-y-1/2 blur-sm tracking-widest -rotate-1 md:animate-pulse select-none`}>
         Escreva. Leia. Crie. Imagine. Compartilhe. Informe. Seja.
       </span>

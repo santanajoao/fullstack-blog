@@ -22,7 +22,7 @@ export default function PostItemLink({
         width={599}
         src={image}
         height={337}
-        className="object-cover rounded-2xl w-full aspect-video"
+        className="object-cover rounded-2xl w-full aspect-video bg-primaryGreen bg-opacity-50"
         alt={title}
       />
       <span className="text-xs">{`${author} - ${dayMonth}`}</span>
