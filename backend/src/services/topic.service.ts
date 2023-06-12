@@ -2,8 +2,11 @@ import { Topic } from '@prisma/client';
 import { AsyncServiceResponse } from '../types/ServiceResponse';
 import prisma from '../lib/prisma';
 import topicPostHelpers from './helpers/topicPost.helpers';
+import { treatQuantity } from './validations/treatQuantity';
 
-const getWeekPopularTopics = async (): AsyncServiceResponse<Topic[]> => {
+const getWeekPopularTopics = async (
+  quantity: number
+): AsyncServiceResponse<Topic[]> => {
   const topicsPosts = await topicPostHelpers.getWeekTopicsPosts();
   const topicIds = topicsPosts.map((topicPost) => topicPost.topicId);
 
@@ -13,7 +16,7 @@ const getWeekPopularTopics = async (): AsyncServiceResponse<Topic[]> => {
         in: topicIds,
       }
     },
-    take: 16,
+    take: treatQuantity(quantity),
   })
 
   return { status: 'SUCCESS', data: topics };

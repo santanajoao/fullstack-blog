@@ -2,8 +2,11 @@ import { Post } from "@prisma/client";
 import prisma from "../lib/prisma";
 import { AsyncServiceResponse } from "../types/ServiceResponse";
 import { getDateDaysAgo } from "../utils/dates";
+import { treatQuantity } from "./validations/treatQuantity";
 
-const getWeekPopularPosts = async (): AsyncServiceResponse<Post[]> => {
+const getWeekPopularPosts = async (
+  quantity: number,
+): AsyncServiceResponse<Post[]> => {
   const popularPosts = await prisma.post.findMany({
     include: {
       author: {
@@ -20,7 +23,7 @@ const getWeekPopularPosts = async (): AsyncServiceResponse<Post[]> => {
     orderBy: {
       likes: 'desc',
     },
-    take: 8,
+    take: treatQuantity(quantity),
   });
 
   return { status: 'SUCCESS', data: popularPosts };
