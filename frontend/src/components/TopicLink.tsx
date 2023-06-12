@@ -11,9 +11,9 @@ export default function TopicLink({ link, image, topic }: Props) {
   return (
     <Link href={link} className="h-full w-full flex">
       <Image
-        width={136}
+        width={256}
         src={image}
-        height={136}
+        height={256}
         className="h-full w-full object-cover group-hover:scale-105 transition-transform"
         alt={topic}
       />
