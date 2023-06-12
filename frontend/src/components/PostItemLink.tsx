@@ -17,7 +17,7 @@ export default function PostItemLink({
   const dayMonth = dateToDayMonthString(date);
   
   return (
-    <Link href={link} className="h-full w-full flex flex-col space-y-1 p-2 pb-3">
+    <Link href={link} className="h-full w-full space-y-1 p-2 pb-3">
       <Image
         width={599}
         src={image}
