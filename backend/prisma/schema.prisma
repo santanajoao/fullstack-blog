@@ -8,16 +8,16 @@ datasource db {
 }
 
 model Topic {
-  id        String @id @default(uuid())
-  name      String @unique
-  imageUrl  String @unique @db.VarChar(300)
+  id       String @id @default(uuid())
+  name     String @unique
+  imageUrl String @unique @db.VarChar(300)
 
   posts     Post[]
   topicPost TopicPost[]
 }
 
 model Author {
-  id String @id @default(uuid())
+  id   String @id @default(uuid())
   name String
 
   posts Post[]
@@ -26,24 +26,24 @@ model Author {
 model Post {
   id          String   @id @default(uuid())
   imageUrl    String   @db.VarChar(300)
-  title       String
-  description String
+  title       String   @db.VarChar(70)
+  description String   @db.VarChar(200)
   createdAt   DateTime @default(now())
   likes       Int      @default(0)
 
-  authorId    String
-  author Author @relation(fields: [authorId], references: [id])
+  authorId String
+  author   Author @relation(fields: [authorId], references: [id])
 
-  topics      Topic[]
-  topicPost   TopicPost[]
+  topics    Topic[]
+  topicPost TopicPost[]
 }
 
 model TopicPost {
   topicId String
   topic   Topic  @relation(fields: [topicId], references: [id])
 
-  postId  String
-  post    Post   @relation(fields: [postId], references: [id])
-  
+  postId String
+  post   Post   @relation(fields: [postId], references: [id])
+
   @@id([postId, topicId])
 }
