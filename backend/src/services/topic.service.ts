@@ -12,7 +12,8 @@ const getWeekPopularTopics = async (): AsyncServiceResponse<Topic[]> => {
       id: {
         in: topicIds,
       }
-    }
+    },
+    take: 16,
   })
 
   return { status: 'SUCCESS', data: topics };

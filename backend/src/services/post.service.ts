@@ -20,7 +20,7 @@ const getWeekPopularPosts = async (): AsyncServiceResponse<Post[]> => {
     orderBy: {
       likes: 'desc',
     },
-    take: 10,
+    take: 8,
   });
 
   return { status: 'SUCCESS', data: popularPosts };
