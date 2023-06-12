@@ -19,9 +19,9 @@ export default function PostItemLink({
   return (
     <Link href={link} className="h-full w-full flex flex-col space-y-1 p-2 pb-3">
       <Image
-        width={580}
+        width={599}
         src={image}
-        height={326}
+        height={337}
         className="object-cover rounded-2xl w-full aspect-video"
         alt={title}
       />

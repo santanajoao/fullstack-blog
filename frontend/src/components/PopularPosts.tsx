@@ -21,15 +21,15 @@ export default async function PopularPosts() {
         Publicações em alta
       </h2>
 {/* flex space-x-1 mt-3 overflow-y-auto max-w-full hidden-scroll */}
-      <ul className="grid gap-5 mt-3">
+      <ul className="grid gap-5 mt-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
         {popularPosts.map(({ author, createdAt, description, imageUrl, title, id }) => (
-          <li key={title} className="w-full sm:w-60 border-t hover:brightness-90 bg-white transition-[filter]">
+          <li key={title} className="w-full max-w-2xl border-t hover:brightness-90 bg-white transition-[filter]">
             <PostItemLink
               title={title}
               date={new Date(createdAt)}
               author={author.name}
               description={description}
-              image={`${imageUrl}?size=580`}
+              image={`${imageUrl}?size=599`}
               link={`/posts/${id}`}
             />
           </li>
