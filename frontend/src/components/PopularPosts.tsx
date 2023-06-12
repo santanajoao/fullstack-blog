@@ -1,19 +1,9 @@
+import { TPost } from "@/types/TPost";
 import PostItemLink from "./PostItemLink";
-
-type Post = {
-  id: string,
-  title: string,
-  description: string,
-  createdAt: string,
-  imageUrl: string,
-  author: {
-    name: string,
-  }
-}
 
 export default async function PopularPosts() {
   const postResponse = await fetch('http://backend:3001/posts/popular?quantity=12');
-  const popularPosts = await postResponse.json() as unknown as Post[];
+  const popularPosts = await postResponse.json() as unknown as TPost[];
   
   return (
     <article>

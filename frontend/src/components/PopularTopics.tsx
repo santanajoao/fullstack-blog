@@ -1,14 +1,9 @@
+import { TTopic } from "@/types/TTopic";
 import TopicLink from "./TopicLink";
-
-type Topic = {
-  name: string,
-  imageUrl: string,
-  id: string,
-};
 
 export default async function PopularTopics() {
   const topicResponse = await fetch('http://backend:3001/topics/popular?quantity=12');
-  const popularTopics = await topicResponse.json() as unknown as Topic[];
+  const popularTopics = await topicResponse.json() as unknown as TTopic[];
 
   return (
     <article>
