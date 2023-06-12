@@ -5,6 +5,7 @@ import cors from 'cors';
 
 const app = express();
 app.use(helmet());
+app.use(express.json());
 
 const corsOptions = {
   origin: 'http://localhost:3000',

@@ -70,8 +70,6 @@ const posts = [
 ];
 
 const main = async () => {
-  posts.map((post) => console.log(post.description.length));
-  
   const topicIds = await Promise.all(
     topics.map(async (topic) => prisma.topic.create({ data: topic })),
   );
