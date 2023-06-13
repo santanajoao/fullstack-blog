@@ -16,7 +16,7 @@ model Topic {
   topicPost TopicPost[]
 }
 
-model Author {
+model User {
   id   String @id @default(uuid())
   name String
 
@@ -31,8 +31,8 @@ model Post {
   createdAt   DateTime @default(now())
   likes       Int      @default(0)
 
-  authorId String
-  author   Author @relation(fields: [authorId], references: [id])
+  userId String
+  user   User @relation(fields: [userId], references: [id])
 
   topics    Topic[]
   topicPost TopicPost[]
