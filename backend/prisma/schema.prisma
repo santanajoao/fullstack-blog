@@ -17,8 +17,10 @@ model Topic {
 }
 
 model User {
-  id   String @id @default(uuid())
-  name String
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
 
   posts Post[]
 }
@@ -32,7 +34,7 @@ model Post {
   likes       Int      @default(0)
 
   userId String
-  user   User @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 
   topics    Topic[]
   topicPost TopicPost[]
