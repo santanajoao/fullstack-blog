@@ -1,3 +1,4 @@
+import bcrypt from '../src/lib/bcrypt';
 import prisma from '../src/lib/prisma';
 
 const topics = [
@@ -23,27 +24,29 @@ const topics = [
   { name: 'Fotografia', imageUrl: 'https://img.freepik.com/fotos-gratis/camera-profissional-em-um-desfocado_169016-10249.jpg' },
 ];
 
+const passwords = [ '12345678', '23456789', '34567890', '45678901', '56789012', '67890123', '78901234', '89012345', '90123456', '01234567', '11111111', '22222222', '33333333', '44444444', '55555555', '66666666', '77777777', '88888888', '99999999', '00000000' ];
+
 const users = [
-  { name: 'Carla Lorena', email: '', password: '' },
-  { name: 'Marcos Vinícis', email: '', password: '' },
-  { name: 'Anderson Souza', email: '', password: '' },
-  { name: 'João Pedro', email: '', password: '' },
-  { name: 'Arnaldo Teves', email: '', password: '' },
-  { name: 'Carlos Alberto', email: '', password: '' },
-  { name: 'Marcos Castro', email: '', password: '' },
-  { name: 'Anderson Silva', email: '', password: '' },
-  { name: 'João Gilberto', email: '', password: '' },
-  { name: 'Arnaldo Sacomani', email: '', password: '' },
-  { name: 'Carla Fernanda', email: '', password: '' },
-  { name: 'Marcos Paulo', email: '', password: '' },
-  { name: 'Anderson Lima'    , email: '', password: '' },
-  { name: 'João Victor', email: '', password: '' },
-  { name: 'Arnaldo Santos', email: '', password: '' },
-  { name: 'Carla Maria', email: '', password: '' },
-  { name: 'Marcos Roberto', email: '', password: '' },
-  { name: 'Anderson Oliveira', email: '', password: '' },
-  { name: 'João Carlos', email: '', password: '' },
-  { name: 'Arnaldo Cezar', email: '', password: '' },
+  { name: 'Carla Lorena', email: 'carla.lorena@mail.com' },
+  { name: 'Marcos Vinícis', email: 'marcos.vinicius@mail.com' },
+  { name: 'Anderson Souza', email: 'anderson.souza@mail.com' },
+  { name: 'João Pedro', email: 'joao.pedro@mail.com' },
+  { name: 'Arnaldo Teves', email: 'arnaldo.teves@mail.com' },
+  { name: 'Carlos Alberto', email: 'carlos.alberto@mail.com' },
+  { name: 'Marcos Castro', email: 'marcos.castro@mail.com' },
+  { name: 'Anderson Silva', email: 'anderson.silva@mail.com' },
+  { name: 'João Gilberto', email: 'joao.gilberto@mail.com' },
+  { name: 'Arnaldo Sacomani', email: 'arnaldo.sacomani@mail.com' },
+  { name: 'Carla Fernanda', email: 'carla.fernanda@mail.com' },
+  { name: 'Marcos Paulo', email: 'marcos.paulo@mail.com' },
+  { name: 'Anderson Lima' , email: 'anderson.lima@mail.com' },
+  { name: 'João Victor', email: 'joao.victor@mail.com' },
+  { name: 'Arnaldo Santos', email: 'arnaldo.santos@mail.com' },
+  { name: 'Carla Maria', email: 'carla.maria@mail.com' },
+  { name: 'Marcos Roberto', email: 'marcos.roberto@mail.com' },
+  { name: 'Anderson Oliveira', email: 'anderson.oliveira@mail.com' },
+  { name: 'João Carlos', email: 'joao.carlos@mail.com' },
+  { name: 'Arnaldo Cezar', email: 'arnaldo.cezar@mail.com' },
 ];
 
 const posts = [
@@ -74,8 +77,10 @@ const main = async () => {
     topics.map(async (topic) => prisma.topic.create({ data: topic })),
   );
 
+  const encrypted = await Promise.all(passwords.map((password) => bcrypt.encrypt(password)));
+
   const userIds = await Promise.all(
-    users.map(async (user) => prisma.user.create({ data: user })),
+    users.map(async (user, index) => prisma.user.create({ data: { ...user, password: encrypted[index] } })),
   );
 
   const postIds = await Promise.all(
