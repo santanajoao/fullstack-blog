@@ -9,7 +9,7 @@ const getWeekPopularPosts = async (
 ): AsyncServiceResponse<Post[]> => {
   const popularPosts = await prisma.post.findMany({
     include: {
-      author: {
+      user: {
         select: {
           name: true,
         },
