@@ -23,7 +23,7 @@ const topics = [
   { name: 'Fotografia', imageUrl: 'https://img.freepik.com/fotos-gratis/camera-profissional-em-um-desfocado_169016-10249.jpg' },
 ];
 
-const authors = [
+const users = [
   { name: 'Carla Lorena' },
   { name: 'Marcos Vinícis' },
   { name: 'Anderson Souza' },
@@ -74,13 +74,13 @@ const main = async () => {
     topics.map(async (topic) => prisma.topic.create({ data: topic })),
   );
 
-  const authorIds = await Promise.all(
-    authors.map(async (author) => prisma.author.create({ data: author })),
+  const userIds = await Promise.all(
+    users.map(async (user) => prisma.user.create({ data: user })),
   );
 
   const postIds = await Promise.all(
     posts.map(async (post, index) => 
-      prisma.post.create({ data: { ...post, authorId: authorIds[index].id } })
+      prisma.post.create({ data: { ...post, userId: userIds[index].id } })
     )
   );
   
