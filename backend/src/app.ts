@@ -14,5 +14,6 @@ app.use(cors(corsOptions));
 
 app.use('/topics', routers.topicRoutes);
 app.use('/posts', routers.postRoutes);
+app.use('/accounts', routers.accountRoutes)
 
 export default app;
