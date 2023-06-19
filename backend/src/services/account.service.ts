@@ -5,8 +5,9 @@ import validateAccountFields from './validations/validateAccountFields';
 import checkEmailInUse from './validations/checkEmailInUse';
 import { createToken } from '../lib/jwt';
 import bcrypt from '../lib/bcrypt';
+import Token from '../types/account/Token';
 
-const createAccount = async (account: UserCreation): Promise<AsyncServiceResponse<string>> => {
+const createAccount = async (account: UserCreation): Promise<AsyncServiceResponse<Token>> => {
   const fieldsValidation = validateAccountFields(account);
   if (fieldsValidation.status !== 'SUCCESS') return fieldsValidation;
   
@@ -17,7 +18,7 @@ const createAccount = async (account: UserCreation): Promise<AsyncServiceRespons
   await prisma.user.create({ data: { ...account, password: passwordHash } });
   const token = createToken({ email: account.email, name: account.name });
   
-  return { status: 'SUCCESS', data: token };
+  return { status: 'SUCCESS', data: { token } };
 };
 
 export default {
