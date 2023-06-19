@@ -4,7 +4,7 @@ export type TPost = {
   description: string,
   createdAt: string,
   imageUrl: string,
-  author: {
+  user: {
     name: string,
   }
 }
