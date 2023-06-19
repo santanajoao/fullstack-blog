@@ -1,13 +1,13 @@
-export type SuccesServiceResponse<T> = {
+type SuccesServiceResponse<T> = {
   status: 'SUCCESS',
   data: T,
 };
 
-export type ErrorServiceResponse = {
-  status: 'ERROR',
-  data: {
-    message: string,
-  },
+export type ErrorStatus = 'INVALID_VALUE' | 'CONFLICT';
+
+type ErrorServiceResponse = {
+  status: ErrorStatus,
+  data: { message: string },
 };
 
 export type SyncServiceResponse<T> = SuccesServiceResponse<T> | ErrorServiceResponse;
