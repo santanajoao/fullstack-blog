@@ -1,10 +1,9 @@
 import { z } from 'zod';
 
-const nameMinLength = 3;
-const nameMaxLength = 30;
-const passwordMinLength = 8;
-const passwordMaxLength = 126;
-const emailMaxLength = 256;
+export const nameMinLength = 3;
+export const nameMaxLength = 30;
+export const passwordMinLength = 8;
+export const passwordMaxLength = 126;
 
 export const accountNameSchema = z
   .string()
@@ -17,18 +16,15 @@ export const accountNameSchema = z
 
 export const accountEmailSchema = z
   .string()
-  .email({ message: 'O email deve ser válido' })
-  .max(emailMaxLength, {
-    message: `O email deve ter ${emailMaxLength} caracteres ou menos`,
-  });
+  .email({ message: 'O email deve ser válido' });
 
 export const accountPasswordSchema = z
   .string()
   .min(passwordMinLength, {
-    message: `O email deve ter pelo menos ${passwordMinLength} caracteres`,
+    message: `A senha deve ter pelo menos ${passwordMinLength} caracteres`,
   })
   .max(passwordMaxLength, {
-    message: `O email deve ter ${passwordMaxLength} caracteres ou menos`,
+    message: `A senha deve ter ${passwordMaxLength} caracteres ou menos`,
   });
 
 const accountSchema = z.object({
