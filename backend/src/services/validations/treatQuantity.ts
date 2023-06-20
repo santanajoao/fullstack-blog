@@ -5,3 +5,5 @@ export const treatQuantity = (quantity: number) => {
   }
   return quantity;
 };
+
+export default treatQuantity;

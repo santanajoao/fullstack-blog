@@ -1,8 +1,8 @@
 import { Post } from "@prisma/client";
 import prisma from "../lib/prisma";
 import { AsyncServiceResponse } from "../types/ServiceResponse";
-import { getDateDaysAgo } from "../utils/dates";
-import { treatQuantity } from "./validations/treatQuantity";
+import dates from "../utils/dates";
+import treatQuantity from "./validations/treatQuantity";
 
 const getWeekPopularPosts = async (
   quantity: number,
@@ -17,7 +17,7 @@ const getWeekPopularPosts = async (
     },
     where: {
       createdAt: {
-        gte: getDateDaysAgo(7),
+        gte: dates.getDateDaysAgo(7),
       },
     },
     orderBy: {

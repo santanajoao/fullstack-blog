@@ -3,7 +3,7 @@ import { AsyncServiceResponse } from '../types/ServiceResponse';
 import UserCreation from '../types/user/UserCreation';
 import validateAccountFields from './validations/validateAccountFields';
 import checkEmailInUse from './validations/checkEmailInUse';
-import { createToken } from '../lib/jwt';
+import jwt from '../lib/jwt';
 import bcrypt from '../lib/bcrypt';
 import Token from '../types/account/Token';
 
@@ -16,7 +16,7 @@ const createAccount = async (account: UserCreation): Promise<AsyncServiceRespons
 
   const passwordHash = await bcrypt.encrypt(account.password);
   await prisma.user.create({ data: { ...account, password: passwordHash } });
-  const token = createToken({ email: account.email, name: account.name });
+  const token = jwt.createToken({ email: account.email, name: account.name });
   
   return { status: 'SUCCESS', data: { token } };
 };

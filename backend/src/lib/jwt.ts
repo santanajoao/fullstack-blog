@@ -9,9 +9,13 @@ const getSecret = (): string => {
   return secret;
 }
 
-export const createToken = (payload: Payload): string => {
+const createToken = (payload: Payload): string => {
   const options = { expiresIn: '5d' };
   const secret = getSecret();
   const token = jwt.sign(payload, secret, options);
   return token;
+};
+
+export default {
+  createToken,
 };

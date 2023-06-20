@@ -9,6 +9,8 @@ chai.use(sinonChai);
 const { expect } = chai;
 
 describe('bcrypt utility module unit tests', function () {
+  beforeEach(sinon.restore);
+
   describe('encrypt', function () {
     it('should call hash with the correct arguments', async function () {
       const toEncript = '12345678';

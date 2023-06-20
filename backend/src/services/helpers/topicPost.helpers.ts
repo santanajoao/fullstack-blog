@@ -4,6 +4,7 @@ import prisma from "../../lib/prisma";
 
 const getWeekTopicsPosts = async (): Promise<TopicPost[]> => {
   const weekPosts = await postHelpers.getWeekPosts();
+  console.log('here');
   const weekPostsIds = weekPosts.map((post) => post.id);
 
   const topicPost = await prisma.topicPost.findMany({

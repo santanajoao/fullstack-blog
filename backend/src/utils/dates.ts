@@ -14,3 +14,8 @@ export const getDateBetweenNowAnd = (daysAgo: number): Date => {
   const randomDate = new Date(dateInMs);
   return randomDate;
 }
+
+export default {
+  getDateDaysAgo,
+  getDateBetweenNowAnd,
+};

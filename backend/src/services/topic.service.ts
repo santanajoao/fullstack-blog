@@ -2,7 +2,7 @@ import { Topic } from '@prisma/client';
 import { AsyncServiceResponse } from '../types/ServiceResponse';
 import prisma from '../lib/prisma';
 import topicPostHelpers from './helpers/topicPost.helpers';
-import { treatQuantity } from './validations/treatQuantity';
+import treatQuantity from './validations/treatQuantity';
 
 const getWeekPopularTopics = async (
   quantity: number

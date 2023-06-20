@@ -1,12 +1,12 @@
 import { Post } from "@prisma/client";
-import { getDateDaysAgo } from "../../utils/dates";
+import dates from "../../utils/dates";
 import prisma from "../../lib/prisma";
 
 const getWeekPosts = async (): Promise<Post[]> => {
   const posts = await prisma.post.findMany({
     where: {
       createdAt: {
-        gte: getDateDaysAgo(7),
+        gte: dates.getDateDaysAgo(7),
       },
     },
   });
