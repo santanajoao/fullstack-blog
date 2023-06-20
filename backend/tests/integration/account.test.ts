@@ -1,11 +1,11 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import sinon from 'sinon';
-import prisma from '../src/lib/prisma';
-import app from '../src/app';
+import prisma from '../../src/lib/prisma';
+import app from '../../src/app';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import accountMock from './mocks/account.mock';
+import accountMock from '../mocks/account.mock';
 
 chai.use(chaiHttp);
 

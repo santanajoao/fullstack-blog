@@ -8,7 +8,7 @@
     "dev": "nodemon src/server.ts",
     "db:reset": "prisma migrate reset",
     "db:start": "prisma migrate dev",
-    "test": "mocha --exit",
+    "test": "mocha tests/**/*.test.ts --exit",
     "coverage": "nyc npm run test"
   },
   "prisma": {

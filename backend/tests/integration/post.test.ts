@@ -1,10 +1,10 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import sinon from 'sinon';
-import prisma from '../src/lib/prisma';
-import app from '../src/app';
-import topicPostHelpers from '../src/services/helpers/topicPost.helpers';
-import postMock from './mocks/post.mock';
+import prisma from '../../src/lib/prisma';
+import app from '../../src/app';
+import topicPostHelpers from '../../src/services/helpers/topicPost.helpers';
+import postMock from '../mocks/post.mock';
 
 chai.use(chaiHttp);
 
