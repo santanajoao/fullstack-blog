@@ -6,7 +6,7 @@ const encrypt = async (data: string): Promise<string> => {
   return hash;
 }
 
-const compare = async (hash: string, data: string) => {
+const compare = async (hash: string, data: string): Promise<boolean> => {
   const isEqual = await bcrypt.compare(data, hash);
   return isEqual;
 };
