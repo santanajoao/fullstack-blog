@@ -21,7 +21,7 @@ export default function HiddenInputField({ label, id }: Props) {
           id={id}
         />
         <button
-          className="absolute right-3"
+          className="absolute right-0 p-3"
           type="button"
           onClick={() => setIsVisible(!isVisible)}
         >
