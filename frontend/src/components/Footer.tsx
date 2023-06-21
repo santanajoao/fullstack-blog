@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="px-3 sm:px-5 py-4 border-t border-zinc-300 flex justify-between items-center">
       <div>
-        <Link href="/">
+        <Link href="/" className="pr-2 mr-2 sm:pr-5 sm:mr-5">
           <BlogLogo size="big" />
         </Link>
         
