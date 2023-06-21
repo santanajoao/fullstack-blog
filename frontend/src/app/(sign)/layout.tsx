@@ -15,7 +15,7 @@ export default function SignLayout({ children }: LayoutProps) {
           <BlogLogo size="small" />
         </Link>
       </HeaderWrapper>
-      <main className="flex-1 flex items-center justify-center">
+      <main className="flex-1 flex items-center justify-center py-4">
         <div className="w-full p-2 sm:p-0 max-w-sm flex flex-col items-center">
           {children} 
         </div>

@@ -8,7 +8,7 @@ import SignTitle from "@/components/Sign/SignTitle";
 export default function SignUp() {
   return (
     <>
-      <SignTitle>Cria sua conta</SignTitle>
+      <SignTitle>Crie sua conta</SignTitle>
       <SignFormWrapper>
         <SignField id="name" label="Nome" type="text" />
         <SignField id="email" label="Email" type="email" />
