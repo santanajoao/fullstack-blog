@@ -1,9 +1,10 @@
-import Link from 'next/link';
-import BlogLogo from './BlogLogo';
+import Link from "next/link";
+import HeaderWrapper from "./HeaderWrapper";
+import BlogLogo from "../BlogLogo";
 
-export default function Header() {
+export default function HomeHeader() {
   return (
-    <header className="flex justify-between px-3 items-center py-2 border-b border-zinc-300 sm:px-5 sm:py-3">
+    <HeaderWrapper>
       <Link href="/">
         <BlogLogo size="small" />
       </Link>
@@ -17,6 +18,6 @@ export default function Header() {
           Login
         </Link>
       </div>
-    </header>
+    </HeaderWrapper>
   );
 }
