@@ -7,6 +7,7 @@ import jwt from '../lib/jwt';
 import bcrypt from '../lib/bcrypt';
 import Token from '../types/account/Token';
 import validateEmailExistance from './validations/validateEmailExistance';
+import validateSignInFields from './validations/validateSignInFields';
 
 const createAccount = async (account: UserCreation): Promise<AsyncServiceResponse<Token>> => {
   const fieldsValidation = validateAccountFields(account);
@@ -23,6 +24,9 @@ const createAccount = async (account: UserCreation): Promise<AsyncServiceRespons
 };
 
 const signIn = async (email: string, password: string): Promise<AsyncServiceResponse<Token>> => {
+  const fieldsValidation = validateSignInFields(email, password);
+  if (fieldsValidation.status !== 'SUCCESS') return fieldsValidation;
+
   const existanceValidation = await validateEmailExistance(email);
   if (existanceValidation.status !== 'SUCCESS') return existanceValidation;
 

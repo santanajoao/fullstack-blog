@@ -235,5 +235,47 @@ describe('Account routes integration tests', function () {
       expect(body).to.be.deep
         .equal({ message: { password:  'Senha incorreta' } });
     });
+
+    it('should return unprocessable content if password lenght is less than 8', async function () {
+      const { status, body } = await chai
+        .request(app)
+        .post('/accounts/signin')
+        .send({
+          ...accountCreationFields,
+          password: accountMock.tooShortPassword,
+        });
+    
+      expect(status).to.be.equal(422)
+      expect(body).to.be.deep
+        .equal({ message: { password: 'A senha deve ter pelo menos 8 caracteres' } });
+    });
+  
+    it('should return unprocessable content if password lenght is bigger than 126', async function () {
+      const { status, body } = await chai
+        .request(app)
+        .post('/accounts/signin')
+        .send({
+          ...accountCreationFields,
+          password: accountMock.tooLongPassword,
+        });
+    
+      expect(status).to.be.equal(422)
+      expect(body).to.be.deep
+        .equal({ message: { password: 'A senha deve ter 126 caracteres ou menos' } });
+    });
+
+    it('should return unprocessable content if email is invalid', async function () {
+      const { status, body } = await chai
+        .request(app)
+        .post('/accounts/signin')
+        .send({
+          ...accountCreationFields,
+          email: accountMock.invalidEmail,
+        });
+    
+      expect(status).to.be.equal(422)
+      expect(body).to.be.deep
+        .equal({ message: { email: 'O email deve ser válido' } });
+    });
   });
 });

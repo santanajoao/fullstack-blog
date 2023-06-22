@@ -27,10 +27,18 @@ export const accountPasswordSchema = z
     message: `A senha deve ter ${passwordMaxLength} caracteres ou menos`,
   });
 
-const accountSchema = z.object({
+export const accountSchema = z.object({
   name: accountNameSchema,
   email: accountEmailSchema,
   password: accountPasswordSchema,
 });
 
-export default accountSchema;
+export const signInSchema = z.object({
+  email: accountEmailSchema,
+  password: accountPasswordSchema,
+});
+
+export default {
+  accountSchema,
+  signInSchema,
+};
