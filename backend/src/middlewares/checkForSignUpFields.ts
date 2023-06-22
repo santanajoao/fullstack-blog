@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-const checkForAccountFields = (req: Request, res: Response, next: NextFunction) => {
+const checkForSignUpFields = (req: Request, res: Response, next: NextFunction) => {
   const requiredFields = ['name', 'email', 'password'];
 
   const missingField = requiredFields.find((field) => !(field in req.body));
@@ -13,4 +13,4 @@ const checkForAccountFields = (req: Request, res: Response, next: NextFunction) 
   next();
 }
 
-export default checkForAccountFields;
+export default checkForSignUpFields;
