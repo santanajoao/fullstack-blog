@@ -3,7 +3,7 @@ type SuccesServiceResponse<T> = {
   data: T,
 };
 
-export type ErrorStatus = 'INVALID_VALUE' | 'CONFLICT';
+export type ErrorStatus = 'INVALID_VALUE' | 'CONFLICT' | 'NOT_FOUND' | 'UNAUTHORIZED';
 
 type ErrorServiceResponse = {
   status: ErrorStatus,

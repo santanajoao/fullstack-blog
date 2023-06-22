@@ -6,6 +6,7 @@ import checkEmailInUse from './validations/checkEmailInUse';
 import jwt from '../lib/jwt';
 import bcrypt from '../lib/bcrypt';
 import Token from '../types/account/Token';
+import validateEmailExistance from './validations/validateEmailExistance';
 
 const createAccount = async (account: UserCreation): Promise<AsyncServiceResponse<Token>> => {
   const fieldsValidation = validateAccountFields(account);
@@ -16,11 +17,26 @@ const createAccount = async (account: UserCreation): Promise<AsyncServiceRespons
 
   const passwordHash = await bcrypt.encrypt(account.password);
   await prisma.user.create({ data: { ...account, password: passwordHash } });
+
   const token = jwt.createToken({ email: account.email, name: account.name });
-  
+  return { status: 'SUCCESS', data: { token } };
+};
+
+const signIn = async (email: string, password: string): Promise<AsyncServiceResponse<Token>> => {
+  const existanceValidation = await validateEmailExistance(email);
+  if (existanceValidation.status !== 'SUCCESS') return existanceValidation;
+
+  const user = existanceValidation.data;
+  const correctPassword = await bcrypt.compare(user.password, password);
+  if (!correctPassword) {
+    return { status: 'UNAUTHORIZED', data: { message: 'Credenciais incorretas' } };
+  }
+
+  const token = jwt.createToken({ email, name: user.name });
   return { status: 'SUCCESS', data: { token } };
 };
 
 export default {
   createAccount,
+  signIn,
 };
