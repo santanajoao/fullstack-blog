@@ -16,7 +16,7 @@ describe('Account routes integration tests', function () {
 
   const { accountCreationFields } = accountMock;
 
-  describe('POST /accounts', function () {
+  describe('POST /accounts/signup', function () {
     it('should return a token', async function () {
       sinon.stub(prisma, 'user').value({
         findUnique: sinon.stub().resolves(null),
@@ -27,7 +27,7 @@ describe('Account routes integration tests', function () {
   
       const { status, body } = await chai
         .request(app)
-        .post('/accounts')
+        .post('/accounts/signup')
         .send(accountCreationFields);
     
       expect(status).to.be.equal(201)
@@ -37,7 +37,7 @@ describe('Account routes integration tests', function () {
     it('should return bad request if name was not sent', async function () {
       const { status, body } = await chai
         .request(app)
-        .post('/accounts')
+        .post('/accounts/signup')
         .send({
           email: accountCreationFields.email,
           password: accountCreationFields.password,
@@ -50,7 +50,7 @@ describe('Account routes integration tests', function () {
     it('should return bad request if email was not sent', async function () {
       const { status, body } = await chai
         .request(app)
-        .post('/accounts')
+        .post('/accounts/signup')
         .send({
           password: accountCreationFields.password,
           name: accountCreationFields.name,
@@ -63,7 +63,7 @@ describe('Account routes integration tests', function () {
       it('should return bad request if password was not sent', async function () {
       const { status, body } = await chai
         .request(app)
-        .post('/accounts')
+        .post('/accounts/signup')
         .send({
           email: accountCreationFields.email,
           name: accountCreationFields.name,
@@ -76,7 +76,7 @@ describe('Account routes integration tests', function () {
     it('should return unprocessable content if name lenght is less than 3', async function () {
       const { status, body } = await chai
         .request(app)
-        .post('/accounts')
+        .post('/accounts/signup')
         .send({
           ...accountCreationFields,
           name: accountMock.tooShortName,
@@ -89,7 +89,7 @@ describe('Account routes integration tests', function () {
     it('should return unprocessable content if name lenght is bigger than 30', async function () {
       const { status, body } = await chai
         .request(app)
-        .post('/accounts')
+        .post('/accounts/signup')
         .send({
           ...accountCreationFields,
           name: accountMock.tooLongName,
@@ -102,7 +102,7 @@ describe('Account routes integration tests', function () {
     it('should return unprocessable content if password lenght is less than 8', async function () {
       const { status, body } = await chai
         .request(app)
-        .post('/accounts')
+        .post('/accounts/signup')
         .send({
           ...accountCreationFields,
           password: accountMock.tooShortPassword,
@@ -115,7 +115,7 @@ describe('Account routes integration tests', function () {
     it('should return unprocessable content if password lenght is bigger than 126', async function () {
       const { status, body } = await chai
         .request(app)
-        .post('/accounts')
+        .post('/accounts/signup')
         .send({
           ...accountCreationFields,
           password: accountMock.tooLongPassword,
@@ -128,7 +128,7 @@ describe('Account routes integration tests', function () {
     it('should return unprocessable content if email is invalid', async function () {
       const { status, body } = await chai
         .request(app)
-        .post('/accounts')
+        .post('/accounts/signup')
         .send({
           ...accountCreationFields,
           email: accountMock.invalidEmail,
@@ -145,11 +145,82 @@ describe('Account routes integration tests', function () {
 
       const { status, body } = await chai
         .request(app)
-        .post('/accounts')
+        .post('/accounts/signup')
         .send(accountCreationFields);
     
       expect(status).to.be.equal(409)
       expect(body).to.be.deep.equal({ message: 'Esse email já está em uso' });
+    });
+  });
+
+  describe('POST /accounts/signup', function () {
+    it('should return a token', async function () {
+      sinon.stub(prisma, 'user').value({
+        findUnique: sinon.stub().resolves(accountMock.account),
+      });
+      sinon.stub(bcrypt, 'compare').resolves(true);
+      sinon.stub(jwt, 'sign').returns('test token' as any);
+      
+      const { status, body } = await chai
+        .request(app)
+        .post('/accounts/signin')
+        .send(accountMock.signInFields);
+
+      expect(status).to.be.equal(200);
+      expect(body).to.be.deep.equal({ token: 'test token' });
+    });
+
+    it('should return bad request if email was not sent', async function () {
+      const { status, body } = await chai
+        .request(app)
+        .post('/accounts/signin')
+        .send({
+          password: accountCreationFields.password,
+        });
+
+      expect(status).to.be.equal(400);
+      expect(body).to.be.deep.equal({ message: 'O campo "email" é obrigatório' });
+    });
+
+    it('should return bad request if password was not sent', async function () {
+      const { status, body } = await chai
+        .request(app)
+        .post('/accounts/signin')
+        .send({
+          email: accountCreationFields.email,
+        });
+
+      expect(status).to.be.equal(400);
+      expect(body).to.be.deep.equal({ message: 'O campo "password" é obrigatório' });
+    });
+
+    it('should return not found if email not in database', async function () {
+      sinon.stub(prisma, 'user').value({
+        findUnique: sinon.stub().resolves(null),
+      });
+      
+      const { status, body } = await chai
+        .request(app)
+        .post('/accounts/signin')
+        .send(accountMock.signInFields);
+
+      expect(status).to.be.equal(404);
+      expect(body).to.be.deep.equal({ message: 'Não foi possível encontrar uma conta com esse email' });
+    });
+
+    it('should return unauthorized if password is wrong', async function () {
+      sinon.stub(prisma, 'user').value({
+        findUnique: sinon.stub().resolves(accountMock.account),
+      });
+      sinon.stub(bcrypt, 'compare').resolves(false);
+      
+      const { status, body } = await chai
+        .request(app)
+        .post('/accounts/signin')
+        .send(accountMock.signInFields);
+
+      expect(status).to.be.equal(401);
+      expect(body).to.be.deep.equal({ message: 'Credenciais incorretas' });
     });
   });
 });

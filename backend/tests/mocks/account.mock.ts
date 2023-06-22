@@ -9,7 +9,9 @@ const account: User = {
   password: '12345678',
 };
 
-const { id: _, ...accountCreationFields } = account;
+const { id: _i, ...accountCreationFields } = account;
+
+const { name: _n, ...signInFields } = accountCreationFields;
 
 const tooShortName = generateStringWithLength(nameMinLength - 1);
 const tooLongName = generateStringWithLength(nameMaxLength + 1);
@@ -27,4 +29,5 @@ export default {
   tooShortPassword,
   tooLongPassword,
   invalidEmail,
+  signInFields,
 };
