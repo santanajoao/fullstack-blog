@@ -29,7 +29,10 @@ const signIn = async (email: string, password: string): Promise<AsyncServiceResp
   const user = existanceValidation.data;
   const correctPassword = await bcrypt.compare(user.password, password);
   if (!correctPassword) {
-    return { status: 'UNAUTHORIZED', data: { message: 'Credenciais incorretas' } };
+    return {
+      status: 'UNAUTHORIZED',
+      data: { message: { password: 'Senha incorreta' } },
+    };
   }
 
   const token = jwt.createToken({ email, name: user.name });

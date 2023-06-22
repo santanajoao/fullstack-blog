@@ -7,7 +7,9 @@ export type ErrorStatus = 'INVALID_VALUE' | 'CONFLICT' | 'NOT_FOUND' | 'UNAUTHOR
 
 type ErrorServiceResponse = {
   status: ErrorStatus,
-  data: { message: string },
+  data: {
+    message: Record<string, string>,
+  },
 };
 
 export type SyncServiceResponse<T> = SuccesServiceResponse<T> | ErrorServiceResponse;

@@ -6,7 +6,9 @@ const checkForSignUpFields = (req: Request, res: Response, next: NextFunction) =
   const missingField = requiredFields.find((field) => !(field in req.body));
   if (missingField) {
     return res.status(400).json({
-      message: `O campo "${missingField}" é obrigatório`,
+      message: {
+        [missingField]: `O campo "${missingField}" é obrigatório`,
+      },
     });
   }
 
