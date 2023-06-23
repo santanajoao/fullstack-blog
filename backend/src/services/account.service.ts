@@ -35,7 +35,7 @@ const signIn = async (email: string, password: string): Promise<AsyncServiceResp
   if (!correctPassword) {
     return {
       status: 'UNAUTHORIZED',
-      data: { message: { password: 'Senha incorreta' } },
+      data: { message: 'Senha incorreta' },
     };
   }
 

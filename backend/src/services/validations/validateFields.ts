@@ -6,11 +6,7 @@ const validateFields = (schema: z.ZodType, data: unknown): SyncServiceResponse<n
 
   if (!validation.success) {
     const [firstError] = validation.error.issues;
-    const fieldName = firstError.path[0];
-    return {
-      status: 'INVALID_VALUE',
-      data: { message: { [fieldName]: firstError.message } },
-    }
+    return { status: 'INVALID_VALUE', data: { message: firstError.message } };
   }
   return { status: 'SUCCESS', data: null }
 };

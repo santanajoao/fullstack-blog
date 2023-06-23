@@ -5,8 +5,7 @@ const checkEmailInUse = async (email: string): AsyncServiceResponse<null> => {
   const account = await prisma.user.findUnique({ where: { email } });
   if (account) {
     return {
-      status: 'CONFLICT',
-      data: { message: { email: 'Esse email já está em uso' } },
+      status: 'CONFLICT', data: { message: 'Esse email já está em uso' },
     };
   }
   return { status: 'SUCCESS', data: null };

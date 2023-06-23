@@ -7,9 +7,7 @@ const validateEmailExistance = async (email: string): AsyncServiceResponse<User>
   if (!account) {
     return {
       status: 'NOT_FOUND',
-      data: {
-        message: { email: 'Não foi possível encontrar uma conta com esse email' },
-      },
+      data: { message: 'Não foi possível encontrar uma conta com esse email', },
     };
   }
   return { status: 'SUCCESS', data: account };

@@ -6,9 +6,9 @@ type SuccesServiceResponse<T> = {
 export type ErrorStatus = 'INVALID_VALUE' | 'CONFLICT' | 'NOT_FOUND' | 'UNAUTHORIZED';
 
 type ErrorServiceResponse = {
-  status: ErrorStatus,
+  status: ErrorStatus,  
   data: {
-    message: Record<string, string>,
+    message: string,
   },
 };
 
