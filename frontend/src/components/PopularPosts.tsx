@@ -1,10 +1,10 @@
-import { TPost } from "@/types/TPost";
+import { Post } from "@/types/Post";
 import PostItemLink from "./PostItemLink";
 import axios from "axios";
 
 export default async function PopularPosts() {
   const popularPosts = await axios
-    .get<TPost[]>('http://backend:3001/posts/popular?quantity=12');
+    .get<Post[]>('http://backend:3001/posts/popular?quantity=12');
   
   return (
     <article>

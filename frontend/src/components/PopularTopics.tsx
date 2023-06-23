@@ -1,10 +1,10 @@
-import { TTopic } from "@/types/TTopic";
+import { Topic } from "@/types/Topic";
 import TopicLink from "./TopicLink";
 import axios from 'axios';
 
 export default async function PopularTopics() {
   const popularTopics = await axios
-    .get<TTopic[]>('http://backend:3001/topics/popular?quantity=12');
+    .get<Topic[]>('http://backend:3001/topics/popular?quantity=12');
   
   return (
     <article>
