@@ -92,7 +92,7 @@ const main = async () => {
   
   await Promise.all(
     postIds.map(async (post, index) => 
-      prisma.topicPost.create({ data: { postId: post.id, topicId: topicIds[index].id } })
+      prisma.postTopic.create({ data: { postId: post.id, topicId: topicIds[index].id } })
     )
   );
 }

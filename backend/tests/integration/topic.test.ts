@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import prisma from '../../src/lib/prisma';
 import app from '../../src/app';
 import topicMock from '../mocks/topic.mock';
-import topicPostHelpers from '../../src/services/helpers/topicPost.helpers';
+import topicPostHelpers from '../../src/services/helpers/postTopic.helpers';
 
 chai.use(chaiHttp);
 

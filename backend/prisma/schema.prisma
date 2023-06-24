@@ -10,10 +10,12 @@ datasource db {
 model Topic {
   id       String @id @default(uuid())
   name     String @unique
-  imageUrl String @unique @db.VarChar(300)
+  imageUrl String @unique @db.VarChar(300) @map("image_url")
 
   posts     Post[]
-  topicPost TopicPost[]
+  postTopics PostTopic[]
+
+  @@map("topics")
 }
 
 model User {
@@ -23,29 +25,34 @@ model User {
   password String
 
   posts Post[]
+
+  @@map("users")
 }
 
 model Post {
   id          String   @id @default(uuid())
-  imageUrl    String   @db.VarChar(300)
+  imageUrl    String   @db.VarChar(300) @map("image_url")
   title       String   @db.VarChar(70)
   description String   @db.VarChar(200)
-  createdAt   DateTime @default(now())
+  createdAt   DateTime @default(now()) @map("created_at")
   likes       Int      @default(0)
 
-  userId String
+  userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
 
   topics    Topic[]
-  topicPost TopicPost[]
+  postTopics PostTopic[]
+
+  @@map("posts")
 }
 
-model TopicPost {
-  topicId String
+model PostTopic {
+  topicId String @map("topic_id")
   topic   Topic  @relation(fields: [topicId], references: [id])
 
-  postId String
+  postId String @map("post_id")
   post   Post   @relation(fields: [postId], references: [id])
 
   @@id([postId, topicId])
+  @@map("post_topics")
 }

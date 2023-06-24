@@ -1,13 +1,13 @@
-import { TopicPost } from "@prisma/client";
+import { PostTopic } from "@prisma/client";
 
-const topicPost: TopicPost = {
+const postTopic: PostTopic = {
   postId: 'UUID',
   topicId: 'UUID',
 }
 
-const topicPostList: TopicPost[] = [topicPost];
+const postTopicList: PostTopic[] = [postTopic];
 
 export default {
-  topicPost,
-  topicPostList,
+  postTopic,
+  postTopicList,
 };
