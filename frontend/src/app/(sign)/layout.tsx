@@ -1,13 +1,13 @@
 import BlogLogo from '@/components/BlogLogo';
 import HeaderWrapper from '@/components/Header/HeaderWrapper';
-import Link from 'next/link';
 import { ReactNode } from 'react';
+import Link from 'next/link';
 
-interface LayoutProps {
+interface Props {
   children: ReactNode;
 }
 
-export default function SignLayout({ children }: LayoutProps) {
+export default function SignLayout({ children }: Props) {
   return (
     <>
       <HeaderWrapper>
