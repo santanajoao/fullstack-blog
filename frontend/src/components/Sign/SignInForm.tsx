@@ -6,12 +6,9 @@ import { SignInFields } from '@/types/Sign/SignIn'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signInSchema } from '@/lib/schemas/sign.schema'
 import { requestSignIn } from '@/services/sign'
-import SignFormWrapper from './SignFormWrapper'
-import SignInputsWrapper from './SignInputsWrapper'
-import SignField from './SignField'
-import HiddenInputField from './HiddenInputField'
 import ErrorMessage from './ErrorMessage'
-import SignButton from './SignButton'
+import SignButton from './Button'
+import Sign from '.';
 
 export default function SignInForm() {
   const {
@@ -34,27 +31,28 @@ export default function SignInForm() {
   };
 
   return (
-  <SignFormWrapper onSubmit={handleSubmit(onSubmit)}>
-      <SignInputsWrapper>
-        <SignField
-          label="Email"
-          id="email"
-          type="email"
-          error={errors.email?.message}
-          inputProps={register('email')}
-        />
+  <Sign.Form onSubmit={handleSubmit(onSubmit)}>
+      <Sign.FieldsWrapper>
+        <Sign.Field>
+          <Sign.Label htmlFor="email">Email</Sign.Label>
 
-        <HiddenInputField
-          label="Senha"
-          id="password"
-          error={errors.password?.message}
-          inputProps={register('password')}
-        />
-      </SignInputsWrapper>
+          <Sign.Input id="email" type="email" />
+
+          <Sign.ErrorMessage>{errors.email?.message}</Sign.ErrorMessage>
+        </Sign.Field>
+
+        <Sign.Field>
+          <Sign.Label htmlFor="password">Senha</Sign.Label>
+
+          <Sign.HiddenPasswordInput id="password" />
+
+          <Sign.ErrorMessage>{errors.password?.message}</Sign.ErrorMessage>
+        </Sign.Field>
+      </Sign.FieldsWrapper>
 
       <ErrorMessage>{apiError}</ErrorMessage>
       
-      <SignButton>Entrar</SignButton>
-    </SignFormWrapper>
+      <Sign.Button type="submit">Entrar</Sign.Button>
+    </Sign.Form>
   );
 }

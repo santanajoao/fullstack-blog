@@ -1,17 +1,16 @@
-import SignLink from "@/components/Sign/SignLink";
-import SignTitle from "@/components/Sign/SignTitle";
 import SignInForm from "@/components/Sign/SignInForm";
+import SignForm from '@/components/Sign';
 
 export default function SignIn() {
   return (
     <>
-      <SignTitle>Entre em sua conta</SignTitle>
+      <SignForm.Title>Entre em sua conta</SignForm.Title>
       
       <SignInForm />
-      
-      <SignLink href="/signup">
+
+      <SignForm.Link href="/signup">
         Não tem uma conta? Crie uma agora!
-      </SignLink>
+      </SignForm.Link>
     </>
   );
 }

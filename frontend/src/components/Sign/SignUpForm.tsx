@@ -6,12 +6,7 @@ import { signUpSchema } from '@/lib/schemas/sign.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignUpFields } from '@/types/Sign/SignUp';
 import { requestSignUp } from '@/services/sign';
-import SignFormWrapper from './SignFormWrapper';
-import SignInputsWrapper from './SignInputsWrapper';
-import SignField from './SignField';
-import HiddenInputField from './HiddenInputField';
-import ErrorMessage from './ErrorMessage';
-import SignButton from './SignButton';
+import Sign from '.';
 
 export default function SignUpForm() {
   const {
@@ -33,35 +28,30 @@ export default function SignUpForm() {
     }
   };
   return (
-    <SignFormWrapper onSubmit={handleSubmit(onSubmit)}>
-      <SignInputsWrapper>
-        <SignField
-          id="name"
-          label="Nome"
-          type="text"
-          inputProps={register('name')}
-          error={errors.name?.message}
-        />
+    <Sign.Form onSubmit={handleSubmit(onSubmit)}>
+      <Sign.FieldsWrapper>
+        <Sign.Field>
+          <Sign.Label htmlFor="name">Nome</Sign.Label>
+          <Sign.Input id="name" type="text" />
+          <Sign.ErrorMessage>{errors.name?.message}</Sign.ErrorMessage>
+        </Sign.Field>
+ 
+        <Sign.Field>
+          <Sign.Label htmlFor="email">Email</Sign.Label>
+          <Sign.Input id="email" type="email" />
+          <Sign.ErrorMessage>{errors.email?.message}</Sign.ErrorMessage>
+        </Sign.Field>
 
-        <SignField
-          id="email"
-          label="Email"
-          type="email"
-          inputProps={register('email')}
-          error={errors.email?.message}
-        />
+        <Sign.Field>
+          <Sign.Label htmlFor="password">Senha</Sign.Label>
+          <Sign.HiddenPasswordInput id="password" />
+          <Sign.ErrorMessage>{errors.password?.message}</Sign.ErrorMessage>
+        </Sign.Field>
+      </Sign.FieldsWrapper>
 
-        <HiddenInputField
-          label="Senha"
-          id="password"
-          inputProps={register('password')}
-          error={errors.password?.message}
-        />
-      </SignInputsWrapper>
-
-      <ErrorMessage>{apiError}</ErrorMessage>
+      <Sign.ErrorMessage>{apiError}</Sign.ErrorMessage>
       
-      <SignButton>Entrar</SignButton>
-    </SignFormWrapper>
+      <Sign.Button type="submit">Entrar</Sign.Button>
+    </Sign.Form>
   );
 }
