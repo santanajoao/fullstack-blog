@@ -7,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { signInSchema } from '@/lib/schemas/sign.schema'
 import { requestSignIn } from '@/services/sign'
 import ErrorMessage from './ErrorMessage'
-import SignButton from './Button'
 import Sign from '.';
 
 export default function SignInForm() {
@@ -36,7 +35,7 @@ export default function SignInForm() {
         <Sign.Field>
           <Sign.Label htmlFor="email">Email</Sign.Label>
 
-          <Sign.Input id="email" type="email" />
+          <Sign.Input id="email" type="email" name="email" register={register} />
 
           <Sign.ErrorMessage>{errors.email?.message}</Sign.ErrorMessage>
         </Sign.Field>
@@ -44,7 +43,7 @@ export default function SignInForm() {
         <Sign.Field>
           <Sign.Label htmlFor="password">Senha</Sign.Label>
 
-          <Sign.HiddenPasswordInput id="password" />
+          <Sign.HiddenPasswordInput id="password" name="password" register={register} />
 
           <Sign.ErrorMessage>{errors.password?.message}</Sign.ErrorMessage>
         </Sign.Field>

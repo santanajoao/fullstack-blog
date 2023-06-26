@@ -27,24 +27,25 @@ export default function SignUpForm() {
       setApiError(data.message)
     }
   };
+
   return (
     <Sign.Form onSubmit={handleSubmit(onSubmit)}>
       <Sign.FieldsWrapper>
         <Sign.Field>
           <Sign.Label htmlFor="name">Nome</Sign.Label>
-          <Sign.Input id="name" type="text" />
+          <Sign.Input id="name" type="text" name="name" register={register} />
           <Sign.ErrorMessage>{errors.name?.message}</Sign.ErrorMessage>
         </Sign.Field>
- 
+
         <Sign.Field>
           <Sign.Label htmlFor="email">Email</Sign.Label>
-          <Sign.Input id="email" type="email" />
+          <Sign.Input id="email" type="email" name="email" register={register} />
           <Sign.ErrorMessage>{errors.email?.message}</Sign.ErrorMessage>
         </Sign.Field>
 
         <Sign.Field>
           <Sign.Label htmlFor="password">Senha</Sign.Label>
-          <Sign.HiddenPasswordInput id="password" />
+          <Sign.HiddenPasswordInput id="password" name="password" register={register} />
           <Sign.ErrorMessage>{errors.password?.message}</Sign.ErrorMessage>
         </Sign.Field>
       </Sign.FieldsWrapper>

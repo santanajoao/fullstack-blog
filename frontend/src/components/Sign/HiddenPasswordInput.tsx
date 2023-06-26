@@ -1,13 +1,16 @@
 'use client';
 
-import React, { useState } from 'react'
+import React, { InputHTMLAttributes, useState } from 'react'
+import { UseFormRegister } from 'react-hook-form';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 interface Props {
   id: string;
+  register: UseFormRegister<any>
+  name: string;
 }
 
-export default function HiddenPasswordInput({ id }: Props) {
+export default function HiddenPasswordInput({ id, register, name }: Props) {
   const [isVisible, setIsVisible] = useState(false);
 
   const visibilityBtnMessage = isVisible ? 'Esconder senha' : 'Mostar senha';
@@ -19,6 +22,7 @@ export default function HiddenPasswordInput({ id }: Props) {
         type={isVisible ? 'text' : 'password'}
         className="px-3 bg-transparent rounded-md w-full h-full"
         id={id}
+        {...register(name)}
       />
       <button
         className="absolute right-0 p-3"
