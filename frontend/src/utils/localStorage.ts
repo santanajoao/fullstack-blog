@@ -1,3 +1,5 @@
+'use client';
+
 export const get = <T>(key: string): T | null => {
   const json = localStorage.getItem(key);
   if (!json) return null;
