@@ -32,7 +32,7 @@ describe('Account routes integration tests', function () {
         .post('/accounts/signup')
         .send(accountCreationFields);
 
-      // expect(status).to.be.equal(201)
+      expect(status).to.be.equal(201)
       expect(body).to.be.deep
         .equal({ token: 'test token', account: accountPublicFields });
     });
