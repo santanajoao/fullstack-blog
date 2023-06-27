@@ -1,14 +1,10 @@
-import { ReactNode } from 'react';
-
-interface Props {
-  children: ReactNode;
-}
+import { ChildrenProps } from '@/types/ChildrenProps';
 
 export const metadata = {
   title: 'Criar conta',
 }
 
-export default function SignInLayout({ children }: Props) {
+export default function SignInLayout({ children }: ChildrenProps) {
   return (
     <>{children}</>
   )

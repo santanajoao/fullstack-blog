@@ -1,6 +1,6 @@
-interface Props {
-  children: string;
-}
+import { ChildrenProps } from "@/types/ChildrenProps";
+
+interface Props extends ChildrenProps {};
 
 export default function Title({ children }: Props) {
   return (

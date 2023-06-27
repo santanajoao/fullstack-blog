@@ -1,10 +1,6 @@
-import { ReactNode } from "react"
+import { ChildrenProps } from "@/types/ChildrenProps";
 
-interface Props {
-  children: ReactNode;
-}
-
-export default function Field({ children }: Props) {
+export default function Field({ children }: ChildrenProps) {
   return (
     <div className="flex flex-col">{children}</div>
   );

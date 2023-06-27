@@ -1,7 +1,6 @@
-import { ReactNode } from "react"
+import { ChildrenProps } from "@/types/ChildrenProps";
 
-interface Props {
-  children: ReactNode;
+interface Props extends ChildrenProps {
   htmlFor: string;
 }
 

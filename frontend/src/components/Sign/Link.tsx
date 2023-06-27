@@ -1,9 +1,9 @@
+import { ChildrenProps } from '@/types/ChildrenProps';
 import Link from 'next/link'
-import React, { ReactNode } from 'react'
+import React from 'react'
 
-interface Props {
+interface Props extends ChildrenProps {
   href: string;
-  children: ReactNode;
 }
 
 export default function SignLink({ href, children }: Props) {

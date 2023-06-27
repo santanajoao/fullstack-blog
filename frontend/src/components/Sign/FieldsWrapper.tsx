@@ -1,10 +1,6 @@
-import { ReactNode } from "react";
+import { ChildrenProps } from "@/types/ChildrenProps";
 
-interface Props {
-  children: ReactNode;
-}
-
-export default function FieldsWrapper({ children }: Props) {
+export default function FieldsWrapper({ children }: ChildrenProps) {
   return (
     <div className="flex flex-col space-y-4">{children}</div>
   );
