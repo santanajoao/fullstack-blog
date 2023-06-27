@@ -1,6 +1,6 @@
 import { Post } from "@prisma/client";
 import prisma from "../lib/prisma";
-import { AsyncServiceResponse } from "../types/ServiceResponse";
+import { AsyncServiceResponse } from "../types/serviceResponse";
 import dates from "../utils/dates";
 import treatQuantity from "./validations/treatQuantity";
 

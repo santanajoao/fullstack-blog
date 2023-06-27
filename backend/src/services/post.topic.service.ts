@@ -1,7 +1,7 @@
 import { PostTopic } from "@prisma/client";
 import prisma from "../lib/prisma";
 import postService from "./post.service";
-import { AsyncServiceResponse } from "../types/ServiceResponse";
+import { AsyncServiceResponse } from "../types/serviceResponse";
 
 const getWeekTopicsPosts = async (): AsyncServiceResponse<PostTopic[]> => {
   const response = await postService.getWeekPosts();

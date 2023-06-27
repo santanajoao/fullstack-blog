@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { SyncServiceResponse } from "../../types/ServiceResponse";
+import { SyncServiceResponse } from "../../types/serviceResponse";
 
 const validateSchemaFields = (schema: z.ZodType, data: unknown): SyncServiceResponse<null> => {
   const validation = schema.safeParse(data);

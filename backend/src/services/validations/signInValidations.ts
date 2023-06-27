@@ -1,8 +1,8 @@
-import { SyncServiceResponse } from "../../types/ServiceResponse";
+import { SyncServiceResponse } from "../../types/serviceResponse";
 import { signInSchema } from "./schemas/account.schema";
 import validateSchema from "./validateSchemaFields";
 import { Account } from "@prisma/client";
-import { AsyncServiceResponse } from "../../types/ServiceResponse";
+import { AsyncServiceResponse } from "../../types/serviceResponse";
 import prisma from "../../lib/prisma";
 import bcrypt from "../../lib/bcrypt";
 import { SignInFields } from "../../types/account";

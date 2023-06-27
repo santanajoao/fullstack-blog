@@ -1,6 +1,6 @@
 import { AccountCreation } from "../../types/account";
 import prisma from '../../lib/prisma';
-import { AsyncServiceResponse } from '../../types/ServiceResponse';
+import { AsyncServiceResponse } from '../../types/serviceResponse';
 import validateSchemaFields from "./validateSchemaFields";
 import { signUpSchema } from "./schemas/account.schema";
 

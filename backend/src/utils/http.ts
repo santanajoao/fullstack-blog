@@ -1,4 +1,4 @@
-import { ErrorStatus } from '../types/ServiceResponse';
+import { ErrorStatus } from '../types/serviceResponse';
 
 const INTERNAL_SERVER_ERROR = 500;
 const map: Record<ErrorStatus, number> = {

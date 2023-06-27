@@ -1,5 +1,5 @@
 import { Topic } from '@prisma/client';
-import { AsyncServiceResponse } from '../types/ServiceResponse';
+import { AsyncServiceResponse } from '../types/serviceResponse';
 import prisma from '../lib/prisma';
 import treatQuantity from './validations/treatQuantity';
 import postTopicService from './post.topic.service';
