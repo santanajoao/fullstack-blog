@@ -1,23 +1,24 @@
-import { User } from "@prisma/client";
+import { Account } from "@prisma/client";
 import { generateStringWithLength } from "../../src/utils/strings";
-import { nameMaxLength, nameMinLength, passwordMaxLength, passwordMinLength } from "../../src/services/validations/schemas/account.schema";
+import * as schemas from "../../src/services/validations/schemas/account.schema";
 
-const account: User = {
+const account: Account = {
   id: 'UUID',
   email: 'example@example.com',
-  name: 'Name',
+  username: 'Name',
   password: '12345678',
+  imageUrl: null,
 };
 
 const { id: _i, ...accountCreationFields } = account;
 
-const { name: _n, ...signInFields } = accountCreationFields;
+const { username: _n, ...signInFields } = accountCreationFields;
 
-const tooShortName = generateStringWithLength(nameMinLength - 1);
-const tooLongName = generateStringWithLength(nameMaxLength + 1);
+const tooShortName = generateStringWithLength(schemas.nameMinLength - 1);
+const tooLongName = generateStringWithLength(schemas.nameMaxLength + 1);
 
-const tooShortPassword = generateStringWithLength(passwordMinLength - 1);
-const tooLongPassword = generateStringWithLength(passwordMaxLength + 1);
+const tooShortPassword = generateStringWithLength(schemas.passwordMinLength - 1);
+const tooLongPassword = generateStringWithLength(schemas.passwordMaxLength + 1);
 
 const invalidEmail = 'anyrandomthing';
 

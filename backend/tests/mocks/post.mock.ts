@@ -7,7 +7,7 @@ const post: Post = {
   imageUrl: 'https://image-link.com',
   likes: 1,
   title: 'Title',
-  userId: 'UUID',
+  accountId: 'UUID',
 };
 
 const postList: Post[] = [post];

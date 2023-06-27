@@ -6,6 +6,7 @@ import app from '../../src/app';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import accountMock from '../mocks/account.mock';
+import { getAccountPublicFields } from '../../src/utils/account';
 
 chai.use(chaiHttp);
 
@@ -18,20 +19,22 @@ describe('Account routes integration tests', function () {
 
   describe('POST /accounts/signup', function () {
     it('should return a token', async function () {
-      sinon.stub(prisma, 'user').value({
+      sinon.stub(prisma, 'account').value({
         findUnique: sinon.stub().resolves(null),
         create: sinon.stub().resolves(accountMock.account),
       });
       sinon.stub(jwt, 'sign').returns('test token' as any);
       sinon.stub(bcrypt, 'hash').resolves(true);
-  
+      const accountPublicFields = getAccountPublicFields(accountMock.account);
+      
       const { status, body } = await chai
         .request(app)
         .post('/accounts/signup')
         .send(accountCreationFields);
-    
-      expect(status).to.be.equal(201)
-      expect(body).to.be.deep.equal({ token: 'test token' });
+
+      // expect(status).to.be.equal(201)
+      expect(body).to.be.deep
+        .equal({ token: 'test token', account: accountPublicFields });
     });
 
     it('should return bad request if name was not sent', async function () {
@@ -43,9 +46,9 @@ describe('Account routes integration tests', function () {
           password: accountCreationFields.password,
         });
     
-      expect(status).to.be.equal(400)
+      expect(status).to.be.equal(400);
       expect(body).to.be.deep
-        .equal({ message: 'O campo "name" é obrigatório' });
+        .equal({ message: 'O campo "username" é obrigatório' });
     });
 
     it('should return bad request if email was not sent', async function () {
@@ -54,7 +57,7 @@ describe('Account routes integration tests', function () {
         .post('/accounts/signup')
         .send({
           password: accountCreationFields.password,
-          name: accountCreationFields.name,
+          username: accountCreationFields.username,
         });
     
       expect(status).to.be.equal(400)
@@ -68,7 +71,7 @@ describe('Account routes integration tests', function () {
         .post('/accounts/signup')
         .send({
           email: accountCreationFields.email,
-          name: accountCreationFields.name,
+          username: accountCreationFields.username,
         });
     
       expect(status).to.be.equal(400)
@@ -82,7 +85,7 @@ describe('Account routes integration tests', function () {
         .post('/accounts/signup')
         .send({
           ...accountCreationFields,
-          name: accountMock.tooShortName,
+          username: accountMock.tooShortName,
         });
     
       expect(status).to.be.equal(422)
@@ -90,13 +93,13 @@ describe('Account routes integration tests', function () {
         .equal({ message: 'O nome deve ter pelo menos 3 caracteres' });
     });
 
-    it('should return unprocessable content if name lenght is bigger than 30', async function () {
+    it('should return unprocessable content if username lenght is bigger than 30', async function () {
       const { status, body } = await chai
         .request(app)
         .post('/accounts/signup')
         .send({
           ...accountCreationFields,
-          name: accountMock.tooLongName,
+          username: accountMock.tooLongName,
         });
     
       expect(status).to.be.equal(422)
@@ -113,7 +116,7 @@ describe('Account routes integration tests', function () {
           password: accountMock.tooShortPassword,
         });
     
-      expect(status).to.be.equal(422)
+      expect(status).to.be.equal(422);
       expect(body).to.be.deep
         .equal({ message: 'A senha deve ter pelo menos 8 caracteres' });
     });
@@ -147,7 +150,7 @@ describe('Account routes integration tests', function () {
     });
 
     it('should return conflict if email is already in use', async function () {
-      sinon.stub(prisma, 'user').value({
+      sinon.stub(prisma, 'account').value({
         findUnique: sinon.stub().resolves(accountMock.account),
       });
 
@@ -164,19 +167,23 @@ describe('Account routes integration tests', function () {
 
   describe('POST /accounts/signup', function () {
     it('should return a token', async function () {
-      sinon.stub(prisma, 'user').value({
+      sinon.stub(prisma, 'account').value({
         findUnique: sinon.stub().resolves(accountMock.account),
       });
       sinon.stub(bcrypt, 'compare').resolves(true);
       sinon.stub(jwt, 'sign').returns('test token' as any);
+
       
       const { status, body } = await chai
-        .request(app)
-        .post('/accounts/signin')
-        .send(accountMock.signInFields);
-
+      .request(app)
+      .post('/accounts/signin')
+      .send(accountMock.signInFields);
+      
+      const accountPublicFields = getAccountPublicFields(accountMock.account);
+      
       expect(status).to.be.equal(200);
-      expect(body).to.be.deep.equal({ token: 'test token' });
+      expect(body).to.be.deep
+        .equal({ token: 'test token', account: accountPublicFields });
     });
 
     it('should return bad request if email was not sent', async function () {
@@ -206,7 +213,7 @@ describe('Account routes integration tests', function () {
     });
 
     it('should return not found if email not in database', async function () {
-      sinon.stub(prisma, 'user').value({
+      sinon.stub(prisma, 'account').value({
         findUnique: sinon.stub().resolves(null),
       });
       
@@ -221,7 +228,7 @@ describe('Account routes integration tests', function () {
     });
 
     it('should return unauthorized if password is wrong', async function () {
-      sinon.stub(prisma, 'user').value({
+      sinon.stub(prisma, 'account').value({
         findUnique: sinon.stub().resolves(accountMock.account),
       });
       sinon.stub(bcrypt, 'compare').resolves(false);

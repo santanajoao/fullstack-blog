@@ -1,16 +1,16 @@
 import sinon from 'sinon';
 import prisma from '../../src/lib/prisma';
-import postHelpers from '../../src/services/helpers/post.helpers';
 import postMock from '../mocks/post.mock';
 import dates from '../../src/utils/dates';
 import chai from 'chai';
 import sinonChai from 'sinon-chai';
+import postService from '../../src/services/post.service';
 
 chai.use(sinonChai);
 
 const { expect } = chai;
 
-describe('Post helpers unit tests', function () {
+describe('Post unit tests', function () {
   beforeEach(sinon.restore);
 
   describe('getWeekPosts', function () {
@@ -20,10 +20,11 @@ describe('Post helpers unit tests', function () {
       });
       sinon.stub(dates, 'getDateDaysAgo').returns(new Date());
 
-      const result = await postHelpers.getWeekPosts();
+      const { status, data } = await postService.getWeekPosts();
 
       expect(dates.getDateDaysAgo).to.have.been.called;
-      expect(result).to.be.equal(postMock.postList);
+      expect(status).to.be.equal('SUCCESS');
+      expect(data).to.be.equal(postMock.postList);
     });
   });
 });

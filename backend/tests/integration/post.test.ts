@@ -3,8 +3,8 @@ import chaiHttp from 'chai-http';
 import sinon from 'sinon';
 import prisma from '../../src/lib/prisma';
 import app from '../../src/app';
-import topicPostHelpers from '../../src/services/helpers/postTopic.helpers';
 import postMock from '../mocks/post.mock';
+import postTopicService from '../../src/services/post.topic.service';
 
 chai.use(chaiHttp);
 
@@ -15,7 +15,9 @@ describe('Post routes integration tests', function () {
 
   describe('GET /posts/popular', function () {
     it('should return the post list', async function () {
-      sinon.stub(topicPostHelpers, 'getWeekTopicsPosts').resolves([]);
+      sinon.stub(postTopicService, 'getWeekTopicsPosts')
+        .resolves({ status: 'SUCCESS', data: [] });
+      
       sinon.stub(prisma, 'post').value({
         findMany: sinon.stub().resolves(postMock.postList),
       });
