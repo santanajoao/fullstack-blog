@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import accountService from "../services/account.service";
 import { mapErrorStatus } from "../utils/http";
+import { AccountPublicFields } from "../types/account";
 
 const handlePostAccount = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
@@ -24,7 +25,18 @@ const handlePostSignIn = async (req: Request, res: Response) => {
   res.status(200).json(data);
 };
 
+const handleGetAccountByEmail = async (req: Request, res: Response) => {
+  const account: AccountPublicFields = req.body.locals.account;
+
+  const { status, data } = await accountService.getAccountByEmail(account.email);
+  if (status !== 'SUCCESS') {
+    return res.status(mapErrorStatus(status)).json(data);
+  }
+  res.status(200).json(data);
+}
+
 export default {
   handlePostAccount,
   handlePostSignIn,
+  handleGetAccountByEmail,
 };
