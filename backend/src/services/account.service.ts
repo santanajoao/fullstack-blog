@@ -3,13 +3,13 @@ import { AsyncServiceResponse } from '../types/serviceResponse';
 import jwt from '../lib/jwt';
 import bcrypt from '../lib/bcrypt';
 import { validateEmailExistance, validateSignIn } from './validations/signInValidations';
-import { AccountCreation, SignInFields, SignResponse } from '../types/account';
+import { AccountCreation, AccountPublicFields, SignInFields, SignResponse } from '../types/account';
 import { getAccountPublicFields } from '../utils/account';
 import { validateSignUp } from './validations/signUpValidations';
 
 const createAccount = async (
   { username, email, password }: AccountCreation
-): Promise<AsyncServiceResponse<SignResponse>> => {
+): AsyncServiceResponse<SignResponse> => {
   const validation = await validateSignUp({ username, email, password });
   if (validation.status !== 'SUCCESS') return validation;
 
@@ -25,7 +25,7 @@ const createAccount = async (
 
 const signIn = async ({
   email, password,
-}: SignInFields): Promise<AsyncServiceResponse<SignResponse>> => {
+}: SignInFields): AsyncServiceResponse<SignResponse> => {
   const validation = await validateSignIn({ email, password });
   if (validation.status !== 'SUCCESS') return validation;
 
@@ -36,7 +36,7 @@ const signIn = async ({
   return { status: 'SUCCESS', data: { token, account: accountPublicFields } };
 };
 
-const getAccountByEmail = async (email: string) => {
+const getAccountByEmail = async (email: string): AsyncServiceResponse<AccountPublicFields> => {
   const validation = await validateEmailExistance(email);
   if (validation.status !== 'SUCCESS') return validation;
 
