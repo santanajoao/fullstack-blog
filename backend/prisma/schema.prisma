@@ -18,15 +18,15 @@ model Topic {
   @@map("topics")
 }
 
-model User {
+model Account {
   id       String @id @default(uuid())
-  name     String
+  username     String
   email    String @unique
   password String
 
   posts Post[]
 
-  @@map("users")
+  @@map("accounts")
 }
 
 model Post {
@@ -37,8 +37,8 @@ model Post {
   createdAt   DateTime @default(now()) @map("created_at")
   likes       Int      @default(0)
 
-  userId String @map("user_id")
-  user   User   @relation(fields: [userId], references: [id])
+  accountId String @map("user_id")
+  account   Account   @relation(fields: [accountId], references: [id])
 
   topics    Topic[]
   postTopics PostTopic[]

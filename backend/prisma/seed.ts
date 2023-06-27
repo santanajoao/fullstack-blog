@@ -27,27 +27,27 @@ const topics = [
 
 const passwords = [ '12345678', '23456789', '34567890', '45678901', '56789012', '67890123', '78901234', '89012345', '90123456', '01234567', '11111111', '22222222', '33333333', '44444444', '55555555', '66666666', '77777777', '88888888', '99999999', '00000000' ];
 
-const users = [
-  { name: 'Carla Lorena', email: 'carla.lorena@mail.com' },
-  { name: 'Marcos Vinícis', email: 'marcos.vinicius@mail.com' },
-  { name: 'Anderson Souza', email: 'anderson.souza@mail.com' },
-  { name: 'João Pedro', email: 'joao.pedro@mail.com' },
-  { name: 'Arnaldo Teves', email: 'arnaldo.teves@mail.com' },
-  { name: 'Carlos Alberto', email: 'carlos.alberto@mail.com' },
-  { name: 'Marcos Castro', email: 'marcos.castro@mail.com' },
-  { name: 'Anderson Silva', email: 'anderson.silva@mail.com' },
-  { name: 'João Gilberto', email: 'joao.gilberto@mail.com' },
-  { name: 'Arnaldo Sacomani', email: 'arnaldo.sacomani@mail.com' },
-  { name: 'Carla Fernanda', email: 'carla.fernanda@mail.com' },
-  { name: 'Marcos Paulo', email: 'marcos.paulo@mail.com' },
-  { name: 'Anderson Lima' , email: 'anderson.lima@mail.com' },
-  { name: 'João Victor', email: 'joao.victor@mail.com' },
-  { name: 'Arnaldo Santos', email: 'arnaldo.santos@mail.com' },
-  { name: 'Carla Maria', email: 'carla.maria@mail.com' },
-  { name: 'Marcos Roberto', email: 'marcos.roberto@mail.com' },
-  { name: 'Anderson Oliveira', email: 'anderson.oliveira@mail.com' },
-  { name: 'João Carlos', email: 'joao.carlos@mail.com' },
-  { name: 'Arnaldo Cezar', email: 'arnaldo.cezar@mail.com' },
+const accounts = [
+  { username: 'Carla Lorena', email: 'carla.lorena@mail.com' },
+  { username: 'Marcos Vinícis', email: 'marcos.vinicius@mail.com' },
+  { username: 'Anderson Souza', email: 'anderson.souza@mail.com' },
+  { username: 'João Pedro', email: 'joao.pedro@mail.com' },
+  { username: 'Arnaldo Teves', email: 'arnaldo.teves@mail.com' },
+  { username: 'Carlos Alberto', email: 'carlos.alberto@mail.com' },
+  { username: 'Marcos Castro', email: 'marcos.castro@mail.com' },
+  { username: 'Anderson Silva', email: 'anderson.silva@mail.com' },
+  { username: 'João Gilberto', email: 'joao.gilberto@mail.com' },
+  { username: 'Arnaldo Sacomani', email: 'arnaldo.sacomani@mail.com' },
+  { username: 'Carla Fernanda', email: 'carla.fernanda@mail.com' },
+  { username: 'Marcos Paulo', email: 'marcos.paulo@mail.com' },
+  { username: 'Anderson Lima' , email: 'anderson.lima@mail.com' },
+  { username: 'João Victor', email: 'joao.victor@mail.com' },
+  { username: 'Arnaldo Santos', email: 'arnaldo.santos@mail.com' },
+  { username: 'Carla Maria', email: 'carla.maria@mail.com' },
+  { username: 'Marcos Roberto', email: 'marcos.roberto@mail.com' },
+  { username: 'Anderson Oliveira', email: 'anderson.oliveira@mail.com' },
+  { username: 'João Carlos', email: 'joao.carlos@mail.com' },
+  { username: 'Arnaldo Cezar', email: 'arnaldo.cezar@mail.com' },
 ];
 
 const posts = [
@@ -78,15 +78,16 @@ const main = async () => {
     topics.map(async (topic) => prisma.topic.create({ data: topic })),
   );
 
-  const encrypted = await Promise.all(passwords.map((password) => bcrypt.encrypt(password)));
+  const encrypted = await Promise
+    .all(passwords.map((password) => bcrypt.encrypt(password)));
 
-  const userIds = await Promise.all(
-    users.map(async (user, index) => prisma.user.create({ data: { ...user, password: encrypted[index] } })),
+  const accountIds = await Promise.all(
+    accounts.map(async (user, index) => prisma.account.create({ data: { ...user, password: encrypted[index] } })),
   );
 
   const postIds = await Promise.all(
     posts.map(async (post, index) => 
-      prisma.post.create({ data: { ...post, userId: userIds[index].id } })
+      prisma.post.create({ data: { ...post, accountId: accountIds[index].id } })
     )
   );
   
