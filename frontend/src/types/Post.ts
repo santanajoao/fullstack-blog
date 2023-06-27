@@ -4,7 +4,7 @@ export type Post = {
   description: string,
   createdAt: string,
   imageUrl: string,
-  user: {
-    name: string,
+  account: {
+    username: string,
   }
 }

@@ -18,7 +18,7 @@ export default async function PopularPosts() {
             <PostItemLink
               title={post.title}
               date={new Date(post.createdAt)}
-              author={post.user.name}
+              author={post.account.username}
               description={post.description}
               image={`${post.imageUrl}?size=599`}
               link={`/posts/${post.id}`}

@@ -25,7 +25,7 @@ export const signPasswordSchema = z
   .max(passwordMaxLength, `A senha deve ter ${passwordMaxLength} caracteres ou menos`);
 
 export const signUpSchema = z.object({
-  name: signNameSchema,
+  username: signNameSchema,
   email: signEmailSchema,
   password: signPasswordSchema,
 });
