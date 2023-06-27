@@ -1,46 +1,39 @@
 import prisma from '../lib/prisma';
 import { AsyncServiceResponse } from '../types/ServiceResponse';
-import UserCreation from '../types/user/UserCreation';
-import validateAccountFields from './validations/validateAccountFields';
-import checkEmailInUse from './validations/checkEmailInUse';
 import jwt from '../lib/jwt';
 import bcrypt from '../lib/bcrypt';
-import Token from '../types/account/Token';
-import validateEmailExistance from './validations/validateEmailExistance';
-import validateSignInFields from './validations/validateSignInFields';
+import { validateSignIn } from './validations/signInValidations';
+import { AccountCreation, SignInFields, SignResponse } from '../types/account';
+import { getAccountPublicFields } from '../utils/account';
+import { validateSignUp } from './validations/signUpValidations';
 
-const createAccount = async (account: UserCreation): Promise<AsyncServiceResponse<Token>> => {
-  const fieldsValidation = validateAccountFields(account);
-  if (fieldsValidation.status !== 'SUCCESS') return fieldsValidation;
+const createAccount = async (
+  { username, email, password }: AccountCreation
+): Promise<AsyncServiceResponse<SignResponse>> => {
+  const validation = await validateSignUp({ username, email, password });
+  if (validation.status !== 'SUCCESS') return validation;
+
+  const passwordHash = await bcrypt.encrypt(password);
+  const createdAccount = await prisma.account
+    .create({ data: { username, email, password: passwordHash } });
+
+  const accountPublicFields = getAccountPublicFields(createdAccount);
+  const token = jwt.createToken({ email, username });
   
-  const conflictValidation = await checkEmailInUse(account.email);
-  if (conflictValidation.status !== 'SUCCESS') return conflictValidation;
-
-  const passwordHash = await bcrypt.encrypt(account.password);
-  await prisma.user.create({ data: { ...account, password: passwordHash } });
-
-  const token = jwt.createToken({ email: account.email, name: account.name });
-  return { status: 'SUCCESS', data: { token } };
+  return { status: 'SUCCESS', data: { token, account: accountPublicFields } };
 };
 
-const signIn = async (email: string, password: string): Promise<AsyncServiceResponse<Token>> => {
-  const fieldsValidation = validateSignInFields(email, password);
-  if (fieldsValidation.status !== 'SUCCESS') return fieldsValidation;
+const signIn = async ({
+  email, password,
+}: SignInFields): Promise<AsyncServiceResponse<SignResponse>> => {
+  const validation = await validateSignIn({ email, password });
+  if (validation.status !== 'SUCCESS') return validation;
 
-  const existanceValidation = await validateEmailExistance(email);
-  if (existanceValidation.status !== 'SUCCESS') return existanceValidation;
+  const accountPublicFields = getAccountPublicFields(validation.data);
+  const token = jwt
+    .createToken({ email, username: accountPublicFields.username });
 
-  const user = existanceValidation.data;
-  const correctPassword = await bcrypt.compare(user.password, password);
-  if (!correctPassword) {
-    return {
-      status: 'UNAUTHORIZED',
-      data: { message: 'Senha incorreta' },
-    };
-  }
-
-  const token = jwt.createToken({ email, name: user.name });
-  return { status: 'SUCCESS', data: { token } };
+  return { status: 'SUCCESS', data: { token, account: accountPublicFields } };
 };
 
 export default {
