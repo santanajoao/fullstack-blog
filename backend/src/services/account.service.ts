@@ -18,7 +18,7 @@ const createAccount = async (
     .create({ data: { username, email, password: passwordHash } });
 
   const accountPublicFields = getAccountPublicFields(createdAccount);
-  const token = jwt.createToken({ email, username });
+  const token = jwt.createToken(accountPublicFields);
   
   return { status: 'SUCCESS', data: { token, account: accountPublicFields } };
 };
@@ -31,7 +31,7 @@ const signIn = async ({
 
   const accountPublicFields = getAccountPublicFields(validation.data);
   const token = jwt
-    .createToken({ email, username: accountPublicFields.username });
+    .createToken(accountPublicFields);
 
   return { status: 'SUCCESS', data: { token, account: accountPublicFields } };
 };

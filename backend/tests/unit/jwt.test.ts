@@ -14,7 +14,7 @@ describe('jwt utility unit tests', function () {
       sinon.stub(jwt, 'sign');
 
       const callback = () => jwtUtil.createToken(
-        { email: 'email', username: 'name' },
+        { email: 'email', username: 'name', imageUrl: 'url' },
       );
 
       expect(callback).to.throw('Secret not found');
