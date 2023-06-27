@@ -6,7 +6,7 @@ export const passwordMinLength = 8;
 export const passwordMaxLength = 126;
 
 export const accountNameSchema = z
-  .string({ invalid_type_error: 'O campo "nome" deve ser uma string' })
+  .string({ invalid_type_error: 'O campo "username" deve ser uma string' })
   .min(nameMinLength, `O nome deve ter pelo menos ${nameMinLength} caracteres`)
   .max(nameMaxLength, `O nome deve ter ${nameMaxLength} caracteres ou menos`);
 
@@ -19,8 +19,8 @@ export const accountPasswordSchema = z
   .min(passwordMinLength, `A senha deve ter pelo menos ${passwordMinLength} caracteres`)
   .max(passwordMaxLength, `A senha deve ter ${passwordMaxLength} caracteres ou menos`);
 
-export const accountSchema = z.object({
-  name: accountNameSchema,
+export const signUpSchema = z.object({
+  username: accountNameSchema,
   email: accountEmailSchema,
   password: accountPasswordSchema,
 });
@@ -31,6 +31,6 @@ export const signInSchema = z.object({
 });
 
 export default {
-  accountSchema,
+  signUpSchema,
   signInSchema,
 };

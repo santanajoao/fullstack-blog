@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { SyncServiceResponse } from "../../types/ServiceResponse";
 
-const validateFields = (schema: z.ZodType, data: unknown): SyncServiceResponse<null> => {
+const validateSchemaFields = (schema: z.ZodType, data: unknown): SyncServiceResponse<null> => {
   const validation = schema.safeParse(data);
 
   if (!validation.success) {
@@ -11,4 +11,4 @@ const validateFields = (schema: z.ZodType, data: unknown): SyncServiceResponse<n
   return { status: 'SUCCESS', data: null }
 };
 
-export default validateFields;
+export default validateSchemaFields;
