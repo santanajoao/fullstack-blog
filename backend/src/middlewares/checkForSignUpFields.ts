@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 const checkForSignUpFields = (req: Request, res: Response, next: NextFunction) => {
-  const requiredFields = ['name', 'email', 'password'];
+  const requiredFields = ['username', 'email', 'password'];
 
   const missingField = requiredFields.find((field) => !req.body[field]);
   if (missingField) {
