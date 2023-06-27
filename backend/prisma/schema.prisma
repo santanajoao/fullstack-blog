@@ -23,6 +23,7 @@ model Account {
   username     String
   email    String @unique
   password String
+  imageUrl String?
 
   posts Post[]
 
