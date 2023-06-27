@@ -26,7 +26,7 @@ const handlePostSignIn = async (req: Request, res: Response) => {
 };
 
 const handleGetAccountByEmail = async (req: Request, res: Response) => {
-  const account: AccountPublicFields = req.body.locals.account;
+  const account: AccountPublicFields = req.body.local.account;
 
   const { status, data } = await accountService.getAccountByEmail(account.email);
   if (status !== 'SUCCESS') {
