@@ -2,9 +2,9 @@ import { Account } from "@prisma/client";
 
 export type SignInFields = Pick<Account, 'email' | 'password'>;
 
-export type AccountPublicFields = Pick<Account, 'email' | 'username'>;
+export type AccountCreation = SignInFields & Pick<Account, 'username'>;
 
-export type AccountCreation = SignInFields & AccountPublicFields;
+export type AccountPublicFields = Pick<Account, 'email' | 'username' | 'imageUrl'>;
 
 export type SignResponse = {
   token: string;
