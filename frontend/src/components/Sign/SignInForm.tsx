@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { SignInFields } from '@/types/Sign/SignIn'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signInSchema } from '@/lib/schemas/sign.schema'
-import { requestSignIn } from '@/services/sign'
 import ErrorMessage from './ErrorMessage'
 import Sign from '.';
+import { AuthContext } from '@/contexts/AuthContext';
 
 export default function SignInForm() {
   const {
@@ -16,17 +16,12 @@ export default function SignInForm() {
     formState: { errors },
   } = useForm<SignInFields>({
     resolver: zodResolver(signInSchema),
-  });
+  });  
 
-  const [apiError, setApiError] = useState('');
+  const { error, signIn } = useContext(AuthContext);
 
-  const onSubmit = async (formData: SignInFields) => {
-    const { success, data } = await requestSignIn(formData);
-    if (success) {
-      setApiError('');
-    } else {
-      setApiError(data.message);
-    }
+  const onSubmit = async ({ email, password }: SignInFields) => {
+    signIn({ email, password });
   };
 
   return (
@@ -49,7 +44,7 @@ export default function SignInForm() {
         </Sign.Field>
       </Sign.FieldsWrapper>
 
-      <ErrorMessage>{apiError}</ErrorMessage>
+      <ErrorMessage>{error}</ErrorMessage>
       
       <Sign.Button type="submit">Entrar</Sign.Button>
     </Sign.Form>

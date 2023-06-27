@@ -1,3 +1,3 @@
 import { SignUpFields } from "./SignUp";
 
-export type SignInFields = Omit<SignUpFields, 'name'>;
+export type SignInFields = Omit<SignUpFields, 'username'>;
