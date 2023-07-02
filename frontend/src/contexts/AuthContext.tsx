@@ -6,7 +6,7 @@ import { ServiceResponse } from "@/types/ServiceResponse";
 import { SignInFields } from "@/types/Sign/SignIn";
 import { SignResponse, User } from "@/types/Sign/SignResponse";
 import { SignUpFields } from "@/types/Sign/SignUp";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { parseCookies, setCookie, destroyCookie } from 'nookies';
 import { createContext, useEffect, useState } from "react";
 
@@ -24,10 +24,17 @@ export const AuthProvider = ({ children }: ChildrenProps) => {
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     refreshUserData();
   }, []);
+
+  useEffect(() => {
+    if (['/signup', '/signin'].includes(pathname) && user) {
+      router.push('/')
+    }
+  }, [pathname, router, user])
 
   const refreshUserData = async () => {
     const { 'blog.session.token': token } = parseCookies();
