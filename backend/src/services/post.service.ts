@@ -32,9 +32,10 @@ const getWeekPopularPosts = async (
         gte: dates.getDateDaysAgo(7),
       },
     },
-    orderBy: {
-      likes: 'desc',
-    },
+    orderBy: [
+      { likes: 'desc' },
+      { createdAt: 'desc' },
+    ],
     take: treatQuantity(quantity),
   });
 
