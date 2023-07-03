@@ -4,6 +4,7 @@ export type Post = {
   description: string,
   createdAt: string,
   imageUrl: string,
+  likes: number,
   account: {
     username: string,
   }

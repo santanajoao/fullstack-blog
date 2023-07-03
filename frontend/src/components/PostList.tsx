@@ -1,18 +1,14 @@
 import { Post } from "@/types/Post";
 import PostItemLink from "./PostItemLink";
-import axios from 'axios'
 
 interface Props {
-  postsEnpoint: string;
+  posts: Post[];
 }
 
-export default async function PostList({ postsEnpoint }: Props) {
-  const popularPosts = await axios
-    .get<Post[]>(`http://backend:3001/posts${postsEnpoint}`);
-
+export default async function PostList({ posts }: Props) {
   return (
     <ul className="grid gap-5 mt-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
-      {popularPosts.data.map((post) => (
+      {posts.map((post) => (
         <li key={post.title} className="w-full max-w-2xl border-t hover:brightness-90 bg-white transition-[filter]">
           <PostItemLink
             title={post.title}
