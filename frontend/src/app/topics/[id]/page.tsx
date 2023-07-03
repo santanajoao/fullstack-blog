@@ -11,7 +11,7 @@ interface Params {
   };
 }
 
-export const revalidate = 60 * 5;
+export const revalidate = 60 * 5; // 5 minutes
 
 type Data = {
   topic: string,
