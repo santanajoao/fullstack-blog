@@ -43,15 +43,29 @@ const getWeekPopularPosts = async (
   return { status: 'SUCCESS', data: popularPosts };
 };
 
-const getPostsByTopicId = async (topicId: string, orderProperty: string): AsyncServiceResponse<Post[]> => {
+type PostByTopic = {
+  topic: string,
+  posts: Post[],
+};
+
+const getPostsByTopicId = async (topicId: string, orderProperty: string): AsyncServiceResponse<PostByTopic> => {
   const idValidation = await validateTopicId(topicId);
   if (idValidation.status !== 'SUCCESS') return idValidation;
+
+  const topicName = idValidation.data.name;
 
   const VALID_PROPERTIES = ['likes', 'createdAt'];
   const orderBy = VALID_PROPERTIES
     .includes(orderProperty) ? { [orderProperty]: 'desc' } : {};
 
   const posts = await prisma.post.findMany({
+    include: {
+      account: {
+        select: {
+          username: true,
+        },
+      },
+    },
     where: {
       postTopics: {
         some: {
@@ -62,7 +76,7 @@ const getPostsByTopicId = async (topicId: string, orderProperty: string): AsyncS
     orderBy,
   });
 
-  return { status: 'SUCCESS', data: posts };
+  return { status: 'SUCCESS', data: { topic: topicName, posts } };
 };
 
 export default {
