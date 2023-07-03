@@ -96,6 +96,24 @@ const main = async () => {
       prisma.postTopic.create({ data: { postId: post.id, topicId: topicIds[index].id } })
     )
   );
+
+  const post = await prisma.post.create({
+    data: {
+      imageUrl: "https://img.freepik.com/fotos-gratis/programador-trabalhando-em-um-laptop-com-codigos-e-graficos_23-2148816828.jpg",
+      createdAt: getDateBetweenNowAnd(7),
+      title: "Programação para iniciantes: como aprender a codificar do zero",
+      description: "Você quer se tornar um programador, mas não sabe por onde começar? Neste post, vou te mostrar os passos básicos para aprender a programar em qualquer linguagem, desde a lógica até a sintaxe.",
+      likes: 25,
+      accountId: accountIds[0].id,
+    },
+  });
+
+  await prisma.postTopic.create({
+    data: {
+      postId: post.id,
+      topicId: topicIds[8].id,
+    },
+  });
 }
 
 main();
