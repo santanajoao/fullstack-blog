@@ -1,4 +1,4 @@
-import { Post } from "@prisma/client";
+import { Post, Topic } from "@prisma/client";
 import prisma from "../lib/prisma";
 import { AsyncServiceResponse } from "../types/serviceResponse";
 import dates from "../utils/dates";
@@ -44,15 +44,17 @@ const getWeekPopularPosts = async (
 };
 
 type PostByTopic = {
-  topic: string,
+  topic: Topic,
   posts: Post[],
 };
 
-const getPostsByTopicId = async (topicId: string, orderProperty: string): AsyncServiceResponse<PostByTopic> => {
+const getPostsByTopicId = async (
+  topicId: string, orderProperty: string,
+): AsyncServiceResponse<PostByTopic> => {
   const idValidation = await validateTopicId(topicId);
   if (idValidation.status !== 'SUCCESS') return idValidation;
 
-  const topicName = idValidation.data.name;
+  const topic = idValidation.data;
 
   const VALID_PROPERTIES = ['likes', 'createdAt'];
   const orderBy = VALID_PROPERTIES
@@ -76,7 +78,7 @@ const getPostsByTopicId = async (topicId: string, orderProperty: string): AsyncS
     orderBy,
   });
 
-  return { status: 'SUCCESS', data: { topic: topicName, posts } };
+  return { status: 'SUCCESS', data: { topic, posts } };
 };
 
 export default {
