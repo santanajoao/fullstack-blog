@@ -3,7 +3,8 @@ import PostList from './PostList'
 import { Post } from '@/types/Post';
 
 export default async function PopularPosts() {
-  const popularPosts  = await axios.get<Post[]>('http://backend:3001/posts/popular');
+  const popularPosts  = await axios
+    .get<Post[]>('http://backend:3001/posts/popular?quantity=12');
 
   return (
     <article>
