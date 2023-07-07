@@ -4,8 +4,8 @@ import postController from "../controllers/post.controller";
 
 const topicRouter = Router();
 
-topicRouter.get('/:id/posts', postController.handleGetPostsByTopicId)
+topicRouter.get('/:id/posts/infos', postController.handleGetTopicPosts);
+topicRouter.get('/:id/posts', postController.handleGetPostsByTopicId);
 topicRouter.get('/popular', topicController.handleGetPopularTopics);
-
 
 export default topicRouter;
