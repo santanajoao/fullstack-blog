@@ -1,10 +1,12 @@
 import { Topic } from "@/types/Topic";
 import TopicLink from "./TopicLink";
-import axios from 'axios';
 
 export default async function PopularTopics() {
-  const popularTopics = await axios
-    .get<Topic[]>('http://backend:3001/topics/popular?quantity=12');
+  const response = await fetch(
+    'http://backend:3001/topics/popular?quantity=12',
+    { next: { revalidate: 60 * 30 } },
+  );
+  const popularTopics: Topic[] = await response.json();
   
   return (
     <article>
@@ -13,7 +15,7 @@ export default async function PopularTopics() {
       </h2>
 
       <ul className="mt-3 grid grid-flow-col grid-rows-3 gap-2 sm:grid-rows-2 lg:grid-rows-1">
-        {popularTopics.data.map(({ name, id, imageUrl }) => (
+        {popularTopics.map(({ name, id, imageUrl }) => (
           <li key={id} className="w-full aspect-square rounded-2xl overflow-hidden relative group">
             <TopicLink image={`${imageUrl}?size=320`} link={`/topics/${id}`} topic={name} />
           </li>

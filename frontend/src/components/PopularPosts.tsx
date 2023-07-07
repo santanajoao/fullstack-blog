@@ -1,10 +1,12 @@
-import axios from 'axios'
 import PostList from './PostList'
 import { Post } from '@/types/Post';
 
 export default async function PopularPosts() {
-  const popularPosts  = await axios
-    .get<Post[]>('http://backend:3001/posts/popular?quantity=12');
+  const response = await fetch(
+    'http://backend:3001/posts/popular?quantity=12',
+    { next: { revalidate: 60 * 30 } },
+  );
+  const popularPosts: Post[]  = await response.json();
 
   return (
     <article>
@@ -12,7 +14,7 @@ export default async function PopularPosts() {
         Publicações em alta
       </h2>
       
-      <PostList posts={popularPosts.data} />
+      <PostList posts={popularPosts} />
     </article>
   );
 }

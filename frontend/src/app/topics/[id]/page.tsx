@@ -2,7 +2,6 @@ import HomeHeader from '@/components/Header/HomeHeader'
 import PostList from '@/components/PostList';
 import { Post } from '@/types/Post';
 import { Topic } from '@/types/Topic';
-import axios from 'axios';
 import Image from 'next/image';
 import React from 'react'
 
@@ -11,8 +10,6 @@ interface Params {
     id: string;
   };
 }
-
-export const revalidate = 60 * 5; // 5 minutes
 
 type Data = {
   topic: {
@@ -23,7 +20,12 @@ type Data = {
 };
 
 export default async function Topic({ params }: Params) {
-  const { data } = await axios.get<Data>(`http://backend:3001/topics/${params.id}/posts`);
+  const response = await fetch(
+    `http://backend:3001/topics/${params.id}/posts`,
+    { next: { revalidate: 60 * 10 } },
+  );
+  
+  const data: Data = await response.json();
   const likes = data.posts.reduce((sum, post) => sum + post.likes, 0);
   
   return (
@@ -38,7 +40,7 @@ export default async function Topic({ params }: Params) {
             alt={`${data.topic.name} banner`}
             className="z-0 absolute inset-0 h-full w-full object-cover"
           />
-          
+
           <div className="z-10 relative bg-black/60 h-full w-full px-4 sm:px-6 py-10 space-y-2">
             <h1 className="font-bold text-lg sm:text-2xl">
               Publicações sobre:
@@ -58,7 +60,16 @@ export default async function Topic({ params }: Params) {
           </div>
         </header>
 
-        <div className="px-3 sm:px-5">
+        <div className="px-3 sm:px-5 pt-3 pb-5">
+          <div className="space-x-5 pl-1">
+            <label htmlFor="sort-posts">Ordenar por:</label>
+            <select name="orderBy" id="sort-posts" className="p-1 rounded-sm">
+              <option value="popular">Popular</option>
+              <option value="likes">Likes</option>
+              <option value="creation">Data de criação</option>
+            </select>
+          </div>
+
           <PostList posts={data.posts} />
         </div>
       </main>
