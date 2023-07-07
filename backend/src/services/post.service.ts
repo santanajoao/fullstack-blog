@@ -81,8 +81,40 @@ const getPostsByTopicId = async (
   return { status: 'SUCCESS', data: { topic, posts } };
 };
 
+type PostInfos = {
+  topic: Topic,
+  posts: {
+    likes: number,
+    quantity: number,
+  },
+};
+
+const getTopicPostsInfos = async (topicId: string): AsyncServiceResponse<PostInfos> => {
+  const idValidation = await validateTopicId(topicId);
+  if (idValidation.status !== 'SUCCESS') return idValidation;
+
+  const { _sum, _count } = await prisma.post.aggregate({
+    where: {
+      postTopics: {
+        some: { topicId },
+      }
+    },
+    _count: true,
+    _sum: { likes: true },
+  });
+
+  const posts = {
+    likes: _sum.likes ?? 0,
+    quantity: _count,
+  };
+  const topic = idValidation.data;
+
+  return { status: 'SUCCESS', data: { topic, posts } };
+};
+
 export default {
   getWeekPopularPosts,
   getWeekPosts,
   getPostsByTopicId,
+  getTopicPostsInfos,
 };
