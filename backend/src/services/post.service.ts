@@ -4,6 +4,7 @@ import { AsyncServiceResponse } from "../types/serviceResponse";
 import dates from "../utils/dates";
 import treatQuantity from "./validations/treatQuantity";
 import validateTopicId from "./validations/validateTopicId";
+import { getPostByTopicQuery } from "./queries/posts.queries";
 
 const getWeekPosts = async (): AsyncServiceResponse<Post[]> => {
   const posts = await prisma.post.findMany({
@@ -43,42 +44,16 @@ const getWeekPopularPosts = async (
   return { status: 'SUCCESS', data: popularPosts };
 };
 
-type PostByTopic = {
-  topic: Topic,
-  posts: Post[],
-};
-
 const getPostsByTopicId = async (
   topicId: string, orderProperty: string,
-): AsyncServiceResponse<PostByTopic> => {
+): AsyncServiceResponse<Post[]> => {
   const idValidation = await validateTopicId(topicId);
   if (idValidation.status !== 'SUCCESS') return idValidation;
+  
+  const query = getPostByTopicQuery(topicId, orderProperty);
+  const posts = await prisma.post.findMany(query);
 
-  const topic = idValidation.data;
-
-  const VALID_PROPERTIES = ['likes', 'createdAt'];
-  const orderBy = VALID_PROPERTIES
-    .includes(orderProperty) ? { [orderProperty]: 'desc' } : {};
-
-  const posts = await prisma.post.findMany({
-    include: {
-      account: {
-        select: {
-          username: true,
-        },
-      },
-    },
-    where: {
-      postTopics: {
-        some: {
-          topicId,
-        },
-      }
-    },
-    orderBy,
-  });
-
-  return { status: 'SUCCESS', data: { topic, posts } };
+  return { status: 'SUCCESS', data: posts };
 };
 
 type PostInfos = {
