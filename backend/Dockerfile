@@ -1,7 +1,5 @@
 FROM node:18.16.1-alpine3.18
 
-USER node
-
 WORKDIR /home/node/app
 
 COPY package*.json .

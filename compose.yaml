@@ -2,7 +2,7 @@ services:
   frontend:
     stdin_open: true
     tty: true
-    image: node:18.16.0-alpine
+    build: frontend
     user: node
     ports:
       - 3000:3000
@@ -17,7 +17,7 @@ services:
   backend:
     stdin_open: true
     tty: true
-    image: node:18.16.0-alpine
+    build: backend
     user: node
     ports:
       - ${API_PORT}:${API_PORT}
