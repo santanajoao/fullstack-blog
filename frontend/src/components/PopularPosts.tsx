@@ -22,9 +22,9 @@ export default async function PopularPosts() {
               author={post.account.username}
               date={new Date(post.createdAt)}
               description={post.description}
-              image={post.imageUrl}
+              image={`post.imageUrl?size=599`}
               title={post.title}
-              link={`/posts/${post.id}?size=599`}
+              link={`/posts/${post.id}`}
             />
           </PostList.Item>
         ))}

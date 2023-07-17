@@ -10,13 +10,13 @@ interface Props {
   topicId: string;
 }
 
-export default function TopicPosts({ topicId }: Props) {
-  const options = [
-    { value: 'popularity', content: 'Popularidade' },
-    { value: 'likes', content: 'Likes' },
-    { value: 'creation', content: 'Data de criação' },
-  ];
+const options = [
+  { value: 'popularity', content: 'Popularidade' },
+  { value: 'likes', content: 'Likes' },
+  { value: 'creation', content: 'Data de criação' },
+];
 
+export default function TopicPosts({ topicId }: Props) {
   const [filter, setFilter] = useState<string>(options[0].value);
   const [posts, setPosts] = useState<Post[]>([]);
 
