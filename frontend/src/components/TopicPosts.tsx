@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Post } from "@/types/Post";
 import { requestTopicPosts } from "@/services/posts";
 import PostItemLink from "./PostItemLink";
+import PostList from "./PostList";
 
 interface Props {
   topicId: string;
@@ -46,10 +47,10 @@ export default function TopicPosts({ topicId }: Props) {
           ))}
         </select>
       </div>
-
-      <ul className="grid gap-5 mt-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
+        
+      <PostList.List >
         {posts.map((post) => (
-          <li key={post.title} className="w-full max-w-2xl border-t hover:brightness-90 bg-white transition-[filter]">
+          <PostList.Item key={post.id}>
             <PostItemLink
               title={post.title}
               date={new Date(post.createdAt)}
@@ -58,9 +59,9 @@ export default function TopicPosts({ topicId }: Props) {
               image={`${post.imageUrl}?size=599`}
               link={`/posts/${post.id}`}
             />
-          </li>
+          </PostList.Item>
         ))}
-      </ul>
+      </PostList.List>
     </div>
   );
 }
