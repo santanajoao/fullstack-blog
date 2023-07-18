@@ -1,10 +1,10 @@
 'use client';
 
-import Image, { StaticImageData } from "next/image"
-import Link from "next/link";
+import React, { useContext, useState } from 'react';
+import Image, { StaticImageData } from 'next/image';
+import Link from 'next/link';
 import userPicture from '@/../public/user.webp';
-import { useContext, useState } from "react";
-import { AuthContext } from "@/contexts/AuthContext";
+import { AuthContext } from '@/contexts/AuthContext';
 
 interface Props {
   username: string;
@@ -19,6 +19,7 @@ export default function UserCard({ username, imageUrl }: Props) {
   return (
     <div className="relative" id="user-actions">
       <button
+        type="button"
         className="peer flex items-center space-x-2 rounded-full p-1 pl-2 hover:bg-black/5"
         onClick={() => setIsOpen((prev) => !prev)}
       >
@@ -47,6 +48,7 @@ export default function UserCard({ username, imageUrl }: Props) {
           </li>
           <li>
             <button
+              type="button"
               className="w-full text-left py-2 px-2 hover:bg-black/10"
               onClick={signOut}
             >

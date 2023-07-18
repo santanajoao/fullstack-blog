@@ -1,5 +1,5 @@
-import { HTMLInputTypeAttribute } from "react";
-import { UseFormRegister } from "react-hook-form";
+import React, { HTMLInputTypeAttribute } from 'react';
+import { UseFormRegister } from 'react-hook-form';
 
 interface Props {
   id: string;
@@ -8,7 +8,9 @@ interface Props {
   register: UseFormRegister<any>
 }
 
-export default function Input({ id, type, name, register }: Props) {
+export default function Input({
+  id, type, name, register,
+}: Props) {
   return (
     <input
       id={id}

@@ -1,9 +1,9 @@
 'use client';
 
-import { useContext } from "react";
-import SignLinks from "./SignLinks";
-import UserCard from "./UserCard";
-import { AuthContext } from "@/contexts/AuthContext";
+import React, { useContext } from 'react';
+import { AuthContext } from '@/contexts/AuthContext';
+import SignLinks from './SignLinks';
+import UserCard from './UserCard';
 
 export default function UserActions() {
   const { user } = useContext(AuthContext);

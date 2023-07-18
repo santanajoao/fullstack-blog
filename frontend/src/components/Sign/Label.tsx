@@ -1,4 +1,5 @@
-import { ChildrenProps } from "@/types/ChildrenProps";
+import React from 'react';
+import { ChildrenProps } from '@/types/ChildrenProps';
 
 interface Props extends ChildrenProps {
   htmlFor: string;

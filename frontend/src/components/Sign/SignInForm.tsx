@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useContext } from 'react'
-import { useForm } from 'react-hook-form'
-import { SignInFields } from '@/types/Sign/SignIn'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { signInSchema } from '@/lib/schemas/sign.schema'
-import ErrorMessage from './ErrorMessage'
-import Sign from '.';
+import React, { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import { SignInFields } from '@/types/Sign/SignIn';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { signInSchema } from '@/lib/schemas/sign.schema';
 import { AuthContext } from '@/contexts/AuthContext';
+import ErrorMessage from './ErrorMessage';
+import Sign from '.';
 
 export default function SignInForm() {
   const {
@@ -16,7 +16,7 @@ export default function SignInForm() {
     formState: { errors },
   } = useForm<SignInFields>({
     resolver: zodResolver(signInSchema),
-  });  
+  });
 
   const { error, signIn } = useContext(AuthContext);
 
@@ -25,7 +25,7 @@ export default function SignInForm() {
   };
 
   return (
-  <Sign.Form onSubmit={handleSubmit(onSubmit)}>
+    <Sign.Form onSubmit={handleSubmit(onSubmit)}>
       <Sign.FieldsWrapper>
         <Sign.Field>
           <Sign.Label htmlFor="email">Email</Sign.Label>
@@ -45,7 +45,7 @@ export default function SignInForm() {
       </Sign.FieldsWrapper>
 
       <ErrorMessage>{error}</ErrorMessage>
-      
+
       <Sign.Button type="submit">Entrar</Sign.Button>
     </Sign.Form>
   );

@@ -1,3 +1,4 @@
+import React from 'react';
 import Hero from '@/components/Hero';
 import Footer from '@/components/Footer';
 import PopularTopics from '@/components/PopularTopics';
@@ -16,8 +17,8 @@ export default async function Home() {
           <PopularPosts />
         </section>
       </main>
-      
+
       <Footer />
     </>
-  )
+  );
 }

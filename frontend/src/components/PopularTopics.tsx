@@ -1,5 +1,6 @@
-import { Topic } from "@/types/Topic";
-import TopicLink from "./TopicLink";
+import React from 'react';
+import { Topic } from '@/types/Topic';
+import TopicLink from './TopicLink';
 
 export default async function PopularTopics() {
   const response = await fetch(
@@ -7,7 +8,7 @@ export default async function PopularTopics() {
     { next: { revalidate: 60 * 30 } },
   );
   const popularTopics: Topic[] = await response.json();
-  
+
   return (
     <article>
       <h2 className="font-bold text-lg sm:text-2xl">
@@ -22,5 +23,5 @@ export default async function PopularTopics() {
         ))}
       </ul>
     </article>
-  )
+  );
 }

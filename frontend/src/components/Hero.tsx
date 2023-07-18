@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from 'next/link';
 import { Noto_Serif as NotoSerif } from 'next/font/google';
 
@@ -14,7 +15,7 @@ export default function Hero() {
         <h1 className={`${notoSerif.className} text-3xl sm:text-4xl max-w-lg mb-7`}>
           Liberte sua criatividade. Compartilhe. Escreva.
         </h1>
-        
+
         <Link href="/write" className="bg-black text-white rounded-full px-3 py-2">
           Começar a escrever
         </Link>

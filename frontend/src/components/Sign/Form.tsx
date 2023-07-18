@@ -1,5 +1,5 @@
-import { ChildrenProps } from "@/types/ChildrenProps";
-import { FormEvent } from "react";
+import React, { FormEvent } from 'react';
+import { ChildrenProps } from '@/types/ChildrenProps';
 
 interface Props extends ChildrenProps {
   onSubmit(event: FormEvent): void;

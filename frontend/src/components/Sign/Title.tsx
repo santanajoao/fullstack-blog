@@ -1,8 +1,7 @@
-import { ChildrenProps } from "@/types/ChildrenProps";
+import React from 'react';
+import { ChildrenProps } from '@/types/ChildrenProps';
 
-interface Props extends ChildrenProps {};
-
-export default function Title({ children }: Props) {
+export default function Title({ children }: ChildrenProps) {
   return (
     <h1 className="text-2xl font-bold">{children}</h1>
   );

@@ -1,4 +1,5 @@
-import { ChildrenProps } from "@/types/ChildrenProps";
+import React from 'react';
+import { ChildrenProps } from '@/types/ChildrenProps';
 
 export default function List({ children }: ChildrenProps) {
   return (

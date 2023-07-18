@@ -1,11 +1,12 @@
-import { Topic } from "@/types/Topic";
-import Image from "next/image";
+import React from 'react';
+import { Topic } from '@/types/Topic';
+import Image from 'next/image';
 
 type ResponseData = {
   topic: Topic,
   posts: {
     likes: number,
-    quantity: number, 
+    quantity: number,
   },
 };
 
@@ -16,7 +17,7 @@ interface Params {
 export default async function TopicHero({ topicId }: Params) {
   const response = await fetch(`http://backend:3001/topics/${topicId}/posts/infos`);
   const data = await response.json() as ResponseData;
-  
+
   return (
     <header className="relative h-40 bg-cover text-white">
       <Image
@@ -36,11 +37,15 @@ export default async function TopicHero({ topicId }: Params) {
 
         <div className="flex gap-4">
           <span className="text-sm">
-            <span className="font-bold">{data.posts.quantity}</span> postagens
+            <span className="font-bold">{data.posts.quantity}</span>
+            {' '}
+            postagens
           </span>
-          
+
           <span className="text-sm">
-            <span className="font-bold">{data.posts.likes}</span> likes
+            <span className="font-bold">{data.posts.likes}</span>
+            {' '}
+            likes
           </span>
         </div>
       </div>

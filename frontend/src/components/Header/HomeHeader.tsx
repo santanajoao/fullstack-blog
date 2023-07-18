@@ -1,7 +1,8 @@
-import Link from "next/link";
-import HeaderWrapper from "./HeaderWrapper";
-import BlogLogo from "../BlogLogo";
-import UserActions from "./UserActions";
+import React from 'react';
+import Link from 'next/link';
+import HeaderWrapper from './HeaderWrapper';
+import BlogLogo from '../BlogLogo';
+import UserActions from './UserActions';
 
 export default function HomeHeader() {
   return (

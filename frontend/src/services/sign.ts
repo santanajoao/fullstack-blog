@@ -1,13 +1,13 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
-import { ServiceResponse } from "@/types/ServiceResponse";
-import { SignInFields } from "@/types/Sign/SignIn";
-import { SignUpFields } from "@/types/Sign/SignUp";
-import { SignResponse, User } from "@/types/Sign/SignResponse";
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { ServiceResponse } from '@/types/ServiceResponse';
+import { SignInFields } from '@/types/Sign/SignIn';
+import { SignUpFields } from '@/types/Sign/SignUp';
+import { SignResponse, User } from '@/types/Sign/SignResponse';
 
 const signRoute = 'http://localhost:3001/accounts';
 
 const treatRequest = async <T>(
-  requestCallback: () => Promise<AxiosResponse<T>>
+  requestCallback: () => Promise<AxiosResponse<T>>,
 ): Promise<ServiceResponse<T>> => {
   try {
     const { data } = await requestCallback();
@@ -21,14 +21,12 @@ const treatRequest = async <T>(
 
     return { success: false, data: { message } };
   }
-}
+};
 
 export const requestSignIn = async (
   signInFields: SignInFields,
 ): Promise<ServiceResponse<SignResponse>> => {
-  const response = await treatRequest<SignResponse>(() => {
-    return axios.post(`${signRoute}/signin`, signInFields);
-  });
+  const response = await treatRequest<SignResponse>(() => axios.post(`${signRoute}/signin`, signInFields));
 
   return response;
 };
@@ -36,23 +34,19 @@ export const requestSignIn = async (
 export const requestSignUp = async (
   signUpFields: SignUpFields,
 ): Promise<ServiceResponse<SignResponse>> => {
-  const response = await treatRequest<SignResponse>(() => {
-    return axios.post(`${signRoute}/signup`, signUpFields)
-  });
+  const response = await treatRequest<SignResponse>(() => axios.post(`${signRoute}/signup`, signUpFields));
 
   return response;
-}
+};
 
 export const requestUserData = async (
   token: string,
 ): Promise<ServiceResponse<User>> => {
-  const response = treatRequest<User>(() => {
-    return axios.get(`${signRoute}/me`, {
-      headers: {
-        'Authorization': token,
-      },
-    });
-  });
+  const response = treatRequest<User>(() => axios.get(`${signRoute}/me`, {
+    headers: {
+      Authorization: token,
+    },
+  }));
 
   return response;
 };

@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useState } from "react";
-import { Post } from "@/types/Post";
-import { requestTopicPosts } from "@/services/posts";
-import PostItemLink from "./PostItemLink";
-import PostList from "./PostList";
+import React, { useEffect, useState } from 'react';
+import { Post } from '@/types/Post';
+import { requestTopicPosts } from '@/services/posts';
+import PostItemLink from './PostItemLink';
+import PostList from './PostList';
 
 interface Props {
   topicId: string;
@@ -21,8 +21,8 @@ export default function TopicPosts({ topicId }: Props) {
   const [posts, setPosts] = useState<Post[]>([]);
 
   const updatePosts = async () => {
-    const posts = await requestTopicPosts(topicId, filter);
-    setPosts(posts);
+    const topicPosts = await requestTopicPosts(topicId, filter);
+    setPosts(topicPosts);
   };
 
   useEffect(() => {
@@ -47,8 +47,8 @@ export default function TopicPosts({ topicId }: Props) {
           ))}
         </select>
       </div>
-        
-      <PostList.List >
+
+      <PostList.List>
         {posts.map((post) => (
           <PostList.Item key={post.id}>
             <PostItemLink

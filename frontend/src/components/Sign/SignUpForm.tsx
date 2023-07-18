@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useContext } from 'react'
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { signUpSchema } from '@/lib/schemas/sign.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignUpFields } from '@/types/Sign/SignUp';
-import Sign from '.';
 import { AuthContext } from '@/contexts/AuthContext';
+import Sign from '.';
 
 export default function SignUpForm() {
   const {
@@ -46,7 +46,7 @@ export default function SignUpForm() {
       </Sign.FieldsWrapper>
 
       <Sign.ErrorMessage>{error}</Sign.ErrorMessage>
-      
+
       <Sign.Button type="submit">Entrar</Sign.Button>
     </Sign.Form>
   );

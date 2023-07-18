@@ -1,3 +1,5 @@
+import React from 'react';
+
 type Size = 'small' | 'big';
 
 interface Props {
@@ -9,8 +11,8 @@ const sizes: Record<Size, string> = {
   big: 'text-3xl',
 };
 
-export default function BlogLogo(props: Props) {
-  const sizeClass = sizes[props.size];
+export default function BlogLogo({ size }: Props) {
+  const sizeClass = sizes[size];
 
   return (
     <span className={`font-bold ${sizeClass} underline`}>

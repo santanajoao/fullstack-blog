@@ -1,6 +1,6 @@
 'use client';
 
-import React, { InputHTMLAttributes, useState } from 'react'
+import React, { useState } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
@@ -35,5 +35,5 @@ export default function HiddenPasswordInput({ id, register, name }: Props) {
         <EyeIcon className="text-xl" />
       </button>
     </div>
-  )
+  );
 }

@@ -1,4 +1,5 @@
-import SignUpForm from "@/components/Sign/SignUpForm";
+import React from 'react';
+import SignUpForm from '@/components/Sign/SignUpForm';
 import Sign from '@/components/Sign';
 
 export default function SignUp() {
@@ -7,7 +8,7 @@ export default function SignUp() {
       <Sign.Title>Crie sua conta</Sign.Title>
 
       <SignUpForm />
-      
+
       <Sign.Link href="/signin">Já tem uma conta? Entre aqui!</Sign.Link>
     </>
   );

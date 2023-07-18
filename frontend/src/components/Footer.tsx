@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from 'next/link';
 import { BsGithub, BsLinkedin } from 'react-icons/bs';
 import BlogLogo from './BlogLogo';
@@ -9,7 +10,7 @@ export default function Footer() {
         <Link href="/" className="pr-2 mr-2 sm:pr-5 sm:mr-5">
           <BlogLogo size="big" />
         </Link>
-        
+
         <Link href="/cookies" className="text-xs underline hover:text-zinc-700">
           Política de Cookies
         </Link>
@@ -27,5 +28,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

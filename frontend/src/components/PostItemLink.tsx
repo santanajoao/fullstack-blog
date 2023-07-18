@@ -1,3 +1,4 @@
+import React from 'react';
 import { dateToDayMonthString } from '@/utils/date';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -15,7 +16,7 @@ export default function PostItemLink({
   link, image, title, author, date, description,
 }: Props) {
   const dayMonth = dateToDayMonthString(date);
-  
+
   return (
     <Link href={link} className="h-full w-full space-y-1 pt-2 px-1 block pb-3">
       <Image
