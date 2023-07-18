@@ -4,6 +4,8 @@
 
 Um blog comunitário desenvolvido utilizando Next.js, Express, MySQL, Prisma e Tailwind.
 
+<img src="images/blog-screenshot.png" alt="captura da tela inicial do blog" />
+
 ## Sobre 🔍
 
 Um blog comunitário onde é possível explorar as postagens, tópicos e autores. Todos podem criar sua conta e começarem a escrever e compartilhar.
