@@ -36,6 +36,7 @@ Um blog comunitário onde é possível explorar as postagens, tópicos e autores
 - Typescript
 - Eslint
 - Docker, Dockerfile e docker compose
+- Figma
 
 ### Como executar o projeto ⚙️
 
