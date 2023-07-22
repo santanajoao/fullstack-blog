@@ -1,4 +1,4 @@
-import bcrypt from "../../src/lib/bcrypt";
+import bcrypt from "../../../src/lib/bcrypt";
 
 const encrypt = (
   password: string
