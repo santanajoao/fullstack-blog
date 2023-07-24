@@ -131,8 +131,42 @@ const getTopicPostsInfos = async (topicId: string): AsyncServiceResponse<PostInf
   return { status: 'SUCCESS', data: { topic, posts } };
 };
 
+const getPostById = async (
+  postId: string,
+): AsyncServiceResponse<Post & { likes: number }> => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: postId,
+    },
+    include: {
+      account: {
+        select: {
+          username: true,
+          imageUrl: true,
+        },
+      },
+      _count: {
+        select: {
+          likes: true,
+        }
+      },
+    },
+  });
+
+  if (!post) {
+    return {
+      status: 'NOT_FOUND',
+      data: { message: 'Não foi possível encontrar esse post' },
+    };
+  }
+
+  const { _count, ...other } = post;
+  return { status: 'SUCCESS', data: { ...other, likes: _count.likes } };
+};
+
 export default {
   getWeekPopularPosts,
   getPostsByTopicId,
   getTopicPostsInfos,
+  getPostById,
 };
