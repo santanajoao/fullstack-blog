@@ -27,7 +27,7 @@ export default function UserCard({ username, imageUrl }: Props) {
 
         <Image
           className="w-9 h-9 rounded-full object-cover bg-primaryGreen/30 p-1"
-          src={imageUrl || userPicture}
+          src={imageUrl ?? userPicture}
           alt={`Foto de perfil de ${username}`}
           width={50}
           height={50}
