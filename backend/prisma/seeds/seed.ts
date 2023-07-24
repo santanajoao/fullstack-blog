@@ -9,6 +9,13 @@ const seed = async () => {
   await prisma.account.createMany({ data: accounts });
 
   await Promise.all(posts.map((post) => prisma.post.create({ data: post })));
+
+  prisma.postTopic.create({
+    data: {
+      postId: posts[0].id,
+      topicId: topics[0].id,
+    }
+  })
 };
 
 seed()

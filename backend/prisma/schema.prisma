@@ -10,39 +10,41 @@ datasource db {
 model Topic {
   id       String @id @default(uuid())
   name     String @unique
-  imageUrl String @unique @db.VarChar(300) @map("image_url")
+  imageUrl String @unique @map("image_url") @db.VarChar(300)
 
-  posts     Post[]
+  posts      Post[]
   postTopics PostTopic[]
 
   @@map("topics")
 }
 
 model Account {
-  id       String @id @default(uuid())
-  username     String
-  email    String @unique
+  id       String  @id @default(uuid())
+  username String
+  email    String  @unique
   password String
   imageUrl String?
 
   posts Post[]
+  Likes Likes[]
 
   @@map("accounts")
 }
 
 model Post {
   id          String   @id @default(uuid())
-  imageUrl    String   @db.VarChar(300) @map("image_url")
+  imageUrl    String   @map("image_url") @db.VarChar(300)
   title       String   @db.VarChar(70)
   description String   @db.VarChar(200)
   createdAt   DateTime @default(now()) @map("created_at")
   likes       Int      @default(0)
 
-  accountId String @map("user_id")
-  account   Account   @relation(fields: [accountId], references: [id])
+  accountId String  @map("user_id")
+  account   Account @relation(fields: [accountId], references: [id])
 
-  topics    Topic[]
+  topics     Topic[]
   postTopics PostTopic[]
+  Likes      Likes[]
 
   @@map("posts")
 }
@@ -56,4 +58,14 @@ model PostTopic {
 
   @@id([postId, topicId])
   @@map("post_topics")
+}
+
+model Likes {
+  accountId String  @map("user_id")
+  account   Account @relation(fields: [accountId], references: [id])
+
+  postId String @map("post_id")
+  post   Post   @relation(fields: [postId], references: [id])
+
+  @@id([accountId, postId])
 }

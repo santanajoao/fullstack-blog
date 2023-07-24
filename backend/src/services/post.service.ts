@@ -35,7 +35,7 @@ const getWeekPopularPosts = async (
       },
     },
     orderBy: [
-      { likes: 'desc' },
+      // { likes: 'desc' },
       { createdAt: 'desc' },
     ],
     take: treatQuantity(quantity),
@@ -64,26 +64,50 @@ type PostInfos = {
   },
 };
 
+const countPostsByTopic = async (topicId: string): Promise<number> => {
+  const postCount = await prisma.post.count({
+    where: {
+      topics: {
+        some: {
+          id: topicId,
+        },
+      },
+    },
+  });
+
+  return postCount;
+};
+
+const countLikesByTopic = async (topicId: string): Promise<number> => {
+  const likeCount = await prisma.likes.count({
+    where: {
+      post: {
+        topics: {
+          some: {
+            id: topicId,
+          },
+        },
+      },
+    },
+  });
+
+  return likeCount;
+}
+
 const getTopicPostsInfos = async (topicId: string): AsyncServiceResponse<PostInfos> => {
   const idValidation = await validateTopicId(topicId);
   if (idValidation.status !== 'SUCCESS') return idValidation;
 
-  const { _sum, _count } = await prisma.post.aggregate({
-    where: {
-      postTopics: {
-        some: { topicId },
-      }
-    },
-    _count: true,
-    _sum: { likes: true },
-  });
+  const [postCount, likeCount] = await Promise.all([
+    countPostsByTopic(topicId),
+    countLikesByTopic(topicId),
+  ]);
 
   const posts = {
-    likes: _sum.likes ?? 0,
-    quantity: _count,
+    likes: likeCount,
+    quantity: postCount,
   };
   const topic = idValidation.data;
-
   return { status: 'SUCCESS', data: { topic, posts } };
 };
 
