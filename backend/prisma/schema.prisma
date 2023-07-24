@@ -26,7 +26,7 @@ model Account {
   imageUrl String?
 
   posts Post[]
-  Likes Likes[]
+  likes Likes[]
 
   @@map("accounts")
 }
@@ -37,14 +37,13 @@ model Post {
   title       String   @db.VarChar(70)
   description String   @db.VarChar(200)
   createdAt   DateTime @default(now()) @map("created_at")
-  likes       Int      @default(0)
 
   accountId String  @map("user_id")
   account   Account @relation(fields: [accountId], references: [id])
 
   topics     Topic[]
   postTopics PostTopic[]
-  Likes      Likes[]
+  likes      Likes[]
 
   @@map("posts")
 }
@@ -68,4 +67,5 @@ model Likes {
   post   Post   @relation(fields: [postId], references: [id])
 
   @@id([accountId, postId])
+  @@map("likes")
 }

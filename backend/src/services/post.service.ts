@@ -4,19 +4,6 @@ import { AsyncServiceResponse } from "../types/serviceResponse";
 import dates from "../utils/dates";
 import treatQuantity from "./validations/treatQuantity";
 import validateTopicId from "./validations/validateTopicId";
-import { getPostByTopicQuery } from "./queries/posts.queries";
-
-const getWeekPosts = async (): AsyncServiceResponse<Post[]> => {
-  const posts = await prisma.post.findMany({
-    where: {
-      createdAt: {
-        gte: dates.getDateDaysAgo(7),
-      },
-    },
-  });
-
-  return { status: 'SUCCESS', data: posts };
-};
 
 const getWeekPopularPosts = async (
   quantity: number,
@@ -35,13 +22,30 @@ const getWeekPopularPosts = async (
       },
     },
     orderBy: [
-      // { likes: 'desc' },
       { createdAt: 'desc' },
+      { likes: { _count: 'desc' } },
     ],
     take: treatQuantity(quantity),
   });
 
   return { status: 'SUCCESS', data: popularPosts };
+};
+
+const getOrderQuery = (orderProperty: string) => {
+  const queries: Record<string, any> = {
+    likes: {
+      likes: {
+        _count: 'desc'
+      },
+    },
+    creation: { createdAt: 'desc' },
+    popularity: [
+      { createdAt: 'desc' },
+      { likes: { _count: 'desc' } },
+    ],
+  };
+
+  return queries[orderProperty] ?? queries.popularity;
 };
 
 const getPostsByTopicId = async (
@@ -50,18 +54,26 @@ const getPostsByTopicId = async (
   const idValidation = await validateTopicId(topicId);
   if (idValidation.status !== 'SUCCESS') return idValidation;
   
-  const query = getPostByTopicQuery(topicId, orderProperty);
-  const posts = await prisma.post.findMany(query);
+  const orderBy = getOrderQuery(orderProperty);
+  const posts = await prisma.post.findMany({
+    where: {
+      topics: {
+        some: {
+          id: topicId,
+        },
+      },
+    },
+    include: {
+      account: {
+        select: {
+          username: true,
+        },
+      },
+    },
+    orderBy,
+  });
 
   return { status: 'SUCCESS', data: posts };
-};
-
-type PostInfos = {
-  topic: Topic,
-  posts: {
-    likes: number,
-    quantity: number,
-  },
 };
 
 const countPostsByTopic = async (topicId: string): Promise<number> => {
@@ -94,6 +106,14 @@ const countLikesByTopic = async (topicId: string): Promise<number> => {
   return likeCount;
 }
 
+type PostInfos = {
+  topic: Topic,
+  posts: {
+    likes: number,
+    quantity: number,
+  },
+};
+
 const getTopicPostsInfos = async (topicId: string): AsyncServiceResponse<PostInfos> => {
   const idValidation = await validateTopicId(topicId);
   if (idValidation.status !== 'SUCCESS') return idValidation;
@@ -113,7 +133,6 @@ const getTopicPostsInfos = async (topicId: string): AsyncServiceResponse<PostInf
 
 export default {
   getWeekPopularPosts,
-  getWeekPosts,
   getPostsByTopicId,
   getTopicPostsInfos,
 };

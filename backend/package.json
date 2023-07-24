@@ -12,7 +12,7 @@
     "coverage": "nyc npm run test"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node prisma/seeds/seed.ts"
   },
   "keywords": [],
   "author": "",

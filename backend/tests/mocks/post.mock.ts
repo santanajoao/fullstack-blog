@@ -5,7 +5,6 @@ const post: Post = {
   createdAt: new Date(),
   description: 'Description',
   imageUrl: 'https://image-link.com',
-  likes: 1,
   title: 'Title',
   accountId: 'UUID',
 };
