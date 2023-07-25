@@ -57,7 +57,7 @@ export default function TopicPosts({ topicId }: Props) {
               author={post.account.username}
               description={post.description}
               image={`${post.imageUrl}?size=599`}
-              link={`/posts/${post.id}`}
+              link={`/post/${post.id}`}
             />
           </PostList.Item>
         ))}

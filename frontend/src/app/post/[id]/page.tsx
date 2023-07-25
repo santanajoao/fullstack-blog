@@ -1,9 +1,10 @@
 import React from 'react';
-import { AiOutlineHeart } from 'react-icons/ai';
 import Image from 'next/image';
 import HomeHeader from '@/components/Header/HomeHeader';
 import { Post } from '@/types/Post';
 import userPicture from '@/../public/user.webp';
+import LikeButton from '@/components/LikeButton';
+import Link from 'next/link';
 
 interface Params {
   params: {
@@ -14,6 +15,7 @@ interface Params {
 type PostData = Post & {
   account: {
     imageUrl: string | null;
+    id: string,
   },
   likes: number;
 };
@@ -43,7 +45,7 @@ export default async function PostPage({ params }: Params) {
           <p>{postData.description}</p>
 
           <div className="flex justify-between">
-            <a href="empty" className="w-fit flex items-center gap-2">
+            <Link href={`/writer/${postData.account.id}`} className="w-fit flex items-center gap-2">
               <Image
                 width={36}
                 height={36}
@@ -52,14 +54,10 @@ export default async function PostPage({ params }: Params) {
                 alt="Foto de perfil de {usuário}"
               />
               <span>{postData.account.username}</span>
-            </a>
+            </Link>
 
             <div className="flex items-center">
-              <button type="button" className="h-fit rounded-full flex gap-1 hover:text-red-500">
-                <span className="sr-only">Gostar</span>
-                <span>{postData.likes}</span>
-                <AiOutlineHeart className="text-2xl" />
-              </button>
+              <LikeButton likes={postData.likes} />
             </div>
           </div>
 

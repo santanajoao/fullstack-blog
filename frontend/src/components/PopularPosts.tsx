@@ -25,7 +25,7 @@ export default async function PopularPosts() {
               description={post.description}
               image={`${post.imageUrl}?size=599`}
               title={post.title}
-              link={`/posts/${post.id}`}
+              link={`/post/${post.id}`}
             />
           </PostList.Item>
         ))}
