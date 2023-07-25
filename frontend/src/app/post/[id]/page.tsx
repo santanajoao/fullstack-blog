@@ -16,8 +16,7 @@ type PostData = Post & {
   account: {
     imageUrl: string | null;
     id: string,
-  },
-  likes: number;
+  };
 };
 
 // armazenar a informação se o usuário deu like em um post
@@ -57,7 +56,9 @@ export default async function PostPage({ params }: Params) {
             </Link>
 
             <div className="flex items-center">
-              <LikeButton likes={postData.likes} />
+              <LikeButton
+                postId={params.id}
+              />
             </div>
           </div>
 
