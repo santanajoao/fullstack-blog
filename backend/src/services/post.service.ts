@@ -143,6 +143,7 @@ const getPostById = async (
         select: {
           username: true,
           imageUrl: true,
+          id: true,
         },
       },
       _count: {
