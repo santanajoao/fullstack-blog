@@ -7,7 +7,7 @@ import validateAccount from "../middlewares/validateAccount";
 const likeRouter = Router();
 
 likeRouter.post(
-  '/add',
+  '/',
   checkForLikeFields,
   validateToken,
   validateAccount,
@@ -15,11 +15,16 @@ likeRouter.post(
 );
 
 likeRouter.delete(
-  '/remove',
+  '/',
   checkForLikeFields,
   validateToken,
   validateAccount,
   likeController.handleDeleteDeslike,
+);
+
+likeRouter.get(
+  '/:accountId/:postId',
+  likeController.handleGetLike,
 );
 
 export default likeRouter;
