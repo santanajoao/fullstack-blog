@@ -24,7 +24,7 @@ likeRouter.delete(
 
 likeRouter.get(
   '/:accountId/:postId',
-  likeController.handleGetLike,
+  likeController.handleGetPostLikes,
 );
 
 export default likeRouter;

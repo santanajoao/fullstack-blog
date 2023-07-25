@@ -7,7 +7,7 @@ const like = async (accountId: string, postId: string): AsyncServiceResponse<nul
   const accountValidation = await validateAccountId(accountId);
   if (accountValidation.status !== 'SUCCESS') return accountValidation;
 
-  const postValidation = await validatePostId(accountId);
+  const postValidation = await validatePostId(postId);
   if (postValidation.status != 'SUCCESS') return postValidation;
 
   await prisma.likes.upsert({
@@ -38,7 +38,12 @@ const deslike = async (accountId: string, postId: string): AsyncServiceResponse<
   return { status: 'SUCCESS', data: null };
 };
 
-const getLike = async (accountId: string, postId: string): AsyncServiceResponse<Likes> => {
+type PostLikeResponse = {
+  postLikes: number;
+  userLiked: boolean;
+};
+
+const getPostLikes = async (accountId: string, postId: string): AsyncServiceResponse<PostLikeResponse> => {
   const accountValidation = await validateAccountId(accountId);
   if (accountValidation.status !== 'SUCCESS') return accountValidation;
 
@@ -46,13 +51,23 @@ const getLike = async (accountId: string, postId: string): AsyncServiceResponse<
   if (postValidation.status != 'SUCCESS') return postValidation;
 
   const existanceValidation = await checkForLike(accountId, postId);
-  if (existanceValidation.status !== 'SUCCESS') return existanceValidation;
+  const userLiked = existanceValidation.status === 'SUCCESS';
 
-  return existanceValidation;
+  const likeCount = await prisma.likes.count({
+    where: {
+      postId,
+    },
+  });
+  
+  return {
+    status: 'SUCCESS',
+    data: { postLikes: likeCount, userLiked },
+  };
 };
+
 
 export default {
   like,
   deslike,
-  getLike,
+  getPostLikes,
 };

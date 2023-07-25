@@ -133,7 +133,7 @@ const getTopicPostsInfos = async (topicId: string): AsyncServiceResponse<PostInf
 
 const getPostById = async (
   postId: string,
-): AsyncServiceResponse<Post & { likes: number }> => {
+): AsyncServiceResponse<Post> => {
   const post = await prisma.post.findUnique({
     where: {
       id: postId,
@@ -146,11 +146,6 @@ const getPostById = async (
           id: true,
         },
       },
-      _count: {
-        select: {
-          likes: true,
-        }
-      },
     },
   });
 
@@ -161,8 +156,8 @@ const getPostById = async (
     };
   }
 
-  const { _count, ...other } = post;
-  return { status: 'SUCCESS', data: { ...other, likes: _count.likes } };
+
+  return { status: 'SUCCESS', data: post };
 };
 
 export default {

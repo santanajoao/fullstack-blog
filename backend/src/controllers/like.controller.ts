@@ -22,9 +22,9 @@ const handleDeleteDeslike = async (req: Request, res: Response) => {
   res.status(204).end();
 };
 
-const handleGetLike = async (req: Request, res: Response) => {
+const handleGetPostLikes = async (req: Request, res: Response) => {
   const { accountId, postId } = req.params;
-  const { status, data } = await likeService.getLike(accountId, postId);
+  const { status, data } = await likeService.getPostLikes(accountId, postId);
 
   if (status !== 'SUCCESS') {
     return res.status(mapErrorStatus(status)).json(data);
@@ -35,5 +35,5 @@ const handleGetLike = async (req: Request, res: Response) => {
 export default {
   handlePostLike,
   handleDeleteDeslike,
-  handleGetLike,
+  handleGetPostLikes,
 };
