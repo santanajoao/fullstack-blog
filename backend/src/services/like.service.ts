@@ -42,7 +42,7 @@ const getLike = async (accountId: string, postId: string): AsyncServiceResponse<
   const accountValidation = await validateAccountId(accountId);
   if (accountValidation.status !== 'SUCCESS') return accountValidation;
 
-  const postValidation = await validatePostId(accountId);
+  const postValidation = await validatePostId(postId);
   if (postValidation.status != 'SUCCESS') return postValidation;
 
   const existanceValidation = await checkForLike(accountId, postId);
