@@ -1,4 +1,5 @@
 export type SignPayload = {
+  id: string;
   email: string;
   username: string;
   imageUrl: string | null;
