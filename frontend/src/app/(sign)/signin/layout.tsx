@@ -5,7 +5,5 @@ export const metadata = {
 };
 
 export default function SignInLayout({ children }: ChildrenProps) {
-  return (
-    { children }
-  );
+  return children;
 }
