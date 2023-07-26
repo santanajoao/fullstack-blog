@@ -15,7 +15,10 @@ interface Params {
 }
 
 export default async function TopicHero({ topicId }: Params) {
-  const response = await fetch(`http://backend:3001/topics/${topicId}/posts/infos`);
+  const response = await fetch(
+    `http://backend:3001/topics/${topicId}/posts/infos`,
+    { next: { revalidate: 60 * 15 } }, // 15 minutos
+  );
   const data = await response.json() as ResponseData;
 
   return (

@@ -6,7 +6,7 @@ import PostList from './PostList';
 export default async function PopularPosts() {
   const response = await fetch(
     'http://backend:3001/posts/popular?quantity=12',
-    { next: { revalidate: 60 * 30 } },
+    { next: { revalidate: 60 * 15 } }, // 15 minutos
   );
   const popularPosts: Post[] = await response.json();
 
