@@ -36,6 +36,7 @@ model Post {
   imageUrl    String   @map("image_url") @db.VarChar(300)
   title       String   @db.VarChar(70)
   description String   @db.VarChar(200)
+  content     String   @db.VarChar(3850)
   createdAt   DateTime @default(now()) @map("created_at")
 
   accountId String  @map("user_id")
