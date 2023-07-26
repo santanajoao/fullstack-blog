@@ -1,5 +1,10 @@
 .markdown :is(h1, h2, h3, h4, h5, h6) {
   font-weight: bold;
+  margin-top: 10px;
+}
+
+.markdown p {
+  margin: 2px 0 6px;
 }
 
 .markdown table {
@@ -17,13 +22,20 @@
   color: darkcyan;
 }
 
-.markdown li {
+.markdown :is(ol, ul) {
+  margin: 8px 0 8px 28px;
+}
+
+.markdown ul li {
   list-style: disc;
-  margin-left: 28px;
+}
+
+.markdown ol li {
+  list-style: decimal;
 }
 
 .markdown :is(th, td) {
-  padding: 5px;
+  padding: 4px;
 }
 
 .markdown h1 {

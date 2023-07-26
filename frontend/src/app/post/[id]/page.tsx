@@ -64,7 +64,7 @@ export default async function PostPage({ params }: Params) {
           />
         </header>
 
-        <ReactMarkdown className={styles.markdown} remarkPlugins={[remarkGfm]}>
+        <ReactMarkdown className={`${styles.markdown} pt-3`} remarkPlugins={[remarkGfm]}>
           {postData.content}
         </ReactMarkdown>
       </main>
