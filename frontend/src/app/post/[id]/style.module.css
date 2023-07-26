@@ -1,0 +1,51 @@
+.markdown :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: bold;
+}
+
+.markdown table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+.markdown :is(thead, tr, td, tfoot, tbody) {
+  border: 1px solid black;
+}
+
+.markdown a {
+  text-decoration: underline;
+  color: darkcyan;
+}
+
+.markdown li {
+  list-style: disc;
+  margin-left: 28px;
+}
+
+.markdown :is(th, td) {
+  padding: 5px;
+}
+
+.markdown h1 {
+  font-size: 28px;
+}
+
+.markdown h2 {
+  font-size: 26px;
+}
+
+.markdown h3 {
+  font-size: 24px;
+}
+
+.markdown h4 {
+  font-size: 22px;
+}
+
+.markdown h5 {
+  font-size: 20px;
+}
+
+.markdown h6 {
+  font-size: 18px;
+}

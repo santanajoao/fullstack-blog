@@ -7,5 +7,6 @@ export type Post = {
   likes: number,
   account: {
     username: string,
-  }
+  },
+  content: string;
 };

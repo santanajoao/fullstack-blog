@@ -5,6 +5,9 @@ import { Post } from '@/types/Post';
 import userPicture from '@/../public/user.webp';
 import LikeButton from '@/components/LikeButton';
 import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import styles from './style.module.css';
 
 interface Params {
   params: {
@@ -18,16 +21,6 @@ type PostData = Post & {
     id: string,
   };
 };
-
-// armazenar a informação se o usuário deu like em um post
-// recuperar os likes
-
-// caso o usuário remover o like ou dar like apenas somar o número de likes
-// localmente sem fazer outra requisição
-// apenas requisitar para incrementar ou decrementar os likes no backend
-
-// buscar um post pelo id deve retornar:
-// titulo, descrição, nome e imagem do autor, likes, imagem do post e o conteúdo
 
 export default async function PostPage({ params }: Params) {
   const response = await fetch(`http://backend:3001/posts/${params.id}`);
@@ -70,6 +63,10 @@ export default async function PostPage({ params }: Params) {
             alt="Imagem da postagem"
           />
         </header>
+
+        <ReactMarkdown className={styles.markdown} remarkPlugins={[remarkGfm]}>
+          {postData.content}
+        </ReactMarkdown>
       </main>
     </>
   );
