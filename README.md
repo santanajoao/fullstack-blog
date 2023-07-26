@@ -50,9 +50,16 @@ Haverá uma página para uma postagem onde é possível ler o conteúdo da publi
 
 3. Preencha as variáveis de ambiente
 
-4. Rode `docker compose up -d`
+4. Comente no arquivo `compose.yaml` as linhas de volume:
+```
+volumes:
+  -  ./algum/caminho/aqui
+```
+Essas linhas estão presentes por enquanto para ajudar no desenvolvimento
 
-5. Acesse http://localhost:3000
+5. Rode `docker compose up -d`
+
+6. Acesse http://localhost:3000
 
 ### Próximos passos
 
