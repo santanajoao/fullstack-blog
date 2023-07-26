@@ -1,16 +1,21 @@
 .markdown :is(h1, h2, h3, h4, h5, h6) {
   font-weight: bold;
-  margin-top: 10px;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
 }
 
 .markdown p {
-  margin: 2px 0 6px;
+  margin: 0 0 1em;
+  line-height: 1.6;
 }
 
 .markdown table {
   table-layout: fixed;
+  width: 100%;
+  margin: 1em 0;
   border-collapse: collapse;
-  border: 1px solid black;
+  border: 1px solid #d4d4d4;
 }
 
 .markdown :is(thead, tr, td, tfoot, tbody) {
@@ -18,12 +23,20 @@
 }
 
 .markdown a {
-  text-decoration: underline;
-  color: darkcyan;
+  text-decoration: none;
+  color: #0078d4;
+  border-bottom: 1px solid #0078d4;
 }
 
 .markdown :is(ol, ul) {
-  margin: 8px 0 8px 28px;
+  margin: 0 0 1em 1.5em;
+  padding: 0;
+}
+
+.markdown :is(ol, ul) li {
+  margin: 0.5em 0;
+  padding: 0;
+  line-height: 1.6;
 }
 
 .markdown ul li {
@@ -35,29 +48,30 @@
 }
 
 .markdown :is(th, td) {
-  padding: 4px;
+  padding: 0.5em 1em;
+  border: 1px solid #d4d4d4;
 }
 
 .markdown h1 {
-  font-size: 28px;
+  font-size: 1.775em
 }
 
 .markdown h2 {
-  font-size: 26px;
+  font-size: 1.675em;
 }
 
 .markdown h3 {
-  font-size: 24px;
+  font-size: 1.575em;
 }
 
 .markdown h4 {
-  font-size: 22px;
+  font-size: 1.475em;
 }
 
 .markdown h5 {
-  font-size: 20px;
+  font-size: 1.375em;
 }
 
 .markdown h6 {
-  font-size: 18px;
+  font-size: 1em;
 }
