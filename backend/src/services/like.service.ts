@@ -44,9 +44,6 @@ type PostLikeResponse = {
 };
 
 const getPostLikes = async (accountId: string, postId: string): AsyncServiceResponse<PostLikeResponse> => {
-  const accountValidation = await validateAccountId(accountId);
-  if (accountValidation.status !== 'SUCCESS') return accountValidation;
-
   const postValidation = await validatePostId(postId);
   if (postValidation.status != 'SUCCESS') return postValidation;
 
