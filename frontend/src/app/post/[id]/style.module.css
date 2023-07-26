@@ -75,3 +75,16 @@
 .markdown h6 {
   font-size: 1em;
 }
+
+.markdown blockquote {
+  display: block;
+  margin: 0;
+  padding: 0.5em 1em;
+  border-left: 4px solid #6a737d;
+  color: #6a737d;
+  font-style: italic;
+}
+
+.markdown blockquote p {
+  margin: 0;
+}
