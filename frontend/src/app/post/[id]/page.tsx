@@ -42,7 +42,7 @@ export default async function PostPage({ params }: Params) {
                 width={36}
                 height={36}
                 src={postData.account.imageUrl ?? userPicture}
-                className="w-10 h-10 rounded-full bg-zinc-300"
+                className="w-10 h-10 rounded-full bg-zinc-300 object-cover"
                 alt="Foto de perfil de {usuário}"
               />
               <span>{postData.account.username}</span>
@@ -59,7 +59,7 @@ export default async function PostPage({ params }: Params) {
             width={768}
             height={768}
             src={postData.imageUrl}
-            className="w-full aspect-video bg-zinc-300"
+            className="w-full aspect-video bg-zinc-300 object-cover"
             alt="Imagem da postagem"
           />
         </header>
