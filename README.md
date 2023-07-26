@@ -23,21 +23,25 @@ Haverá uma página para uma postagem onde é possível ler o conteúdo da publi
 - react-icons
 - react-hook-form
 - Tailwind CSS
+- react-markdown
+- axios
 
 ### Backend
 
 - Prisma
 - Bcrypt
 - jsonwebtoken
-- zod
 - express
 - chai
 - sinon
 - mocha
+- helmet
+- cors
 
 ### Geral
 
 - Typescript
+- zod
 - Eslint
 - Docker, Dockerfile e docker compose
 - Figma
@@ -50,12 +54,17 @@ Haverá uma página para uma postagem onde é possível ler o conteúdo da publi
 
 3. Preencha as variáveis de ambiente
 
-4. Comente no arquivo `compose.yaml` as linhas de volume:
+4.1. Comente no arquivo `compose.yaml` as linhas de volume:
 ```
 volumes:
   -  ./algum/caminho/aqui
 ```
 Essas linhas estão presentes por enquanto para ajudar no desenvolvimento
+
+4.2. Ou, em alternativa ao passo 4.1, instale as dependências do diretório backend e frontend:
+```
+(cd backend/ && npm i) && (cd frontend/ && npm i)
+```
 
 5. Rode `docker compose up -d`
 
