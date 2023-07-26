@@ -72,7 +72,7 @@ Essas linhas estão presentes por enquanto para ajudar no desenvolvimento
 
 ### Próximos passos
 
-- [ ] Página de um post (Atualmente em desenvolvimento)
+- [X] Página de um post (Atualmente em desenvolvimento)
 - [ ] Página sobre o uso de cookies
 - [ ] Página de perfil
 - [ ] Página de perfil de um autor
