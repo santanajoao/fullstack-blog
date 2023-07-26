@@ -9,7 +9,9 @@ const posts = [
     createdAt: getDateBetweenNowAnd(7),
     title: "Como tirar fotos incríveis com o seu celular",
     description: "Você sabia que o seu celular pode ser uma ótima ferramenta para tirar fotos incríveis? Neste post, vamos te dar algumas dicas de como aproveitar ao máximo a câmera do seu smartphone e capturar imagens",
-    content: `Você sabia que o seu celular pode ser uma ótima ferramenta para tirar fotos incríveis? Neste post, vamos te dar algumas dicas de como aproveitar ao máximo a câmera do seu smartphone e capturar imagens que vão impressionar os seus amigos e seguidores. Veja só:
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+Você sabia que o seu celular pode ser uma ótima ferramenta para tirar fotos incríveis? Neste post, vamos te dar algumas dicas de como aproveitar ao máximo a câmera do seu smartphone e capturar imagens que vão impressionar os seus amigos e seguidores. Veja só:
 
 ## 1. Escolha um bom cenário
 
@@ -42,7 +44,9 @@ Essas foram as nossas dicas de como tirar fotos incríveis com o seu celular. Es
     createdAt: getDateBetweenNowAnd(7),
     title: "Os melhores jogos de 2023 para PC e consoles",
     description: "O ano de 2023 está cheio de lançamentos imperdíveis para os amantes de jogos eletrônicos. Neste post, vamos te mostrar os melhores jogos de 2023 para PC e consoles, desde os mais esperados até os mai",
-    content: `O ano de 2023 está cheio de lançamentos imperdíveis para os amantes de jogos eletrônicos. Neste post, vamos te mostrar os melhores jogos de 2023 para PC e consoles, desde os mais esperados até os mais surpreendentes. Confira a nossa lista e prepare-se para se divertir muito!
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+O ano de 2023 está cheio de lançamentos imperdíveis para os amantes de jogos eletrônicos. Neste post, vamos te mostrar os melhores jogos de 2023 para PC e consoles, desde os mais esperados até os mais surpreendentes. Confira a nossa lista e prepare-se para se divertir muito!
 
 ## Forspoken
 
@@ -73,7 +77,9 @@ Os fãs do universo de Harry Potter também têm motivos para comemorar em 2023.
     createdAt: getDateBetweenNowAnd(7),
     title: "Como economizar dinheiro e investir melhor em 2023",
     description: "Você quer ter mais controle sobre as suas finanças e fazer o seu dinheiro render mais em 2023? Neste post, vamos te ensinar como economizar dinheiro e investir melhor em 2023, seguindo algumas dicas",
-    content: `## 1. Faça um planejamento financeiro
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+## 1. Faça um planejamento financeiro
 
 O primeiro passo para economizar dinheiro e investir melhor é fazer um planejamento financeiro. Isso significa registrar todas as suas receitas e despesas, analisar o seu padrão de consumo, definir metas e objetivos financeiros e traçar um orçamento mensal. Assim, você vai ter uma visão clara da sua situação financeira atual e do que precisa fazer para melhorá-la.
 
@@ -104,7 +110,9 @@ Essas foram as nossas dicas de como economizar dinheiro e investir melhor em 202
     createdAt: getDateBetweenNowAnd(7),
     title: "Como aprender a programar do zero em 2023",
     description: "Você tem vontade de aprender a programar, mas não sabe por onde começar? Neste post, vamos te mostrar como aprender a programar do zero em 2023, seguindo um passo a passo simples e prático.",
-    content: `Aprender a programar é uma habilidade muito útil e valorizada no mercado de trabalho atual. Além de abrir portas para diversas oportunidades profissionais, programar também pode ser uma forma de expressar a sua criatividade, resolver problemas e se divertir. Neste post, vamos te mostrar como aprender a programar do zero em 2023, seguindo um passo a passo simples e prático. Veja só:
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+Aprender a programar é uma habilidade muito útil e valorizada no mercado de trabalho atual. Além de abrir portas para diversas oportunidades profissionais, programar também pode ser uma forma de expressar a sua criatividade, resolver problemas e se divertir. Neste post, vamos te mostrar como aprender a programar do zero em 2023, seguindo um passo a passo simples e prático. Veja só:
 
 ## 1. Escolha uma linguagem de programação
 
@@ -142,7 +150,9 @@ Esses foram os nossos passos para aprender a programar do zero em 2023. Esperamo
     createdAt: getDateBetweenNowAnd(7),
     title: "Como fazer receitas deliciosas com ingredientes simples",
     description: "Você quer impressionar os seus convidados com receitas deliciosas, mas não tem tempo nem dinheiro para comprar ingredientes sofisticados?",
-    content: `Neste post, vamos te ensinar como fazer receitas deliciosas com ingredientes simples que você provavelmente já tem na sua cozinha. Veja só:
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+Neste post, vamos te ensinar como fazer receitas deliciosas com ingredientes simples que você provavelmente já tem na sua cozinha. Veja só:
 
 ## 1. Torta de liquidificador
 
@@ -167,7 +177,9 @@ Essas foram as nossas receitas deliciosas com ingredientes simples. Esperamos qu
     createdAt: getDateBetweenNowAnd(7),
     title: "Como cuidar da sua saúde mental em tempos de pandemia",
     description: "A pandemia do coronavírus trouxe muitos desafios e incertezas para a nossa vida. Muitas pessoas estão sofrendo com ansiedade, estresse, depressão e outros problemas de saúde mental",
-    content: `Neste post, vamos te dar algumas dicas de como cuidar da sua saúde mental em tempos de pandemia. Veja só:
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+Neste post, vamos te dar algumas dicas de como cuidar da sua saúde mental em tempos de pandemia. Veja só:
 
 ## 1. Mantenha uma rotina saudável
 
@@ -196,7 +208,9 @@ Essas foram as nossas dicas de como cuidar da sua saúde mental em tempos de pan
     createdAt: getDateBetweenNowAnd(7),
     title: "Como viajar pelo mundo sem sair de casa",
     description: "Você ama viajar, mas não pode sair de casa por causa da pandemia ou por falta de dinheiro? Não se preocupe, você ainda pode conhecer novos lugares e culturas sem sair do seu sofá.",
-    content: `Neste post, vamos te mostrar como viajar pelo mundo sem sair de casa, usando a internet e a sua imaginação. Veja só:
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+Neste post, vamos te mostrar como viajar pelo mundo sem sair de casa, usando a internet e a sua imaginação. Veja só:
 
 ## 1. Explore o Google Earth
 
@@ -225,7 +239,9 @@ Essas foram as nossas dicas de como viajar pelo mundo sem sair de casa. Esperamo
     createdAt: getDateBetweenNowAnd(7),
     title: "Como fazer arte com materiais reciclados",
     description: "Você quer expressar a sua criatividade e ainda ajudar o meio ambiente? Então você vai adorar essa ideia: fazer arte com materiais reciclados. Neste post, vamos te ensinar como fazer arte com",
-    content: `Neste post, eu vou te ensinar como fazer arte com materiais reciclados, usando objetos que você pode encontrar na sua casa ou no seu lixo. Veja só:
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+Neste post, eu vou te ensinar como fazer arte com materiais reciclados, usando objetos que você pode encontrar na sua casa ou no seu lixo. Veja só:
 
 ## 1. Garrafas PET
 
@@ -262,7 +278,9 @@ Essas foram as nossas dicas de como fazer arte com materiais reciclados. Esperam
     createdAt: getDateBetweenNowAnd(7),
     title: "Como escolher a carreira certa para você",
     description: "Você está em dúvida sobre qual carreira seguir? Você quer saber quais são as suas aptidões, interesses e valores?",
-    content: `Escolher a carreira certa para você é uma decisão importante, que pode afetar a sua felicidade, o seu sucesso e o seu propósito de vida. Neste post, vamos te ajudar a escolher a carreira certa para você, usando alguns passos simples e práticos. Veja só:
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+Escolher a carreira certa para você é uma decisão importante, que pode afetar a sua felicidade, o seu sucesso e o seu propósito de vida. Neste post, vamos te ajudar a escolher a carreira certa para você, usando alguns passos simples e práticos. Veja só:
 
 ## 1. Conheça a si mesmo
 
@@ -295,7 +313,9 @@ Esses foram os nossos passos para escolher a carreira certa para você. Esperamo
     createdAt: getDateBetweenNowAnd(7),
     title: "Como tocar violão em 30 dias",
     description: "Você sempre quis aprender a tocar violão, mas nunca teve tempo ou dinheiro para fazer aulas? Neste post, vamos te mostrar como tocar violão em 30 dias, seguindo um método simples e eficiente.",
-    content: `## O que você vai precisar
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+## O que você vai precisar
 
 Para tocar violão em 30 dias, você vai precisar de:
 
@@ -329,7 +349,9 @@ Esses foram os passos para tocar violão em 30 dias. Esperamos que você tenha g
     createdAt: getDateBetweenNowAnd(7),
     title: "Como cuidar da sua beleza natural com produtos caseiros",
     description: "Você quer ficar mais bonita e saudável sem gastar muito dinheiro com produtos químicos e artificiais?",
-    content: `Neste post, eu vou te dar algumas dicas de como ficar mais bonita e saudável sem gastar muito dinheiro com produtos químicos e artificiais. Veja só:
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+Neste post, eu vou te dar algumas dicas de como ficar mais bonita e saudável sem gastar muito dinheiro com produtos químicos e artificiais. Veja só:
 
 - Você pode usar ingredientes naturais que você tem na sua cozinha ou no seu lixo para fazer máscaras, esfoliantes, hidratantes e outros produtos de beleza caseiros. Esses produtos são mais ecológicos, econômicos e eficazes do que os industrializados, pois não contêm conservantes, corantes, fragrâncias ou outras substâncias que podem irritar ou prejudicar a sua pele.
 - Por exemplo, você pode fazer uma máscara de abacate e mel para hidratar a sua pele, um esfoliante de café e açúcar para remover as células mortas, um tônico de babosa para acalmar a pele inflamada, uma máscara de batata para clarear as olheiras, etc. Você pode ver algumas receitas de skincare caseiro [aqui](^1^) e [aqui](^5^).
@@ -347,7 +369,9 @@ Essas foram as minhas dicas de como cuidar da sua beleza natural com produtos ca
     createdAt: getDateBetweenNowAnd(7),
     title: "Como aprender um novo idioma em 2023",
     description: "Você quer expandir os seus horizontes e aprender um novo idioma em 2023? Neste post, vamos te dar algumas dicas de como aprender um novo idioma em 2023.",
-    content: `## 1. Escolha um idioma que te motive
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+## 1. Escolha um idioma que te motive
 
 O primeiro passo para aprender um novo idioma é escolher um idioma que te motive e que tenha a ver com os seus objetivos. Você pode escolher um idioma que seja falado em um país que você queira visitar ou morar, que seja importante para o seu campo de trabalho ou estudo, que tenha uma cultura ou uma literatura que te interesse, etc. O importante é que você tenha uma razão para aprender o idioma e que isso te mantenha motivado.
 
@@ -377,7 +401,9 @@ Existem vários cursos online de idiomas disponíveis na internet, cada um com s
     createdAt: getDateBetweenNowAnd(7),
     title: "Como praticar esportes em casa sem equipamentos",
     description: "Você quer manter a forma e a saúde, mas não tem tempo ou dinheiro para ir à academia ou comprar equipamentos? Neste post, vamos te ensinar como praticar esportes em casa sem equipamentos, usando",
-    content: `## 1. Pular corda
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+## 1. Pular corda
 
 Pular corda é um dos melhores esportes para fazer em casa, pois trabalha todo o corpo, melhora o condicionamento físico, a coordenação motora e a agilidade. Além disso, é um exercício divertido e que pode ser feito em um espaço pequeno. Você só precisa de uma corda e de um tênis confortável.
 
@@ -406,7 +432,9 @@ Essas foram as minhas dicas de como praticar esportes em casa sem equipamentos. 
     createdAt: getDateBetweenNowAnd(7),
     title: "Como fazer um podcast de sucesso em 2023",
     description: "Você tem uma ideia incrível para um podcast, mas não sabe como começar ou como divulgar o seu trabalho? Neste post, vamos te mostrar como fazer um podcast de sucesso em 2023, seguindo alguns passos",
-    content: `Fazer um podcast de sucesso em 2023 é um desafio, mas não é impossível. Você precisa ter uma ideia original, uma boa qualidade de som, uma estratégia de divulgação e uma forma de monetização. Veja a seguir alguns passos para criar o seu podcast:
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+Fazer um podcast de sucesso em 2023 é um desafio, mas não é impossível. Você precisa ter uma ideia original, uma boa qualidade de som, uma estratégia de divulgação e uma forma de monetização. Veja a seguir alguns passos para criar o seu podcast:
 
 ## 1. Defina o seu tema e o seu público-alvo
 
@@ -441,7 +469,9 @@ O sexto passo é divulgar e monetizar o seu podcast. A divulgação consiste em 
     createdAt: getDateBetweenNowAnd(7),
     title: "Como escrever um livro em 30 dias",
     description: "Você tem o sonho de escrever um livro, mas não sabe por onde começar ou como terminar? Neste post, vamos te ensinar como escrever um livro em 30 dias, seguindo um método simples e eficaz. Você vai",
-    content: `## 1. Planeje o seu livro
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+## 1. Planeje o seu livro
 
 O primeiro passo é planejar o seu livro, ou seja, definir o gênero, o tema, o público-alvo, a sinopse, os personagens e o enredo do seu livro. Você deve ter uma ideia clara do que você quer escrever e para quem você quer escrever. Você também deve ter uma visão geral da história que você quer contar, com os principais eventos e conflitos.
 
@@ -470,7 +500,9 @@ Esses foram os passos para escrever um livro em 30 dias. Espero que você tenha 
     createdAt: getDateBetweenNowAnd(7),
     title: "Como fazer um bolo de chocolate delicioso e fácil",
     description: "Você adora bolo de chocolate, mas não sabe como fazer um que fique fofinho, molhadinho e saboroso? Neste post, vamos te ensinar como fazer um bolo de chocolate delicioso e fácil, usando apenas alguns",
-    content: `## Ingredientes
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+## Ingredientes
 
 Para fazer o bolo, você vai precisar de:
 
@@ -519,7 +551,9 @@ Se você quiser ver outras receitas de bolo de chocolate, você pode pesquisar n
     createdAt: getDateBetweenNowAnd(7),
     title: "Como se preparar para uma entrevista de emprego em 2023",
     description: "Você está procurando um novo emprego em 2023, mas não sabe como se preparar para uma entrevista de emprego? Neste post, vamos te dar algumas dicas de como se preparar para uma entrevista de emprego",
-    content: `## 1. Pesquise sobre a empresa e a vaga
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+## 1. Pesquise sobre a empresa e a vaga
 
 Antes de ir para a entrevista, é importante que você pesquise sobre a empresa e a vaga que você está se candidatando. Você pode usar o site da empresa, as redes sociais, os sites especializados e as notícias para obter informações sobre a missão, a visão, os valores, os produtos, os serviços, os clientes, os concorrentes e os resultados da empresa. Você também pode analisar a descrição da vaga, as habilidades, as qualificações e as experiências exigidas para o cargo.
 
@@ -563,7 +597,9 @@ Essas foram as nossas dicas de como se preparar para uma entrevista de emprego e
     createdAt: getDateBetweenNowAnd(7),
     title: "Como assistir aos melhores filmes de 2023 sem sair de casa",
     description: "Você é um cinéfilo de carteirinha, mas não pode ir ao cinema por causa da pandemia ou por falta de dinheiro? Não se preocupe, você ainda pode assistir aos melhores filmes de 2023 sem sair de casa",
-    content: `## O que são serviços de streaming online?
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+## O que são serviços de streaming online?
 
 Serviços de streaming online são plataformas digitais que permitem que você assista a filmes, séries, documentários e outros conteúdos audiovisuais pela internet, sem precisar baixar ou alugar os arquivos. Você pode acessar esses serviços pelo seu computador, celular, tablet ou smart TV, pagando uma assinatura mensal ou anual, ou até mesmo de forma gratuita.
 
@@ -597,7 +633,9 @@ Essas foram as minhas dicas de como assistir aos melhores filmes de 2023 sem sai
     createdAt: getDateBetweenNowAnd(7),
     title: "Como tocar guitarra em 30 dias",
     description: "Você sempre quis aprender a tocar guitarra, mas nunca teve tempo ou dinheiro para fazer aulas? Neste post, vamos te mostrar como tocar guitarra em 30 dias, seguindo um método simples e eficiente.",
-    content: `## O que você vai precisar
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+## O que você vai precisar
 
 Para tocar violão em 30 dias, você vai precisar de:
 
@@ -631,7 +669,9 @@ Esses foram os passos para tocar violão em 30 dias. Esperamos que você tenha g
     createdAt: getDateBetweenNowAnd(7),
     title: "Como cuidar do seu cabelo cacheado com produtos naturais",
     description: "Você tem cabelos cacheados, mas não sabe como cuidar deles com produtos naturais? Neste post, vamos te mostrar como cuidar do seu cabelo cacheado com produtos naturais, usando ingredientes naturais",
-    content: `## 1. Hidrate o seu cabelo com abacate e mel
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+## 1. Hidrate o seu cabelo com abacate e mel
 
 O abacate e o mel são dois ingredientes naturais que podem hidratar profundamente o seu cabelo cacheado, deixando-o macio, brilhante e definido. O abacate é rico em gorduras saudáveis, vitaminas e antioxidantes, que nutrem e protegem os fios. O mel é um umectante natural, que atrai e retém a umidade no cabelo.
 
@@ -675,7 +715,9 @@ Essas foram as minhas dicas de como cuidar do seu cabelo cacheado com produtos n
     createdAt: getDateBetweenNowAnd(7),
     title: "Como fazer um jardim vertical com garrafas pet",
     description: "Você quer ter um jardim bonito e sustentável na sua casa, mas não tem espaço ou dinheiro para comprar vasos e plantas? Neste post, vamos te ensinar como fazer um jardim vertical com garrafas pet",
-    content: `## Por que optar por um jardim vertical?
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+## Por que optar por um jardim vertical?
 
 Os jardins verticais têm se tornado cada vez mais populares, e por boas razões. Além de serem uma excelente opção para quem tem pouco espaço disponível, eles também trazem diversos benefícios, como:
 
@@ -745,7 +787,9 @@ Pronto! Agora você tem um belo jardim vertical sustentável e econômico em sua
     createdAt: getDateBetweenNowAnd(7),
     title: "Como aprender a tocar piano em 30 dias",
     description: "Você sempre quis aprender a tocar piano, mas nunca teve tempo ou dinheiro para fazer aulas? Neste post, vamos te mostrar como aprender a tocar piano em 30 dias, seguindo um método simples e eficiente",
-    content: `# Aprenda a Tocar Piano em 30 Dias: Um Método Simples e Eficiente
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+# Aprenda a Tocar Piano em 30 Dias: Um Método Simples e Eficiente
 
 Se você sempre sonhou em tocar piano, mas nunca teve a oportunidade de fazer aulas ou achou que seria um processo demorado, temos boas notícias para você! Neste post, vamos te apresentar um método simples e eficiente para aprender a tocar piano em apenas 30 dias.
 
@@ -794,7 +838,9 @@ Lembre-se de que aprender a tocar piano é uma jornada, e cada pessoa progride e
     createdAt: getDateBetweenNowAnd(7),
     title: "Como fazer uma horta orgânica em casa",
     description: "Você quer ter alimentos frescos, saudáveis e sem agrotóxicos na sua mesa, mas não sabe como cultivar uma horta orgânica em casa? Neste post, vamos te ensinar como fazer uma horta orgânica em casa",
-    content: `# Cultivando Alimentos Saudáveis e Livres de Agrotóxicos: Como Criar uma Horta Orgânica em Casa
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+# Cultivando Alimentos Saudáveis e Livres de Agrotóxicos: Como Criar uma Horta Orgânica em Casa
 
 Ter uma horta orgânica em casa é uma maneira gratificante de garantir alimentos frescos, saudáveis e livres de agrotóxicos na sua mesa. Além disso, cultivar seus próprios alimentos é uma atividade prazerosa que conecta você à natureza e ao ciclo da vida. Neste post, vamos te ensinar o passo a passo para criar uma horta orgânica em casa e desfrutar dos benefícios de uma alimentação mais natural.
 
@@ -853,7 +899,9 @@ Lembre-se de que criar uma horta orgânica é um processo recompensador, mas que
     createdAt: getDateBetweenNowAnd(7),
     title: "Como fazer um currículo de sucesso em 2023",
     description: "Você está procurando um novo emprego em 2023, mas não sabe como fazer um currículo de sucesso? Neste post, vamos te dar algumas dicas de como fazer um currículo de sucesso em 2023, como escolher",
-    content: `# Construindo um Currículo de Sucesso em 2023: Dicas Essenciais e Escolhas Estratégicas
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+# Construindo um Currículo de Sucesso em 2023: Dicas Essenciais e Escolhas Estratégicas
 
 Em um mercado de trabalho em constante evolução, destacar-se entre os candidatos é crucial para conquistar um novo emprego. Se você está buscando uma oportunidade em 2023 e deseja criar um currículo de sucesso, siga estas dicas e faça escolhas estratégicas para impressionar os recrutadores.
 
@@ -916,7 +964,9 @@ Lembre-se de que um currículo de sucesso destaca suas habilidades, experiência
     createdAt: getDateBetweenNowAnd(7),
     title: "Como fazer uma maquiagem simples e bonita para o dia a dia",
     description: "Você quer ficar mais bonita e confiante no seu dia a dia, mas não sabe como fazer uma maquiagem simples e bonita? Neste post, vamos te ensinar como fazer uma maquiagem simples e bonita para o dia",
-    content: `# Maquiagem Simples e Bonita para o Dia a Dia: Dicas para se Sentir Confidente e Deslumbrante
+    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+
+# Maquiagem Simples e Bonita para o Dia a Dia: Dicas para se Sentir Confidente e Deslumbrante
 
 Uma maquiagem simples e bem-feita pode realçar sua beleza natural e aumentar sua confiança no dia a dia. Se você deseja um visual leve e bonito para o cotidiano, siga essas dicas e aprenda a criar uma maquiagem que destaque seus melhores traços.
 
