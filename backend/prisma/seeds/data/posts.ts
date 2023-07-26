@@ -9,7 +9,7 @@ const posts = [
     createdAt: getDateBetweenNowAnd(7),
     title: "Como tirar fotos incríveis com o seu celular",
     description: "Você sabia que o seu celular pode ser uma ótima ferramenta para tirar fotos incríveis? Neste post, vamos te dar algumas dicas de como aproveitar ao máximo a câmera do seu smartphone e capturar imagens",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 Você sabia que o seu celular pode ser uma ótima ferramenta para tirar fotos incríveis? Neste post, vamos te dar algumas dicas de como aproveitar ao máximo a câmera do seu smartphone e capturar imagens que vão impressionar os seus amigos e seguidores. Veja só:
 
@@ -44,7 +44,7 @@ Essas foram as nossas dicas de como tirar fotos incríveis com o seu celular. Es
     createdAt: getDateBetweenNowAnd(7),
     title: "Os melhores jogos de 2023 para PC e consoles",
     description: "O ano de 2023 está cheio de lançamentos imperdíveis para os amantes de jogos eletrônicos. Neste post, vamos te mostrar os melhores jogos de 2023 para PC e consoles, desde os mais esperados até os mai",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 O ano de 2023 está cheio de lançamentos imperdíveis para os amantes de jogos eletrônicos. Neste post, vamos te mostrar os melhores jogos de 2023 para PC e consoles, desde os mais esperados até os mais surpreendentes. Confira a nossa lista e prepare-se para se divertir muito!
 
@@ -77,7 +77,7 @@ Os fãs do universo de Harry Potter também têm motivos para comemorar em 2023.
     createdAt: getDateBetweenNowAnd(7),
     title: "Como economizar dinheiro e investir melhor em 2023",
     description: "Você quer ter mais controle sobre as suas finanças e fazer o seu dinheiro render mais em 2023? Neste post, vamos te ensinar como economizar dinheiro e investir melhor em 2023, seguindo algumas dicas",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 ## 1. Faça um planejamento financeiro
 
@@ -110,7 +110,7 @@ Essas foram as nossas dicas de como economizar dinheiro e investir melhor em 202
     createdAt: getDateBetweenNowAnd(7),
     title: "Como aprender a programar do zero em 2023",
     description: "Você tem vontade de aprender a programar, mas não sabe por onde começar? Neste post, vamos te mostrar como aprender a programar do zero em 2023, seguindo um passo a passo simples e prático.",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 Aprender a programar é uma habilidade muito útil e valorizada no mercado de trabalho atual. Além de abrir portas para diversas oportunidades profissionais, programar também pode ser uma forma de expressar a sua criatividade, resolver problemas e se divertir. Neste post, vamos te mostrar como aprender a programar do zero em 2023, seguindo um passo a passo simples e prático. Veja só:
 
@@ -150,7 +150,7 @@ Esses foram os nossos passos para aprender a programar do zero em 2023. Esperamo
     createdAt: getDateBetweenNowAnd(7),
     title: "Como fazer receitas deliciosas com ingredientes simples",
     description: "Você quer impressionar os seus convidados com receitas deliciosas, mas não tem tempo nem dinheiro para comprar ingredientes sofisticados?",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 Neste post, vamos te ensinar como fazer receitas deliciosas com ingredientes simples que você provavelmente já tem na sua cozinha. Veja só:
 
@@ -177,7 +177,7 @@ Essas foram as nossas receitas deliciosas com ingredientes simples. Esperamos qu
     createdAt: getDateBetweenNowAnd(7),
     title: "Como cuidar da sua saúde mental em tempos de pandemia",
     description: "A pandemia do coronavírus trouxe muitos desafios e incertezas para a nossa vida. Muitas pessoas estão sofrendo com ansiedade, estresse, depressão e outros problemas de saúde mental",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 Neste post, vamos te dar algumas dicas de como cuidar da sua saúde mental em tempos de pandemia. Veja só:
 
@@ -208,7 +208,7 @@ Essas foram as nossas dicas de como cuidar da sua saúde mental em tempos de pan
     createdAt: getDateBetweenNowAnd(7),
     title: "Como viajar pelo mundo sem sair de casa",
     description: "Você ama viajar, mas não pode sair de casa por causa da pandemia ou por falta de dinheiro? Não se preocupe, você ainda pode conhecer novos lugares e culturas sem sair do seu sofá.",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 Neste post, vamos te mostrar como viajar pelo mundo sem sair de casa, usando a internet e a sua imaginação. Veja só:
 
@@ -239,7 +239,7 @@ Essas foram as nossas dicas de como viajar pelo mundo sem sair de casa. Esperamo
     createdAt: getDateBetweenNowAnd(7),
     title: "Como fazer arte com materiais reciclados",
     description: "Você quer expressar a sua criatividade e ainda ajudar o meio ambiente? Então você vai adorar essa ideia: fazer arte com materiais reciclados. Neste post, vamos te ensinar como fazer arte com",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 Neste post, eu vou te ensinar como fazer arte com materiais reciclados, usando objetos que você pode encontrar na sua casa ou no seu lixo. Veja só:
 
@@ -278,7 +278,7 @@ Essas foram as nossas dicas de como fazer arte com materiais reciclados. Esperam
     createdAt: getDateBetweenNowAnd(7),
     title: "Como escolher a carreira certa para você",
     description: "Você está em dúvida sobre qual carreira seguir? Você quer saber quais são as suas aptidões, interesses e valores?",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 Escolher a carreira certa para você é uma decisão importante, que pode afetar a sua felicidade, o seu sucesso e o seu propósito de vida. Neste post, vamos te ajudar a escolher a carreira certa para você, usando alguns passos simples e práticos. Veja só:
 
@@ -313,7 +313,7 @@ Esses foram os nossos passos para escolher a carreira certa para você. Esperamo
     createdAt: getDateBetweenNowAnd(7),
     title: "Como tocar violão em 30 dias",
     description: "Você sempre quis aprender a tocar violão, mas nunca teve tempo ou dinheiro para fazer aulas? Neste post, vamos te mostrar como tocar violão em 30 dias, seguindo um método simples e eficiente.",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 ## O que você vai precisar
 
@@ -349,7 +349,7 @@ Esses foram os passos para tocar violão em 30 dias. Esperamos que você tenha g
     createdAt: getDateBetweenNowAnd(7),
     title: "Como cuidar da sua beleza natural com produtos caseiros",
     description: "Você quer ficar mais bonita e saudável sem gastar muito dinheiro com produtos químicos e artificiais?",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 Neste post, eu vou te dar algumas dicas de como ficar mais bonita e saudável sem gastar muito dinheiro com produtos químicos e artificiais. Veja só:
 
@@ -369,7 +369,7 @@ Essas foram as minhas dicas de como cuidar da sua beleza natural com produtos ca
     createdAt: getDateBetweenNowAnd(7),
     title: "Como aprender um novo idioma em 2023",
     description: "Você quer expandir os seus horizontes e aprender um novo idioma em 2023? Neste post, vamos te dar algumas dicas de como aprender um novo idioma em 2023.",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 ## 1. Escolha um idioma que te motive
 
@@ -401,7 +401,7 @@ Existem vários cursos online de idiomas disponíveis na internet, cada um com s
     createdAt: getDateBetweenNowAnd(7),
     title: "Como praticar esportes em casa sem equipamentos",
     description: "Você quer manter a forma e a saúde, mas não tem tempo ou dinheiro para ir à academia ou comprar equipamentos? Neste post, vamos te ensinar como praticar esportes em casa sem equipamentos, usando",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 ## 1. Pular corda
 
@@ -432,7 +432,7 @@ Essas foram as minhas dicas de como praticar esportes em casa sem equipamentos. 
     createdAt: getDateBetweenNowAnd(7),
     title: "Como fazer um podcast de sucesso em 2023",
     description: "Você tem uma ideia incrível para um podcast, mas não sabe como começar ou como divulgar o seu trabalho? Neste post, vamos te mostrar como fazer um podcast de sucesso em 2023, seguindo alguns passos",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 Fazer um podcast de sucesso em 2023 é um desafio, mas não é impossível. Você precisa ter uma ideia original, uma boa qualidade de som, uma estratégia de divulgação e uma forma de monetização. Veja a seguir alguns passos para criar o seu podcast:
 
@@ -469,7 +469,7 @@ O sexto passo é divulgar e monetizar o seu podcast. A divulgação consiste em 
     createdAt: getDateBetweenNowAnd(7),
     title: "Como escrever um livro em 30 dias",
     description: "Você tem o sonho de escrever um livro, mas não sabe por onde começar ou como terminar? Neste post, vamos te ensinar como escrever um livro em 30 dias, seguindo um método simples e eficaz. Você vai",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 ## 1. Planeje o seu livro
 
@@ -500,7 +500,7 @@ Esses foram os passos para escrever um livro em 30 dias. Espero que você tenha 
     createdAt: getDateBetweenNowAnd(7),
     title: "Como fazer um bolo de chocolate delicioso e fácil",
     description: "Você adora bolo de chocolate, mas não sabe como fazer um que fique fofinho, molhadinho e saboroso? Neste post, vamos te ensinar como fazer um bolo de chocolate delicioso e fácil, usando apenas alguns",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 ## Ingredientes
 
@@ -551,7 +551,7 @@ Se você quiser ver outras receitas de bolo de chocolate, você pode pesquisar n
     createdAt: getDateBetweenNowAnd(7),
     title: "Como se preparar para uma entrevista de emprego em 2023",
     description: "Você está procurando um novo emprego em 2023, mas não sabe como se preparar para uma entrevista de emprego? Neste post, vamos te dar algumas dicas de como se preparar para uma entrevista de emprego",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 ## 1. Pesquise sobre a empresa e a vaga
 
@@ -597,7 +597,7 @@ Essas foram as nossas dicas de como se preparar para uma entrevista de emprego e
     createdAt: getDateBetweenNowAnd(7),
     title: "Como assistir aos melhores filmes de 2023 sem sair de casa",
     description: "Você é um cinéfilo de carteirinha, mas não pode ir ao cinema por causa da pandemia ou por falta de dinheiro? Não se preocupe, você ainda pode assistir aos melhores filmes de 2023 sem sair de casa",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 ## O que são serviços de streaming online?
 
@@ -633,7 +633,7 @@ Essas foram as minhas dicas de como assistir aos melhores filmes de 2023 sem sai
     createdAt: getDateBetweenNowAnd(7),
     title: "Como tocar guitarra em 30 dias",
     description: "Você sempre quis aprender a tocar guitarra, mas nunca teve tempo ou dinheiro para fazer aulas? Neste post, vamos te mostrar como tocar guitarra em 30 dias, seguindo um método simples e eficiente.",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 ## O que você vai precisar
 
@@ -669,7 +669,7 @@ Esses foram os passos para tocar violão em 30 dias. Esperamos que você tenha g
     createdAt: getDateBetweenNowAnd(7),
     title: "Como cuidar do seu cabelo cacheado com produtos naturais",
     description: "Você tem cabelos cacheados, mas não sabe como cuidar deles com produtos naturais? Neste post, vamos te mostrar como cuidar do seu cabelo cacheado com produtos naturais, usando ingredientes naturais",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 ## 1. Hidrate o seu cabelo com abacate e mel
 
@@ -715,7 +715,7 @@ Essas foram as minhas dicas de como cuidar do seu cabelo cacheado com produtos n
     createdAt: getDateBetweenNowAnd(7),
     title: "Como fazer um jardim vertical com garrafas pet",
     description: "Você quer ter um jardim bonito e sustentável na sua casa, mas não tem espaço ou dinheiro para comprar vasos e plantas? Neste post, vamos te ensinar como fazer um jardim vertical com garrafas pet",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 ## Por que optar por um jardim vertical?
 
@@ -787,7 +787,7 @@ Pronto! Agora você tem um belo jardim vertical sustentável e econômico em sua
     createdAt: getDateBetweenNowAnd(7),
     title: "Como aprender a tocar piano em 30 dias",
     description: "Você sempre quis aprender a tocar piano, mas nunca teve tempo ou dinheiro para fazer aulas? Neste post, vamos te mostrar como aprender a tocar piano em 30 dias, seguindo um método simples e eficiente",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 # Aprenda a Tocar Piano em 30 Dias: Um Método Simples e Eficiente
 
@@ -838,7 +838,7 @@ Lembre-se de que aprender a tocar piano é uma jornada, e cada pessoa progride e
     createdAt: getDateBetweenNowAnd(7),
     title: "Como fazer uma horta orgânica em casa",
     description: "Você quer ter alimentos frescos, saudáveis e sem agrotóxicos na sua mesa, mas não sabe como cultivar uma horta orgânica em casa? Neste post, vamos te ensinar como fazer uma horta orgânica em casa",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 # Cultivando Alimentos Saudáveis e Livres de Agrotóxicos: Como Criar uma Horta Orgânica em Casa
 
@@ -899,7 +899,7 @@ Lembre-se de que criar uma horta orgânica é um processo recompensador, mas que
     createdAt: getDateBetweenNowAnd(7),
     title: "Como fazer um currículo de sucesso em 2023",
     description: "Você está procurando um novo emprego em 2023, mas não sabe como fazer um currículo de sucesso? Neste post, vamos te dar algumas dicas de como fazer um currículo de sucesso em 2023, como escolher",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 # Construindo um Currículo de Sucesso em 2023: Dicas Essenciais e Escolhas Estratégicas
 
@@ -964,7 +964,7 @@ Lembre-se de que um currículo de sucesso destaca suas habilidades, experiência
     createdAt: getDateBetweenNowAnd(7),
     title: "Como fazer uma maquiagem simples e bonita para o dia a dia",
     description: "Você quer ficar mais bonita e confiante no seu dia a dia, mas não sabe como fazer uma maquiagem simples e bonita? Neste post, vamos te ensinar como fazer uma maquiagem simples e bonita para o dia",
-    content: `> O conteúdo desse post foi gerado pelo ChatGPT
+    content: `> *IMPORTANTE:* O conteúdo desse post foi gerado pelo ChatGPT
 
 # Maquiagem Simples e Bonita para o Dia a Dia: Dicas para se Sentir Confidente e Deslumbrante
 
