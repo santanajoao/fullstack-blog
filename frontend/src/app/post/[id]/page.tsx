@@ -40,7 +40,7 @@ export default async function PostPage({ params }: Params) {
           <p>{postData.description}</p>
 
           <div className="flex justify-between">
-            <Link href={`/writer/${postData.account.id}`} className="w-fit flex items-center gap-2">
+            <Link href={`/author/${postData.account.id}`} className="w-fit flex items-center gap-2">
               <Image
                 width={40}
                 height={40}
