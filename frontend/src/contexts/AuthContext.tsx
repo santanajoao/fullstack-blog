@@ -15,6 +15,7 @@ import { parseCookies, setCookie, destroyCookie } from 'nookies';
 interface ContextValues {
   error: string | null;
   user: User | null;
+  isLoading: boolean;
   signIn(fields: SignInFields): Promise<void>;
   signUp(fields: SignUpFields): Promise<void>;
   signOut(): void;
@@ -25,6 +26,7 @@ export const AuthContext = createContext({} as ContextValues);
 export function AuthProvider({ children }: ChildrenProps) {
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -37,10 +39,12 @@ export function AuthProvider({ children }: ChildrenProps) {
   const refreshUserData = async () => {
     const { 'blog.session.token': token } = parseCookies();
     if (token) {
+      setIsLoading(true);
       const { success, data } = await requestUserData(token);
       if (success) {
         setUser(data);
       }
+      setIsLoading(false);
     }
   };
 
@@ -63,25 +67,30 @@ export function AuthProvider({ children }: ChildrenProps) {
   };
 
   const signIn = async ({ email, password }: SignInFields) => {
+    setIsLoading(true);
     const signResponse = await requestSignIn({ email, password });
 
     handleSignData(signResponse);
+    setIsLoading(false);
   };
 
   const signUp = async ({ email, password, username }: SignUpFields) => {
+    setIsLoading(true);
     const signResponse = await requestSignUp({ email, password, username });
 
     handleSignData(signResponse);
+    setIsLoading(false);
   };
 
   const signOut = () => {
     destroyCookie(null, 'blog.session.token');
     setUser(null);
+    setIsLoading(false);
   };
 
   const values = useMemo(() => ({
-    error, user, signIn, signUp, signOut,
-  }), [error, user]);
+    error, user, isLoading, signIn, signUp, signOut,
+  }), [error, user, isLoading]);
 
   return (
     <AuthContext.Provider value={values}>

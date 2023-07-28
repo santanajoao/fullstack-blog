@@ -1,34 +1,33 @@
 'use client';
 
 import React, { useContext, useState } from 'react';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import userPicture from '@/../public/user.webp';
 import { AuthContext } from '@/contexts/AuthContext';
+import SignLinks from './SignLinks';
 
-interface Props {
-  username: string;
-  imageUrl: string | StaticImageData | null;
-}
-
-export default function UserCard({ username, imageUrl }: Props) {
+export default function UserCard() {
   const [isOpen, setIsOpen] = useState(false);
+  const { signOut, user, isLoading } = useContext(AuthContext);
 
-  const { signOut } = useContext(AuthContext);
+  if (!isLoading && !user) {
+    return <SignLinks />;
+  }
 
   return (
     <div className="relative" id="user-actions">
       <button
         type="button"
         className="peer flex items-center space-x-2 rounded-full p-1 pl-2 hover:bg-black/5"
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={isLoading ? undefined : () => setIsOpen((prev) => !prev)}
       >
-        <span>{username}</span>
+        <span>{user?.username ?? 'usuário'}</span>
 
         <Image
           className="w-9 h-9 rounded-full object-cover bg-primaryGreen/30 p-1"
-          src={imageUrl ?? userPicture}
-          alt={`Foto de perfil de ${username}`}
+          src={user?.imageUrl ?? userPicture}
+          alt={`Foto de perfil de ${user?.username}`}
           width={50}
           height={50}
         />

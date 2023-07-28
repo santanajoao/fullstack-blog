@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import HeaderWrapper from './HeaderWrapper';
 import BlogLogo from '../BlogLogo';
-import UserActions from './UserActions';
+import UserCard from './UserCard';
 
 export default function HomeHeader() {
   return (
@@ -11,7 +11,7 @@ export default function HomeHeader() {
         <BlogLogo size="small" />
       </Link>
 
-      <UserActions />
+      <UserCard />
     </HeaderWrapper>
   );
 }
