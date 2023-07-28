@@ -18,7 +18,7 @@ export default function PostItemLink({
   const dayMonth = dateToDayMonthString(date);
 
   return (
-    <Link href={link} className="h-full w-full space-y-1 pt-2 px-1 block pb-3">
+    <Link href={link} className="h-full w-full flex flex-col gap-1 pt-2 px-1 pb-3">
       <Image
         width={599}
         src={image}
@@ -26,11 +26,11 @@ export default function PostItemLink({
         className="object-cover rounded-2xl w-full aspect-video bg-primaryGreen bg-opacity-50"
         alt={title}
       />
-      <span className="text-xs">{`${author} - ${dayMonth}`}</span>
+      <span className="text-xs mt-1">{`${author} - ${dayMonth}`}</span>
       <h3 className="font-bold text-lg leading-6 line-clamp-3 break-words">
         {title}
       </h3>
-      <p className="mt-1 text-justify line-clamp-4 break-words leading-5">{description}</p>
+      <p className="text-justify line-clamp-4 break-words leading-5">{description}</p>
     </Link>
   );
 }
