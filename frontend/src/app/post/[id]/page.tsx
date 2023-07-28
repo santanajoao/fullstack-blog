@@ -8,6 +8,7 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { dateToDayMonthString } from '@/utils/date';
+import Footer from '@/components/Footer';
 import styles from './style.module.css';
 
 interface Params {
@@ -79,6 +80,7 @@ export default async function PostPage({ params }: Params) {
           {postData.content}
         </ReactMarkdown>
       </main>
+      <Footer />
     </>
   );
 }
