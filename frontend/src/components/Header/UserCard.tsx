@@ -19,10 +19,10 @@ export default function UserCard() {
     <div className="relative" id="user-actions">
       <button
         type="button"
-        className="peer flex items-center space-x-2 rounded-full p-1 pl-2 hover:bg-black/5"
+        className="peer flex items-center space-x-1 rounded-full p-1 hover:bg-black/5"
         onClick={isLoading ? undefined : () => setIsOpen((prev) => !prev)}
       >
-        <span>{user?.username ?? 'usuário'}</span>
+        {user?.username && <span className="px-1">{user?.username}</span>}
 
         <Image
           className="w-9 h-9 rounded-full object-cover bg-primaryGreen/30 p-1"

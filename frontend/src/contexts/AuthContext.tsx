@@ -36,22 +36,6 @@ export function AuthProvider({ children }: ChildrenProps) {
     }
   }, [pathname, router, user]);
 
-  const refreshUserData = async () => {
-    const { 'blog.session.token': token } = parseCookies();
-    if (token) {
-      setIsLoading(true);
-      const { success, data } = await requestUserData(token);
-      if (success) {
-        setUser(data);
-      }
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    refreshUserData();
-  }, []);
-
   const handleSignData = ({ success, data }: ServiceResponse<SignResponse>) => {
     if (success) {
       setCookie(null, 'blog.session.token', data.token, {
@@ -87,6 +71,24 @@ export function AuthProvider({ children }: ChildrenProps) {
     setUser(null);
     setIsLoading(false);
   };
+
+  const refreshUserData = async () => {
+    const { 'blog.session.token': token } = parseCookies();
+    if (token) {
+      setIsLoading(true);
+      const { success, data } = await requestUserData(token);
+      if (success) {
+        setUser(data);
+      } else {
+        signOut();
+      }
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    refreshUserData();
+  }, [pathname]);
 
   const values = useMemo(() => ({
     error, user, isLoading, signIn, signUp, signOut,
