@@ -43,9 +43,21 @@ const handleGetPostById = async (req: Request, res: Response) => {
   res.status(200).json(data);
 };
 
+const handleGetPostsByAuthor = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const { status, data } = await postService.getPostByAuthor(id);
+  if (status !== 'SUCCESS') {
+    return res.status(mapErrorStatus(status)).json(data);
+  }
+
+  res.status(200).json(data);
+};
+
 export default {
   handleGetPopularPosts,
   handleGetPostsByTopicId,
   handleGetTopicPosts,
   handleGetPostById,
+  handleGetPostsByAuthor,
 };

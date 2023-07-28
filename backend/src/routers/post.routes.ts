@@ -1,9 +1,10 @@
 import { Router } from "express";
 import postController from "../controllers/post.controller";
 
-const topicRouter = Router();
+const postRouter = Router();
 
-topicRouter.get('/popular', postController.handleGetPopularPosts);
-topicRouter.get('/:id', postController.handleGetPostById);
+postRouter.get('/popular', postController.handleGetPopularPosts);
+postRouter.get('/:id', postController.handleGetPostById);
+postRouter.get('/author/:id', postController.handleGetPostsByAuthor);
 
-export default topicRouter;
+export default postRouter;

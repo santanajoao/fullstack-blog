@@ -4,6 +4,7 @@ import { AsyncServiceResponse } from "../types/serviceResponse";
 import dates from "../utils/dates";
 import treatQuantity from "./validations/treatQuantity";
 import validateTopicId from "./validations/validateTopicId";
+import { validateAccountId } from "./validations/likeValidations";
 
 const getWeekPopularPosts = async (
   quantity: number,
@@ -104,7 +105,7 @@ const countLikesByTopic = async (topicId: string): Promise<number> => {
   });
 
   return likeCount;
-}
+};
 
 type PostInfos = {
   topic: Topic,
@@ -160,9 +161,51 @@ const getPostById = async (
   return { status: 'SUCCESS', data: post };
 };
 
+const countLikesByAuthor = async (authorId: string): Promise<number> => {
+  const likeCount = await prisma.likes.count({
+    where: {
+      post: {
+        accountId: authorId,
+      },
+    },
+  });
+
+  return likeCount;
+};
+
+type PostByAuthorResponse = {
+  posts: Post[];
+  likeCount: number;
+  postCount: number;
+};
+
+const getPostByAuthor = async (
+  authorId: string
+): AsyncServiceResponse<PostByAuthorResponse> => {
+  const idValidation = await validateAccountId(authorId);
+  if (idValidation.status !== 'SUCCESS') return idValidation;
+  
+  const posts = await prisma.post.findMany({
+    where: {
+      accountId: authorId
+    },
+    orderBy: [
+      { likes: {_count: 'desc' } },
+      { createdAt: 'desc' },
+    ],
+    take: 6,
+  });
+
+  const likeCount = await countLikesByAuthor(authorId);
+  const postCount = posts.length;
+
+  return { status: 'SUCCESS', data: { posts, likeCount, postCount } };
+};
+
 export default {
   getWeekPopularPosts,
   getPostsByTopicId,
   getTopicPostsInfos,
   getPostById,
+  getPostByAuthor,
 };
