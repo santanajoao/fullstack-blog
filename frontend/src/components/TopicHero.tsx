@@ -31,7 +31,7 @@ export default async function TopicHero({ topicId }: Params) {
         className="z-0 absolute inset-0 h-full w-full object-cover"
       />
 
-      <div className="z-10 relative bg-black/60 h-full w-full px-4 sm:px-6 py-10 space-y-2">
+      <div className="z-5 relative bg-black/60 h-full w-full px-4 sm:px-6 py-10 space-y-2">
         <h1 className="font-bold text-lg sm:text-2xl">
           Publicações sobre:
           &nbsp;
