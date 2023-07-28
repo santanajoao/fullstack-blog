@@ -1,6 +1,7 @@
 import React from 'react';
 import { Topic } from '@/types/Topic';
 import Image from 'next/image';
+import PostLikeCount from '../PostLikeCount';
 
 type ResponseData = {
   topic: Topic,
@@ -38,19 +39,7 @@ export default async function TopicHero({ topicId }: Params) {
           <span className="underline font-normal">{data.topic.name}</span>
         </h1>
 
-        <div className="flex gap-4">
-          <span className="text-sm">
-            <span className="font-bold">{data.posts.quantity}</span>
-            {' '}
-            postagens
-          </span>
-
-          <span className="text-sm">
-            <span className="font-bold">{data.posts.likes}</span>
-            {' '}
-            likes
-          </span>
-        </div>
+        <PostLikeCount likeCount={data.posts.likes} postCount={data.posts.quantity} />
       </div>
     </header>
   );
