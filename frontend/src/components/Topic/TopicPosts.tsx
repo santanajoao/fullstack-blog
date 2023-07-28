@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { Post } from '@/types/Post';
 import { requestTopicPosts } from '@/services/posts';
-import PostItemLink from './PostItemLink';
-import PostList from './PostList';
+import PostItemLink from '../PostItemLink';
+import PostList from '../PostList';
 
 interface Props {
   topicId: string;
