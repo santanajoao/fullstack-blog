@@ -34,7 +34,7 @@ O seu celular provavelmente tem vários recursos que podem melhorar as suas foto
 Depois de tirar as suas fotos, você pode editar as suas imagens usando aplicativos específicos para isso. Existem vários apps gratuitos e pagos que oferecem ferramentas de edição profissional, como o Photoshop Express, o Snapseed ou o VSCO. Com esses apps, você pode cortar, girar, redimensionar, ajustar a luz, o contraste, a saturação, a nitidez, aplicar efeitos, molduras, textos e muito mais. Mas cuidado para não exagerar na edição e deixar as suas fotos artificiais demais.
 
 Essas foram as nossas dicas de como tirar fotos incríveis com o seu celular. Esperamos que você tenha gostado e que coloque em prática as nossas sugestões. Se você quiser ver mais conteúdos como este, siga o nosso blog e compartilhe com os seus amigos. Até a próxima!`,
-    accountId: accounts[19].id,
+    accountId: accounts[18].id,
     topics: { connect: [{ id: topics[19].id }, { id: topics[8].id }] },
     likes: { create: [{ accountId: accounts[0].id }, { accountId: accounts[1].id }] }
   },

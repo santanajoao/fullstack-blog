@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import accountService from "../services/account.service";
 import { mapErrorStatus } from "../utils/http";
-import { AccountPublicFields } from "../types/account";
 
 const handlePostAccount = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
@@ -25,10 +24,10 @@ const handlePostSignIn = async (req: Request, res: Response) => {
   res.status(200).json(data);
 };
 
-const handleGetAccountByEmail = async (req: Request, res: Response) => {
-  const account: AccountPublicFields = req.body.local.account;
-
-  const { status, data } = await accountService.getAccountByEmail(account.email);
+const handleGetAccountById = async (req: Request, res: Response) => {
+  const accountId = req.body.local ? req.body.local.account.id : req.params.id;
+  
+  const { status, data } = await accountService.getAccountById(accountId);
   if (status !== 'SUCCESS') {
     return res.status(mapErrorStatus(status)).json(data);
   }
@@ -38,5 +37,5 @@ const handleGetAccountByEmail = async (req: Request, res: Response) => {
 export default {
   handlePostAccount,
   handlePostSignIn,
-  handleGetAccountByEmail,
+  handleGetAccountById,
 };

@@ -2,10 +2,11 @@ import prisma from '../lib/prisma';
 import { AsyncServiceResponse } from '../types/serviceResponse';
 import jwt from '../lib/jwt';
 import bcrypt from '../lib/bcrypt';
-import { validateEmailExistance, validateSignIn } from './validations/signInValidations';
+import { validateSignIn } from './validations/signInValidations';
 import { AccountCreation, AccountPublicFields, SignInFields, SignResponse } from '../types/account';
 import { getAccountPublicFields } from '../utils/account';
 import { validateSignUp } from './validations/signUpValidations';
+import { validateAccountId } from './validations/likeValidations';
 
 const createAccount = async (
   { username, email, password }: AccountCreation
@@ -36,11 +37,11 @@ const signIn = async ({
   return { status: 'SUCCESS', data: { token, account: accountPublicFields } };
 };
 
-const getAccountByEmail = async (email: string): AsyncServiceResponse<AccountPublicFields> => {
-  const validation = await validateEmailExistance(email);
-  if (validation.status !== 'SUCCESS') return validation;
+const getAccountById = async (accountId: string): AsyncServiceResponse<AccountPublicFields> => {
+  const idValidation = await validateAccountId(accountId);
+  if (idValidation.status !== 'SUCCESS') return idValidation;
 
-  const account = validation.data;
+  const account = idValidation.data;
   const accountPublicFields = getAccountPublicFields(account);
 
   return { status: 'SUCCESS', data: accountPublicFields };
@@ -49,5 +50,5 @@ const getAccountByEmail = async (email: string): AsyncServiceResponse<AccountPub
 export default {
   createAccount,
   signIn,
-  getAccountByEmail,
+  getAccountById,
 };

@@ -8,7 +8,7 @@ const accountRouter = Router();
 
 accountRouter.post('/signup', checkForSignUpFields, accountController.handlePostAccount);
 accountRouter.post('/signin', checkForSignInFields, accountController.handlePostSignIn);
-accountRouter.get('/me', validateToken, accountController.handleGetAccountByEmail);
-accountRouter.get('/:id')
+accountRouter.get('/:id', accountController.handleGetAccountById);
+accountRouter.get('/me', validateToken, accountController.handleGetAccountById);
 
 export default accountRouter;
