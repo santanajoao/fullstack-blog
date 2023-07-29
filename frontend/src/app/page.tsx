@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import PopularTopics from '@/components/Topic/PopularTopics';
 import HomeHeader from '@/components/Header/HomeHeader';
 import PopularPosts from '@/components/PopularPosts';
+import SectionListing from '@/components/SectionListing';
 
 export default async function Home() {
   return (
@@ -11,11 +12,11 @@ export default async function Home() {
       <HomeHeader />
       <main>
         <HomeHero />
-        <section className="px-3 sm:px-5 py-4 sm:py-6 space-y-5">
+        <SectionListing.Article>
           <PopularTopics />
 
           <PopularPosts />
-        </section>
+        </SectionListing.Article>
       </main>
 
       <Footer />

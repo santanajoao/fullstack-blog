@@ -1,6 +1,7 @@
 import React from 'react';
 import { Topic } from '@/types/Topic';
 import TopicLink from './TopicLink';
+import SectionListing from '../SectionListing';
 
 export default async function PopularTopics() {
   const response = await fetch(
@@ -10,10 +11,10 @@ export default async function PopularTopics() {
   const popularTopics: Topic[] = await response.json();
 
   return (
-    <article>
-      <h2 className="font-bold text-lg sm:text-2xl">
+    <section>
+      <SectionListing.Title>
         Explore os tópicos mais falados
-      </h2>
+      </SectionListing.Title>
 
       <ul className="mt-3 grid grid-flow-col grid-rows-3 gap-2 sm:grid-rows-2 lg:grid-rows-1">
         {popularTopics.map(({ name, id, imageUrl }) => (
@@ -22,6 +23,6 @@ export default async function PopularTopics() {
           </li>
         ))}
       </ul>
-    </article>
+    </section>
   );
 }

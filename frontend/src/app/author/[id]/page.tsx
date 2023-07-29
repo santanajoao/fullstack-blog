@@ -5,6 +5,9 @@ import Image from 'next/image';
 import React from 'react';
 import defaultPicture from 'public/user.webp';
 import PostLikeCount from '@/components/PostLikeCount';
+import PostList from '@/components/PostList';
+import PostItemLink from '@/components/PostItemLink';
+import SectionListing from '@/components/SectionListing';
 
 interface Props {
   params: {
@@ -46,6 +49,31 @@ export default async function AuthorPage({ params }: Props) {
             </div>
           </div>
         </header>
+
+        <SectionListing.Article>
+          <section>
+            <SectionListing.Title>Melhores publicações</SectionListing.Title>
+
+            {posts.posts.length ? (
+              <PostList.List>
+                {posts.posts.map((post) => (
+                  <PostList.Item key={post.id}>
+                    <PostItemLink
+                      title={post.title}
+                      date={new Date(post.createdAt)}
+                      author={author.username}
+                      description={post.description}
+                      image={`${post.imageUrl}?size=599`}
+                      link={`/post/${post.id}`}
+                    />
+                  </PostList.Item>
+                ))}
+              </PostList.List>
+            ) : (
+              <h3>Esse usuário ainda não fez publicações</h3>
+            )}
+          </section>
+        </SectionListing.Article>
       </main>
     </>
   );

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Post } from '@/types/Post';
 import { requestTopicPosts } from '@/services/posts';
+import SectionListing from '@/components/SectionListing';
 import PostItemLink from '../PostItemLink';
 import PostList from '../PostList';
 
@@ -30,7 +31,7 @@ export default function TopicPosts({ topicId }: Props) {
   }, [filter]);
 
   return (
-    <div className="px-3 sm:px-5 pt-3 pb-5">
+    <SectionListing.Article>
       <div className="space-x-5 pl-1">
         <label htmlFor="sort-posts">Ordenar por:</label>
         <select
@@ -62,6 +63,6 @@ export default function TopicPosts({ topicId }: Props) {
           </PostList.Item>
         ))}
       </PostList.List>
-    </div>
+    </SectionListing.Article>
   );
 }
