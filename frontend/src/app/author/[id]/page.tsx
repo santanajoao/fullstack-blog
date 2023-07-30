@@ -30,7 +30,7 @@ export default async function AuthorPage({ params }: Props) {
     fetch(`http://backend:3001/posts/account/${params.id}`).then((res) => res.json()),
     fetch(`http://backend:3001/topics/account/${params.id}`).then((res) => res.json()),
   ]);
-
+  
   return (
     <>
       <HomeHeader />
@@ -52,6 +52,14 @@ export default async function AuthorPage({ params }: Props) {
         </header>
 
         <SectionListing.Article>
+          <section>
+            <SectionListing.Title>Sobre {author.username}</SectionListing.Title>
+            
+            <p className="max-w-2xl">
+              {author.about ?? 'Esse autor ainda não definiu um "sobre"'}
+            </p>
+          </section>
+
           <section>
             <SectionListing.Title>Fala sobre</SectionListing.Title>
             

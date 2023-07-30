@@ -3,4 +3,5 @@ export type Account = {
   username: string;
   email: string;
   imageUrl: string | null;
+  about: string | null;
 };
