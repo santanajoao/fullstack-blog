@@ -21,6 +21,7 @@ model Topic {
 model Account {
   id       String  @id @default(uuid())
   username String
+  about    String?  @db.VarChar(200)
   email    String  @unique
   password String
   imageUrl String?
@@ -39,7 +40,7 @@ model Post {
   content     String   @db.VarChar(4000)
   createdAt   DateTime @default(now()) @map("created_at")
 
-  accountId String  @map("user_id")
+  accountId String  @map("account_id")
   account   Account @relation(fields: [accountId], references: [id])
 
   topics     Topic[]
@@ -61,7 +62,7 @@ model PostTopic {
 }
 
 model Likes {
-  accountId String  @map("user_id")
+  accountId String  @map("account_id")
   account   Account @relation(fields: [accountId], references: [id])
 
   postId String @map("post_id")
