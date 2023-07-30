@@ -16,7 +16,7 @@ export default async function PopularTopics() {
         Explore os tópicos mais falados
       </SectionListing.Title>
 
-      <ul className="mt-3 grid grid-flow-col grid-rows-3 gap-2 sm:grid-rows-2 lg:grid-rows-1">
+      <ul className="grid grid-flow-col grid-rows-3 gap-2 sm:grid-rows-2 lg:grid-rows-1">
         {popularTopics.map(({ name, id, imageUrl }) => (
           <li key={id} className="w-full aspect-square rounded-2xl overflow-hidden relative group">
             <TopicLink image={`${imageUrl}?size=320`} link={`/topic/${id}`} topic={name} />
