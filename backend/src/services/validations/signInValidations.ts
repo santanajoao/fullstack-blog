@@ -1,11 +1,11 @@
-import { SyncServiceResponse } from "../../types/serviceResponse";
-import { signInSchema } from "./schemas/account.schema";
-import validateSchema from "./validateSchemaFields";
-import { Account } from "@prisma/client";
-import { AsyncServiceResponse } from "../../types/serviceResponse";
-import prisma from "../../lib/prisma";
-import bcrypt from "../../lib/bcrypt";
-import { SignInFields } from "../../types/account";
+import { SyncServiceResponse } from '../../types/serviceResponse';
+import { signInSchema } from './schemas/account.schema';
+import validateSchema from './validateSchemaFields';
+import { Account } from '@prisma/client';
+import { AsyncServiceResponse } from '../../types/serviceResponse';
+import prisma from '../../lib/prisma';
+import bcrypt from '../../lib/bcrypt';
+import { SignInFields } from '../../types/account';
 
 export const validateSignInFields = (
   email: string,

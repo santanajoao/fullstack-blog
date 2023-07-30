@@ -1,6 +1,6 @@
-import { Account, Likes } from "@prisma/client";
-import prisma from "../../lib/prisma";
-import { AsyncServiceResponse } from "../../types/serviceResponse";
+import { Account, Likes } from '@prisma/client';
+import prisma from '../../lib/prisma';
+import { AsyncServiceResponse } from '../../types/serviceResponse';
 
 export const validateAccountId = async (accountId: string): AsyncServiceResponse<Account> => {
   const account = await prisma.account.findUnique({

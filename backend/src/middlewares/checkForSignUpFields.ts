@@ -7,7 +7,7 @@ const checkForSignUpFields = (req: Request, res: Response, next: NextFunction) =
   if (missingField) {
     return res
       .status(400)
-      .json({ message: `O campo "${missingField}" é obrigatório` });
+      .json({ message: `O campo '${missingField}' é obrigatório` });
   }
 
   next();

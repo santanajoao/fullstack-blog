@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import accountService from "../services/account.service";
-import { mapErrorStatus } from "../utils/http";
+import { Request, Response } from 'express';
+import accountService from '../services/account.service';
+import { mapErrorStatus } from '../utils/http';
 
 const handlePostAccount = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;

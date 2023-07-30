@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import likeService from "../services/like.service";
-import { mapErrorStatus } from "../utils/http";
+import { Request, Response } from 'express';
+import likeService from '../services/like.service';
+import { mapErrorStatus } from '../utils/http';
 
 const handlePostLike = async (req: Request, res: Response) => {
   const { accountId, postId } = req.body;

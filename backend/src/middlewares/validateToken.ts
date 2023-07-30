@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from "express";
-import jwt from "../lib/jwt";
+import { NextFunction, Request, Response } from 'express';
+import jwt from '../lib/jwt';
 
 const validateToken = (req: Request, res: Response, next: NextFunction) => {
   const token = req.get('Authorization');

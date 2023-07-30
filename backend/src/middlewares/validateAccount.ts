@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from "express";
-import { SignPayload } from "../types/jwt";
+import { NextFunction, Request, Response } from 'express';
+import { SignPayload } from '../types/jwt';
 
 const validateAccount = (req: Request, res: Response, next: NextFunction) => {
   const { accountId } = req.body;

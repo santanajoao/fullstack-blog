@@ -1,5 +1,5 @@
-import posts from "./posts";
-import accounts from "./accounts";
+import posts from './posts';
+import accounts from './accounts';
 
 const likes = [
   {

@@ -1,14 +1,14 @@
-import accounts from "./accounts";
-import topics from "./topics";
-import { getDateBetweenNowAnd } from "../../../src/utils/dates";
+import accounts from './accounts';
+import topics from './topics';
+import { getDateBetweenNowAnd } from '../../../src/utils/dates';
 
 const posts = [
   {
-    id: "a6f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'a6f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[19].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como tirar fotos incríveis com o seu celular",
-    description: "Você sabia que o seu celular pode ser uma ótima ferramenta para tirar fotos incríveis? Neste post, vamos te dar algumas dicas de como aproveitar ao máximo a câmera do seu smartphone e capturar imagens",
+    title: 'Como tirar fotos incríveis com o seu celular',
+    description: 'Você sabia que o seu celular pode ser uma ótima ferramenta para tirar fotos incríveis? Neste post, vamos te dar algumas dicas de como aproveitar ao máximo a câmera do seu smartphone e capturar imagens',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 Você sabia que o seu celular pode ser uma ótima ferramenta para tirar fotos incríveis? Neste post, vamos te dar algumas dicas de como aproveitar ao máximo a câmera do seu smartphone e capturar imagens que vão impressionar os seus amigos e seguidores. Veja só:
@@ -39,11 +39,11 @@ Essas foram as nossas dicas de como tirar fotos incríveis com o seu celular. Es
     likes: { create: [{ accountId: accounts[0].id }, { accountId: accounts[1].id }] }
   },
   {
-    id: "b7f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'b7f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[10].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Os melhores jogos de 2023 para PC e consoles",
-    description: "O ano de 2023 está cheio de lançamentos imperdíveis para os amantes de jogos eletrônicos. Neste post, vamos te mostrar os melhores jogos de 2023 para PC e consoles, desde os mais esperados até os mai",
+    title: 'Os melhores jogos de 2023 para PC e consoles',
+    description: 'O ano de 2023 está cheio de lançamentos imperdíveis para os amantes de jogos eletrônicos. Neste post, vamos te mostrar os melhores jogos de 2023 para PC e consoles, desde os mais esperados até os mai',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 O ano de 2023 está cheio de lançamentos imperdíveis para os amantes de jogos eletrônicos. Neste post, vamos te mostrar os melhores jogos de 2023 para PC e consoles, desde os mais esperados até os mais surpreendentes. Confira a nossa lista e prepare-se para se divertir muito!
@@ -72,11 +72,11 @@ Os fãs do universo de Harry Potter também têm motivos para comemorar em 2023.
     likes: { create: [{ accountId: accounts[2].id }, { accountId: accounts[3].id }] }
   },
   {
-    id: "c8f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'c8f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[14].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como economizar dinheiro e investir melhor em 2023",
-    description: "Você quer ter mais controle sobre as suas finanças e fazer o seu dinheiro render mais em 2023? Neste post, vamos te ensinar como economizar dinheiro e investir melhor em 2023, seguindo algumas dicas",
+    title: 'Como economizar dinheiro e investir melhor em 2023',
+    description: 'Você quer ter mais controle sobre as suas finanças e fazer o seu dinheiro render mais em 2023? Neste post, vamos te ensinar como economizar dinheiro e investir melhor em 2023, seguindo algumas dicas',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 ## 1. Faça um planejamento financeiro
@@ -105,11 +105,11 @@ Essas foram as nossas dicas de como economizar dinheiro e investir melhor em 202
     likes: { create: [{ accountId: accounts[4].id }, { accountId: accounts[5].id }] }
   },
   {
-    id: "d9f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'd9f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[3].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como aprender a programar do zero em 2023",
-    description: "Você tem vontade de aprender a programar, mas não sabe por onde começar? Neste post, vamos te mostrar como aprender a programar do zero em 2023, seguindo um passo a passo simples e prático.",
+    title: 'Como aprender a programar do zero em 2023',
+    description: 'Você tem vontade de aprender a programar, mas não sabe por onde começar? Neste post, vamos te mostrar como aprender a programar do zero em 2023, seguindo um passo a passo simples e prático.',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 Aprender a programar é uma habilidade muito útil e valorizada no mercado de trabalho atual. Além de abrir portas para diversas oportunidades profissionais, programar também pode ser uma forma de expressar a sua criatividade, resolver problemas e se divertir. Neste post, vamos te mostrar como aprender a programar do zero em 2023, seguindo um passo a passo simples e prático. Veja só:
@@ -145,11 +145,11 @@ Esses foram os nossos passos para aprender a programar do zero em 2023. Esperamo
     likes: { create: [{ accountId: accounts[6].id }, { accountId: accounts[7].id }] }
   },
   {
-    id: "e0f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'e0f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[15].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como fazer receitas deliciosas com ingredientes simples",
-    description: "Você quer impressionar os seus convidados com receitas deliciosas, mas não tem tempo nem dinheiro para comprar ingredientes sofisticados?",
+    title: 'Como fazer receitas deliciosas com ingredientes simples',
+    description: 'Você quer impressionar os seus convidados com receitas deliciosas, mas não tem tempo nem dinheiro para comprar ingredientes sofisticados?',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 Neste post, vamos te ensinar como fazer receitas deliciosas com ingredientes simples que você provavelmente já tem na sua cozinha. Veja só:
@@ -172,11 +172,11 @@ Essas foram as nossas receitas deliciosas com ingredientes simples. Esperamos qu
     likes: { create: [{ accountId: accounts[8].id }, { accountId: accounts[9].id }] }
   },
   {
-    id: "f1f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'f1f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[6].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como cuidar da sua saúde mental em tempos de pandemia",
-    description: "A pandemia do coronavírus trouxe muitos desafios e incertezas para a nossa vida. Muitas pessoas estão sofrendo com ansiedade, estresse, depressão e outros problemas de saúde mental",
+    title: 'Como cuidar da sua saúde mental em tempos de pandemia',
+    description: 'A pandemia do coronavírus trouxe muitos desafios e incertezas para a nossa vida. Muitas pessoas estão sofrendo com ansiedade, estresse, depressão e outros problemas de saúde mental',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 Neste post, vamos te dar algumas dicas de como cuidar da sua saúde mental em tempos de pandemia. Veja só:
@@ -203,11 +203,11 @@ Essas foram as nossas dicas de como cuidar da sua saúde mental em tempos de pan
     likes: { create: [{ accountId: accounts[10].id }] }
   },
   {
-    id: "g2f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'g2f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[5].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como viajar pelo mundo sem sair de casa",
-    description: "Você ama viajar, mas não pode sair de casa por causa da pandemia ou por falta de dinheiro? Não se preocupe, você ainda pode conhecer novos lugares e culturas sem sair do seu sofá.",
+    title: 'Como viajar pelo mundo sem sair de casa',
+    description: 'Você ama viajar, mas não pode sair de casa por causa da pandemia ou por falta de dinheiro? Não se preocupe, você ainda pode conhecer novos lugares e culturas sem sair do seu sofá.',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 Neste post, vamos te mostrar como viajar pelo mundo sem sair de casa, usando a internet e a sua imaginação. Veja só:
@@ -234,11 +234,11 @@ Essas foram as nossas dicas de como viajar pelo mundo sem sair de casa. Esperamo
     likes: { create: [{ accountId: accounts[11].id }, { accountId: accounts[12].id }, { accountId: accounts[13].id }] }
   },
   {
-    id: "h3f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'h3f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[16].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como fazer arte com materiais reciclados",
-    description: "Você quer expressar a sua criatividade e ainda ajudar o meio ambiente? Então você vai adorar essa ideia: fazer arte com materiais reciclados. Neste post, vamos te ensinar como fazer arte com",
+    title: 'Como fazer arte com materiais reciclados',
+    description: 'Você quer expressar a sua criatividade e ainda ajudar o meio ambiente? Então você vai adorar essa ideia: fazer arte com materiais reciclados. Neste post, vamos te ensinar como fazer arte com',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 Neste post, eu vou te ensinar como fazer arte com materiais reciclados, usando objetos que você pode encontrar na sua casa ou no seu lixo. Veja só:
@@ -273,11 +273,11 @@ Essas foram as nossas dicas de como fazer arte com materiais reciclados. Esperam
     likes: { create: [{ accountId: accounts[15].id }] }
   },
   {
-    id: "i4f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'i4f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[7].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como escolher a carreira certa para você",
-    description: "Você está em dúvida sobre qual carreira seguir? Você quer saber quais são as suas aptidões, interesses e valores?",
+    title: 'Como escolher a carreira certa para você',
+    description: 'Você está em dúvida sobre qual carreira seguir? Você quer saber quais são as suas aptidões, interesses e valores?',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 Escolher a carreira certa para você é uma decisão importante, que pode afetar a sua felicidade, o seu sucesso e o seu propósito de vida. Neste post, vamos te ajudar a escolher a carreira certa para você, usando alguns passos simples e práticos. Veja só:
@@ -308,11 +308,11 @@ Esses foram os nossos passos para escolher a carreira certa para você. Esperamo
     likes: { create: [{ accountId: accounts[14].id }, { accountId: accounts[15].id }] }
   },
   {
-    id: "j5f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'j5f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[4].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como tocar violão em 30 dias",
-    description: "Você sempre quis aprender a tocar violão, mas nunca teve tempo ou dinheiro para fazer aulas? Neste post, vamos te mostrar como tocar violão em 30 dias, seguindo um método simples e eficiente.",
+    title: 'Como tocar violão em 30 dias',
+    description: 'Você sempre quis aprender a tocar violão, mas nunca teve tempo ou dinheiro para fazer aulas? Neste post, vamos te mostrar como tocar violão em 30 dias, seguindo um método simples e eficiente.',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 ## O que você vai precisar
@@ -344,11 +344,11 @@ Esses foram os passos para tocar violão em 30 dias. Esperamos que você tenha g
     likes: { create: [{ accountId: accounts[16].id }] }
   },
   {
-    id: "k6f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'k6f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[13].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como cuidar da sua beleza natural com produtos caseiros",
-    description: "Você quer ficar mais bonita e saudável sem gastar muito dinheiro com produtos químicos e artificiais?",
+    title: 'Como cuidar da sua beleza natural com produtos caseiros',
+    description: 'Você quer ficar mais bonita e saudável sem gastar muito dinheiro com produtos químicos e artificiais?',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 Neste post, eu vou te dar algumas dicas de como ficar mais bonita e saudável sem gastar muito dinheiro com produtos químicos e artificiais. Veja só:
@@ -364,11 +364,11 @@ Essas foram as minhas dicas de como cuidar da sua beleza natural com produtos ca
     likes: { create: [{ accountId: accounts[17].id }, { accountId: accounts[18].id }] }
   },
   {
-    id: "l7f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'l7f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[11].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como aprender um novo idioma em 2023",
-    description: "Você quer expandir os seus horizontes e aprender um novo idioma em 2023? Neste post, vamos te dar algumas dicas de como aprender um novo idioma em 2023.",
+    title: 'Como aprender um novo idioma em 2023',
+    description: 'Você quer expandir os seus horizontes e aprender um novo idioma em 2023? Neste post, vamos te dar algumas dicas de como aprender um novo idioma em 2023.',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 ## 1. Escolha um idioma que te motive
@@ -396,11 +396,11 @@ Existem vários cursos online de idiomas disponíveis na internet, cada um com s
     likes: { create: [{ accountId: accounts[19].id }] }
   },
   {
-    id: "m8f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'm8f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[2].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como praticar esportes em casa sem equipamentos",
-    description: "Você quer manter a forma e a saúde, mas não tem tempo ou dinheiro para ir à academia ou comprar equipamentos? Neste post, vamos te ensinar como praticar esportes em casa sem equipamentos, usando",
+    title: 'Como praticar esportes em casa sem equipamentos',
+    description: 'Você quer manter a forma e a saúde, mas não tem tempo ou dinheiro para ir à academia ou comprar equipamentos? Neste post, vamos te ensinar como praticar esportes em casa sem equipamentos, usando',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 ## 1. Pular corda
@@ -427,11 +427,11 @@ Essas foram as minhas dicas de como praticar esportes em casa sem equipamentos. 
     likes: { create: [{ accountId: accounts[1].id }] }
   },
   {
-    id: "n9f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'n9f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[4].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como fazer um podcast de sucesso em 2023",
-    description: "Você tem uma ideia incrível para um podcast, mas não sabe como começar ou como divulgar o seu trabalho? Neste post, vamos te mostrar como fazer um podcast de sucesso em 2023, seguindo alguns passos",
+    title: 'Como fazer um podcast de sucesso em 2023',
+    description: 'Você tem uma ideia incrível para um podcast, mas não sabe como começar ou como divulgar o seu trabalho? Neste post, vamos te mostrar como fazer um podcast de sucesso em 2023, seguindo alguns passos',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 Fazer um podcast de sucesso em 2023 é um desafio, mas não é impossível. Você precisa ter uma ideia original, uma boa qualidade de som, uma estratégia de divulgação e uma forma de monetização. Veja a seguir alguns passos para criar o seu podcast:
@@ -464,11 +464,11 @@ O sexto passo é divulgar e monetizar o seu podcast. A divulgação consiste em 
     likes: { create: [{ accountId: accounts[0].id }] }
   },
   {
-    id: "o0f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'o0f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[18].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como escrever um livro em 30 dias",
-    description: "Você tem o sonho de escrever um livro, mas não sabe por onde começar ou como terminar? Neste post, vamos te ensinar como escrever um livro em 30 dias, seguindo um método simples e eficaz. Você vai",
+    title: 'Como escrever um livro em 30 dias',
+    description: 'Você tem o sonho de escrever um livro, mas não sabe por onde começar ou como terminar? Neste post, vamos te ensinar como escrever um livro em 30 dias, seguindo um método simples e eficaz. Você vai',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 ## 1. Planeje o seu livro
@@ -495,11 +495,11 @@ Esses foram os passos para escrever um livro em 30 dias. Espero que você tenha 
     likes: { create: [{ accountId: accounts[18].id }] }
   },
   {
-    id: "p1f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'p1f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[15].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como fazer um bolo de chocolate delicioso e fácil",
-    description: "Você adora bolo de chocolate, mas não sabe como fazer um que fique fofinho, molhadinho e saboroso? Neste post, vamos te ensinar como fazer um bolo de chocolate delicioso e fácil, usando apenas alguns",
+    title: 'Como fazer um bolo de chocolate delicioso e fácil',
+    description: 'Você adora bolo de chocolate, mas não sabe como fazer um que fique fofinho, molhadinho e saboroso? Neste post, vamos te ensinar como fazer um bolo de chocolate delicioso e fácil, usando apenas alguns',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 ## Ingredientes
@@ -540,17 +540,17 @@ Para fazer a cobertura, siga os seguintes passos:
 
 Pronto! Agora você já sabe como fazer um bolo de chocolate delicioso e fácil. Você pode servir esse bolo no café da manhã, no lanche da tarde ou na sobremesa. Ele fica ótimo acompanhado de um copo de leite gelado ou de uma xícara de café quente.
 
-Se você quiser ver outras receitas de bolo de chocolate, você pode pesquisar no meu site [aqui](^1^). Você também pode ver algumas imagens de bolos de chocolate que eu criei com a minha ferramenta gráfica [aqui](#graphic_art("bolo de chocolate")). Espero que você tenha gostado e que coloque em prática as minhas dicas. Se você quiser ver mais conteúdos como este, siga o meu blog [aqui](^2^) e compartilhe com os seus amigos. Até a próxima!`,
+Se você quiser ver outras receitas de bolo de chocolate, você pode pesquisar no meu site [aqui](^1^). Você também pode ver algumas imagens de bolos de chocolate que eu criei com a minha ferramenta gráfica [aqui](#graphic_art('bolo de chocolate')). Espero que você tenha gostado e que coloque em prática as minhas dicas. Se você quiser ver mais conteúdos como este, siga o meu blog [aqui](^2^) e compartilhe com os seus amigos. Até a próxima!`,
     accountId: accounts[11].id,
     topics: { connect: [{ id: topics[15].id }, { id: topics[13].id }] },
     likes: { create: [{ accountId: accounts[12].id }] }
   },
   {
-    id: "q2f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'q2f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[7].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como se preparar para uma entrevista de emprego em 2023",
-    description: "Você está procurando um novo emprego em 2023, mas não sabe como se preparar para uma entrevista de emprego? Neste post, vamos te dar algumas dicas de como se preparar para uma entrevista de emprego",
+    title: 'Como se preparar para uma entrevista de emprego em 2023',
+    description: 'Você está procurando um novo emprego em 2023, mas não sabe como se preparar para uma entrevista de emprego? Neste post, vamos te dar algumas dicas de como se preparar para uma entrevista de emprego',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 ## 1. Pesquise sobre a empresa e a vaga
@@ -592,11 +592,11 @@ Essas foram as nossas dicas de como se preparar para uma entrevista de emprego e
     likes: { create: [{ accountId: accounts[17].id }] }
   },
   {
-    id: "r3f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'r3f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[17].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como assistir aos melhores filmes de 2023 sem sair de casa",
-    description: "Você é um cinéfilo de carteirinha, mas não pode ir ao cinema por causa da pandemia ou por falta de dinheiro? Não se preocupe, você ainda pode assistir aos melhores filmes de 2023 sem sair de casa",
+    title: 'Como assistir aos melhores filmes de 2023 sem sair de casa',
+    description: 'Você é um cinéfilo de carteirinha, mas não pode ir ao cinema por causa da pandemia ou por falta de dinheiro? Não se preocupe, você ainda pode assistir aos melhores filmes de 2023 sem sair de casa',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 ## O que são serviços de streaming online?
@@ -628,11 +628,11 @@ Essas foram as minhas dicas de como assistir aos melhores filmes de 2023 sem sai
     likes: { create: [{ accountId: accounts[14].id }] }
   },
   {
-    id: "s4f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 's4f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[4].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como tocar guitarra em 30 dias",
-    description: "Você sempre quis aprender a tocar guitarra, mas nunca teve tempo ou dinheiro para fazer aulas? Neste post, vamos te mostrar como tocar guitarra em 30 dias, seguindo um método simples e eficiente.",
+    title: 'Como tocar guitarra em 30 dias',
+    description: 'Você sempre quis aprender a tocar guitarra, mas nunca teve tempo ou dinheiro para fazer aulas? Neste post, vamos te mostrar como tocar guitarra em 30 dias, seguindo um método simples e eficiente.',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 ## O que você vai precisar
@@ -664,11 +664,11 @@ Esses foram os passos para tocar violão em 30 dias. Esperamos que você tenha g
     likes: { create: [{ accountId: accounts[2].id }] }
   },
   {
-    id: "t5f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 't5f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[13].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como cuidar do seu cabelo cacheado com produtos naturais",
-    description: "Você tem cabelos cacheados, mas não sabe como cuidar deles com produtos naturais? Neste post, vamos te mostrar como cuidar do seu cabelo cacheado com produtos naturais, usando ingredientes naturais",
+    title: 'Como cuidar do seu cabelo cacheado com produtos naturais',
+    description: 'Você tem cabelos cacheados, mas não sabe como cuidar deles com produtos naturais? Neste post, vamos te mostrar como cuidar do seu cabelo cacheado com produtos naturais, usando ingredientes naturais',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 ## 1. Hidrate o seu cabelo com abacate e mel
@@ -710,11 +710,11 @@ Essas foram as minhas dicas de como cuidar do seu cabelo cacheado com produtos n
     likes: { create: [{ accountId: accounts[1].id }] }
   },
   {
-    id: "u6f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'u6f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[1].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como fazer um jardim vertical com garrafas pet",
-    description: "Você quer ter um jardim bonito e sustentável na sua casa, mas não tem espaço ou dinheiro para comprar vasos e plantas? Neste post, vamos te ensinar como fazer um jardim vertical com garrafas pet",
+    title: 'Como fazer um jardim vertical com garrafas pet',
+    description: 'Você quer ter um jardim bonito e sustentável na sua casa, mas não tem espaço ou dinheiro para comprar vasos e plantas? Neste post, vamos te ensinar como fazer um jardim vertical com garrafas pet',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 ## Por que optar por um jardim vertical?
@@ -782,11 +782,11 @@ Pronto! Agora você tem um belo jardim vertical sustentável e econômico em sua
     likes: { create: [{ accountId: accounts[10].id }] }
   },
   {
-    id: "v7f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'v7f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[4].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como aprender a tocar piano em 30 dias",
-    description: "Você sempre quis aprender a tocar piano, mas nunca teve tempo ou dinheiro para fazer aulas? Neste post, vamos te mostrar como aprender a tocar piano em 30 dias, seguindo um método simples e eficiente",
+    title: 'Como aprender a tocar piano em 30 dias',
+    description: 'Você sempre quis aprender a tocar piano, mas nunca teve tempo ou dinheiro para fazer aulas? Neste post, vamos te mostrar como aprender a tocar piano em 30 dias, seguindo um método simples e eficiente',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 # Aprenda a Tocar Piano em 30 Dias: Um Método Simples e Eficiente
@@ -833,11 +833,11 @@ Lembre-se de que aprender a tocar piano é uma jornada, e cada pessoa progride e
     likes: { create: [{ accountId: accounts[19].id }] }
   },
   {
-    id: "w8f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'w8f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[15].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como fazer uma horta orgânica em casa",
-    description: "Você quer ter alimentos frescos, saudáveis e sem agrotóxicos na sua mesa, mas não sabe como cultivar uma horta orgânica em casa? Neste post, vamos te ensinar como fazer uma horta orgânica em casa",
+    title: 'Como fazer uma horta orgânica em casa',
+    description: 'Você quer ter alimentos frescos, saudáveis e sem agrotóxicos na sua mesa, mas não sabe como cultivar uma horta orgânica em casa? Neste post, vamos te ensinar como fazer uma horta orgânica em casa',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 # Cultivando Alimentos Saudáveis e Livres de Agrotóxicos: Como Criar uma Horta Orgânica em Casa
@@ -894,11 +894,11 @@ Lembre-se de que criar uma horta orgânica é um processo recompensador, mas que
     likes: { create: [{ accountId: accounts[11].id }] }
   },
   {
-    id: "x9f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'x9f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[7].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como fazer um currículo de sucesso em 2023",
-    description: "Você está procurando um novo emprego em 2023, mas não sabe como fazer um currículo de sucesso? Neste post, vamos te dar algumas dicas de como fazer um currículo de sucesso em 2023, como escolher",
+    title: 'Como fazer um currículo de sucesso em 2023',
+    description: 'Você está procurando um novo emprego em 2023, mas não sabe como fazer um currículo de sucesso? Neste post, vamos te dar algumas dicas de como fazer um currículo de sucesso em 2023, como escolher',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 # Construindo um Currículo de Sucesso em 2023: Dicas Essenciais e Escolhas Estratégicas
@@ -939,7 +939,7 @@ Adicione uma seção para listar suas habilidades relevantes. Além das habilida
 
 ## 9. Referências Disponíveis
 
-Não é mais necessário incluir "Referências disponíveis mediante solicitação" em seu currículo. Caso o recrutador necessite de referências, ele solicitará separadamente.
+Não é mais necessário incluir 'Referências disponíveis mediante solicitação' em seu currículo. Caso o recrutador necessite de referências, ele solicitará separadamente.
 
 ## 10. Revise e Peça Feedback
 
@@ -959,11 +959,11 @@ Lembre-se de que um currículo de sucesso destaca suas habilidades, experiência
     likes: { create: [{ accountId: accounts[17].id }] }
   },
   {
-    id: "y0f1e012-fed2-4ff7-b6cf-d0ddfce219e3",
+    id: 'y0f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[13].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
-    title: "Como fazer uma maquiagem simples e bonita para o dia a dia",
-    description: "Você quer ficar mais bonita e confiante no seu dia a dia, mas não sabe como fazer uma maquiagem simples e bonita? Neste post, vamos te ensinar como fazer uma maquiagem simples e bonita para o dia",
+    title: 'Como fazer uma maquiagem simples e bonita para o dia a dia',
+    description: 'Você quer ficar mais bonita e confiante no seu dia a dia, mas não sabe como fazer uma maquiagem simples e bonita? Neste post, vamos te ensinar como fazer uma maquiagem simples e bonita para o dia',
     content: `> **IMPORTANTE:** O conteúdo desse post foi gerado pelo ChatGPT
 
 # Maquiagem Simples e Bonita para o Dia a Dia: Dicas para se Sentir Confidente e Deslumbrante

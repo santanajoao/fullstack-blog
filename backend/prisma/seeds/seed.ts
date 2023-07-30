@@ -1,7 +1,7 @@
-import prisma from "../../src/lib/prisma";
-import topics from "./data/topics"
-import accounts from "./data/accounts";
-import posts from "./data/posts";
+import prisma from '../../src/lib/prisma';
+import topics from './data/topics'
+import accounts from './data/accounts';
+import posts from './data/posts';
 
 const seed = async () => {
   await prisma.topic.createMany({ data: topics });

@@ -1,8 +1,8 @@
-import { AccountCreation } from "../../types/account";
+import { AccountCreation } from '../../types/account';
 import prisma from '../../lib/prisma';
 import { AsyncServiceResponse } from '../../types/serviceResponse';
-import validateSchemaFields from "./validateSchemaFields";
-import { signUpSchema } from "./schemas/account.schema";
+import validateSchemaFields from './validateSchemaFields';
+import { signUpSchema } from './schemas/account.schema';
 
 export const checkEmailInUse = async (email: string): AsyncServiceResponse<null> => {
   const account = await prisma.account.findUnique({ where: { email } });

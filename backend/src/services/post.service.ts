@@ -1,10 +1,10 @@
-import { Post, Topic } from "@prisma/client";
-import prisma from "../lib/prisma";
-import { AsyncServiceResponse } from "../types/serviceResponse";
-import dates from "../utils/dates";
-import treatQuantity from "./validations/treatQuantity";
-import validateTopicId from "./validations/validateTopicId";
-import { validateAccountId } from "./validations/likeValidations";
+import { Post, Topic } from '@prisma/client';
+import prisma from '../lib/prisma';
+import { AsyncServiceResponse } from '../types/serviceResponse';
+import dates from '../utils/dates';
+import treatQuantity from './validations/treatQuantity';
+import validateTopicId from './validations/validateTopicId';
+import { validateAccountId } from './validations/likeValidations';
 
 const getWeekPopularPosts = async (
   quantity: number,
@@ -161,11 +161,11 @@ const getPostById = async (
   return { status: 'SUCCESS', data: post };
 };
 
-const countLikesByAuthor = async (authorId: string): Promise<number> => {
+const countLikesByAccount = async (accountId: string): Promise<number> => {
   const likeCount = await prisma.likes.count({
     where: {
       post: {
-        accountId: authorId,
+        accountId,
       },
     },
   });
@@ -173,21 +173,21 @@ const countLikesByAuthor = async (authorId: string): Promise<number> => {
   return likeCount;
 };
 
-type PostByAuthorResponse = {
+type PostByAccountResponse = {
   posts: Post[];
   likeCount: number;
   postCount: number;
 };
 
-const getPostByAuthor = async (
-  authorId: string
-): AsyncServiceResponse<PostByAuthorResponse> => {
-  const idValidation = await validateAccountId(authorId);
+const getPostByAccount = async (
+  accountId: string
+): AsyncServiceResponse<PostByAccountResponse> => {
+  const idValidation = await validateAccountId(accountId);
   if (idValidation.status !== 'SUCCESS') return idValidation;
   
   const posts = await prisma.post.findMany({
     where: {
-      accountId: authorId
+      accountId,
     },
     orderBy: [
       { likes: {_count: 'desc' } },
@@ -196,7 +196,7 @@ const getPostByAuthor = async (
     take: 6,
   });
 
-  const likeCount = await countLikesByAuthor(authorId);
+  const likeCount = await countLikesByAccount(accountId);
   const postCount = posts.length;
 
   return { status: 'SUCCESS', data: { posts, likeCount, postCount } };
@@ -207,5 +207,5 @@ export default {
   getPostsByTopicId,
   getTopicPostsInfos,
   getPostById,
-  getPostByAuthor,
+  getPostByAccount,
 };
