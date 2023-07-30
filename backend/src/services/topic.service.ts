@@ -28,6 +28,24 @@ const getWeekPopularTopics = async (
   return { status: 'SUCCESS', data: topics };
 };
 
+const getAccountTopics = async (
+  accountId: string,
+): AsyncServiceResponse<Topic[]> => {
+  const topics = await prisma.topic.findMany({
+    where: {
+      posts: {
+        some: {
+          accountId,
+        },
+      },
+    },
+    distinct: ['id'],
+  });
+
+  return { status: 'SUCCESS', data: topics };
+};
+
 export default {
   getWeekPopularTopics,
+  getAccountTopics,
 };
