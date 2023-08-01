@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import HomeHeader from '@/components/Header/HomeHeader';
-import { Post } from '@/types/Post';
+import * as types from '@/types/Post';
 import userPicture from '@/../public/user.webp';
 import LikeButton from '@/components/LikeButton';
 import Link from 'next/link';
@@ -9,6 +9,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { dateToDayMonthString } from '@/utils/date';
 import Footer from '@/components/Footer';
+import Post from '@/components/Post';
 import styles from './style.module.css';
 
 interface Params {
@@ -17,7 +18,7 @@ interface Params {
   };
 }
 
-type PostData = Post & {
+type PostData = types.Post & {
   account: {
     imageUrl: string | null;
     id: string,
@@ -26,6 +27,11 @@ type PostData = Post & {
 
 export default async function PostPage({ params }: Params) {
   const response = await fetch(`http://backend:3001/posts/${params.id}`);
+
+  if (response.status === 404) {
+    return <Post.NotFound />;
+  }
+
   const postData = await response.json() as PostData;
   const creationDate = new Date(postData.createdAt);
 

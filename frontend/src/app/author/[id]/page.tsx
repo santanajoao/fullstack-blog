@@ -27,6 +27,10 @@ export default async function AuthorPage({ params }: Props) {
     fetch(`http://backend:3001/topics/account/${params.id}`).then((res) => res.json()),
   ]);
 
+  if (!author.id) {
+    return <Author.NotFound type="author" />;
+  }
+
   return (
     <>
       <HomeHeader />
