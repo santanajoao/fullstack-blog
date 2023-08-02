@@ -1,13 +1,17 @@
 type SuccessServiceResponse<T> = {
   success: true;
   data: T;
+  status: number;
+  message: null;
 };
 
 type ErrorServiceResponse = {
   success: false;
-  data: {
-    message: string,
-  },
+  data: null;
+  status: number;
+  message: string;
 };
 
-export type ServiceResponse<T> = SuccessServiceResponse<T> | ErrorServiceResponse;
+type TServiceResponse<T> = SuccessServiceResponse<T> | ErrorServiceResponse;
+
+export default TServiceResponse;

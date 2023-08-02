@@ -1,34 +1,29 @@
 import React from 'react';
-import { Topic } from '@/types/Topic';
 import Image from 'next/image';
+import { requestTopicInfos } from '@/services/topic';
 import PostLikeCount from '../PostLikeCount';
-
-type ResponseData = {
-  topic: Topic,
-  posts: {
-    likes: number,
-    quantity: number,
-  },
-};
+import RequestError from './RequestError';
 
 interface Params {
   topicId: string,
 }
 
 export default async function TopicHero({ topicId }: Params) {
-  const response = await fetch(
-    `http://backend:3001/topics/${topicId}/posts/infos`,
-    { next: { revalidate: 60 * 15 } }, // 15 minutos
-  );
-  const data = await response.json() as ResponseData;
+  const response = await requestTopicInfos(topicId);
+
+  if (!response.success) {
+    return <RequestError status={response.status} message={response.message} />;
+  }
+
+  const { posts, topic } = response.data;
 
   return (
     <header className="relative h-40 bg-cover text-white">
       <Image
-        src={`${data.topic.imageUrl}?size=1080`}
+        src={`${topic.imageUrl}?size=1080`}
         width={1080}
         height={200}
-        alt={`${data.topic.name} banner`}
+        alt={`${topic.name} banner`}
         className="z-0 absolute inset-0 h-full w-full object-cover"
       />
 
@@ -36,10 +31,10 @@ export default async function TopicHero({ topicId }: Params) {
         <h1 className="font-bold text-lg sm:text-2xl">
           Publicações sobre:
           &nbsp;
-          <span className="underline font-normal">{data.topic.name}</span>
+          <span className="underline font-normal">{topic.name}</span>
         </h1>
 
-        <PostLikeCount likeCount={data.posts.likes} postCount={data.posts.quantity} />
+        <PostLikeCount likeCount={posts.likes} postCount={posts.quantity} />
       </div>
     </header>
   );

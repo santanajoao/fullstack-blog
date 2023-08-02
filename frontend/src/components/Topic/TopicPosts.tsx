@@ -22,8 +22,10 @@ export default function TopicPosts({ topicId }: Props) {
   const [posts, setPosts] = useState<Post[]>([]);
 
   const updatePosts = async () => {
-    const topicPosts = await requestTopicPosts(topicId, filter);
-    setPosts(topicPosts);
+    const { success, data } = await requestTopicPosts(topicId, filter);
+    if (success) {
+      setPosts(data);
+    }
   };
 
   useEffect(() => {

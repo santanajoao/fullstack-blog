@@ -5,7 +5,7 @@ import React, {
 } from 'react';
 import { requestSignIn, requestSignUp, requestUserData } from '@/services/sign';
 import { ChildrenProps } from '@/types/ChildrenProps';
-import { ServiceResponse } from '@/types/ServiceResponse';
+import ServiceResponse from '@/types/ServiceResponse';
 import { SignInFields } from '@/types/Sign/SignIn';
 import { SignResponse, User } from '@/types/Sign/SignResponse';
 import { SignUpFields } from '@/types/Sign/SignUp';
@@ -36,7 +36,7 @@ export function AuthProvider({ children }: ChildrenProps) {
     }
   }, [pathname, router, user]);
 
-  const handleSignData = ({ success, data }: ServiceResponse<SignResponse>) => {
+  const handleSignData = ({ success, data, message }: ServiceResponse<SignResponse>) => {
     if (success) {
       setCookie(null, 'blog.session.token', data.token, {
         maxAge: 60 * 60 * 24 * 2, // 2 days
@@ -46,7 +46,7 @@ export function AuthProvider({ children }: ChildrenProps) {
 
       router.push('/');
     } else {
-      setError(data.message);
+      setError(message);
     }
   };
 
