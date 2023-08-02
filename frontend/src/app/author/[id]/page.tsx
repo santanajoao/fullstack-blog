@@ -28,7 +28,7 @@ export default async function AuthorPage({ params }: Props) {
   ]);
 
   if (!author.id) {
-    return <Author.NotFound type="author" />;
+    return <Author.NotFound />;
   }
 
   return (

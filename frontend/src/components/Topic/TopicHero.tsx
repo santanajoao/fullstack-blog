@@ -1,22 +1,17 @@
 import React from 'react';
 import Image from 'next/image';
-import { requestTopicInfos } from '@/services/topic';
+import { Topic } from '@/types/Topic';
 import PostLikeCount from '../PostLikeCount';
-import RequestError from './RequestError';
 
 interface Params {
-  topicId: string,
+  topic: Topic;
+  posts: {
+    likes: number;
+    quantity: number;
+  }
 }
 
-export default async function TopicHero({ topicId }: Params) {
-  const response = await requestTopicInfos(topicId);
-
-  if (!response.success) {
-    return <RequestError status={response.status} message={response.message} />;
-  }
-
-  const { posts, topic } = response.data;
-
+export default async function TopicHero({ posts, topic }: Params) {
   return (
     <header className="relative h-40 bg-cover text-white">
       <Image
