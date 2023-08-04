@@ -1,5 +1,5 @@
 import { Account } from '@/types/Account';
-import { Post } from '@/types/Post';
+import { TPost } from '@/types/Post';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -8,7 +8,7 @@ import { dateToDayMonthString } from '@/utils/date';
 
 interface Props {
   account: Account;
-  post: Post;
+  post: TPost;
 }
 
 export default function AuthorCard({ account, post }: Props) {

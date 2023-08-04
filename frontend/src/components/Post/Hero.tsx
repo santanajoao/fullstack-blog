@@ -1,12 +1,12 @@
 import { Account } from '@/types/Account';
-import { Post as PostType } from '@/types/Post';
+import { TPost } from '@/types/Post';
 import Image from 'next/image';
 import React from 'react';
 import LikeButton from '../LikeButton';
 import AuthorCard from './AuthorCard';
 
 interface Props {
-  post: PostType;
+  post: TPost;
   account: Account;
 }
 

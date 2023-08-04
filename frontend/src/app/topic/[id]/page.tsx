@@ -1,10 +1,9 @@
 import React from 'react';
-import TopicPosts from '@/components/Topic/TopicPosts';
 import HomeHeader from '@/components/Header/HomeHeader';
-import TopicHero from '@/components/Topic/TopicHero';
 import Footer from '@/components/Footer';
 import { requestTopicInfos } from '@/services/topic';
 import RequestError from '@/components/Topic/RequestError';
+import Topic from '@/components/Topic';
 
 interface Params {
   params: {
@@ -12,7 +11,7 @@ interface Params {
   };
 }
 
-export default async function Topic({ params }: Params) {
+export default async function TopicPage({ params }: Params) {
   const response = await requestTopicInfos(params.id);
   if (!response.success) {
     return <RequestError status={response.status} message={response.message} />;
@@ -24,9 +23,9 @@ export default async function Topic({ params }: Params) {
     <>
       <HomeHeader />
       <main>
-        <TopicHero posts={posts} topic={topic} />
+        <Topic.Hero posts={posts} topic={topic} />
 
-        <TopicPosts topicId={params.id} />
+        <Topic.Posts topicId={params.id} />
       </main>
       <Footer />
     </>

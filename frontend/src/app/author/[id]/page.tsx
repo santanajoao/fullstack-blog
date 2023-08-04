@@ -1,6 +1,6 @@
 import HomeHeader from '@/components/Header/HomeHeader';
 import { Account } from '@/types/Account';
-import { Post } from '@/types/Post';
+import { TPost } from '@/types/Post';
 import React from 'react';
 import SectionListing from '@/components/SectionListing';
 import { Topic } from '@/types/Topic';
@@ -13,7 +13,7 @@ interface Props {
 }
 
 type AuthorPostsResponse = {
-  posts: Post[];
+  posts: TPost[];
   likeCount: number;
   postCount: number;
 };

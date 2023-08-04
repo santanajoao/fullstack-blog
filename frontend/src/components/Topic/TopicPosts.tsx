@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Post } from '@/types/Post';
+import { TPost } from '@/types/Post';
 import { requestTopicPosts } from '@/services/posts';
 import SectionListing from '@/components/SectionListing';
 import PostItemLink from '../PostItemLink';
@@ -19,7 +19,7 @@ const options = [
 
 export default function TopicPosts({ topicId }: Props) {
   const [filter, setFilter] = useState<string>(options[0].value);
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<TPost[]>([]);
 
   const updatePosts = async () => {
     const { success, data } = await requestTopicPosts(topicId, filter);

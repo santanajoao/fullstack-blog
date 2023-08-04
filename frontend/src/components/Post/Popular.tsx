@@ -1,15 +1,15 @@
 import React from 'react';
-import { Post } from '@/types/Post';
-import PostItemLink from './PostItemLink';
-import PostList from './PostList';
-import SectionListing from './SectionListing';
+import { TPost } from '@/types/Post';
+import PostItemLink from '../PostItemLink';
+import PostList from '../PostList';
+import SectionListing from '../SectionListing';
 
-export default async function PopularPosts() {
+export default async function Popular() {
   const response = await fetch(
     'http://backend:3001/posts/popular?quantity=12',
     { next: { revalidate: 60 * 15 } }, // 15 minutos
   );
-  const popularPosts: Post[] = await response.json();
+  const popularPosts: TPost[] = await response.json();
 
   return (
     <section>

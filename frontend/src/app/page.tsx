@@ -1,10 +1,10 @@
 import React from 'react';
 import HomeHero from '@/components/HomeHero';
 import Footer from '@/components/Footer';
-import PopularTopics from '@/components/Topic/PopularTopics';
+import Topic from '@/components/Topic';
 import HomeHeader from '@/components/Header/HomeHeader';
-import PopularPosts from '@/components/PopularPosts';
 import SectionListing from '@/components/SectionListing';
+import Post from '@/components/Post';
 
 export default async function Home() {
   return (
@@ -13,9 +13,9 @@ export default async function Home() {
       <main>
         <HomeHero />
         <SectionListing.Article>
-          <PopularTopics />
+          <Topic.Popular />
 
-          <PopularPosts />
+          <Post.Popular />
         </SectionListing.Article>
       </main>
 

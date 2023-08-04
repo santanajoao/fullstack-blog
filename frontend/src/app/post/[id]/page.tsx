@@ -1,6 +1,6 @@
 import React from 'react';
 import HomeHeader from '@/components/Header/HomeHeader';
-import { Post as PostType } from '@/types/Post';
+import { TPost } from '@/types/Post';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Footer from '@/components/Footer';
@@ -14,7 +14,7 @@ interface Params {
   };
 }
 
-type PostData = PostType & {
+type PostData = TPost & {
   account: Account;
 };
 
