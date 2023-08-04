@@ -1,12 +1,12 @@
 import React from 'react';
 import { Account } from '@/types/Account';
-import { Post } from '@/types/Post';
+import { TPost } from '@/types/Post';
 import PostList from '@/components/PostList';
 import SectionListing from '../SectionListing';
 import PostItemLink from '../PostItemLink';
 
 interface Props {
-  posts: Post[],
+  posts: TPost[],
   author: Account;
 }
 

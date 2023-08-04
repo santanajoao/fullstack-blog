@@ -4,8 +4,8 @@ import { TPost } from '@/types/Post';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Footer from '@/components/Footer';
-import Post from '@/components/Post';
 import { Account } from '@/types/Account';
+import Post from '@/components/Post';
 import styles from './style.module.css';
 
 interface Params {

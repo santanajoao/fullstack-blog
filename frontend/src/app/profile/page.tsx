@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { useContext } from 'react';
 import userPicture from '@/../public/user.webp';
 import Image from 'next/image';
+import HomeHeader from '@/components/Header/HomeHeader';
 
 export default function ProfilePage() {
   const { user, isLoading } = useContext(AuthContext);
@@ -20,10 +21,15 @@ export default function ProfilePage() {
   }
 
   return (
-    <div>
-      <h1>{user.username}</h1>
-      <h2>{user.email}</h2>
-      <Image src={user.imageUrl ?? userPicture} alt={`Imagem de perfil de ${user.username}`} />
-    </div>
+    <>
+      <HomeHeader />
+      <main>
+        <div>
+          <h1>{user.username}</h1>
+          <h2>{user.email}</h2>
+          <Image src={user.imageUrl ?? userPicture} alt={`Imagem de perfil de ${user.username}`} />
+        </div>
+      </main>
+    </>
   );
 }
