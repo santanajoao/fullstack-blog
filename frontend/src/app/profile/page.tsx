@@ -3,9 +3,11 @@
 import { AuthContext } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import React, { useContext } from 'react';
-import userPicture from '@/../public/user.webp';
-import Image from 'next/image';
 import HomeHeader from '@/components/Header/HomeHeader';
+import EditInput from '@/components/Profile/EditInput';
+import defaultProfile from 'public/profile.svg';
+import ImageInput from '@/components/Profile/ImageInput';
+import SectionListing from '@/components/SectionListing';
 
 export default function ProfilePage() {
   const { user, isLoading } = useContext(AuthContext);
@@ -23,12 +25,18 @@ export default function ProfilePage() {
   return (
     <>
       <HomeHeader />
-      <main>
-        <div>
-          <h1>{user.username}</h1>
-          <h2>{user.email}</h2>
-          <Image src={user.imageUrl ?? userPicture} alt={`Imagem de perfil de ${user.username}`} />
-        </div>
+      <main className="p-5">
+        <SectionListing.Article>
+          <section>
+            <SectionListing.Title>Imagem de perfil</SectionListing.Title>
+            <ImageInput value={user.imageUrl ?? defaultProfile} />
+          </section>
+
+          <section>
+            <SectionListing.Title>Usuário de exibição</SectionListing.Title>
+            <EditInput value={user.username} />
+          </section>
+        </SectionListing.Article>
       </main>
     </>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Account } from '@/types/Account';
-import defaultPicture from 'public/user.webp';
+import defaultPicture from 'public/profile.svg';
 import PostLikeCount from '../PostLikeCount';
 
 interface Props {
