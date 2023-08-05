@@ -3,7 +3,7 @@ import { TPost } from '@/types/Post';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import defaultUserPicture from 'public/user.webp';
+import defaultUserPicture from 'public/profile.svg';
 import { dateToDayMonthString } from '@/utils/date';
 
 interface Props {
@@ -21,7 +21,7 @@ export default function AuthorCard({ account, post }: Props) {
         height={40}
         src={account.imageUrl ?? defaultUserPicture}
         className="w-10 h-10 rounded-full bg-zinc-300 object-cover"
-        alt="Foto de perfil de {usuário}"
+        alt={`Foto de perfil de ${account.username}`}
       />
       <div className="flex flex-col">
         <span>{account.username}</span>
