@@ -48,27 +48,19 @@ Haverá uma página para uma postagem onde é possível ler o conteúdo da publi
 
 ### Como executar o projeto ⚙️
 
+> Obs: Os arquivos docker no momento são de desenvolvimento e não uma build de produção, por isso o carregamento das páginas pela primeira vez pode ser um pouco lento
+
 1. Clone o repositório
 
-2. Renomeie o arquivo `.env.example` ou crie um arquivo `.env`
+2. Renomeie o arquivo `.env.example` para `.env`
 
-3. Preencha as variáveis de ambiente
+3. (Opcional) Preencha as variáveis de ambiente
 
-4.1. Comente no arquivo `compose.yaml` as linhas de volume:
-```
-volumes:
-  -  ./algum/caminho/aqui
-```
-Essas linhas estão presentes por enquanto para ajudar no desenvolvimento
+> As variáveis no arquivo .env.example já são o suficiente para executar o projeto
 
-4.2. Ou, em alternativa ao passo 4.1, instale as dependências do diretório backend e frontend:
-```
-(cd backend/ && npm i) && (cd frontend/ && npm i)
-```
+4. Rode `docker compose up -d`
 
-5. Rode `docker compose up -d`
-
-6. Acesse http://localhost:3000
+5. Acesse http://localhost:3000
 
 ### Próximos passos
 
