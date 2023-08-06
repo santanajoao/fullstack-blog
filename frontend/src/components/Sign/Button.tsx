@@ -1,17 +1,17 @@
-import { ChildrenProps } from '@/types/ChildrenProps';
-import React, { ButtonHTMLAttributes } from 'react';
+import React, { ComponentProps } from 'react';
 
-interface Props extends ChildrenProps {
-  type: ButtonHTMLAttributes<HTMLButtonElement>['type'];
-}
+interface Props extends ComponentProps<'button'> {}
 
-export default function Button({ children, type }: Props) {
+export default function Button(props: Props) {
+  const { className, ...otherProps } = props;
   return (
     <button
-      className="bg-primaryGreen font-medium p-3 w-full rounded-md hover:brightness-95"
-      type={type}
-    >
-      {children}
-    </button>
+      type="button"
+      className={
+        `${className}
+        bg-primaryGreen font-medium p-3 w-full rounded-md hover:brightness-95`
+      }
+      {...otherProps}
+    />
   );
 }
