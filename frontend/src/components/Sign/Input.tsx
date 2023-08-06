@@ -15,7 +15,7 @@ export default function Input({
     <input
       id={id}
       type={type}
-      className="px-3 mt-1 h-12 bg-black/5 rounded-md"
+      className="px-3 mt-1 h-12 bg-black/10 rounded-md"
       {...register(name)}
     />
   );

@@ -1,14 +1,14 @@
-import React, { FormEvent } from 'react';
-import { ChildrenProps } from '@/types/ChildrenProps';
+import React, { ComponentProps } from 'react';
 
-interface Props extends ChildrenProps {
-  onSubmit(event: FormEvent): void;
-}
+interface Props extends ComponentProps<'form'> {};
 
-export default function Form({ children, onSubmit }: Props) {
+export default function Form(props: Props) {
+  const { className, ...otherProps } = props;
+
   return (
-    <form className="w-full flex flex-col space-y-3" onSubmit={onSubmit}>
-      {children}
-    </form>
+    <form
+      {...otherProps}
+      className={`w-full flex flex-col space-y-3 ${className}`}
+    />  
   );
 }

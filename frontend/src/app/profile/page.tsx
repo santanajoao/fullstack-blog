@@ -8,6 +8,7 @@ import EditInput from '@/components/Profile/EditInput';
 import defaultProfile from 'public/profile.svg';
 import ImageInput from '@/components/Profile/ImageInput';
 import SectionListing from '@/components/SectionListing';
+import PasswordChangeForm from '@/components/Profile/PasswordChangeForm';
 
 export default function ProfilePage() {
   const { user, isLoading } = useContext(AuthContext);
@@ -35,6 +36,16 @@ export default function ProfilePage() {
           <section>
             <SectionListing.Title>Usuário de exibição</SectionListing.Title>
             <EditInput value={user.username} />
+          </section>
+
+          <section>
+            <SectionListing.Title>Usuário de exibição</SectionListing.Title>
+            <EditInput value={user.username} />
+          </section>
+
+          <section>
+            <SectionListing.Title>Senha</SectionListing.Title>
+            <PasswordChangeForm />
           </section>
         </SectionListing.Article>
       </main>

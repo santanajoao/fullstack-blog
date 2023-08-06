@@ -9,7 +9,7 @@ export default function Button(props: Props) {
       type="button"
       className={
         `${className}
-        bg-primaryGreen font-medium p-3 w-full rounded-md hover:brightness-95`
+        bg-primaryGreen font-medium p-3 rounded-md hover:brightness-95`
       }
       {...otherProps}
     />
