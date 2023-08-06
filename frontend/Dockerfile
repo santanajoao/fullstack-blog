@@ -4,15 +4,18 @@ WORKDIR /home/node/app
 
 COPY package*.json .
 
+RUN chown -R node:node package*.json
+
 RUN npm install
-# RUN npm ci --only=production
+
+RUN chown -R node:node .
+
+USER node
 
 COPY . .
-# RUN npm run build
 
 EXPOSE 3000
 
 ENTRYPOINT [ "npm", "run" ]
 
 CMD [ "dev" ]
-# CMD [ "start" ]
