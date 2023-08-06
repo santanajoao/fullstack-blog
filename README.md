@@ -64,8 +64,6 @@ Haverá uma página para uma postagem onde é possível ler o conteúdo da publi
 
 ### Próximos passos
 
-- [X] Página de um post
-- [ ] Página de perfil de um autor (Atualmente em desenvolvimento)
+- [ ] Página de perfil (Atualmente em desenvolvimento)
 - [ ] Página sobre o uso de cookies
-- [ ] Página de perfil
 - [ ] Página para escrever um post / Editor de posts
