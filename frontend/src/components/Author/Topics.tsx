@@ -1,11 +1,11 @@
 import React from 'react';
 import { Topic } from '@/types/Topic';
-import SectionListing from '../SectionListing';
+import Container from '../Container';
 
 export default function Topics({ topics }: { topics: Topic[] }) {
   return (
-    <section>
-      <SectionListing.Title>Fala sobre</SectionListing.Title>
+    <Container.Section>
+      <Container.Title>Fala sobre</Container.Title>
 
       <ul className="flex flex-wrap gap-1">
         {topics.map((topic) => (
@@ -14,6 +14,6 @@ export default function Topics({ topics }: { topics: Topic[] }) {
           </li>
         ))}
       </ul>
-    </section>
+    </Container.Section>
   );
 }

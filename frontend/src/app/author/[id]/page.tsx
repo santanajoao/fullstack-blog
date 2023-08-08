@@ -2,7 +2,7 @@ import HomeHeader from '@/components/Header/HomeHeader';
 import { Account } from '@/types/Account';
 import { TPost } from '@/types/Post';
 import React from 'react';
-import SectionListing from '@/components/SectionListing';
+import Container from '@/components/Container';
 import { Topic } from '@/types/Topic';
 import Author from '@/components/Author';
 
@@ -37,13 +37,13 @@ export default async function AuthorPage({ params }: Props) {
       <main>
         <Author.Hero posts={posts} author={author} />
 
-        <SectionListing.Article>
+        <Container.Article>
           <Author.About author={author} />
 
           <Author.Topics topics={topics} />
 
           <Author.BestPosts posts={posts.posts} author={author} />
-        </SectionListing.Article>
+        </Container.Article>
       </main>
     </>
   );

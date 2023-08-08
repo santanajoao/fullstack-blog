@@ -2,7 +2,7 @@ import React from 'react';
 import { TPost } from '@/types/Post';
 import PostItemLink from '../PostItemLink';
 import PostList from '../PostList';
-import SectionListing from '../SectionListing';
+import Container from '../Container';
 
 export default async function Popular() {
   const response = await fetch(
@@ -12,10 +12,10 @@ export default async function Popular() {
   const popularPosts: TPost[] = await response.json();
 
   return (
-    <section>
-      <SectionListing.Title>
+    <Container.Section>
+      <Container.Title>
         Publicações em alta
-      </SectionListing.Title>
+      </Container.Title>
 
       <PostList.List>
         {popularPosts.map((post) => (
@@ -31,6 +31,6 @@ export default async function Popular() {
           </PostList.Item>
         ))}
       </PostList.List>
-    </section>
+    </Container.Section>
   );
 }

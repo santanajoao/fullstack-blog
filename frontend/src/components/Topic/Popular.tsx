@@ -1,7 +1,7 @@
 import React from 'react';
 import { Topic } from '@/types/Topic';
 import TopicLink from './TopicLink';
-import SectionListing from '../SectionListing';
+import Container from '../Container';
 
 export default async function PopularTopics() {
   const response = await fetch(
@@ -11,10 +11,10 @@ export default async function PopularTopics() {
   const popularTopics: Topic[] = await response.json();
 
   return (
-    <section>
-      <SectionListing.Title>
+    <Container.Section>
+      <Container.Title>
         Explore os tópicos mais falados
-      </SectionListing.Title>
+      </Container.Title>
 
       <ul className="grid grid-flow-col grid-rows-3 gap-2 sm:grid-rows-2 lg:grid-rows-1">
         {popularTopics.map(({ name, id, imageUrl }) => (
@@ -23,6 +23,6 @@ export default async function PopularTopics() {
           </li>
         ))}
       </ul>
-    </section>
+    </Container.Section>
   );
 }

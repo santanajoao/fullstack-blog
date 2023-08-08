@@ -3,7 +3,7 @@ import HomeHero from '@/components/HomeHero';
 import Footer from '@/components/Footer';
 import Topic from '@/components/Topic';
 import HomeHeader from '@/components/Header/HomeHeader';
-import SectionListing from '@/components/SectionListing';
+import Container from '@/components/Container';
 import Post from '@/components/Post';
 
 export default async function Home() {
@@ -12,11 +12,11 @@ export default async function Home() {
       <HomeHeader />
       <main>
         <HomeHero />
-        <SectionListing.Article>
+        <Container.Article>
           <Topic.Popular />
 
           <Post.Popular />
-        </SectionListing.Article>
+        </Container.Article>
       </main>
 
       <Footer />

@@ -2,7 +2,7 @@ import React from 'react';
 import { Account } from '@/types/Account';
 import { TPost } from '@/types/Post';
 import PostList from '@/components/PostList';
-import SectionListing from '../SectionListing';
+import Container from '../Container';
 import PostItemLink from '../PostItemLink';
 
 interface Props {
@@ -12,8 +12,8 @@ interface Props {
 
 export default function BestPosts({ posts, author }: Props) {
   return (
-    <section>
-      <SectionListing.Title>Melhores publicações</SectionListing.Title>
+    <Container.Section>
+      <Container.Title>Melhores publicações</Container.Title>
 
       <PostList.List>
         {posts.map((post) => (
@@ -29,6 +29,6 @@ export default function BestPosts({ posts, author }: Props) {
           </PostList.Item>
         ))}
       </PostList.List>
-    </section>
+    </Container.Section>
   );
 }

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { TPost } from '@/types/Post';
 import { requestTopicPosts } from '@/services/posts';
-import SectionListing from '@/components/SectionListing';
+import Container from '@/components/Container';
 import PostItemLink from '../PostItemLink';
 import PostList from '../PostList';
 
@@ -33,8 +33,8 @@ export default function TopicPosts({ topicId }: Props) {
   }, [filter]);
 
   return (
-    <SectionListing.Article>
-      <div className="space-x-5 pl-1">
+    <Container.Article>
+      <div className="space-x-5 pl-1 mb-3 sm:mb-5">
         <label htmlFor="sort-posts">Ordenar por:</label>
         <select
           name="filter"
@@ -65,6 +65,6 @@ export default function TopicPosts({ topicId }: Props) {
           </PostList.Item>
         ))}
       </PostList.List>
-    </SectionListing.Article>
+    </Container.Article>
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Account } from '@/types/Account';
-import SectionListing from '../SectionListing';
+import Container from '../Container';
 
 interface Props {
   author: Account;
@@ -8,16 +8,16 @@ interface Props {
 
 export default function About({ author }: Props) {
   return (
-    <section>
-      <SectionListing.Title>
+    <Container.Section>
+      <Container.Title>
         Sobre
         {' '}
         {author.username}
-      </SectionListing.Title>
+      </Container.Title>
 
       <p className="max-w-2xl">
         {author.about ?? 'Esse autor ainda não definiu um "sobre"'}
       </p>
-    </section>
+    </Container.Section>
   );
 }
