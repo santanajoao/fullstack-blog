@@ -7,6 +7,6 @@ interface Props extends ChildrenProps {
 
 export default function Label({ children, htmlFor }: Props) {
   return (
-    <label htmlFor={htmlFor} className="font-medium">{children}</label>
+    <label htmlFor={htmlFor} className="font-medium mb-1">{children}</label>
   );
 }

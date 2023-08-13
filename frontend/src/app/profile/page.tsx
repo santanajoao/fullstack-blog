@@ -4,50 +4,44 @@ import { AuthContext } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import React, { useContext } from 'react';
 import HomeHeader from '@/components/Header/HomeHeader';
-import EditInput from '@/components/Profile/EditInput';
 import defaultProfile from 'public/profile.svg';
-import ImageInput from '@/components/Profile/ImageInput';
-import SectionListing from '@/components/SectionListing';
-import PasswordChangeForm from '@/components/Profile/PasswordChangeForm';
+import Container from '@/components/Container';
+import PersonalInfosForm from '@/components/Profile/PersonalInfosForm';
+import CredentialsForm from '@/components/Profile/CredentialsForm';
 
 export default function ProfilePage() {
   const { user, isLoading } = useContext(AuthContext);
   const router = useRouter();
 
-  if (isLoading) {
-    return <h1>Loading</h1>;
-  }
-
-  if (!user) {
-    router.push('/signin');
-    return null;
-  }
+  if (isLoading) return <h1>Loading</h1>;
+  if (!user) return router.push('/signin');
 
   return (
     <>
       <HomeHeader />
-      <main className="p-5">
-        <SectionListing.Article>
-          <section>
-            <SectionListing.Title>Imagem de perfil</SectionListing.Title>
-            <ImageInput value={user.imageUrl ?? defaultProfile} />
-          </section>
+      <main>
+        <Container.Article className="m-auto max-w-3xl">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-5">
+            Seu Perfil
+          </h1>
 
-          <section>
-            <SectionListing.Title>Usuário de exibição</SectionListing.Title>
-            <EditInput value={user.username} />
-          </section>
+            <Container.Section>
+              <Container.Title>
+                Informações pessoais
+              </Container.Title>
 
-          <section>
-            <SectionListing.Title>Usuário de exibição</SectionListing.Title>
-            <EditInput value={user.username} />
-          </section>
+              <PersonalInfosForm />
+            </Container.Section>
 
-          <section>
-            <SectionListing.Title>Senha</SectionListing.Title>
-            <PasswordChangeForm />
-          </section>
-        </SectionListing.Article>
+            <Container.Section>
+              <Container.Title>
+                Credenciais
+              </Container.Title>
+
+              <CredentialsForm />
+
+            </Container.Section>
+        </Container.Article>
       </main>
     </>
   );

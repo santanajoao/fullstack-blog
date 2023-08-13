@@ -8,30 +8,16 @@ interface Props {
   id: string;
   register: UseFormRegister<any>
   name: string;
-  theme?: 'sign' | 'profile';
 }
 
-const themes = {
-  sign: {
-    container: 'h-12 bg-black/10',
-    button: 'p-3',
-  },
-  profile: {
-    container: 'h-10 border-2 border-black',
-    button: 'p-2 border-l border-black',
-  },
-};
-
-export default function HiddenPasswordInput({
-  id, register, name, theme = 'sign',
-}: Props) {
+export default function HiddenPasswordInput({ id, register, name }: Props) {
   const [isVisible, setIsVisible] = useState(false);
 
   const visibilityBtnMessage = isVisible ? 'Esconder senha' : 'Mostar senha';
   const EyeIcon = isVisible ? AiOutlineEyeInvisible : AiOutlineEye;
 
   return (
-    <div className={`mt-1 relative flex items-center rounded-md ${themes[theme].container}`}>
+    <div className="mt-1 relative flex items-center rounded-md h-12 bg-black/10">
       <input
         type={isVisible ? 'text' : 'password'}
         className="px-3 bg-transparent rounded-md w-full h-full"
@@ -39,7 +25,7 @@ export default function HiddenPasswordInput({
         {...register(name)}
       />
       <button
-        className={`absolute right-0 ${themes[theme].button}`}
+        className="absolute right-0 p-3"
         type="button"
         onClick={() => setIsVisible(!isVisible)}
         title={visibilityBtnMessage}

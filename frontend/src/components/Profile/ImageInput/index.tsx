@@ -4,13 +4,17 @@ import Image from 'next/image';
 import React, {
   ChangeEvent, useRef, useState,
 } from 'react';
+import { UseFormRegister } from 'react-hook-form';
 import { BiImageAdd } from 'react-icons/bi';
 
 interface Props {
   value: string;
+  id: string;
+  name: string;
+  register: UseFormRegister<any>,
 }
 
-export default function ImageInput({ value: _value }: Props) {
+export default function ImageInput({ value: _value, id, register, name }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState<string>(_value);
 
@@ -34,11 +38,13 @@ export default function ImageInput({ value: _value }: Props) {
   return (
     <div className="group relative rounded-xl overflow-hidden h-40 w-40 border-2 border-black">
       <input
+        {...register(name)}
         onChange={handleChange}
         ref={inputRef}
         type="file"
         accept="image/*"
         className="hidden"
+        id={id}
       />
 
       <Image

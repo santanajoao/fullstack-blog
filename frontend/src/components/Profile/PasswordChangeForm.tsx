@@ -34,19 +34,17 @@ export default function PasswordChangeForm() {
             name="currentPassword"
             id="current-password-input"
             register={register}
-            theme="profile"
           />
 
           <Sign.ErrorMessage>{errors.currentPassword?.message}</Sign.ErrorMessage>
         </Sign.Field>
         <Sign.Field>
-          <Sign.Label htmlFor="new-password-input">Senha atual</Sign.Label>
+          <Sign.Label htmlFor="new-password-input">Nova senha</Sign.Label>
 
           <Sign.HiddenPasswordInput
             name="newPassword"
             id="new-password-input"
             register={register}
-            theme="profile"
           />
 
           <Sign.ErrorMessage>{errors.newPassword?.message}</Sign.ErrorMessage>
