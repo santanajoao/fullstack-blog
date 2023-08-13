@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import { Account } from '@/types/Account';
 import Post from '@/components/Post';
 import styles from './style.module.css';
+import Container from '@/components/Container';
 
 interface Params {
   params: {
@@ -33,9 +34,9 @@ export default async function PostPage({ params }: Params) {
       <main className="w-full max-w-2xl mx-auto py-5 px-4">
         <Post.Hero account={postData.account} post={postData} />
 
-        <ReactMarkdown className={`${styles.markdown} pt-3`} remarkPlugins={[remarkGfm]}>
+        <Container.Markdown className="pt-3">
           {postData.content}
-        </ReactMarkdown>
+        </Container.Markdown>
       </main>
       <Footer />
     </>
