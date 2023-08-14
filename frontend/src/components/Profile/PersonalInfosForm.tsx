@@ -1,13 +1,17 @@
-import React from 'react'
+import React from 'react';
 import Sign from '@/components/Sign';
-import ImageInput from './ImageInput';
 import defaultProfile from 'public/profile.svg';
-import TextArea from './TextArea';
 import { aboutMaxLength } from '@/lib/schemas/account.schema';
 import { UseFormRegister } from 'react-hook-form';
+import { Account } from '@/types/Account';
+import Textarea from './Textarea';
+import ImageInput from './ImageInput';
 
-export default function PersonalInfosForm() {
-  const user = { imageUrl: '' };
+interface Props {
+  user: Account;
+}
+
+export default function PersonalInfosForm({ user }: Props) {
   const register = (() => {}) as any as UseFormRegister<any>;
 
   return (
@@ -26,6 +30,7 @@ export default function PersonalInfosForm() {
         <Sign.Field>
           <Sign.Label htmlFor="username-input">Usuário</Sign.Label>
           <Sign.Input
+            value={user.username}
             type="text"
             id="username-input"
             name="username"
@@ -35,8 +40,8 @@ export default function PersonalInfosForm() {
 
         <Sign.Field>
           <Sign.Label htmlFor="about-input">Sobre</Sign.Label>
-          <TextArea
-            value=""
+          <Textarea
+            value={user.about ?? ''}
             id="about-input"
             maxLength={aboutMaxLength}
             name="about"
@@ -47,5 +52,5 @@ export default function PersonalInfosForm() {
 
       <Sign.Button type="submit" className="w-fit py-2">Editar</Sign.Button>
     </Sign.Form>
-  )
+  );
 }

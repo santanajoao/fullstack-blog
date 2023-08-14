@@ -30,7 +30,7 @@ export default function ProfilePage() {
                 Informações pessoais
               </Container.Title>
 
-              <PersonalInfosForm />
+              <PersonalInfosForm user={user} />
             </Container.Section>
 
             <Container.Section>
@@ -38,7 +38,7 @@ export default function ProfilePage() {
                 Credenciais
               </Container.Title>
 
-              <CredentialsForm />
+              <CredentialsForm user={user} />
 
             </Container.Section>
         </Container.Article>

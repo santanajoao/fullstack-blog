@@ -1,8 +1,13 @@
 import React from 'react';
 import Sign from '@/components/Sign';
 import { UseFormRegister } from 'react-hook-form';
+import { Account } from '@/types/Account';
 
-export default function CredentialsForm() {
+interface Props {
+  user: Account;
+}
+
+export default function CredentialsForm({ user }: Props) {
   const register = (() => {}) as any as UseFormRegister<any>;
 
   return (
@@ -11,6 +16,7 @@ export default function CredentialsForm() {
         <Sign.Field>
           <Sign.Label htmlFor="email-input">Email</Sign.Label>
           <Sign.Input
+            value={user.email}
             id="email-input"
             name="email"
             type="email"
@@ -21,14 +27,14 @@ export default function CredentialsForm() {
         <Sign.FieldsWrapper>
           <Sign.Field>
             <Sign.Label htmlFor="current-password-input">Senha atual</Sign.Label>
-            
+
             <Sign.HiddenPasswordInput
               name="currentPassword"
               id="current-password-input"
               register={register}
             />
 
-            <Sign.ErrorMessage>{''}</Sign.ErrorMessage>
+            <Sign.ErrorMessage />
           </Sign.Field>
 
           <Sign.Field>
@@ -40,12 +46,12 @@ export default function CredentialsForm() {
               register={register}
             />
 
-            <Sign.ErrorMessage>{''}</Sign.ErrorMessage>
+            <Sign.ErrorMessage />
           </Sign.Field>
         </Sign.FieldsWrapper>
       </Sign.FieldsWrapper>
 
       <Sign.Button type="submit" className="w-fit py-2">Editar</Sign.Button>
     </Sign.Form>
-  )
+  );
 }

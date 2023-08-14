@@ -1,21 +1,21 @@
-import React, { HTMLInputTypeAttribute } from 'react';
+import React, { ComponentProps, HTMLInputTypeAttribute } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 
-interface Props {
-  id: string;
+interface Props extends ComponentProps<'input'> {
   type: HTMLInputTypeAttribute;
+  register: UseFormRegister<any>;
   name: string;
-  register: UseFormRegister<any>
 }
 
-export default function Input({
-  id, type, name, register,
-}: Props) {
+export default function Input(props: Props) {
+  const {
+    className, register, name, ...others
+  } = props;
+
   return (
     <input
-      id={id}
-      type={type}
-      className="px-3 mt-1 h-12 bg-black/10 rounded-md"
+      className="px-3 mt-1 h-12 enabled:bg-black/10 rounded-md"
+      {...others}
       {...register(name)}
     />
   );
