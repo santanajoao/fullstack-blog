@@ -25,22 +25,21 @@ export default function ProfilePage() {
             Seu Perfil
           </h1>
 
-            <Container.Section>
-              <Container.Title>
-                Informações pessoais
-              </Container.Title>
+          <Container.Section>
+            <Container.Title>
+              Informações pessoais
+            </Container.Title>
 
-              <PersonalInfosForm user={user} />
-            </Container.Section>
+            <PersonalInfosForm user={user} />
+          </Container.Section>
 
-            <Container.Section>
-              <Container.Title>
-                Credenciais
-              </Container.Title>
+          <Container.Section>
+            <Container.Title>
+              Credenciais
+            </Container.Title>
 
-              <CredentialsForm user={user} />
-
-            </Container.Section>
+            <CredentialsForm user={user} />
+          </Container.Section>
         </Container.Article>
       </main>
     </>
