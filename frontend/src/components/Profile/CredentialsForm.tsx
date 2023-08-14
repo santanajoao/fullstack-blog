@@ -1,4 +1,8 @@
-import React from 'react';
+'use client';
+
+import React, {
+  FormEvent, useEffect, useRef, useState,
+} from 'react';
 import Sign from '@/components/Sign';
 import { UseFormRegister } from 'react-hook-form';
 import { Account } from '@/types/Account';
@@ -8,19 +12,34 @@ interface Props {
 }
 
 export default function CredentialsForm({ user }: Props) {
+  const [editing, setEditing] = useState(false);
+  const firstInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (editing) {
+      firstInputRef.current?.focus();
+    }
+  }, [editing]);
+
   const register = (() => {}) as any as UseFormRegister<any>;
 
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+  };
+
   return (
-    <Sign.Form>
+    <Sign.Form onSubmit={handleSubmit}>
       <Sign.FieldsWrapper>
         <Sign.Field>
           <Sign.Label htmlFor="email-input">Email</Sign.Label>
           <Sign.Input
+            _ref={firstInputRef}
             value={user.email}
             id="email-input"
             name="email"
             type="email"
             register={register}
+            disabled={!editing}
           />
         </Sign.Field>
 
@@ -32,6 +51,7 @@ export default function CredentialsForm({ user }: Props) {
               name="currentPassword"
               id="current-password-input"
               register={register}
+              disabled={!editing}
             />
 
             <Sign.ErrorMessage />
@@ -44,6 +64,7 @@ export default function CredentialsForm({ user }: Props) {
               name="newPassword"
               id="new-password-input"
               register={register}
+              disabled={!editing}
             />
 
             <Sign.ErrorMessage />
@@ -51,7 +72,13 @@ export default function CredentialsForm({ user }: Props) {
         </Sign.FieldsWrapper>
       </Sign.FieldsWrapper>
 
-      <Sign.Button type="submit" className="w-fit py-2">Editar</Sign.Button>
+      <Sign.Button
+        type={editing ? 'submit' : 'button'}
+        className="w-fit py-2"
+        onClick={editing ? undefined : () => setEditing(true)}
+      >
+        {editing ? 'Salvar' : 'Editar'}
+      </Sign.Button>
     </Sign.Form>
   );
 }

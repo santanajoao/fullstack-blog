@@ -8,9 +8,12 @@ interface Props {
   id: string;
   register: UseFormRegister<any>
   name: string;
+  disabled: boolean;
 }
 
-export default function HiddenPasswordInput({ id, register, name }: Props) {
+export default function HiddenPasswordInput({
+  id, register, name, disabled,
+}: Props) {
   const [isVisible, setIsVisible] = useState(false);
 
   const visibilityBtnMessage = isVisible ? 'Esconder senha' : 'Mostar senha';
@@ -23,12 +26,14 @@ export default function HiddenPasswordInput({ id, register, name }: Props) {
         className="px-3 bg-transparent rounded-md w-full h-full"
         id={id}
         {...register(name)}
+        disabled={disabled}
       />
       <button
-        className="absolute right-0 p-3"
+        className="absolute right-0 p-3 disabled:cursor-not-allowed"
         type="button"
         onClick={() => setIsVisible(!isVisible)}
         title={visibilityBtnMessage}
+        disabled={disabled}
       >
         <span className="sr-only">{visibilityBtnMessage}</span>
 

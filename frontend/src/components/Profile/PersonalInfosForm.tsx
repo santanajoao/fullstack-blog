@@ -1,4 +1,8 @@
-import React from 'react';
+'use client';
+
+import React, {
+  FormEvent, useEffect, useRef, useState,
+} from 'react';
 import Sign from '@/components/Sign';
 import defaultProfile from 'public/profile.svg';
 import { aboutMaxLength } from '@/lib/schemas/account.schema';
@@ -12,17 +16,32 @@ interface Props {
 }
 
 export default function PersonalInfosForm({ user }: Props) {
+  const [editing, setEditing] = useState(false);
+  const firstInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (editing) {
+      firstInputRef.current?.focus();
+    }
+  }, [editing]);
+
   const register = (() => {}) as any as UseFormRegister<any>;
 
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+  };
+
   return (
-    <Sign.Form>
+    <Sign.Form onSubmit={handleSubmit}>
       <Sign.Field>
         <Sign.Label htmlFor="image-input">Imagem de perfil</Sign.Label>
         <ImageInput
+          disabled={!editing}
           name="imageUrl"
           id="image-input"
           value={user.imageUrl || defaultProfile}
           register={register}
+          _ref={firstInputRef}
         />
       </Sign.Field>
 
@@ -35,6 +54,7 @@ export default function PersonalInfosForm({ user }: Props) {
             id="username-input"
             name="username"
             register={register}
+            disabled={!editing}
           />
         </Sign.Field>
 
@@ -46,11 +66,18 @@ export default function PersonalInfosForm({ user }: Props) {
             maxLength={aboutMaxLength}
             name="about"
             register={register}
+            disabled={!editing}
           />
         </Sign.Field>
       </Sign.FieldsWrapper>
 
-      <Sign.Button type="submit" className="w-fit py-2">Editar</Sign.Button>
+      <Sign.Button
+        type={editing ? 'submit' : 'button'}
+        className="w-fit py-2"
+        onClick={editing ? undefined : () => setEditing(true)}
+      >
+        {editing ? 'Salvar' : 'Editar'}
+      </Sign.Button>
     </Sign.Form>
   );
 }

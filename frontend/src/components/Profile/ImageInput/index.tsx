@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import React, {
-  ChangeEvent, useRef, useState,
+  ChangeEvent, RefObject, useState,
 } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 import { BiImageAdd } from 'react-icons/bi';
@@ -11,18 +11,15 @@ interface Props {
   value: string;
   id: string;
   name: string;
-  register: UseFormRegister<any>,
+  register: UseFormRegister<any>;
+  disabled: boolean;
+  _ref?: RefObject<HTMLInputElement>;
 }
 
-export default function ImageInput({ value: _value, id, register, name }: Props) {
-  const inputRef = useRef<HTMLInputElement>(null);
+export default function ImageInput({
+  value: _value, id, register, name, disabled, _ref: ref,
+}: Props) {
   const [value, setValue] = useState<string>(_value);
-
-  const handleClick = () => {
-    if (inputRef.current) {
-      inputRef.current.click();
-    }
-  };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
@@ -40,11 +37,12 @@ export default function ImageInput({ value: _value, id, register, name }: Props)
       <input
         {...register(name)}
         onChange={handleChange}
-        ref={inputRef}
+        ref={ref}
         type="file"
         accept="image/*"
-        className="hidden"
+        className="opacity-0 peer absolute"
         id={id}
+        disabled={disabled}
       />
 
       <Image
@@ -55,14 +53,13 @@ export default function ImageInput({ value: _value, id, register, name }: Props)
         className="h-full w-full bg-primaryGreen object-cover"
       />
 
-      <button
-        type="button"
-        onClick={handleClick}
-        className="p-1 bg-black/20 opacity-0 flex text-white absolute h-full aspect-square top-0 left-0 flex-col items-center justify-center group-hover:opacity-100 focus:opacity-100"
+      <label
+        htmlFor={id}
+        className="enabled:cursor-pointer p-1 bg-black/20 opacity-0 flex text-white absolute h-full w-full top-0 flex-col items-center justify-center peer-enabled:hover:opacity-100 peer-enabled:peer-focus:opacity-100"
       >
         <BiImageAdd className="text-4xl" />
         <span className="text-sm text-center font-bold">Editar imagem de perfil</span>
-      </button>
+      </label>
     </div>
   );
 }
