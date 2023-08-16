@@ -37,7 +37,7 @@ export default function ProfilePage() {
               Credenciais
             </Container.Title>
 
-            {/* <CredentialsForm user={user} /> */}
+            <CredentialsForm user={user} />
           </Container.Section>
         </Container.Article>
       </main>

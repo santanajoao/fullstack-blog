@@ -47,12 +47,7 @@ export default function PersonalInfosForm({ user }: Props) {
   }, [editing]);
 
   const onSubmit = (data: Fields) => {
-    if (!editing) {
-      console.log({
-        ...data,
-        image: imageFile,
-      });
-    }
+    console.log(data);
   };
 
   return (

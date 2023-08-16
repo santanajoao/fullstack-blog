@@ -1,26 +1,23 @@
-import React, { ComponentProps, HTMLInputTypeAttribute, RefObject } from 'react';
-import { UseFormRegister } from 'react-hook-form';
+import React, { ComponentProps, HTMLInputTypeAttribute } from 'react';
+import { RefCallBack, UseFormRegister } from 'react-hook-form';
 
 interface Props extends ComponentProps<'input'> {
   type: HTMLInputTypeAttribute;
   register: UseFormRegister<any>;
   name: string;
-  _ref?: RefObject<HTMLInputElement>;
+  _ref?: RefCallBack;
 }
 
 export default function Input(props: Props) {
   const {
-    className, register, name, _ref: ref, ...others
+    className, register, name, ...others
   } = props;
-
-  const { ref: registerRef, ...registerProps } = register(name);
 
   return (
     <input
       className="px-3 mt-1 h-12 enabled:bg-black/10 rounded-md"
       {...others}
-      {...registerProps}
-      ref={ref || registerRef}
+      {...register(name)}
     />
   );
 }
