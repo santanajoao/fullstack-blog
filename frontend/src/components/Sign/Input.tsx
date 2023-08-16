@@ -13,12 +13,14 @@ export default function Input(props: Props) {
     className, register, name, _ref: ref, ...others
   } = props;
 
+  const { ref: registerRef, ...registerProps } = register(name);
+
   return (
     <input
       className="px-3 mt-1 h-12 enabled:bg-black/10 rounded-md"
       {...others}
-      {...register(name)}
-      ref={ref}
+      {...registerProps}
+      ref={ref || registerRef}
     />
   );
 }

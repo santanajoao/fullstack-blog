@@ -8,11 +8,11 @@ interface Props {
   id: string;
   register: UseFormRegister<any>
   name: string;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 export default function HiddenPasswordInput({
-  id, register, name, disabled,
+  id, register, name, disabled = false,
 }: Props) {
   const [isVisible, setIsVisible] = useState(false);
 

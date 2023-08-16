@@ -1,41 +1,39 @@
 'use client';
 
 import Image from 'next/image';
-import React, {
-  ChangeEvent, RefObject, useState,
-} from 'react';
-import { UseFormRegister } from 'react-hook-form';
+import React, { ChangeEvent, RefObject, useState } from 'react';
 import { BiImageAdd } from 'react-icons/bi';
 
 interface Props {
   value: string;
   id: string;
-  name: string;
-  register: UseFormRegister<any>;
   disabled: boolean;
   _ref?: RefObject<HTMLInputElement>;
+  onChange: (imageFile: File) => void;
 }
 
 export default function ImageInput({
-  value: _value, id, register, name, disabled, _ref: ref,
+  value: _value, id, disabled, _ref: ref, onChange,
 }: Props) {
   const [value, setValue] = useState<string>(_value);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
-    if (!files || files.length === 0) return;
+    if (!files) return;
 
-    URL.revokeObjectURL(value);
     const file = files[0];
-    const url = URL.createObjectURL(file);
+    if (file.type.startsWith('image/')) {
+      URL.revokeObjectURL(value);
+      const url = URL.createObjectURL(file);
+      setValue(url);
 
-    setValue(url);
+      onChange(file);
+    }
   };
 
   return (
     <div className="group relative rounded-xl overflow-hidden h-40 w-40 border-2 border-black">
       <input
-        {...register(name)}
         onChange={handleChange}
         ref={ref}
         type="file"

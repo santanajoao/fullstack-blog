@@ -9,10 +9,12 @@ export const aboutSchema = z
     message: 'O seu sobre deve ter no máximo 200 caracteres',
   });
 
-export const profileSchema = z.object({
-  imageUrl: z.string(),
+export const profilePersonalSchema = z.object({
   username: signNameSchema,
   about: aboutSchema,
+});
+
+export const profileCredentialsSchema = z.object({
   email: signEmailSchema,
   currentPassword: signPasswordSchema,
   newPassword: signPasswordSchema,

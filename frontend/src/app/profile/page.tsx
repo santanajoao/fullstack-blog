@@ -4,7 +4,6 @@ import { AuthContext } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import React, { useContext } from 'react';
 import HomeHeader from '@/components/Header/HomeHeader';
-import defaultProfile from 'public/profile.svg';
 import Container from '@/components/Container';
 import PersonalInfosForm from '@/components/Profile/PersonalInfosForm';
 import CredentialsForm from '@/components/Profile/CredentialsForm';
@@ -38,7 +37,7 @@ export default function ProfilePage() {
               Credenciais
             </Container.Title>
 
-            <CredentialsForm user={user} />
+            {/* <CredentialsForm user={user} /> */}
           </Container.Section>
         </Container.Article>
       </main>
