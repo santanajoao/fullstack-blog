@@ -1,22 +1,19 @@
-import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
-import Button from "./Button";
-import Container from "@/components/Container";
-import Textarea from "../Textarea";
+import React, { useState } from 'react';
+import Container from '@/components/Container';
+import { UseFormRegister } from 'react-hook-form';
+import Button from './Button';
+import Textarea from '../Textarea';
 
 interface Props {
-  value?: string;
-  onChange?: ChangeEventHandler<HTMLTextAreaElement>;
+  register: UseFormRegister<any>;
+  name: string;
+  value: string;
 }
 
-export default function MarkdownInput({ value = '', onChange }: Props) {
-  const [markdown, setMarkdown] = useState(value);
+export default function MarkdownInput({
+  register, name, value,
+}: Props) {
   const [showPreview, setShowPreview] = useState(false);
-
-  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setMarkdown(event.target.value);
-
-    onChange && onChange(event);
-  }
 
   return (
     <div>
@@ -39,17 +36,17 @@ export default function MarkdownInput({ value = '', onChange }: Props) {
       <div className="h-[70vh] p-2">
         {showPreview ? (
           <Container.Markdown className="h-full">
-            {markdown.trim() || 'Escreva algo utilizando markdown para ver o resultado'}
+            {value.trim() || 'Escreva algo utilizando markdown para ver o resultado'}
           </Container.Markdown>
         ) : (
           <Textarea
             placeholder="Texto da publicação"
             className="w-full h-full"
-            value={markdown}
-            onChange={handleChange}
+            register={register}
+            name={name}
           />
         )}
       </div>
     </div>
-  )
+  );
 }

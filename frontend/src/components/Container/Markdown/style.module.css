@@ -86,3 +86,7 @@
 .markdown blockquote p {
   margin: 0;
 }
+
+.markdown {
+  word-wrap: break-word;
+}

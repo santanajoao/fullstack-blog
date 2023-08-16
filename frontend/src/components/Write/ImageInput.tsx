@@ -1,21 +1,28 @@
 import Image from 'next/image';
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react';
 
 interface Props {
-  value?: string;
+  onImageChange?: (imageFile: File) => void;
 }
 
-export default function ImageInput({ value = '' }: Props) {
-  const [imageUrl, setImageUrl] = useState(value);
+export default function ImageInput({ onImageChange }: Props) {
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    const { files } = event.target;
     if (!files) return;
-    if (!files[0].type.startsWith('image/')) return console.error("tipo errado");
+    if (!files[0].type.startsWith('image/')) return;
 
-    URL.revokeObjectURL(imageUrl);
+    if (imageUrl) {
+      URL.revokeObjectURL(imageUrl);
+    }
+
     setImageUrl(URL.createObjectURL(files[0]));
-  }
+
+    if (onImageChange) {
+      onImageChange(files[0]);
+    }
+  };
 
   return (
     <div className="border relative w-full aspect-video bg-primaryGreen">
@@ -45,9 +52,9 @@ export default function ImageInput({ value = '' }: Props) {
           height={810}
           src={imageUrl}
           alt="Imagem representativa da publicação"
-          className="w-full h-full object-scale-down left-0 top-0 absolute"
+          className="w-full h-full object-cover left-0 top-0 absolute"
         />
       )}
     </div>
-  )
+  );
 }
