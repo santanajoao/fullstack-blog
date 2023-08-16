@@ -53,7 +53,7 @@ export default function ImageInput({
 
       <label
         htmlFor={id}
-        className="enabled:cursor-pointer p-1 bg-black/20 opacity-0 flex text-white absolute h-full w-full top-0 flex-col items-center justify-center peer-enabled:hover:opacity-100 peer-enabled:peer-focus:opacity-100"
+        className="cursor-pointer p-1 bg-black/20 opacity-0 flex text-white absolute h-full w-full top-0 flex-col items-center justify-center peer-enabled:hover:opacity-100 peer-enabled:peer-focus:opacity-100"
       >
         <BiImageAdd className="text-4xl" />
         <span className="text-sm text-center font-bold">Editar imagem de perfil</span>

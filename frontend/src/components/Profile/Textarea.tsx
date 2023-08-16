@@ -14,7 +14,7 @@ export default function Textarea(props: Props) {
 
   return (
     <textarea
-      className="rounded-md enabled:bg-black/10 resize-none w-full py-1 px-2 h-28"
+      className="rounded-md enabled:bg-black/10 disabled:placeholder:text-black resize-none w-full py-1 px-2 h-28"
       {...other}
       {...register(name)}
     />

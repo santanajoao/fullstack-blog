@@ -89,6 +89,7 @@ export default function PersonalInfosForm({ user }: Props) {
             name="about"
             register={register}
             disabled={!editing}
+            placeholder={user.about ?? 'Esse usuário ainda não definiu um "about"'}
           />
           <Sign.ErrorMessage>
             {errors.about?.message}
