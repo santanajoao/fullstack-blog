@@ -23,7 +23,7 @@ export default function BestPosts({ posts, author }: Props) {
               date={new Date(post.createdAt)}
               author={author.username}
               description={post.description}
-              image={`${post.imageUrl}?size=599`}
+              image={post.imageUrl ?? `${post.imageUrl}?size=599`}
               link={`/post/${post.id}`}
             />
           </PostList.Item>
