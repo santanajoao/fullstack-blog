@@ -32,7 +32,7 @@ export default function WritePage() {
     const token = getCookie('blog.session.token');
     if (token) {
       const response = await createPost(data, token);
-      router.push(`posts/${response.data?.id}`);
+      router.push(`post/${response.data?.id}`);
     }
   };
 
