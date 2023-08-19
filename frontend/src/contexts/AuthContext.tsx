@@ -10,7 +10,7 @@ import { SignInFields } from '@/types/Sign/SignIn';
 import { SignResponse, User } from '@/types/Sign/SignResponse';
 import { SignUpFields } from '@/types/Sign/SignUp';
 import { usePathname, useRouter } from 'next/navigation';
-import { parseCookies, setCookie, destroyCookie } from 'nookies';
+import { destroyCookie, getCookie, setCookie } from '@/lib/cookies';
 
 interface ContextValues {
   error: string | null;
@@ -38,9 +38,7 @@ export function AuthProvider({ children }: ChildrenProps) {
 
   const handleSignData = ({ success, data, message }: ServiceResponse<SignResponse>) => {
     if (success) {
-      setCookie(null, 'blog.session.token', data.token, {
-        maxAge: 60 * 60 * 24 * 2, // 2 days
-      });
+      setCookie('blog.session.token', data.token, 60 * 60 * 24 * 2); // 2 days);
       setUser(data.account);
       setError(null);
 
@@ -67,13 +65,13 @@ export function AuthProvider({ children }: ChildrenProps) {
   };
 
   const signOut = () => {
-    destroyCookie(null, 'blog.session.token');
+    destroyCookie('blog.session.token');
     setUser(null);
     setIsLoading(false);
   };
 
   const refreshUserData = async () => {
-    const { 'blog.session.token': token } = parseCookies();
+    const token = getCookie('blog.session.token');
     if (token) {
       setIsLoading(true);
       const { success, data } = await requestUserData(token);

@@ -5,16 +5,13 @@ import Sign from '@/components/Sign';
 import ImageInput from '@/components/Write/ImageInput';
 import MarkdownInput from '@/components/Write/MarkdownInput';
 import Textarea from '@/components/Write/Textarea';
+import { getCookie } from '@/lib/cookies';
 import { postSchema } from '@/lib/schemas/post.schema';
+import { createPost } from '@/services/posts';
+import { TPostCreation } from '@/types/Post';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-
-type Fields = {
-  title: string;
-  description: string;
-  content: string;
-};
 
 export default function WritePage() {
   const {
@@ -22,20 +19,18 @@ export default function WritePage() {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<Fields>({
+  } = useForm<TPostCreation>({
     resolver: zodResolver(postSchema),
   });
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageError, setImageError] = useState<string | null>(null);
 
-  const onSubmit = (data: Fields): void => {
-    if (!imageFile) return;
-
-    console.log({
-      ...data,
-      image: imageFile,
-    });
+  const onSubmit = async (data: TPostCreation): Promise<void> => {
+    const token = getCookie('blog.session.token');
+    if (token) {
+      await createPost(data, '');
+    }
   };
 
   const checkForImage = () => {

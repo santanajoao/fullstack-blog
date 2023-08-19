@@ -10,3 +10,9 @@ export type TPost = {
   },
   content: string;
 };
+
+export type TPostCreation = {
+  title: string;
+  description: string;
+  content: string;
+};
