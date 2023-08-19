@@ -5,6 +5,8 @@ import dates from '../utils/dates';
 import treatQuantity from './validations/treatQuantity';
 import validateTopicId from './validations/validateTopicId';
 import { validateAccountId } from './validations/likeValidations';
+import { TPostCreation } from '../types/post';
+import { validatePost } from './validations/postValidations';
 
 const getWeekPopularPosts = async (
   quantity: number,
@@ -202,10 +204,32 @@ const getPostByAccount = async (
   return { status: 'SUCCESS', data: { posts, likeCount, postCount } };
 };
 
+const createPost = async ({
+  accountId, title, content, description
+}: TPostCreation): AsyncServiceResponse<Post> => {
+  const postValidation = await validatePost({
+    title, description, content, accountId,
+  });
+  if (postValidation.status !== 'SUCCESS') return postValidation;
+
+  const createdPost = await prisma.post.create({
+    data: {
+      content,
+      description,
+      title,
+      accountId,
+      imageUrl: '',
+    }
+  });
+
+  return { status: 'SUCCESS', data: createdPost };
+};
+
 export default {
   getWeekPopularPosts,
   getPostsByTopicId,
   getTopicPostsInfos,
   getPostById,
   getPostByAccount,
+  createPost,
 };

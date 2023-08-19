@@ -10,6 +10,7 @@ import { postSchema } from '@/lib/schemas/post.schema';
 import { createPost } from '@/services/posts';
 import { TPostCreation } from '@/types/Post';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -25,11 +26,13 @@ export default function WritePage() {
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageError, setImageError] = useState<string | null>(null);
+  const router = useRouter();
 
   const onSubmit = async (data: TPostCreation): Promise<void> => {
     const token = getCookie('blog.session.token');
     if (token) {
-      await createPost(data, '');
+      const response = await createPost(data, token);
+      router.push(`posts/${response.data?.id}`);
     }
   };
 

@@ -38,7 +38,7 @@ export function AuthProvider({ children }: ChildrenProps) {
 
   const handleSignData = ({ success, data, message }: ServiceResponse<SignResponse>) => {
     if (success) {
-      setCookie('blog.session.token', data.token, 60 * 60 * 24 * 2); // 2 days);
+      setCookie('blog.session.token', data.token, 60 * 60 * 24 * 2); // 2 days
       setUser(data.account);
       setError(null);
 

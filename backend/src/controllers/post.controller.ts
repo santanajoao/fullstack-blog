@@ -54,10 +54,25 @@ const handleGetPostsByAccount = async (req: Request, res: Response) => {
   res.status(200).json(data);
 };
 
+const handlePostPost = async (req: Request, res: Response) => {
+  const { title, description, content } = req.body;
+  const accountId = req.body.local.account.id;
+
+  const { status, data } = await postService
+    .createPost({ title, description, content, accountId });
+
+  if (status !== 'SUCCESS') {
+    return res.status(mapErrorStatus(status)).json(data);
+  }
+
+  res.status(201).json(data);
+}
+
 export default {
   handleGetPopularPosts,
   handleGetPostsByTopicId,
   handleGetTopicPosts,
   handleGetPostById,
   handleGetPostsByAccount,
+  handlePostPost,
 };

@@ -24,7 +24,7 @@ export default async function Popular() {
               author={post.account.username}
               date={new Date(post.createdAt)}
               description={post.description}
-              image={`${post.imageUrl}?size=599`}
+              image={post.imageUrl ?? `${post.imageUrl}?size=599`}
               title={post.title}
               link={`/post/${post.id}`}
             />
