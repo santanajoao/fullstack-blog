@@ -64,6 +64,17 @@ Haverá uma página para uma postagem onde é possível ler o conteúdo da publi
 
 ### Próximos passos
 
-- [ ] Página de perfil (Atualmente em desenvolvimento)
-- [ ] Página sobre o uso de cookies
+- [ ] Página de perfil (em desenvolvimento)
+  - [X] Interface
+  - [ ] Back-end
+  - [ ] Alteração das informações pessoais
+  - [ ] Alteração das informações credenciais
+  - [ ] Upload da imagem de perfil para o banco de dados
+
 - [ ] Página para escrever um post / Editor de posts
+  - [X] Interface
+  - [X] Back-end
+  - [X] Criação de um post
+  - [ ] Upload da imagem do post para o banco de dados
+
+- [ ] Página sobre o uso de cookies
