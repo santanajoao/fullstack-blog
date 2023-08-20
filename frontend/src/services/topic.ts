@@ -1,6 +1,7 @@
 import { Topic } from '@/types/Topic';
 import TServiceResponse from '@/types/ServiceResponse';
-import { treatFetchResponse } from './errorHandling';
+import axios from 'axios';
+import { treatAxiosResponse, treatFetchResponse } from './errorHandling';
 
 type TopicInfos = {
   topic: Topic,
@@ -23,4 +24,12 @@ export const requestTopicInfos = async (
   } catch (error) {
     return treatFetchResponse<TopicInfos>(error);
   }
+};
+
+export const requestTopics = async (query?: string): Promise<TServiceResponse<Topic[]>> => {
+  const response = await treatAxiosResponse<Topic[]>(() => (
+    axios.get(`http://localhost:3001/topics?query=${query}`)
+  ));
+
+  return response;
 };

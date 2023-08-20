@@ -8,5 +8,6 @@ topicRouter.get('/:id/posts/infos', postController.handleGetTopicPosts);
 topicRouter.get('/:id/posts', postController.handleGetPostsByTopicId);
 topicRouter.get('/popular', topicController.handleGetPopularTopics);
 topicRouter.get('/account/:accountId', topicController.handleGetAccountTopics);
+topicRouter.get('/', topicController.handleGetTopics);
 
 export default topicRouter;

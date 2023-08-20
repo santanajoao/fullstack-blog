@@ -5,6 +5,7 @@ import Sign from '@/components/Sign';
 import ImageInput from '@/components/Write/ImageInput';
 import MarkdownInput from '@/components/Write/MarkdownInput';
 import Textarea from '@/components/Write/Textarea';
+import TopicInput from '@/components/Write/TopicInput';
 import { getCookie } from '@/lib/cookies';
 import { postSchema } from '@/lib/schemas/post.schema';
 import { createPost } from '@/services/posts';
@@ -72,6 +73,10 @@ export default function WritePage() {
               rows={3}
             />
             <Sign.ErrorMessage>{errors.description?.message}</Sign.ErrorMessage>
+          </Sign.Field>
+
+          <Sign.Field>
+            <TopicInput />
           </Sign.Field>
 
           <Sign.Field>

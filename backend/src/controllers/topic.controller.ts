@@ -18,7 +18,16 @@ const handleGetAccountTopics = async (req: Request, res: Response) => {
   res.status(200).json(data);
 };
 
+const handleGetTopics = async (req: Request, res: Response) => {
+  const { query } = req.query;
+
+  const { data } = await topicService.getTopics(query as string | undefined);
+
+  res.status(200).json(data);
+};
+
 export default {
   handleGetPopularTopics,
   handleGetAccountTopics,
+  handleGetTopics,
 };
