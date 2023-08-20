@@ -45,11 +45,14 @@ const getAccountTopics = async (
   return { status: 'SUCCESS', data: topics };
 };
 
-const getTopics = async (query: string = ''): AsyncServiceResponse<Topic[]> => {
+const getTopics = async (query: string = '', excludeIds: string[] = []): AsyncServiceResponse<Topic[]> => {
   const topics = await prisma.topic.findMany({
     where: {
       name: {
         contains: query,
+      },
+      id: {
+        notIn: excludeIds,
       },
     },
     take: 6,

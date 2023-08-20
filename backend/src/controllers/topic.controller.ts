@@ -19,9 +19,12 @@ const handleGetAccountTopics = async (req: Request, res: Response) => {
 };
 
 const handleGetTopics = async (req: Request, res: Response) => {
-  const { query } = req.query;
+  const { query, excludeIds } = req.query as Record<string, string | undefined>;
 
-  const { data } = await topicService.getTopics(query as string | undefined);
+  let idsToExclude;
+  if (excludeIds) { idsToExclude = excludeIds.split(',') };
+
+  const { data } = await topicService.getTopics(query as string | undefined, idsToExclude);
 
   res.status(200).json(data);
 };

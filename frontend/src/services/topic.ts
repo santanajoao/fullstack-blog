@@ -26,9 +26,13 @@ export const requestTopicInfos = async (
   }
 };
 
-export const requestTopics = async (query?: string): Promise<TServiceResponse<Topic[]>> => {
+export const requestTopics = async (
+  query?: string,
+  idsToExclude?: string[],
+): Promise<TServiceResponse<Topic[]>> => {
+  const idsParam = idsToExclude && idsToExclude.join(',');
   const response = await treatAxiosResponse<Topic[]>(() => (
-    axios.get(`http://localhost:3001/topics?query=${query}`)
+    axios.get(`http://localhost:3001/topics?query=${query}&excludeIds=${idsParam}`)
   ));
 
   return response;
