@@ -55,11 +55,11 @@ const handleGetPostsByAccount = async (req: Request, res: Response) => {
 };
 
 const handlePostPost = async (req: Request, res: Response) => {
-  const { title, description, content } = req.body;
+  const { title, description, content, topics } = req.body;
   const accountId = req.body.local.account.id;
 
   const { status, data } = await postService
-    .createPost({ title, description, content, accountId });
+    .createPost({ title, description, content, accountId, topics });
 
   if (status !== 'SUCCESS') {
     return res.status(mapErrorStatus(status)).json(data);

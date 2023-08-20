@@ -5,13 +5,13 @@ import { postSchema } from "./schemas/post.schema";
 import validateSchemaFields from "./validateSchemaFields";
 
 export const validatePost = async ({
-  title, description, content, accountId,
+  title, description, content, accountId, topics,
 }: TPostCreation): AsyncServiceResponse<null> => {
   const idValidation = await validateAccountId(accountId);
   if (idValidation.status !== 'SUCCESS') return idValidation;
 
   const fieldsValidation = validateSchemaFields(postSchema, {
-    title, description, content,
+    title, description, content, topics,
   });
   if (fieldsValidation.status !== 'SUCCESS') return fieldsValidation;
 

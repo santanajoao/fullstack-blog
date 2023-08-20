@@ -2,10 +2,13 @@ import { requestTopics } from '@/services/topic';
 import { Topic } from '@/types/Topic';
 import React, { useEffect, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
-import ErrorMessage from '@components/Sign/ErrorMessage';
 import TopicCheckList from './TopicCheckList';
 
-export default function TopicInput() {
+interface Props {
+  onChange?: (selectedTopics: Topic[]) => void;
+}
+
+export default function TopicInput({ onChange }: Props) {
   const [query, setQuery] = useState('');
   const [topics, setTopics] = useState<Topic[] | null>(null);
   const [selectedTopics, setSelectedTopics] = useState<Topic[]>([]);
@@ -23,13 +26,18 @@ export default function TopicInput() {
   ) => {
     const selected = selectedTopics
       .some((topic) => topic.id === clickedTopic.id);
+    let newSelectedTopics: Topic[] = [];
 
     if (selected) {
-      setSelectedTopics(selectedTopics
-        .filter((topic) => topic.id !== clickedTopic.id));
+      newSelectedTopics = selectedTopics
+        .filter((topic) => topic.id !== clickedTopic.id);
     } else {
-      setSelectedTopics([...selectedTopics, clickedTopic]);
+      newSelectedTopics = [...selectedTopics, clickedTopic];
     }
+
+    setSelectedTopics(newSelectedTopics);
+
+    if (onChange) onChange(newSelectedTopics);
   };
 
   useEffect(() => {

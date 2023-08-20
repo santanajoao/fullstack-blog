@@ -7,6 +7,7 @@ import validateTopicId from './validations/validateTopicId';
 import { validateAccountId } from './validations/likeValidations';
 import { TPostCreation } from '../types/post';
 import { validatePost } from './validations/postValidations';
+import { validateTopics } from './validations/topicValidations';
 
 const getWeekPopularPosts = async (
   quantity: number,
@@ -25,8 +26,8 @@ const getWeekPopularPosts = async (
       },
     },
     orderBy: [
-      { createdAt: 'desc' },
       { likes: { _count: 'desc' } },
+      { createdAt: 'desc' },
     ],
     take: treatQuantity(quantity),
   });
@@ -205,12 +206,15 @@ const getPostByAccount = async (
 };
 
 const createPost = async ({
-  accountId, title, content, description
+  accountId, title, content, description, topics,
 }: TPostCreation): AsyncServiceResponse<Post> => {
   const postValidation = await validatePost({
-    title, description, content, accountId,
+    title, description, content, accountId, topics,
   });
   if (postValidation.status !== 'SUCCESS') return postValidation;
+
+  const topicsValidation = await validateTopics(topics);
+  if (topicsValidation.status !== 'SUCCESS') return topicsValidation;
 
   const createdPost = await prisma.post.create({
     data: {
@@ -219,6 +223,9 @@ const createPost = async ({
       title,
       accountId,
       imageUrl: '',
+      topics: {
+        connect: topics.map((topic) => ({ id: topic })),
+      },
     }
   });
 

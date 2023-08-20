@@ -15,4 +15,5 @@ export type TPostCreation = {
   title: string;
   description: string;
   content: string;
+  topics: string[],
 };

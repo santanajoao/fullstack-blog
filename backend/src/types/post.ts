@@ -1,3 +1,5 @@
-import { Post } from "@prisma/client";
+import { Post, Topic } from "@prisma/client";
 
-export type TPostCreation = Pick<Post, 'accountId' | 'content' | 'description' | 'title'>;
+export type TPostCreation = Pick<Post, 'accountId' | 'content' | 'description' | 'title'> & {
+  topics: Topic['id'][];
+};

@@ -10,6 +10,7 @@ import { getCookie } from '@/lib/cookies';
 import { postSchema } from '@/lib/schemas/post.schema';
 import { createPost } from '@/services/posts';
 import { TPostCreation } from '@/types/Post';
+import { Topic } from '@/types/Topic';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
@@ -19,10 +20,15 @@ export default function WritePage() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
     watch,
   } = useForm<TPostCreation>({
     resolver: zodResolver(postSchema),
+    defaultValues: {
+      topics: [],
+      content: '',
+    },
   });
 
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -38,9 +44,7 @@ export default function WritePage() {
   };
 
   const checkForImage = () => {
-    if (!imageFile) {
-      setImageError('A imagem do post é obrigatória');
-    }
+    if (!imageFile) { setImageError('A imagem do post é obrigatória'); }
   };
 
   const handleImageChange = (image: File): void => {
@@ -48,6 +52,11 @@ export default function WritePage() {
       setImageError(null);
       setImageFile(image);
     }
+  };
+
+  const handleTopicsChange = (topics: Topic[]) => {
+    const topicIds = topics.map((topic) => topic.id);
+    setValue('topics', topicIds, { shouldValidate: true });
   };
 
   return (
@@ -76,7 +85,8 @@ export default function WritePage() {
           </Sign.Field>
 
           <Sign.Field>
-            <TopicInput />
+            <TopicInput onChange={handleTopicsChange} />
+            <Sign.ErrorMessage>{errors.topics?.message}</Sign.ErrorMessage>
           </Sign.Field>
 
           <Sign.Field>

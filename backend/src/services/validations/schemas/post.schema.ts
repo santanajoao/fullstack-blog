@@ -21,8 +21,14 @@ export const contentSchema = z.string()
   .min(contentMinLength, `O seu post deve ter no mínimo ${contentMinLength} caracteres`)
   .max(contentMaxLength, `O seu post deve ter no máximo ${contentMaxLength} caracteres`);
 
+export const topicListSchema = z
+  .array(z.string())
+  .min(1, 'Sua publicação deve ter no mínimo 1 tópico')
+  .max(3, 'Sua publicação deve ter no máximo 3 tópicos');
+
 export const postSchema = z.object({
   title: titleSchema,
   description: descriptionSchema,
   content: contentSchema,
+  topics: topicListSchema,
 });
