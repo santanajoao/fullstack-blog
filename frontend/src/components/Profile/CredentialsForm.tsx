@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form';
 import { Account } from '@/types/Account';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { profileCredentialsSchema } from '@/lib/schemas/account.schema';
+import { updateCredentials } from '@/services/account';
+import { getCookie } from '@/lib/cookies';
 
 interface Props {
   user: Account;
@@ -13,12 +15,13 @@ interface Props {
 
 type Fields = {
   email: string;
-  currentPassword: string;
+  password: string;
   newPassword: string;
 };
 
 export default function CredentialsForm({ user }: Props) {
   const [editing, setEditing] = useState(false);
+  const [generalError, setGeneralError] = useState<null | string>(null);
 
   const {
     register,
@@ -27,14 +30,22 @@ export default function CredentialsForm({ user }: Props) {
   } = useForm<Fields>({
     defaultValues: {
       email: user.email,
-      currentPassword: '',
+      password: '',
       newPassword: '',
     },
     resolver: zodResolver(profileCredentialsSchema),
   });
 
-  const onSubmit = (data: Fields) => {
-    console.log(data);
+  const onSubmit = async (data: Fields) => {
+    const token = getCookie('blog.session.token') as string;
+    const response = await updateCredentials(data, token);
+
+    if (response.success) {
+      setEditing(false);
+      setGeneralError(null);
+    } else {
+      setGeneralError(response.message);
+    }
   };
 
   return (
@@ -57,13 +68,13 @@ export default function CredentialsForm({ user }: Props) {
           <Sign.Label htmlFor="current-password-input">Senha atual</Sign.Label>
 
           <Sign.HiddenPasswordInput
-            name="currentPassword"
+            name="password"
             id="current-password-input"
             register={register}
             disabled={!editing}
           />
 
-          <Sign.ErrorMessage>{errors.currentPassword?.message}</Sign.ErrorMessage>
+          <Sign.ErrorMessage>{errors.password?.message}</Sign.ErrorMessage>
         </Sign.Field>
 
         <Sign.Field>
@@ -78,12 +89,15 @@ export default function CredentialsForm({ user }: Props) {
 
           <Sign.ErrorMessage>{errors.newPassword?.message}</Sign.ErrorMessage>
         </Sign.Field>
+
       </Sign.FieldsWrapper>
+
+      <Sign.ErrorMessage>{generalError}</Sign.ErrorMessage>
 
       <Sign.Button
         type="submit"
         className="w-fit py-2"
-        onClick={editing ? () => () => setEditing(false) : () => setEditing(true)}
+        onClick={editing ? undefined : () => setEditing(true)}
       >
         {editing ? 'Salvar' : 'Editar'}
       </Sign.Button>

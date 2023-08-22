@@ -3,10 +3,13 @@ import { AsyncServiceResponse } from '../types/serviceResponse';
 import jwt from '../lib/jwt';
 import bcrypt from '../lib/bcrypt';
 import { validateSignIn } from './validations/signInValidations';
-import { AccountCreation, AccountPublicFields, SignInFields, SignResponse } from '../types/account';
+import { AccountCreation, AccountCredentials, AccountPublicFields, SignInFields, SignResponse } from '../types/account';
 import { getAccountPublicFields } from '../utils/account';
 import { validateSignUp } from './validations/signUpValidations';
 import { validateAccountId } from './validations/likeValidations';
+import validateSchemaFields from './validations/validateSchemaFields';
+import { accountCredentialsSchema } from './validations/schemas/account.schema';
+import { validatePasswordChange } from './validations/accountValidations';
 
 const createAccount = async (
   { username, email, password }: AccountCreation
@@ -47,7 +50,35 @@ const getAccountById = async (accountId: string): AsyncServiceResponse<AccountPu
   return { status: 'SUCCESS', data: accountPublicFields };
 };
 
+const updateAccountCredentials = async ({
+  id,
+  email,
+  newPassword,
+  password,
+}: AccountCredentials): AsyncServiceResponse<AccountPublicFields> => {
+  const fieldsValidation = validateSchemaFields(accountCredentialsSchema, {
+    email, password, newPassword,
+  });
+  if (fieldsValidation.status !== 'SUCCESS') return fieldsValidation;
+
+  const passwordValidation = await validatePasswordChange(id, password);
+  if (passwordValidation.status !== 'SUCCESS') return passwordValidation;
+
+  const newPasswordHash = await bcrypt.encrypt(newPassword);
+  const updatedAccount = await prisma.account.update({
+    where: { id },
+    data: {
+      password: newPasswordHash,
+      email,
+    },
+  });
+
+  const accountPublicFields = getAccountPublicFields(updatedAccount);
+  return { status: 'SUCCESS', data: accountPublicFields };
+};
+
 export default {
+  updateAccountCredentials,
   createAccount,
   signIn,
   getAccountById,

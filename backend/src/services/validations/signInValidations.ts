@@ -7,6 +7,17 @@ import prisma from '../../lib/prisma';
 import bcrypt from '../../lib/bcrypt';
 import { SignInFields } from '../../types/account';
 
+export const validatePassword = async (
+  hash: string,
+  password: string,
+): AsyncServiceResponse<null> => {
+  const correctPassword = await bcrypt.compare(hash, password);
+  if (!correctPassword) {
+    return { status: 'UNAUTHORIZED', data: { message: 'Senha incorreta' } };
+  }
+  return { status: 'SUCCESS', data: null };
+}
+
 export const validateSignInFields = (
   email: string,
   password: string,
@@ -35,10 +46,8 @@ export const validateSignIn = async (
   if (existanceValidation.status !== 'SUCCESS') return existanceValidation;
 
   const account = existanceValidation.data;
-  const correctPassword = await bcrypt.compare(account.password, password);
-  if (!correctPassword) {
-    return { status: 'UNAUTHORIZED', data: { message: 'Senha incorreta' } };
-  }
+  const passwordValidation = await validatePassword(account.password, password);
+  if (passwordValidation.status !== 'SUCCESS') return passwordValidation;
 
   return { status: 'SUCCESS', data: account };
 }

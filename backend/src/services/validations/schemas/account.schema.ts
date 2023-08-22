@@ -30,6 +30,12 @@ export const signInSchema = z.object({
   password: accountPasswordSchema,
 });
 
+export const accountCredentialsSchema = z.object({
+  email: accountEmailSchema,
+  password: accountPasswordSchema,
+  newPassword: accountPasswordSchema,
+});
+
 export default {
   signUpSchema,
   signInSchema,

@@ -32,9 +32,27 @@ const handleGetAccountById = async (req: Request, res: Response) => {
     return res.status(mapErrorStatus(status)).json(data);
   }
   res.status(200).json(data);
-}
+};
+
+const handlePatchCredentials = async (req: Request, res: Response) => {
+  const accountId = req.body.local.account.id;
+  const { email, password, newPassword } = req.body;
+
+  const { status, data } = await accountService.updateAccountCredentials({
+    id: accountId,
+    password,
+    email,
+    newPassword,
+  });
+
+  if (status !== 'SUCCESS') {
+    return res.status(mapErrorStatus(status)).json(data);
+  }
+  res.status(200).json(data);
+};
 
 export default {
+  handlePatchCredentials,
   handlePostAccount,
   handlePostSignIn,
   handleGetAccountById,

@@ -5,3 +5,8 @@ export type Account = {
   imageUrl: string | null;
   about: string | null;
 };
+
+export type AccountCredentials = Pick<Account, 'email'> & {
+  password: string;
+  newPassword: string;
+};

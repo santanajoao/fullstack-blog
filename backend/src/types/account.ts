@@ -10,3 +10,7 @@ export type SignResponse = {
   token: string;
   account: AccountPublicFields;
 };
+
+export type AccountCredentials = Pick<Account, 'email' | 'id' | 'password'> & {
+  newPassword: string;
+};

@@ -16,6 +16,6 @@ export const profilePersonalSchema = z.object({
 
 export const profileCredentialsSchema = z.object({
   email: signEmailSchema,
-  currentPassword: signPasswordSchema,
+  password: signPasswordSchema,
   newPassword: signPasswordSchema,
 });
