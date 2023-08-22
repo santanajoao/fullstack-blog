@@ -54,7 +54,7 @@ export default function UserCard() {
 
       {isOpen && (
         <ul
-          className="absolute border w-full bg-white top-full z-10 rounded-md shadow-sm py-4 px-2"
+          className="absolute right-0 border w-36 bg-white top-full z-10 rounded-md shadow-sm py-4 px-2"
         >
           <li>
             <Link
