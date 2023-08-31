@@ -68,7 +68,7 @@ Haverá uma página para uma postagem onde é possível ler o conteúdo da publi
   - [X] Interface
   - [ ] Back-end
   - [ ] Alteração das informações pessoais
-  - [ ] Alteração das informações credenciais
+  - [X] Alteração das informações credenciais
   - [ ] Upload da imagem de perfil para o banco de dados
 
 - [ ] Página para escrever um post / Editor de posts
