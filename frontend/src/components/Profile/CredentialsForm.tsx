@@ -27,6 +27,8 @@ export default function CredentialsForm({ user }: Props) {
     register,
     handleSubmit,
     formState: { errors },
+    clearErrors,
+    reset,
   } = useForm<Fields>({
     defaultValues: {
       email: user.email,
@@ -47,6 +49,12 @@ export default function CredentialsForm({ user }: Props) {
       setGeneralError(response.message);
     }
   };
+
+  const cancelEditing = () => {
+    setEditing(false);
+    clearErrors();
+    reset();
+  }
 
   return (
     <Sign.Form onSubmit={handleSubmit(onSubmit)}>
@@ -93,14 +101,25 @@ export default function CredentialsForm({ user }: Props) {
       </Sign.FieldsWrapper>
 
       <Sign.ErrorMessage>{generalError}</Sign.ErrorMessage>
+      <div className="space-x-2">
+        <Sign.Button
+          type="submit"
+          className="py-2"
+          onClick={editing ? undefined : () => setEditing(true)}
+        >
+          {editing ? 'Salvar' : 'Editar'}
+        </Sign.Button>
 
-      <Sign.Button
-        type="submit"
-        className="w-fit py-2"
-        onClick={editing ? undefined : () => setEditing(true)}
-      >
-        {editing ? 'Salvar' : 'Editar'}
-      </Sign.Button>
+        {editing && (
+          <Sign.Button
+            type="button"
+            className="py-2 bg-gray-400"
+            onClick={cancelEditing}
+          >
+            Cancelar
+          </Sign.Button>
+        )}
+      </div>
     </Sign.Form>
   );
 }
