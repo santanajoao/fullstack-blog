@@ -31,6 +31,8 @@ export default function PersonalInfosForm({ user }: Props) {
     register,
     handleSubmit,
     formState: { errors },
+    clearErrors,
+    reset,
   } = useForm<Fields>({
     defaultValues: {
       about: user.about ?? '',
@@ -49,6 +51,12 @@ export default function PersonalInfosForm({ user }: Props) {
   const onSubmit = (data: Fields) => {
     console.log(data);
   };
+
+  const cancelEditing = () => {
+    setEditing(false);
+    clearErrors();
+    reset();
+  }
 
   return (
     <Sign.Form onSubmit={handleSubmit(onSubmit)}>
@@ -92,13 +100,25 @@ export default function PersonalInfosForm({ user }: Props) {
         </Sign.Field>
       </Sign.FieldsWrapper>
 
-      <Sign.Button
-        onClick={editing ? () => setEditing(false) : () => setEditing(true)}
-        className="w-fit py-2"
-        type="submit"
-      >
-        {editing ? 'Salvar' : 'Editar'}
-      </Sign.Button>
+      <div className="space-x-2">
+        <Sign.Button
+          onClick={editing ? () => setEditing(false) : () => setEditing(true)}
+          className="py-2"
+          type="submit"
+        >
+          {editing ? 'Salvar' : 'Editar'}
+        </Sign.Button>
+
+        {editing && (
+          <Sign.Button
+            onClick={cancelEditing}
+            className="py-2 bg-gray-400"
+            type="button"
+          >
+            Cancelar
+          </Sign.Button>
+        )}
+      </div>
     </Sign.Form>
   );
 }
