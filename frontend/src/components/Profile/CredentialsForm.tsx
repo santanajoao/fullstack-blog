@@ -45,6 +45,7 @@ export default function CredentialsForm({ user }: Props) {
     if (response.success) {
       setEditing(false);
       setGeneralError(null);
+      reset({ password: '', newPassword: '' });
     } else {
       setGeneralError(response.message);
     }
@@ -53,6 +54,7 @@ export default function CredentialsForm({ user }: Props) {
   const cancelEditing = () => {
     setEditing(false);
     clearErrors();
+    setGeneralError(null);
     reset();
   }
 
