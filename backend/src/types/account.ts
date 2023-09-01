@@ -14,3 +14,5 @@ export type SignResponse = {
 export type AccountCredentials = Pick<Account, 'email' | 'id' | 'password'> & {
   newPassword: string;
 };
+
+export type AccountPersonalInfos = Pick<Account, 'id' | 'about' | 'username'>;

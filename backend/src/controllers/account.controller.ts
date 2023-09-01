@@ -51,9 +51,26 @@ const handlePatchCredentials = async (req: Request, res: Response) => {
   res.status(200).json(data);
 };
 
+const handlePatchPersonal = async (req: Request, res: Response) => {
+  const accountId = req.body.local.account.id;
+  const { username, about } = req.body;
+
+  const { status, data } = await accountService.updateAccountPersonalInfos({
+    id: accountId,
+    username,
+    about,
+  });
+  
+  if (status !== 'SUCCESS') {
+    return res.status(mapErrorStatus(status)).json(data);
+  }
+  res.status(200).json(data);
+};
+
 export default {
   handlePatchCredentials,
   handlePostAccount,
   handlePostSignIn,
   handleGetAccountById,
+  handlePatchPersonal,
 };
