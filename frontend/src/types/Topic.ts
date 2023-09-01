@@ -3,3 +3,5 @@ export type Topic = {
   imageUrl: string,
   id: string,
 };
+
+export type TopicWithoutImage = Omit<Topic, 'imageUrl'>;

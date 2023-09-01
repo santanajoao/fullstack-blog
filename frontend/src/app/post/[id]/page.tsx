@@ -1,13 +1,11 @@
 import React from 'react';
 import HomeHeader from '@/components/Header/HomeHeader';
 import { TPost } from '@/types/Post';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import Footer from '@/components/Footer';
 import { Account } from '@/types/Account';
 import Post from '@/components/Post';
-import styles from './style.module.css';
 import Container from '@/components/Container';
+import { TopicWithoutImage } from '@/types/Topic';
 
 interface Params {
   params: {
@@ -17,6 +15,7 @@ interface Params {
 
 type PostData = TPost & {
   account: Account;
+  topics: TopicWithoutImage[],
 };
 
 export default async function PostPage({ params }: Params) {

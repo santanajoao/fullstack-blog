@@ -150,6 +150,12 @@ const getPostById = async (
           id: true,
         },
       },
+      topics: {
+        select: {
+          id: true,
+          name: true,
+        }
+      },
     },
   });
 

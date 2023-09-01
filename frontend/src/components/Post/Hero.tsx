@@ -2,11 +2,15 @@ import { Account } from '@/types/Account';
 import { TPost } from '@/types/Post';
 import Image from 'next/image';
 import React from 'react';
+import { TopicWithoutImage } from '@/types/Topic';
 import LikeButton from '../LikeButton';
 import AuthorCard from './AuthorCard';
+import SimpleTopicList from '../SimpleTopicList';
 
 interface Props {
-  post: TPost;
+  post: TPost & {
+    topics: TopicWithoutImage[],
+  };
   account: Account;
 }
 
@@ -17,6 +21,8 @@ export default function Hero({ post, account }: Props) {
         {post.title}
       </h1>
       <p>{post.description}</p>
+
+      <SimpleTopicList topics={post.topics} />
 
       <div className="flex justify-between items-center">
         <AuthorCard post={post} account={account} />
