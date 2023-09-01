@@ -1,6 +1,7 @@
 'use client';
 
 import React, {
+  useContext,
   useEffect, useRef, useState,
 } from 'react';
 import Sign from '@/components/Sign';
@@ -11,6 +12,7 @@ import { Account } from '@/types/Account';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { getCookie } from '@/lib/cookies';
 import { updatePersonalInfos } from '@/services/account';
+import { AuthContext } from '@/contexts/AuthContext';
 import Textarea from './Textarea';
 import ImageInput from './ImageInput';
 
@@ -24,7 +26,8 @@ type Fields = {
   about: string;
 };
 
-export default function PersonalInfosForm({ user }: Props) {
+export default function PersonalInfosForm() {
+  const { user, refreshUserData } = useContext(AuthContext);
   const [editing, setEditing] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const firstInputRef = useRef<HTMLInputElement>(null);
@@ -38,9 +41,9 @@ export default function PersonalInfosForm({ user }: Props) {
     reset,
   } = useForm<Fields>({
     defaultValues: {
-      about: user.about ?? '',
-      username: user.username ?? '',
-      imageUrl: user.imageUrl ?? defaultProfile,
+      about: user?.about ?? '',
+      username: user?.username ?? '',
+      imageUrl: user?.imageUrl ?? defaultProfile,
     },
     resolver: zodResolver(profilePersonalSchema),
   });
@@ -58,6 +61,7 @@ export default function PersonalInfosForm({ user }: Props) {
     const response = await updatePersonalInfos(data, token);
 
     if (response.success) {
+      refreshUserData();
       setEditing(false);
       setGeneralError(null);
     } else {
@@ -79,7 +83,7 @@ export default function PersonalInfosForm({ user }: Props) {
         <ImageInput
           disabled={!editing}
           id="image-input"
-          value={user.imageUrl || defaultProfile}
+          value={user?.imageUrl || defaultProfile}
           _ref={firstInputRef}
           onChange={(newImageFile) => setImageFile(newImageFile)}
         />
@@ -106,7 +110,7 @@ export default function PersonalInfosForm({ user }: Props) {
             name="about"
             register={register}
             disabled={!editing}
-            placeholder={user.about ?? 'Esse usuário ainda não definiu um "about"'}
+            placeholder={user?.about ?? 'Esse usuário ainda não definiu um "about"'}
           />
           <Sign.ErrorMessage>
             {errors.about?.message}
@@ -127,7 +131,7 @@ export default function PersonalInfosForm({ user }: Props) {
         {editing && (
           <Sign.Button
             onClick={cancelEditing}
-            className="py-2 bg-gray-300"
+            className="py-2 bg-zinc-300"
             type="button"
           >
             Cancelar

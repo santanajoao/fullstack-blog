@@ -19,6 +19,7 @@ interface ContextValues {
   signIn(fields: SignInFields): Promise<void>;
   signUp(fields: SignUpFields): Promise<void>;
   signOut(): void;
+  refreshUserData(): void;
 }
 
 export const AuthContext = createContext({} as ContextValues);
@@ -89,7 +90,7 @@ export function AuthProvider({ children }: ChildrenProps) {
   }, [pathname]);
 
   const values = useMemo(() => ({
-    error, user, isLoading, signIn, signUp, signOut,
+    error, user, isLoading, signIn, signUp, signOut, refreshUserData,
   }), [error, user, isLoading]);
 
   return (

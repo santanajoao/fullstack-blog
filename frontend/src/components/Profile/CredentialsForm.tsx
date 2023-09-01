@@ -1,17 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Sign from '@/components/Sign';
 import { useForm } from 'react-hook-form';
-import { Account } from '@/types/Account';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { profileCredentialsSchema } from '@/lib/schemas/account.schema';
 import { updateCredentials } from '@/services/account';
 import { getCookie } from '@/lib/cookies';
-
-interface Props {
-  user: Account;
-}
+import { AuthContext } from '@/contexts/AuthContext';
 
 type Fields = {
   email: string;
@@ -19,7 +15,8 @@ type Fields = {
   newPassword: string;
 };
 
-export default function CredentialsForm({ user }: Props) {
+export default function CredentialsForm() {
+  const { user } = useContext(AuthContext);
   const [editing, setEditing] = useState(false);
   const [generalError, setGeneralError] = useState<null | string>(null);
 
@@ -31,7 +28,7 @@ export default function CredentialsForm({ user }: Props) {
     reset,
   } = useForm<Fields>({
     defaultValues: {
-      email: user.email,
+      email: user?.email,
       password: '',
       newPassword: '',
     },
@@ -115,7 +112,7 @@ export default function CredentialsForm({ user }: Props) {
         {editing && (
           <Sign.Button
             type="button"
-            className="py-2 bg-gray-400"
+            className="py-2 bg-zinc-300"
             onClick={cancelEditing}
           >
             Cancelar
