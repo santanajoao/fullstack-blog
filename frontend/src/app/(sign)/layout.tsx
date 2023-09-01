@@ -1,10 +1,16 @@
-import React from 'react';
+'use client';
+
+import React, { useContext } from 'react';
 import Link from 'next/link';
 import BlogLogo from '@/components/BlogLogo';
 import HeaderWrapper from '@/components/Header/HeaderWrapper';
 import { ChildrenProps } from '@/types/ChildrenProps';
+import { AuthContext } from '@/contexts/AuthContext';
 
 export default function SignLayout({ children }: ChildrenProps) {
+  const { redirect } = useContext(AuthContext);
+  if (redirect({ requireLogin: false, to: '/' })) return null;
+
   return (
     <>
       <HeaderWrapper>

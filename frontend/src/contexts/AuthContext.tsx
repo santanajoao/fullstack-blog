@@ -25,7 +25,7 @@ interface ContextValues {
   signUp(fields: SignUpFields): Promise<void>;
   signOut(): void;
   refreshUserData(): void;
-  redirect({ requireLogin, to }: RedirectParams): void;
+  redirect({ requireLogin, to }: RedirectParams): boolean;
 }
 
 export const AuthContext = createContext({} as ContextValues);
@@ -36,12 +36,6 @@ export function AuthProvider({ children }: ChildrenProps) {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
-
-  useEffect(() => {
-    if (['/signup', '/signin'].includes(pathname) && user) {
-      router.push('/');
-    }
-  }, [pathname, router, user]);
 
   const handleSignData = ({ success, data, message }: ServiceResponse<SignResponse>) => {
     if (success) {
@@ -91,12 +85,14 @@ export function AuthProvider({ children }: ChildrenProps) {
     setIsLoading(false);
   };
 
-  const redirect = ({ requireLogin, to }: RedirectParams): void => {
+  const redirect = ({ requireLogin, to }: RedirectParams): boolean => {
     const requiredAndNotFound = requireLogin && !user;
     const notRequiredAndFound = !requireLogin && user;
     if (requiredAndNotFound || notRequiredAndFound) {
       router.push(to);
+      return true;
     }
+    return false;
   };
 
   useEffect(() => {

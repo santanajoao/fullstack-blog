@@ -11,7 +11,7 @@ export default function ProfilePage() {
   const { isLoading, redirect } = useContext(AuthContext);
 
   if (isLoading) return <h1>Loading</h1>;
-  redirect({ requireLogin: true, to: '/signin' });
+  if (redirect({ requireLogin: true, to: '/signin' })) return null;
 
   return (
     <>
