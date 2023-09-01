@@ -8,7 +8,7 @@ import checkForFields from '../middlewares/checkForFields';
 const accountRouter = Router();
 
 accountRouter.post(
-  '/signup', checkForSignInFields, accountController.handlePostAccount,
+  '/signup', checkForSignUpFields, accountController.handlePostAccount,
 );
 
 accountRouter.post(
