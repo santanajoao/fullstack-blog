@@ -79,8 +79,8 @@ Haverá uma página para uma postagem onde é possível ler o conteúdo da publi
 
 - [ ] Adicionar paginação as listagens de posts
 
-- [ ] Adicionar notificações toast para alguns eventos
-  - [ ] Erro ao dar like
-  - [ ] Sucesso ao alterar informações do perfil
+- [X] Adicionar notificações toast para alguns eventos
+  - [X] Erro ao dar like
+  - [X] Sucesso ao alterar informações do perfil
 
 - [ ] Página sobre o uso de cookies
