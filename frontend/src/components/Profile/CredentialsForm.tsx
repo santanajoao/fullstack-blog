@@ -8,6 +8,7 @@ import { profileCredentialsSchema } from '@/lib/schemas/account.schema';
 import { updateCredentials } from '@/services/account';
 import { getCookie } from '@/lib/cookies';
 import { AuthContext } from '@/contexts/AuthContext';
+import { toast } from 'react-toastify';
 
 type Fields = {
   email: string;
@@ -43,6 +44,7 @@ export default function CredentialsForm() {
       setEditing(false);
       setGeneralError(null);
       reset({ password: '', newPassword: '' });
+      toast.success('Informações atualizadas!');
     } else {
       setGeneralError(response.message);
     }

@@ -12,6 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { getCookie } from '@/lib/cookies';
 import { updatePersonalInfos } from '@/services/account';
 import { AuthContext } from '@/contexts/AuthContext';
+import { toast } from 'react-toastify';
 import Textarea from './Textarea';
 import ImageInput from './ImageInput';
 
@@ -59,6 +60,7 @@ export default function PersonalInfosForm() {
       refreshUserData();
       setEditing(false);
       setGeneralError(null);
+      toast.success('Informações atualizadas!');
     } else {
       setGeneralError(response.message);
     }
