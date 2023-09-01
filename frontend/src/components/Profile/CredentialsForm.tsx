@@ -56,7 +56,7 @@ export default function CredentialsForm({ user }: Props) {
     clearErrors();
     setGeneralError(null);
     reset();
-  }
+  };
 
   return (
     <Sign.Form onSubmit={handleSubmit(onSubmit)}>

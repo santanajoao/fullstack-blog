@@ -10,3 +10,5 @@ export type AccountCredentials = Pick<Account, 'email'> & {
   password: string;
   newPassword: string;
 };
+
+export type AccountPersonalInfos = Pick<Account, 'about' | 'username'>;

@@ -9,6 +9,8 @@ import { aboutMaxLength, profilePersonalSchema } from '@/lib/schemas/account.sch
 import { useForm } from 'react-hook-form';
 import { Account } from '@/types/Account';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { getCookie } from '@/lib/cookies';
+import { updatePersonalInfos } from '@/services/account';
 import Textarea from './Textarea';
 import ImageInput from './ImageInput';
 
@@ -26,6 +28,7 @@ export default function PersonalInfosForm({ user }: Props) {
   const [editing, setEditing] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const firstInputRef = useRef<HTMLInputElement>(null);
+  const [generalError, setGeneralError] = useState<null | string>(null);
 
   const {
     register,
@@ -48,15 +51,26 @@ export default function PersonalInfosForm({ user }: Props) {
     }
   }, [editing]);
 
-  const onSubmit = (data: Fields) => {
-    console.log(data);
+  const onSubmit = async (data: Fields) => {
+    if (editing) return;
+
+    const token = getCookie('blog.session.token') as string;
+    const response = await updatePersonalInfos(data, token);
+
+    if (response.success) {
+      setEditing(false);
+      setGeneralError(null);
+    } else {
+      setGeneralError(response.message);
+    }
   };
 
   const cancelEditing = () => {
     setEditing(false);
     clearErrors();
+    setGeneralError(null);
     reset();
-  }
+  };
 
   return (
     <Sign.Form onSubmit={handleSubmit(onSubmit)}>
@@ -100,6 +114,7 @@ export default function PersonalInfosForm({ user }: Props) {
         </Sign.Field>
       </Sign.FieldsWrapper>
 
+      <Sign.ErrorMessage>{generalError}</Sign.ErrorMessage>
       <div className="space-x-2">
         <Sign.Button
           onClick={editing ? () => setEditing(false) : () => setEditing(true)}
@@ -112,7 +127,7 @@ export default function PersonalInfosForm({ user }: Props) {
         {editing && (
           <Sign.Button
             onClick={cancelEditing}
-            className="py-2 bg-gray-400"
+            className="py-2 bg-gray-300"
             type="button"
           >
             Cancelar
