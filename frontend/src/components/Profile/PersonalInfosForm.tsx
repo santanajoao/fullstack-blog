@@ -8,17 +8,12 @@ import Sign from '@/components/Sign';
 import defaultProfile from 'public/profile.svg';
 import { aboutMaxLength, profilePersonalSchema } from '@/lib/schemas/account.schema';
 import { useForm } from 'react-hook-form';
-import { Account } from '@/types/Account';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { getCookie } from '@/lib/cookies';
 import { updatePersonalInfos } from '@/services/account';
 import { AuthContext } from '@/contexts/AuthContext';
 import Textarea from './Textarea';
 import ImageInput from './ImageInput';
-
-interface Props {
-  user: Account;
-}
 
 type Fields = {
   imageUrl: string;
