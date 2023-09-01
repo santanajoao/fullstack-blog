@@ -6,6 +6,7 @@ import ImageInput from '@/components/Write/ImageInput';
 import MarkdownInput from '@/components/Write/MarkdownInput';
 import Textarea from '@/components/Write/Textarea';
 import TopicInput from '@/components/Write/TopicInput';
+import { AuthContext } from '@/contexts/AuthContext';
 import { getCookie } from '@/lib/cookies';
 import { postSchema } from '@/lib/schemas/post.schema';
 import { createPost } from '@/services/posts';
@@ -13,7 +14,7 @@ import { TPostCreation } from '@/types/Post';
 import { Topic } from '@/types/Topic';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 export default function WritePage() {
@@ -33,7 +34,10 @@ export default function WritePage() {
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageError, setImageError] = useState<string | null>(null);
+  const { redirect } = useContext(AuthContext);
   const router = useRouter();
+
+  redirect({ requireLogin: true, to: '/signin' });
 
   const onSubmit = async (data: TPostCreation): Promise<void> => {
     const token = getCookie('blog.session.token');

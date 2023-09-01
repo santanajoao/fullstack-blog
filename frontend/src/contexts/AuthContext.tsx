@@ -12,6 +12,11 @@ import { SignUpFields } from '@/types/Sign/SignUp';
 import { usePathname, useRouter } from 'next/navigation';
 import { destroyCookie, getCookie, setCookie } from '@/lib/cookies';
 
+type RedirectParams = {
+  requireLogin: boolean;
+  to: string;
+};
+
 interface ContextValues {
   error: string | null;
   user: User | null;
@@ -20,6 +25,7 @@ interface ContextValues {
   signUp(fields: SignUpFields): Promise<void>;
   signOut(): void;
   refreshUserData(): void;
+  redirect({ requireLogin, to }: RedirectParams): void;
 }
 
 export const AuthContext = createContext({} as ContextValues);
@@ -85,12 +91,20 @@ export function AuthProvider({ children }: ChildrenProps) {
     setIsLoading(false);
   };
 
+  const redirect = ({ requireLogin, to }: RedirectParams): void => {
+    const requiredAndNotFound = requireLogin && !user;
+    const notRequiredAndFound = !requireLogin && user;
+    if (requiredAndNotFound || notRequiredAndFound) {
+      router.push(to);
+    }
+  };
+
   useEffect(() => {
     refreshUserData();
   }, [pathname]);
 
   const values = useMemo(() => ({
-    error, user, isLoading, signIn, signUp, signOut, refreshUserData,
+    error, user, isLoading, signIn, signUp, signOut, refreshUserData, redirect,
   }), [error, user, isLoading]);
 
   return (
