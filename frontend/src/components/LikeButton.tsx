@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { parseCookies } from 'nookies';
 import React, { useContext, useEffect, useState } from 'react';
 import { AiOutlineHeart, AiFillHeart, AiOutlineLoading } from 'react-icons/ai';
+import { toast } from 'react-toastify';
 
 interface Params {
   postId: string;
@@ -63,7 +64,7 @@ export default function LikeButton({ postId }: Params) {
       setLikeCount((prev) => (liked ? prev - 1 : prev + 1));
       setLiked((prev) => !prev);
     } catch (error) {
-      console.error(error);
+      toast.error('Erro. Não foi possível dar like.');
     }
 
     return setLoading(false);
