@@ -66,8 +66,8 @@ Haverá uma página para uma postagem onde é possível ler o conteúdo da publi
 
 - [ ] Página de perfil (em desenvolvimento)
   - [X] Interface
-  - [ ] Back-end
-  - [ ] Alteração das informações pessoais
+  - [X] Back-end
+  - [X] Alteração das informações pessoais
   - [X] Alteração das informações credenciais
   - [ ] Upload da imagem de perfil para o banco de dados
 
@@ -76,5 +76,11 @@ Haverá uma página para uma postagem onde é possível ler o conteúdo da publi
   - [X] Back-end
   - [X] Criação de um post
   - [ ] Upload da imagem do post para o banco de dados
+
+- [ ] Adicionar paginação as listagens de posts
+
+- [ ] Adicionar notificações toast para alguns eventos
+  - [ ] Erro ao dar like
+  - [ ] Sucesso ao alterar informações do perfil
 
 - [ ] Página sobre o uso de cookies
