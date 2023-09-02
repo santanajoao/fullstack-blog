@@ -199,7 +199,6 @@ const getPostByAccount = async (
       accountId,
     },
     orderBy: [
-      { likes: {_count: 'desc' } },
       { createdAt: 'desc' },
     ],
     take: 6,
