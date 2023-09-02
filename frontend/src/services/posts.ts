@@ -35,14 +35,15 @@ type RequestPostsParams = {
   endpoint: string;
   quantity: number;
   page: number;
+  orderBy?: string;
 };
 
 export const requestPosts = async ({
-  endpoint, quantity, page,
+  endpoint, quantity, page, orderBy,
 }: RequestPostsParams): Promise<TServiceResponse<TPost[]>> => {
   try {
     const response = await fetch(
-      `http://localhost:3001${endpoint}?quantity=${quantity}&page=${page}`,
+      `http://localhost:3001${endpoint}?quantity=${quantity}&page=${page}&orderBy=${orderBy}`,
     );
 
     return await treatFetchResponse<TPost[]>(response);

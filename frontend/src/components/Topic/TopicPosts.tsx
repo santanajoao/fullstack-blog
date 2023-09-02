@@ -1,11 +1,8 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { TPost } from '@/types/Post';
-import { requestTopicPosts } from '@/services/posts';
+import React, { useState } from 'react';
 import Container from '@/components/Container';
-import PostItemLink from '../PostItemLink';
-import PostList from '../PostList';
+import PostListPagination from '../PostListPagination';
 
 interface Props {
   topicId: string;
@@ -19,18 +16,6 @@ const options = [
 
 export default function TopicPosts({ topicId }: Props) {
   const [filter, setFilter] = useState<string>(options[0].value);
-  const [posts, setPosts] = useState<TPost[]>([]);
-
-  const updatePosts = async () => {
-    const { success, data } = await requestTopicPosts(topicId, filter);
-    if (success) {
-      setPosts(data);
-    }
-  };
-
-  useEffect(() => {
-    updatePosts();
-  }, [filter]);
 
   return (
     <Container.Article>
@@ -51,20 +36,11 @@ export default function TopicPosts({ topicId }: Props) {
         </select>
       </div>
 
-      <PostList.List>
-        {posts.map((post) => (
-          <PostList.Item key={post.id}>
-            <PostItemLink
-              title={post.title}
-              date={new Date(post.createdAt)}
-              author={post.account.username}
-              description={post.description}
-              image={`${post.imageUrl}?size=599`}
-              link={`/post/${post.id}`}
-            />
-          </PostList.Item>
-        ))}
-      </PostList.List>
+      <PostListPagination
+        quantity={8}
+        apiEndpoint={`/topics/${topicId}/posts`}
+        orderBy={filter}
+      />
     </Container.Article>
   );
 }

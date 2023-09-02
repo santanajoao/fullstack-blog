@@ -56,13 +56,19 @@ const getOrderQuery = (orderProperty: string) => {
   return queries[orderProperty] ?? queries.popularity;
 };
 
+type Options = {
+  orderBy: string;
+  page: number;
+  quantity: number;
+}
+
 const getPostsByTopicId = async (
-  topicId: string, orderProperty: string,
+  topicId: string, { orderBy, page, quantity }: Options,
 ): AsyncServiceResponse<Post[]> => {
   const idValidation = await validateTopicId(topicId);
   if (idValidation.status !== 'SUCCESS') return idValidation;
   
-  const orderBy = getOrderQuery(orderProperty);
+  const orderQuery = getOrderQuery(orderBy);
   const posts = await prisma.post.findMany({
     where: {
       topics: {
@@ -78,7 +84,9 @@ const getPostsByTopicId = async (
         },
       },
     },
-    orderBy,
+    orderBy: orderQuery,
+    take: quantity,
+    skip: page * quantity,
   });
 
   return { status: 'SUCCESS', data: posts };

@@ -4,7 +4,7 @@ import { mapErrorStatus } from '../utils/http';
 
 const handleGetPopularPosts = async (req: Request, res: Response) => {
   const quantity = Number(req.query.quantity);
-  const page = Number(req.query.page);
+  const page = Number(req.query.page) || 0;
   const { data } = await postService.getWeekPopularPosts(quantity, page);
 
   res.status(200).json(data);
@@ -12,9 +12,11 @@ const handleGetPopularPosts = async (req: Request, res: Response) => {
 
 const handleGetPostsByTopicId = async (req: Request, res: Response) => {
   const { id } = req.params;
+  const quantity = Number(req.query.quantity);
+  const page = Number(req.query.page) || 0;
   const orderBy = req.query.orderBy as string;
 
-  const { status, data } = await postService.getPostsByTopicId(id, orderBy);
+  const { status, data } = await postService.getPostsByTopicId(id, { quantity, page, orderBy });
   if (status !== 'SUCCESS') {
     return res.status(mapErrorStatus(status)).json(data);
   }

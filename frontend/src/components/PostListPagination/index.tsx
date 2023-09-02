@@ -10,30 +10,46 @@ import PostItemLink from '../PostItemLink';
 interface Props {
   apiEndpoint: string;
   quantity: number;
+  orderBy?: string;
 }
 
-export default function PostListPagination({ apiEndpoint, quantity }: Props) {
+export default function PostListPagination({ apiEndpoint, quantity, orderBy }: Props) {
   const [page, setPage] = useState(0);
   const [posts, setPosts] = useState<TPost[]>([]);
   const [postsEnded, setPostsEnded] = useState(false);
 
   const getPosts = async (): Promise<any> => {
-    const response = await requestPosts({ endpoint: apiEndpoint, page, quantity });
-    if (!response.success) {
-      return toast.error(response.message);
-    }
+    const postsQuantity = page * quantity || quantity;
+    const response = await requestPosts({
+      endpoint: apiEndpoint, page: 0, quantity: postsQuantity, orderBy,
+    });
 
-    if (response.data.length === 0) {
-      setPostsEnded(true);
-      return toast.info('Não há mais publicações');
-    }
+    if (!response.success) return toast.error(response.message);
+
+    return setPosts(response.data);
+  };
+
+  const appendPosts = async () => {
+    const response = await requestPosts({
+      endpoint: apiEndpoint, page, quantity, orderBy,
+    });
+
+    if (!response.success) return toast.error(response.message);
+    if (response.data.length < quantity) setPostsEnded(true);
+    if (response.data.length === 0) return toast.info('Não há mais publicações');
 
     return setPosts((prev) => [...prev, ...response.data]);
   };
 
   useEffect(() => {
-    getPosts();
+    appendPosts();
   }, [page]);
+
+  useEffect(() => {
+    if (posts.length) {
+      getPosts();
+    }
+  }, [orderBy]);
 
   return (
     <div className="flex flex-col space-y-3">
