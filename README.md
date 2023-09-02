@@ -12,7 +12,7 @@ Um blog comunitário onde é possível explorar as postagens, tópicos e autores
 
 O blog possui páginas de signin e signup com validações dos campos feitas tanto no cliente quanto no servidor onde é possível entrar ou criar sua conta. É possível buscar posts por um tópico e filtar a ordem de exibição, por data de criação, likes, ou os posts em alta.
 
-Haverá uma página para uma postagem onde é possível ler o conteúdo da publicação, onde também é exibido o autor e a quantidade de likes. Uma página do autor onde será possível ver a quantidade total de posts e likes de um autor e a listagem de posts que poderá ser ordenada pelos mesmos critérios dos tópicos. Uma página de perfil do usuário onde será possível ver e alterar seus dados.
+Existe também uma página para uma postagem onde é possível ler o conteúdo da publicação, onde também é exibido o autor e a quantidade de likes. Uma página do autor onde será possível ver a quantidade total de posts e likes de um autor e a listagem de posts que poderá ser ordenada pelos mesmos critérios dos tópicos. Uma página de perfil do usuário onde será possível ver e alterar seus dados.
 
 ## Tecnologias Utilizadas 💻
 
@@ -77,7 +77,7 @@ Haverá uma página para uma postagem onde é possível ler o conteúdo da publi
   - [X] Criação de um post
   - [ ] Upload da imagem do post para o banco de dados
 
-- [ ] Adicionar paginação as listagens de posts
+- [X] Adicionar paginação as listagens de posts
 
 - [X] Adicionar notificações toast para alguns eventos
   - [X] Erro ao dar like
