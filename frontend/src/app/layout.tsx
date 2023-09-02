@@ -22,7 +22,7 @@ export default function RootLayout({ children }: ChildrenProps) {
     <html lang="pt-br">
       <body className={`${inter.className} max-w-[1440px] m-auto min-h-screen flex flex-col`}>
         <AuthProvider>
-          <ToastContainer />
+          <ToastContainer hideProgressBar />
           {children}
         </AuthProvider>
       </body>
