@@ -11,7 +11,10 @@ import { validateTopics } from './validations/topicValidations';
 
 const getWeekPopularPosts = async (
   quantity: number,
+  page: number,
 ): AsyncServiceResponse<Post[]> => {
+  const treatedQuantity = treatQuantity(quantity);
+
   const popularPosts = await prisma.post.findMany({
     include: {
       account: {
@@ -29,7 +32,8 @@ const getWeekPopularPosts = async (
       { likes: { _count: 'desc' } },
       { createdAt: 'desc' },
     ],
-    take: treatQuantity(quantity),
+    take: treatedQuantity,
+    skip: treatedQuantity * page,
   });
 
   return { status: 'SUCCESS', data: popularPosts };

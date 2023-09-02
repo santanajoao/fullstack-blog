@@ -4,7 +4,8 @@ import { mapErrorStatus } from '../utils/http';
 
 const handleGetPopularPosts = async (req: Request, res: Response) => {
   const quantity = Number(req.query.quantity);
-  const { data } = await postService.getWeekPopularPosts(quantity);
+  const page = Number(req.query.page);
+  const { data } = await postService.getWeekPopularPosts(quantity, page);
 
   res.status(200).json(data);
 };

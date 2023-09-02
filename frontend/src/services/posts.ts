@@ -30,3 +30,23 @@ export const createPost = async (
 
   return response;
 };
+
+type RequestPostsParams = {
+  endpoint: string;
+  quantity: number;
+  page: number;
+};
+
+export const requestPosts = async ({
+  endpoint, quantity, page,
+}: RequestPostsParams): Promise<TServiceResponse<TPost[]>> => {
+  try {
+    const response = await fetch(
+      `http://localhost:3001${endpoint}?quantity=${quantity}&page=${page}`,
+    );
+
+    return await treatFetchResponse<TPost[]>(response);
+  } catch (error) {
+    return treatFetchResponse<TPost[]>(error);
+  }
+};
