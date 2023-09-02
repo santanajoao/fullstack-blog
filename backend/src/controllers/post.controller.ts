@@ -48,8 +48,22 @@ const handleGetPostById = async (req: Request, res: Response) => {
 
 const handleGetPostsByAccount = async (req: Request, res: Response) => {
   const { id } = req.params;
+  const quantity = Number(req.query.quantity);
+  const page = Number(req.query.page) || 0;
 
-  const { status, data } = await postService.getPostByAccount(id);
+  const { status, data } = await postService.getPostByAccount(id, {quantity, page });
+  if (status !== 'SUCCESS') {
+    return res.status(mapErrorStatus(status)).json(data);
+  }
+
+  res.status(200).json(data);
+};
+
+
+const handleGetAccountPostsCount = async (req: Request, res: Response) => {
+  const accountId = req.params.id;
+
+  const { status, data } = await postService.countPostInfos(accountId);
   if (status !== 'SUCCESS') {
     return res.status(mapErrorStatus(status)).json(data);
   }
@@ -78,4 +92,5 @@ export default {
   handleGetPostById,
   handleGetPostsByAccount,
   handlePostPost,
+  handleGetAccountPostsCount,
 };

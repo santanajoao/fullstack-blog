@@ -6,13 +6,13 @@ import PostLikeCount from '../PostLikeCount';
 
 interface Props {
   author: Account;
-  posts: {
-    likeCount: number;
-    postCount: number;
+  count: {
+    likes: number;
+    posts: number;
   }
 }
 
-export default function Hero({ author, posts }: Props) {
+export default function Hero({ author, count }: Props) {
   return (
     <header className="relative bg-primaryGreen px-3 pt-5 sm:px-5 sm:pt-7 flex gap-3 sm:gap-5 items-end mb-8">
       <Image
@@ -26,7 +26,7 @@ export default function Hero({ author, posts }: Props) {
       <div className="pb-6 sm:pb-8 space-y-2">
         <h1 className="text-2xl sm:text-3xl font-bold">{author.username}</h1>
 
-        <PostLikeCount likeCount={posts.likeCount} postCount={posts.postCount} />
+        <PostLikeCount likeCount={count.likes} postCount={count.posts} />
       </div>
     </header>
   );

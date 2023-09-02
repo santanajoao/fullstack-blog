@@ -57,7 +57,7 @@ const getOrderQuery = (orderProperty: string) => {
 };
 
 type Options = {
-  orderBy: string;
+  orderBy?: string;
   page: number;
   quantity: number;
 }
@@ -68,7 +68,7 @@ const getPostsByTopicId = async (
   const idValidation = await validateTopicId(topicId);
   if (idValidation.status !== 'SUCCESS') return idValidation;
   
-  const orderQuery = getOrderQuery(orderBy);
+  const orderQuery = getOrderQuery(orderBy ?? '');
   const posts = await prisma.post.findMany({
     where: {
       topics: {
@@ -182,27 +182,9 @@ const getPostById = async (
   return { status: 'SUCCESS', data: post };
 };
 
-const countLikesByAccount = async (accountId: string): Promise<number> => {
-  const likeCount = await prisma.likes.count({
-    where: {
-      post: {
-        accountId,
-      },
-    },
-  });
-
-  return likeCount;
-};
-
-type PostByAccountResponse = {
-  posts: Post[];
-  likeCount: number;
-  postCount: number;
-};
-
 const getPostByAccount = async (
-  accountId: string
-): AsyncServiceResponse<PostByAccountResponse> => {
+  accountId: string, { page, quantity }: Options,
+): AsyncServiceResponse<Post[]> => {
   const idValidation = await validateAccountId(accountId);
   if (idValidation.status !== 'SUCCESS') return idValidation;
   
@@ -210,16 +192,21 @@ const getPostByAccount = async (
     where: {
       accountId,
     },
+    include: {
+      account: {
+        select: {
+          username: true,
+        },
+      },
+    },
     orderBy: [
       { createdAt: 'desc' },
     ],
-    take: 6,
+    take: quantity,
+    skip: page * quantity,
   });
 
-  const likeCount = await countLikesByAccount(accountId);
-  const postCount = posts.length;
-
-  return { status: 'SUCCESS', data: { posts, likeCount, postCount } };
+  return { status: 'SUCCESS', data: posts };
 };
 
 const createPost = async ({
@@ -249,6 +236,27 @@ const createPost = async ({
   return { status: 'SUCCESS', data: createdPost };
 };
 
+type PostCountsResponse = {
+  likes: number;
+  posts: number;
+};
+
+const countPostInfos = async (accountId: string): AsyncServiceResponse<PostCountsResponse> => {
+  const [likeCount, postCount] = await Promise.all([
+    prisma.likes.count({
+      where: {
+        post: {
+          accountId,
+        },
+      },
+    }),
+  
+    prisma.post.count({ where: { accountId } }),
+  ])
+
+  return { status: 'SUCCESS', data: { likes: likeCount, posts: postCount } };
+};
+
 export default {
   getWeekPopularPosts,
   getPostsByTopicId,
@@ -256,4 +264,5 @@ export default {
   getPostById,
   getPostByAccount,
   createPost,
+  countPostInfos,
 };

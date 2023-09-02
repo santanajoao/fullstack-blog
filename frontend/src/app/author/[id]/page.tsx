@@ -1,6 +1,5 @@
 import HomeHeader from '@/components/Header/HomeHeader';
 import { Account } from '@/types/Account';
-import { TPost } from '@/types/Post';
 import React from 'react';
 import Container from '@/components/Container';
 import { Topic } from '@/types/Topic';
@@ -12,18 +11,17 @@ interface Props {
   }
 }
 
-type AuthorPostsResponse = {
-  posts: TPost[];
-  likeCount: number;
-  postCount: number;
+type AuthorPostsCount = {
+  likes: number;
+  posts: number;
 };
 
-type Responses = [Account, AuthorPostsResponse, Topic[]];
+type Responses = [Account, AuthorPostsCount, Topic[]];
 
 export default async function AuthorPage({ params }: Props) {
-  const [author, posts, topics]: Responses = await Promise.all([
+  const [author, count, topics]: Responses = await Promise.all([
     fetch(`http://backend:3001/accounts/${params.id}`).then((res) => res.json()),
-    fetch(`http://backend:3001/posts/account/${params.id}`).then((res) => res.json()),
+    fetch(`http://backend:3001/posts/account/${params.id}/count`).then((res) => res.json()),
     fetch(`http://backend:3001/topics/account/${params.id}`).then((res) => res.json()),
   ]);
 
@@ -35,14 +33,14 @@ export default async function AuthorPage({ params }: Props) {
     <>
       <HomeHeader />
       <main>
-        <Author.Hero posts={posts} author={author} />
+        <Author.Hero count={count} author={author} />
 
         <Container.Article>
           <Author.About author={author} />
 
           <Author.Topics topics={topics} />
 
-          <Author.BestPosts posts={posts.posts} author={author} />
+          <Author.BestPosts author={author} />
         </Container.Article>
       </main>
     </>

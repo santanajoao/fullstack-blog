@@ -8,6 +8,7 @@ const postRouter = Router();
 postRouter.get('/popular', postController.handleGetPopularPosts);
 postRouter.get('/:id', postController.handleGetPostById);
 postRouter.get('/account/:id', postController.handleGetPostsByAccount);
+postRouter.get('/account/:id/count', postController.handleGetAccountPostsCount);
 postRouter.post(
   '/',
   validateToken,
