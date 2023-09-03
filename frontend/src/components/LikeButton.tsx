@@ -29,7 +29,9 @@ export default function LikeButton({ postId }: Params) {
     setLoading(true);
 
     try {
-      const { data } = await axios.get<LikesReponse>(`http://localhost:3001/likes/${user?.id}/${postId}`);
+      const { data } = await axios.get<LikesReponse>(
+        `http://localhost:3001/likes/${user?.id}/${postId}`,
+      );
       setLiked(data.userLiked);
       setLikeCount(data.postLikes);
     } catch (error) {
