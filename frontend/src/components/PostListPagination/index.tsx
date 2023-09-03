@@ -10,10 +10,13 @@ import PostItemLink from '../PostItemLink';
 interface Props {
   apiEndpoint: string;
   quantity: number;
+  emptyPostsMessage: string;
   orderBy?: string;
 }
 
-export default function PostListPagination({ apiEndpoint, quantity, orderBy }: Props) {
+export default function PostListPagination({
+  apiEndpoint, quantity, orderBy, emptyPostsMessage,
+}: Props) {
   const [page, setPage] = useState(0);
   const [posts, setPosts] = useState<TPost[]>([]);
   const [postsEnded, setPostsEnded] = useState(false);
@@ -52,6 +55,10 @@ export default function PostListPagination({ apiEndpoint, quantity, orderBy }: P
   }, [orderBy]);
 
   const showMoreButton = posts.length > 0 && !postsEnded;
+
+  if (posts.length === 0 && postsEnded) {
+    return <p>{emptyPostsMessage}</p>;
+  }
 
   return (
     <div className="flex flex-col space-y-3">

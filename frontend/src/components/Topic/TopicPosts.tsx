@@ -40,6 +40,7 @@ export default function TopicPosts({ topicId }: Props) {
         quantity={8}
         apiEndpoint={`/topics/${topicId}/posts`}
         orderBy={filter}
+        emptyPostsMessage="Ainda não existem publicações para esse tópico. Seja o primeiro!"
       />
     </Container.Article>
   );

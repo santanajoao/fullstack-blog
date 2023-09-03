@@ -15,6 +15,7 @@ export default function Posts({ author }: Props) {
       <PostListPagination
         apiEndpoint={`/posts/account/${author.id}`}
         quantity={4}
+        emptyPostsMessage="Esse autor ainda não fez publicações"
       />
     </Container.Section>
   );
