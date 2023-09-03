@@ -11,8 +11,8 @@ import SignLinks from './SignLinks';
 
 export default function UserCard() {
   const [isOpen, setIsOpen] = useState(false);
-  const userCard = useRef(null);
   const { signOut, user, isLoading } = useContext(AuthContext);
+  const userCard = useRef(null);
 
   const closeOnClickOut = (event: MouseEvent) => {
     if (!userCard.current) return null;
@@ -58,10 +58,18 @@ export default function UserCard() {
         >
           <li>
             <Link
-              href="/profile"
+              href={user ? `/author/${user.id}` : '#'}
               className="block py-2 px-2 hover:bg-black/10"
             >
               Perfil
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/profile"
+              className="block py-2 px-2 hover:bg-black/10"
+            >
+              Editar Perfil
             </Link>
           </li>
           <li>
