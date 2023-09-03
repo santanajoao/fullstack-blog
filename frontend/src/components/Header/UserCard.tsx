@@ -34,6 +34,17 @@ export default function UserCard() {
     return <SignLinks />;
   }
 
+  const ancors = [
+    {
+      text: 'Perfil',
+      link: user ? `/author/${user.id}` : '#',
+    },
+    {
+      text: 'Editar perfil',
+      link: '/profile',
+    },
+  ];
+
   return (
     <div className="relative" ref={userCard}>
       <button
@@ -54,28 +65,23 @@ export default function UserCard() {
 
       {isOpen && (
         <ul
-          className="absolute right-0 border w-36 bg-white top-full z-10 rounded-md shadow-sm py-4 px-2"
+          className="absolute right-0 border w-36 bg-white top-full z-20 rounded-md shadow-sm py-4 px-2"
         >
-          <li>
-            <Link
-              href={user ? `/author/${user.id}` : '#'}
-              className="block py-2 px-2 hover:bg-black/10"
-            >
-              Perfil
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/profile"
-              className="block py-2 px-2 hover:bg-black/10"
-            >
-              Editar Perfil
-            </Link>
-          </li>
+          {ancors.map((ancor) => (
+            <li>
+              <Link
+                href={ancor.link}
+                className="block py-2 px-2 hover:bg-black/10"
+              >
+                {ancor.text}
+              </Link>
+            </li>
+          ))}
+
           <li>
             <button
               type="button"
-              className="w-full text-left py-2 px-2 hover:bg-black/10"
+              className="w-full h-full text-left py-2 px-2 hover:bg-black/10"
               onClick={signOut}
             >
               Sair
