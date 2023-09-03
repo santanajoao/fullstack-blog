@@ -22,7 +22,7 @@ export default async function TopicPage({ params }: Params) {
   return (
     <>
       <HomeHeader />
-      <main>
+      <main className="flex-grow">
         <Topic.Hero posts={posts} topic={topic} />
 
         <Topic.Posts topicId={params.id} />
