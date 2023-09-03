@@ -36,7 +36,7 @@ export default function PostListPagination({ apiEndpoint, quantity, orderBy }: P
 
     if (!response.success) return toast.error(response.message);
     if (response.data.length < quantity) setPostsEnded(true);
-    if (response.data.length === 0) return toast.info('Não há mais publicações');
+    if (response.data.length === 0 && posts.length > 0) return toast.info('Não há mais publicações');
 
     return setPosts((prev) => [...prev, ...response.data]);
   };
@@ -50,6 +50,8 @@ export default function PostListPagination({ apiEndpoint, quantity, orderBy }: P
       getPosts();
     }
   }, [orderBy]);
+
+  const showMoreButton = posts.length > 0 && !postsEnded;
 
   return (
     <div className="flex flex-col space-y-3">
@@ -68,7 +70,7 @@ export default function PostListPagination({ apiEndpoint, quantity, orderBy }: P
         ))}
       </PostList.List>
 
-      {!postsEnded && (
+      {showMoreButton && (
         <button
           type="button"
           className="border-zinc-300 border rounded-md py-2 px-4 hover:bg-zinc-300 font-bold"
