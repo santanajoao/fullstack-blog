@@ -40,7 +40,7 @@ export default async function AuthorPage({ params }: Props) {
 
           <Author.Topics topics={topics} />
 
-          <Author.BestPosts author={author} />
+          <Author.Posts author={author} />
         </Container.Article>
       </main>
     </>

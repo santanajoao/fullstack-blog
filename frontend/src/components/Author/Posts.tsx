@@ -7,7 +7,7 @@ interface Props {
   author: Account;
 }
 
-export default function BestPosts({ author }: Props) {
+export default function Posts({ author }: Props) {
   return (
     <Container.Section>
       <Container.Title>Publicações</Container.Title>
