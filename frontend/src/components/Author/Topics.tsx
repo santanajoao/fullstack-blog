@@ -8,7 +8,11 @@ export default function Topics({ topics }: { topics: Topic[] }) {
     <Container.Section>
       <Container.Title>Fala sobre</Container.Title>
 
-      <SimpleTopicList topics={topics} />
+      {topics.length === 0 ? (
+        <p>Esse autor ainda não publicou sobre nenhum tópico</p>
+      ) : (
+        <SimpleTopicList topics={topics} />
+      )}
     </Container.Section>
   );
 }
