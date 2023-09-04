@@ -1,0 +1,13 @@
+name: testando onde é mostrado o name
+run-name: testando onde é mostrado o run-name
+on: [push]
+jobs:
+  frontend-eslint:
+    name: 'Front-end Eslint Job'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: cd frontend && npm run lint
