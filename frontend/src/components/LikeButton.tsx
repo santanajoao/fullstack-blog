@@ -2,7 +2,6 @@
 
 import { AuthContext } from '@/contexts/AuthContext';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
 import { parseCookies } from 'nookies';
 import React, { useContext, useEffect, useState } from 'react';
 import { AiOutlineHeart, AiFillHeart, AiOutlineLoading } from 'react-icons/ai';
@@ -23,7 +22,6 @@ export default function LikeButton({ postId }: Params) {
   const [loading, setLoading] = useState(true);
 
   const { user, redirect } = useContext(AuthContext);
-  const router = useRouter();
 
   const checkForLike = async () => {
     setLoading(true);

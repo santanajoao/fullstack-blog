@@ -1,5 +1,5 @@
-import { ChildrenProps } from "@/types/ChildrenProps";
-import { MouseEventHandler } from "react";
+import React, { MouseEventHandler } from 'react';
+import { ChildrenProps } from '@/types/ChildrenProps';
 
 interface Props extends ChildrenProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;

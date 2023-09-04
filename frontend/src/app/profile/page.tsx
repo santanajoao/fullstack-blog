@@ -12,7 +12,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     redirect({ requireLogin: true, to: '/signin', getBack: true });
-  }, []);
+  }, [redirect]);
 
   if (!user) return <h1>Loading</h1>;
 

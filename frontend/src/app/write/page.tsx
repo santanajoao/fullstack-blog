@@ -39,7 +39,7 @@ export default function WritePage() {
 
   useEffect(() => {
     redirect({ requireLogin: true, to: '/signin', getBack: true });
-  }, []);
+  }, [redirect]);
 
   const onSubmit = async (data: TPostCreation): Promise<void> => {
     const token = getCookie('blog.session.token');
