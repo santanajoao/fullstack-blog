@@ -14,7 +14,7 @@ import { TPostCreation } from '@/types/Post';
 import { Topic } from '@/types/Topic';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 export default function WritePage() {
@@ -37,7 +37,9 @@ export default function WritePage() {
   const { redirect } = useContext(AuthContext);
   const router = useRouter();
 
-  if (redirect({ requireLogin: true, to: '/signin', getBack: true })) return null;
+  useEffect(() => {
+    redirect({ requireLogin: true, to: '/signin', getBack: true });
+  }, []);
 
   const onSubmit = async (data: TPostCreation): Promise<void> => {
     const token = getCookie('blog.session.token');

@@ -1,17 +1,20 @@
 'use client';
 
 import { AuthContext } from '@/contexts/AuthContext';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import HomeHeader from '@/components/Header/HomeHeader';
 import Container from '@/components/Container';
 import PersonalInfosForm from '@/components/Profile/PersonalInfosForm';
 import CredentialsForm from '@/components/Profile/CredentialsForm';
 
 export default function ProfilePage() {
-  const { isLoading, redirect } = useContext(AuthContext);
+  const { user, redirect } = useContext(AuthContext);
 
-  if (isLoading) return <h1>Loading</h1>;
-  if (redirect({ requireLogin: true, to: '/signin' })) return null;
+  useEffect(() => {
+    redirect({ requireLogin: true, to: '/signin', getBack: true });
+  }, []);
+
+  if (!user) return <h1>Loading</h1>;
 
   return (
     <>

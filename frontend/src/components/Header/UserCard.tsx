@@ -68,7 +68,7 @@ export default function UserCard() {
           className="absolute right-0 border w-36 bg-white top-full z-20 rounded-md shadow-sm py-4 px-2"
         >
           {ancors.map((ancor) => (
-            <li>
+            <li key={ancor.link}>
               <Link
                 href={ancor.link}
                 className="block py-2 px-2 hover:bg-black/10"
