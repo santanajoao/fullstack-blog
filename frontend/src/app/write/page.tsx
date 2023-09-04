@@ -37,7 +37,7 @@ export default function WritePage() {
   const { redirect } = useContext(AuthContext);
   const router = useRouter();
 
-  if (redirect({ requireLogin: true, to: '/signin' })) return null;
+  if (redirect({ requireLogin: true, to: '/signin', getBack: true })) return null;
 
   const onSubmit = async (data: TPostCreation): Promise<void> => {
     const token = getCookie('blog.session.token');

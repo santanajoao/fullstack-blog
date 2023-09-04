@@ -15,6 +15,7 @@ import { destroyCookie, getCookie, setCookie } from '@/lib/cookies';
 type RedirectParams = {
   requireLogin: boolean;
   to: string;
+  getBack: boolean;
 };
 
 interface ContextValues {
@@ -25,7 +26,7 @@ interface ContextValues {
   signUp(fields: SignUpFields): Promise<void>;
   signOut(): void;
   refreshUserData(): void;
-  redirect({ requireLogin, to }: RedirectParams): boolean;
+  redirect(redirectParams: RedirectParams): boolean;
 }
 
 export const AuthContext = createContext({} as ContextValues);
@@ -34,6 +35,7 @@ export function AuthProvider({ children }: ChildrenProps) {
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [redirectBack, setRedirectBack] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -85,13 +87,22 @@ export function AuthProvider({ children }: ChildrenProps) {
     setIsLoading(false);
   };
 
-  const redirect = ({ requireLogin, to }: RedirectParams): boolean => {
+  const redirect = ({ requireLogin, to, getBack = false }: RedirectParams): boolean => {
     const requiredAndNotFound = requireLogin && !user;
     const notRequiredAndFound = !requireLogin && user;
+
     if (requiredAndNotFound || notRequiredAndFound) {
-      router.push(to);
+      if (redirectBack) {
+        router.back();
+      } else {
+        router.push(to);
+      }
+
+      setRedirectBack(getBack);
+
       return true;
     }
+
     return false;
   };
 

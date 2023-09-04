@@ -22,7 +22,7 @@ export default function LikeButton({ postId }: Params) {
   const [liked, setLiked] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const { user } = useContext(AuthContext);
+  const { user, redirect } = useContext(AuthContext);
   const router = useRouter();
 
   const checkForLike = async () => {
@@ -46,15 +46,15 @@ export default function LikeButton({ postId }: Params) {
   }, [user]);
 
   const handleLike = async () => {
-    if (!user) {
-      return router.push('/signin');
+    if (redirect({ requireLogin: true, to: '/signin', getBack: true })) {
+      return null;
     }
 
     setLoading(true);
 
     try {
       const { 'blog.session.token': token } = parseCookies();
-      const data = { postId, accountId: user.id };
+      const data = { postId, accountId: user?.id };
       const headers = { Authorization: token };
 
       if (liked) {

@@ -13,7 +13,8 @@ export default function Article({ children, padding = true, className }: Props) 
     <article className={`
       ${padding ? paddingClass : undefined}
       ${className}
-    `}>
+    `}
+    >
       {children}
     </article>
   );
