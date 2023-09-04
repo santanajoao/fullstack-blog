@@ -77,18 +77,8 @@ Existe também uma página para uma postagem onde é possível ler o conteúdo d
   - [X] Criação de um post
   - [ ] Upload da imagem do post para o banco de dados
 
-- [X] Adicionar paginação as listagens de posts
+- [ ] Adicionar forma do usuário logado gerenciar suas publicações
 
-- [X] Adicionar notificações toast para alguns eventos
-  - [X] Erro ao dar like
-  - [X] Sucesso ao alterar informações do perfil
-
-- [ ] Redirecionar o usuário de volta para a página desejada
-
-Quando um usuário tenta acessar uma página em que é preciso estar logado ele é redirecionado para a página de login, 
-mas ao logar ele não está sendo redirecionado para a página que queria acessar.
-
-- [ ] Adicionar forma do usuário logado ver e gerenciar suas publicações
 - [ ] Página sobre o uso de cookies
 
 - ❓ Página de listagem e busca por todos os tópicos ❓
