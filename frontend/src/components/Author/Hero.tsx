@@ -2,7 +2,7 @@
 
 import React, { useContext } from 'react';
 import { Account } from '@/types/Account';
-import defaultPicture from 'public/profile.svg';
+import defaultPicture from '@/assets/profile.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AiFillEdit } from 'react-icons/ai';

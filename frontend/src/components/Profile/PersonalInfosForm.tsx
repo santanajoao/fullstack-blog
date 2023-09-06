@@ -5,7 +5,7 @@ import React, {
   useEffect, useRef, useState,
 } from 'react';
 import Sign from '@/components/Sign';
-import defaultProfile from 'public/profile.svg';
+import defaultProfile from '@/assets/profile.svg';
 import { aboutMaxLength, profilePersonalSchema } from '@/lib/schemas/account.schema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
