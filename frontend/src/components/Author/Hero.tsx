@@ -27,7 +27,7 @@ export default function Hero({ author, count }: Props) {
         width={160}
         height={160}
         src={author.imageUrl ?? defaultPicture}
-        alt="Imagem de perfil de username"
+        alt={`Imagem de perfil de ${author.username}`}
         className="relative top-8 border-white bg-gray-300 h-40 w-40 rounded-xl object-cover border-2"
       />
 
