@@ -12,7 +12,7 @@ export default function Skeleton({ items = 12 }: Props) {
   return (
     <PostList.List>
       {itemList.map(() => (
-        <PostList.Item>
+        <PostList.Item key={Math.random()}>
           <ItemLinkSkeleton />
         </PostList.Item>
       ))}
