@@ -27,6 +27,7 @@ interface ContextValues {
   signOut(): void;
   refreshUserData(): void;
   redirect(redirectParams: RedirectParams): boolean;
+  clearError(): void;
 }
 
 export const AuthContext = createContext({} as ContextValues);
@@ -39,11 +40,13 @@ export function AuthProvider({ children }: ChildrenProps) {
   const router = useRouter();
   const pathname = usePathname();
 
+  const clearError = () => { setError(null); };
+
   const handleSignData = ({ success, data, message }: ServiceResponse<SignResponse>) => {
     if (success) {
       setCookie('blog.session.token', data.token, 60 * 60 * 24 * 2); // 2 days
       setUser(data.account);
-      setError(null);
+      clearError();
 
       router.push('/');
     } else {
@@ -87,7 +90,7 @@ export function AuthProvider({ children }: ChildrenProps) {
     setIsLoading(false);
   };
 
-  const redirect = ({ requireLogin, to, getBack = false }: RedirectParams): boolean => {
+  const redirect = async ({ requireLogin, to, getBack = false }: RedirectParams) => {
     const requiredAndNotFound = requireLogin && !user;
     const notRequiredAndFound = !requireLogin && user;
 
@@ -111,7 +114,15 @@ export function AuthProvider({ children }: ChildrenProps) {
   }, [pathname]);
 
   const values = useMemo(() => ({
-    error, user, isLoading, signIn, signUp, signOut, refreshUserData, redirect,
+    error,
+    user,
+    isLoading,
+    signIn,
+    signUp,
+    signOut,
+    refreshUserData,
+    redirect,
+    clearError,
   }), [error, user, isLoading]);
 
   return (

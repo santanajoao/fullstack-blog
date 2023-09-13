@@ -3,7 +3,7 @@ import { TPost } from '@/types/Post';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import defaultUserPicture from 'public/profile.svg';
+import defaultUserPicture from '@/assets/profile.svg';
 import { dateToDayMonthString } from '@/utils/date';
 
 interface Props {

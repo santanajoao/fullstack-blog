@@ -6,6 +6,7 @@ import { requestPosts } from '@/services/posts';
 import { toast } from 'react-toastify';
 import PostList from '../PostList';
 import PostItemLink from '../PostItemLink';
+import Skeleton from './Skeleton';
 
 interface Props {
   apiEndpoint: string;
@@ -19,6 +20,7 @@ export default function PostListPagination({
 }: Props) {
   const [page, setPage] = useState(0);
   const [posts, setPosts] = useState<TPost[]>([]);
+  const [loading, setLoading] = useState(true);
   const [postsEnded, setPostsEnded] = useState(false);
 
   const getPosts = async (): Promise<any> => {
@@ -27,6 +29,7 @@ export default function PostListPagination({
       endpoint: apiEndpoint, page: 0, quantity: postsQuantity, orderBy,
     });
 
+    setLoading(false);
     if (!response.success) return toast.error(response.message);
 
     return setPosts(response.data);
@@ -36,6 +39,7 @@ export default function PostListPagination({
     const response = await requestPosts({
       endpoint: apiEndpoint, page, quantity, orderBy,
     });
+    setLoading(false);
 
     if (!response.success) return toast.error(response.message);
     if (response.data.length < quantity) setPostsEnded(true);
@@ -55,6 +59,10 @@ export default function PostListPagination({
   }, [orderBy]);
 
   const showMoreButton = posts.length > 0 && !postsEnded;
+
+  if (loading) {
+    return <Skeleton items={9} />;
+  }
 
   if (posts.length === 0 && postsEnded) {
     return <p>{emptyPostsMessage}</p>;

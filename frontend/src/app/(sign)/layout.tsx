@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Link from 'next/link';
 import BlogLogo from '@/components/BlogLogo';
 import HeaderWrapper from '@/components/Header/HeaderWrapper';
@@ -8,8 +8,13 @@ import { ChildrenProps } from '@/types/ChildrenProps';
 import { AuthContext } from '@/contexts/AuthContext';
 
 export default function SignLayout({ children }: ChildrenProps) {
-  const { redirect } = useContext(AuthContext);
-  if (redirect({ requireLogin: false, to: '/' })) return null;
+  const { redirect, isLoading } = useContext(AuthContext);
+
+  useEffect(() => {
+    redirect({ requireLogin: false, to: '/', getBack: false });
+  }, []);
+
+  if (isLoading) return <h1>Loading...</h1>;
 
   return (
     <>

@@ -8,13 +8,13 @@ import PersonalInfosForm from '@/components/Profile/PersonalInfosForm';
 import CredentialsForm from '@/components/Profile/CredentialsForm';
 
 export default function ProfilePage() {
-  const { user, redirect } = useContext(AuthContext);
+  const { isLoading, redirect } = useContext(AuthContext);
 
   useEffect(() => {
     redirect({ requireLogin: true, to: '/signin', getBack: true });
   }, [redirect]);
 
-  if (!user) return <h1>Loading</h1>;
+  if (isLoading) return <h1>Loading</h1>;
 
   return (
     <>

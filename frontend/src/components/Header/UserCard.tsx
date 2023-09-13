@@ -5,7 +5,7 @@ import React, {
 } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import userPicture from 'public/profile.svg';
+import userPicture from '@/assets/profile.svg';
 import { AuthContext } from '@/contexts/AuthContext';
 import SignLinks from './SignLinks';
 

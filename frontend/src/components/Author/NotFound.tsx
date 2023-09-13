@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import notProfile from 'public/not_profile.svg';
+import notProfile from '@/assets/not_profile.svg';
 import RouteErrorButtons from '../RouteErrorButtons';
 
 export default function NotFound() {

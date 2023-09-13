@@ -2,7 +2,7 @@
 
 import React, { useContext } from 'react';
 import { Account } from '@/types/Account';
-import defaultPicture from 'public/profile.svg';
+import defaultPicture from '@/assets/profile.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AiFillEdit } from 'react-icons/ai';
@@ -27,7 +27,7 @@ export default function Hero({ author, count }: Props) {
         width={160}
         height={160}
         src={author.imageUrl ?? defaultPicture}
-        alt="Imagem de perfil de username"
+        alt={`Imagem de perfil de ${author.username}`}
         className="relative top-8 border-white bg-gray-300 h-40 w-40 rounded-xl object-cover border-2"
       />
 
