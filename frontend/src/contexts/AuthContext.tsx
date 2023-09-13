@@ -90,7 +90,7 @@ export function AuthProvider({ children }: ChildrenProps) {
     setIsLoading(false);
   };
 
-  const redirect = ({ requireLogin, to, getBack = false }: RedirectParams): boolean => {
+  const redirect = async ({ requireLogin, to, getBack = false }: RedirectParams) => {
     const requiredAndNotFound = requireLogin && !user;
     const notRequiredAndFound = !requireLogin && user;
 

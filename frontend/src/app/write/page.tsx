@@ -34,7 +34,7 @@ export default function WritePage() {
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageError, setImageError] = useState<string | null>(null);
-  const { redirect } = useContext(AuthContext);
+  const { redirect, isLoading } = useContext(AuthContext);
   const router = useRouter();
 
   useEffect(() => {
@@ -64,6 +64,8 @@ export default function WritePage() {
     const topicIds = topics.map((topic) => topic.id);
     setValue('topics', topicIds, { shouldValidate: true });
   };
+
+  if (isLoading) return <h1>Loading...</h1>;
 
   return (
     <>
