@@ -19,11 +19,11 @@ export const requestTopicPosts = async (
 };
 
 export const createPost = async (
-  post: TPostCreation,
+  formData: FormData,
   token: string,
 ): Promise<TServiceResponse<TPost>> => {
   const response = await treatAxiosResponse<TPost>(
-    () => axios.post('http://localhost:3001/posts', post, {
+    () => axios.post('http://localhost:3001/posts', formData, {
       headers: { Authorization: token },
     }),
   );

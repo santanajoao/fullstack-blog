@@ -4,6 +4,7 @@ import checkForSignUpFields from '../middlewares/checkForSignUpFields';
 import checkForSignInFields from '../middlewares/checkForSignInFields';
 import validateToken from '../middlewares/validateToken';
 import checkForFields from '../middlewares/checkForFields';
+import uploader from '../lib/multer';
 
 const accountRouter = Router();
 
@@ -24,7 +25,8 @@ accountRouter.patch(
 );
 accountRouter.patch(
   '/me/personal',
-  checkForFields(['username', 'about']),
+  uploader.single('image'),
+  checkForFields(['username']),
   validateToken,
   accountController.handlePatchPersonal,
 );

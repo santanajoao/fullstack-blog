@@ -3,13 +3,14 @@ import { AsyncServiceResponse } from '../types/serviceResponse';
 import jwt from '../lib/jwt';
 import bcrypt from '../lib/bcrypt';
 import { validateSignIn } from './validations/signInValidations';
-import { AccountCreation, AccountCredentials, AccountPersonalInfos, AccountPublicFields, SignInFields, SignResponse } from '../types/account';
+import { AccountCreation, AccountCredentials, AccountPersonalInfosUpdate, AccountPublicFields, SignInFields, SignResponse } from '../types/account';
 import { getAccountPublicFields } from '../utils/account';
 import { validateSignUp } from './validations/signUpValidations';
 import { validateAccountId } from './validations/likeValidations';
 import validateSchemaFields from './validations/validateSchemaFields';
 import { accountCredentialsSchema, accountPersonalInfosSchema } from './validations/schemas/account.schema';
 import { validatePasswordChange } from './validations/accountValidations';
+import { Account } from '@prisma/client';
 
 const createAccount = async (
   { username, email, password }: AccountCreation
@@ -18,8 +19,10 @@ const createAccount = async (
   if (validation.status !== 'SUCCESS') return validation;
 
   const passwordHash = await bcrypt.encrypt(password);
-  const createdAccount = await prisma.account
-    .create({ data: { username, email, password: passwordHash } });
+  const createdAccount = await prisma.account.create({
+    data: { username, email, password: passwordHash },
+    include: { image: true },
+  });
 
   const accountPublicFields = getAccountPublicFields(createdAccount);
   const token = jwt.createToken(accountPublicFields);
@@ -71,26 +74,49 @@ const updateAccountCredentials = async ({
       password: newPasswordHash,
       email,
     },
+    include: { image: true },
   });
 
   const accountPublicFields = getAccountPublicFields(updatedAccount);
   return { status: 'SUCCESS', data: accountPublicFields };
 };
 
+const deleteAccountImage = async (accountId: string): AsyncServiceResponse<null> => {
+  const account = await prisma.account.findUnique({
+    where: { id: accountId },
+  }) as Account;
+
+  if (account.imageId) {
+    await prisma.image.delete({
+      where: {
+        id: account.imageId,
+      }
+    });
+  }
+  
+  return { data: null, status: 'SUCCESS'  };
+};
+
 const updateAccountPersonalInfos = async ({
-  id, username, about
-}: AccountPersonalInfos): AsyncServiceResponse<AccountPublicFields> => {
+  id, username, about, image,
+}: AccountPersonalInfosUpdate): AsyncServiceResponse<AccountPublicFields> => {
   const fieldsValidation = validateSchemaFields(accountPersonalInfosSchema, {
     username, about,
   });
   if (fieldsValidation.status !== 'SUCCESS') return fieldsValidation;
+
+  if (image) {
+    await deleteAccountImage(id);
+  }
 
   const updatedAccount = await prisma.account.update({
     where: { id },
     data: {
       username,
       about,
+      image: image ? { create: image } : undefined,
     },
+    include: { image: true },
   });
 
   const accountPublicFields = getAccountPublicFields(updatedAccount);  

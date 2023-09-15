@@ -1,13 +1,8 @@
-export type SignPayload = {
-  id: string;
-  email: string;
-  username: string;
-  imageUrl: string | null;
-};
+import { AccountPublicFields } from "./account";
 
 type SuccessValidation = {
   valid: true,
-  data: SignPayload,
+  data: AccountPublicFields,
 };
 
 type ErrorValidation = {
