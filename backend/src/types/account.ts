@@ -22,7 +22,7 @@ export type AccountCredentials = Pick<Account, 'email' | 'id' | 'password'> & {
 export type AccountPersonalInfos = Pick<Account, 'id' | 'about' | 'username'>;
 
 export type AccountPersonalInfosUpdate = AccountPersonalInfos & {
-  image: ImageCreation,
+  image?: ImageCreation,
 };
 
 type AccountImage = {

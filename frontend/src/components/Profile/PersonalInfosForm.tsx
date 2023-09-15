@@ -53,8 +53,14 @@ export default function PersonalInfosForm() {
   const onSubmit = async (data: Fields) => {
     if (editing) return;
 
+    const formData = new FormData();
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    formData.append('image', imageFile ?? '');
+
     const token = getCookie('blog.session.token') as string;
-    const response = await updatePersonalInfos(data, token);
+    const response = await updatePersonalInfos(formData, token);
 
     if (response.success) {
       refreshUserData();

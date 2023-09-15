@@ -1,4 +1,4 @@
-import { Account, AccountCredentials, AccountPersonalInfos } from '@/types/Account';
+import { Account, AccountCredentials } from '@/types/Account';
 import TServiceResponse from '@/types/ServiceResponse';
 import axios from 'axios';
 import { treatAxiosResponse } from './errorHandling';
@@ -19,15 +19,13 @@ export const updateCredentials = async (
 };
 
 export const updatePersonalInfos = async (
-  personalInfos: AccountPersonalInfos,
+  formData: FormData,
   token: string,
 ): Promise<TServiceResponse<Account>> => {
-  const { username, about } = personalInfos;
-
   const response = await treatAxiosResponse(
-    () => axios.patch('http://localhost:3001/accounts/me/personal', {
-      username, about,
-    }, { headers: { Authorization: token } }),
+    () => axios.patch('http://localhost:3001/accounts/me/personal', formData, {
+      headers: { Authorization: token },
+    }),
   );
 
   return response;

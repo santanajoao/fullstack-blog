@@ -93,9 +93,7 @@ const updateAccountPersonalInfos = async ({
     data: {
       username,
       about,
-      image: {
-        update: image,
-      },
+      image: image ? { create: image } : undefined,
     },
     include: { image: true },
   });

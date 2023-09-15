@@ -26,7 +26,7 @@ accountRouter.patch(
 accountRouter.patch(
   '/me/personal',
   uploader.single('image'),
-  checkForFields(['username', 'about']),
+  checkForFields(['username']),
   validateToken,
   accountController.handlePatchPersonal,
 );

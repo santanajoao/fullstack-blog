@@ -56,8 +56,8 @@ const handlePatchPersonal = async (req: Request, res: Response) => {
   const accountId = req.body.local.account.id;
   const { username, about } = req.body;
 
-  const image: ImageCreation = {
-    buffer: req.file?.buffer, type: req.file?.mimetype,
+  const image = req.file && {
+    buffer: req.file.buffer, type: req.file.mimetype,
   };
 
   const { status, data } = await accountService.updateAccountPersonalInfos({
