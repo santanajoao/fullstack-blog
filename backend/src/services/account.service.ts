@@ -10,6 +10,7 @@ import { validateAccountId } from './validations/likeValidations';
 import validateSchemaFields from './validations/validateSchemaFields';
 import { accountCredentialsSchema, accountPersonalInfosSchema } from './validations/schemas/account.schema';
 import { validatePasswordChange } from './validations/accountValidations';
+import { Account } from '@prisma/client';
 
 const createAccount = async (
   { username, email, password }: AccountCreation
@@ -80,6 +81,22 @@ const updateAccountCredentials = async ({
   return { status: 'SUCCESS', data: accountPublicFields };
 };
 
+const deleteAccountImage = async (accountId: string): AsyncServiceResponse<null> => {
+  const account = await prisma.account.findUnique({
+    where: { id: accountId },
+  }) as Account;
+
+  if (account.imageId) {
+    await prisma.image.delete({
+      where: {
+        id: account.imageId,
+      }
+    });
+  }
+  
+  return { data: null, status: 'SUCCESS'  };
+};
+
 const updateAccountPersonalInfos = async ({
   id, username, about, image,
 }: AccountPersonalInfosUpdate): AsyncServiceResponse<AccountPublicFields> => {
@@ -87,6 +104,10 @@ const updateAccountPersonalInfos = async ({
     username, about,
   });
   if (fieldsValidation.status !== 'SUCCESS') return fieldsValidation;
+
+  if (image) {
+    await deleteAccountImage(id);
+  }
 
   const updatedAccount = await prisma.account.update({
     where: { id },
