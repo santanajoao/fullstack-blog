@@ -13,6 +13,7 @@ const accounts: Account[] = [
     password: encrypt('password1'),
     imageUrl: 'https://img.freepik.com/fotos-gratis/alegre-mulher-envelhecida-media-com-cabelos-cacheados_1262-20859.jpg',
     about: null,
+    imageId: null,
   },
   {
     id: 'f9fbae01-6c1d-4c9e-9dbf-85db0d6b2e0e',
@@ -21,6 +22,7 @@ const accounts: Account[] = [
     password: encrypt('password2'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
   {
     id: 'd3f3e6eb-fd3a-4df0-bccf-2f9a5dce7c5b',
@@ -29,6 +31,7 @@ const accounts: Account[] = [
     password: encrypt('password3'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
   {
     id: '4b6a50d1-cbfa-4e51-b6a1-b9f59fcf71a2',
@@ -37,6 +40,7 @@ const accounts: Account[] = [
     password: encrypt('password4'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
   {
     id: 'c3d0be41-ebdf-4b51-a3d6-c1a7fda2b5c4',
@@ -45,6 +49,7 @@ const accounts: Account[] = [
     password: encrypt('password5'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
   {
     id: '0cfbf9f3-dc24-4e12-bd60-d6a5cddd4b08',
@@ -53,6 +58,7 @@ const accounts: Account[] = [
     password: encrypt('password6'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
   {
     id: '1d2e6f24-fd27-4f0c-bd18-cb9cd2068a91',
@@ -61,6 +67,7 @@ const accounts: Account[] = [
     password: encrypt('password7'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
   {
     id: '8ed71d64-ded2-4e67-a0c1-c5c9ecf719f2',
@@ -69,6 +76,7 @@ const accounts: Account[] = [
     password: encrypt('password8'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
   {
     id: '9cf1e012-fed2-4ff7-b6cf-d0ddfce219e3',
@@ -77,6 +85,7 @@ const accounts: Account[] = [
     password: encrypt('password9'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
   {
     id: '5ad2f0e8-d2df-4ae8-a5cf-e2ddfce219e3',
@@ -85,6 +94,7 @@ const accounts: Account[] = [
     password: encrypt('password10'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
   {
     id: '6cf1e012-fed2-4ff7-b6cf-d0ddfce219e3',
@@ -93,6 +103,7 @@ const accounts: Account[] = [
     password: encrypt('password11'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
   {
     id: '7df1e012-fed2-4ff7-b6cf-d0ddfce219e3',
@@ -101,6 +112,7 @@ const accounts: Account[] = [
     password: encrypt('password12'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
   {
     id: '8ef1e012-fed2-4ff7-b6cf-d0ddfce219e3',
@@ -109,6 +121,7 @@ const accounts: Account[] = [
     password: encrypt('password13'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
   {
     id: '9ff1e012-fed2-4ff7-b6cf-d0ddfce219e3',
@@ -117,6 +130,7 @@ const accounts: Account[] = [
     password: encrypt('password14'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
   {
     id: 'a0f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
@@ -125,6 +139,7 @@ const accounts: Account[] = [
     password: encrypt('password15'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
   {
     id: 'b1f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
@@ -133,6 +148,7 @@ const accounts: Account[] = [
     password: encrypt('password16'),
     imageUrl: null,
     about: 'Carla Maria, apaixonada por moda e beleza, compartilha dicas para realçar sua beleza natural com produtos caseiros e criar maquiagens encantadoras. ✨',
+    imageId: null,
   },
   {
     id: 'c2f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
@@ -141,6 +157,7 @@ const accounts: Account[] = [
     password: encrypt('password17'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
   {
     id: 'd3f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
@@ -149,6 +166,7 @@ const accounts: Account[] = [
     password: encrypt('password18'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
   {
     id: 'e4f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
@@ -157,6 +175,7 @@ const accounts: Account[] = [
     password: encrypt('password19'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
   {
     id: 'f5f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
@@ -165,6 +184,7 @@ const accounts: Account[] = [
     password: encrypt('password20'),
     imageUrl: null,
     about: null,
+    imageId: null,
   },
 ];
 

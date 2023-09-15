@@ -2,6 +2,8 @@ import { Router } from 'express';
 import postController from '../controllers/post.controller';
 import validateToken from '../middlewares/validateToken';
 import checkForFields from '../middlewares/checkForFields';
+import uploader from '../lib/multer';
+import checkForImage from '../middlewares/checkForImage';
 
 const postRouter = Router();
 
@@ -11,8 +13,10 @@ postRouter.get('/account/:id', postController.handleGetPostsByAccount);
 postRouter.get('/account/:id/count', postController.handleGetAccountPostsCount);
 postRouter.post(
   '/',
+  uploader.single('image'),
+  checkForImage,
+  checkForFields(['title', 'description', 'content', 'topics']),
   validateToken,
-  checkForFields(['title', 'description', 'content']),
   postController.handlePostPost,
 );
 

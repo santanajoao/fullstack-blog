@@ -73,10 +73,16 @@ const handleGetAccountPostsCount = async (req: Request, res: Response) => {
 
 const handlePostPost = async (req: Request, res: Response) => {
   const { title, description, content, topics } = req.body;
+  const topicList = JSON.parse(topics);
   const accountId = req.body.local.account.id;
 
-  const { status, data } = await postService
-    .createPost({ title, description, content, accountId, topics });
+  const image = {
+    buffer: req.file!.buffer, type: req.file!.mimetype,
+  };
+
+  const { status, data } = await postService.createPost({
+    title, description, content, accountId, topics: topicList, image,
+  });
 
   if (status !== 'SUCCESS') {
     return res.status(mapErrorStatus(status)).json(data);

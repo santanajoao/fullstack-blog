@@ -31,6 +31,7 @@ export default function ImageInput({ onImageChange }: Props) {
           id="image-input"
           type="file"
           className="absolute opacity-0 peer"
+          accept="image/*"
           onChange={handleImageChange}
         />
 

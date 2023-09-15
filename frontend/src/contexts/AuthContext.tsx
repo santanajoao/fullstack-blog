@@ -15,7 +15,7 @@ import { destroyCookie, getCookie, setCookie } from '@/lib/cookies';
 type RedirectParams = {
   requireLogin: boolean;
   to: string;
-  getBack: boolean;
+  getBack?: boolean;
 };
 
 interface ContextValues {
@@ -90,7 +90,7 @@ export function AuthProvider({ children }: ChildrenProps) {
     setIsLoading(false);
   };
 
-  const redirect = async ({ requireLogin, to, getBack = false }: RedirectParams) => {
+  const redirect = ({ requireLogin, to, getBack = false }: RedirectParams) => {
     const requiredAndNotFound = requireLogin && !user;
     const notRequiredAndFound = !requireLogin && user;
 

@@ -8,6 +8,7 @@ import { validateAccountId } from './validations/likeValidations';
 import { TPostCreation } from '../types/post';
 import { validatePost } from './validations/postValidations';
 import { validateTopics } from './validations/topicValidations';
+import { buildPostWithImageUrl } from '../utils/post';
 
 const getWeekPopularPosts = async (
   quantity: number,
@@ -15,13 +16,14 @@ const getWeekPopularPosts = async (
 ): AsyncServiceResponse<Post[]> => {
   const treatedQuantity = treatQuantity(quantity);
 
-  const popularPosts = await prisma.post.findMany({
+  const posts = await prisma.post.findMany({
     include: {
       account: {
         select: {
           username: true,
         },
       },
+      image: true,
     },
     where: {
       createdAt: {
@@ -36,6 +38,7 @@ const getWeekPopularPosts = async (
     skip: treatedQuantity * page,
   });
 
+  const popularPosts = posts.map(buildPostWithImageUrl);
   return { status: 'SUCCESS', data: popularPosts };
 };
 
@@ -83,13 +86,15 @@ const getPostsByTopicId = async (
           username: true,
         },
       },
+      image: true,
     },
     orderBy: orderQuery,
     take: quantity,
     skip: page * quantity,
   });
 
-  return { status: 'SUCCESS', data: posts };
+  const postsWithImgUrl = posts.map(buildPostWithImageUrl);
+  return { status: 'SUCCESS', data: postsWithImgUrl };
 };
 
 const countPostsByTopic = async (topicId: string): Promise<number> => {
@@ -130,7 +135,9 @@ type PostInfos = {
   },
 };
 
-const getTopicPostsInfos = async (topicId: string): AsyncServiceResponse<PostInfos> => {
+const getTopicPostsInfos = async (
+  topicId: string,
+): AsyncServiceResponse<PostInfos> => {
   const idValidation = await validateTopicId(topicId);
   if (idValidation.status !== 'SUCCESS') return idValidation;
 
@@ -168,6 +175,7 @@ const getPostById = async (
           name: true,
         }
       },
+      image: true,
     },
   });
 
@@ -179,7 +187,7 @@ const getPostById = async (
   }
 
 
-  return { status: 'SUCCESS', data: post };
+  return { status: 'SUCCESS', data: buildPostWithImageUrl(post) };
 };
 
 const getPostByAccount = async (
@@ -198,6 +206,7 @@ const getPostByAccount = async (
           username: true,
         },
       },
+      image: true,
     },
     orderBy: [
       { createdAt: 'desc' },
@@ -206,19 +215,24 @@ const getPostByAccount = async (
     skip: page * quantity,
   });
 
-  return { status: 'SUCCESS', data: posts };
+  const postsWithImageUrl = posts.map(buildPostWithImageUrl);
+  return { status: 'SUCCESS', data: postsWithImageUrl };
 };
 
 const createPost = async ({
-  accountId, title, content, description, topics,
+  accountId, title, content, description, topics, image
 }: TPostCreation): AsyncServiceResponse<Post> => {
   const postValidation = await validatePost({
-    title, description, content, accountId, topics,
+    title, description, content, accountId, topics, image,
   });
   if (postValidation.status !== 'SUCCESS') return postValidation;
 
   const topicsValidation = await validateTopics(topics);
   if (topicsValidation.status !== 'SUCCESS') return topicsValidation;
+
+  const { id } = await prisma.image.create({
+    data: image,
+  });
 
   const createdPost = await prisma.post.create({
     data: {
@@ -226,14 +240,16 @@ const createPost = async ({
       description,
       title,
       accountId,
+      imageId: id,
       imageUrl: '',
       topics: {
         connect: topics.map((topic) => ({ id: topic })),
       },
-    }
+    },
+    include: { image: true },
   });
 
-  return { status: 'SUCCESS', data: createdPost };
+  return { status: 'SUCCESS', data: buildPostWithImageUrl(createdPost) };
 };
 
 type PostCountsResponse = {
@@ -241,7 +257,9 @@ type PostCountsResponse = {
   posts: number;
 };
 
-const countPostInfos = async (accountId: string): AsyncServiceResponse<PostCountsResponse> => {
+const countPostInfos = async (
+  accountId: string,
+): AsyncServiceResponse<PostCountsResponse> => {
   const [likeCount, postCount] = await Promise.all([
     prisma.likes.count({
       where: {

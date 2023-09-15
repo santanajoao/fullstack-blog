@@ -1,12 +1,12 @@
 import { Account, Image } from "@prisma/client";
-import { ImageCreation } from "./image";
+import { ImageCreation, ImageKey } from "./image";
 
 export type SignInFields = Pick<Account, 'email' | 'password'>;
 
 export type AccountCreation = SignInFields & Pick<Account, 'username'>;
 
 
-export type AccountWithImage = Account & AccountImage
+export type AccountWithImage = Account & ImageKey
 
 export type AccountPublicFields = Omit<Account, 'password' | 'imageId'>;
 
@@ -24,7 +24,3 @@ export type AccountPersonalInfos = Pick<Account, 'id' | 'about' | 'username'>;
 export type AccountPersonalInfosUpdate = AccountPersonalInfos & {
   image?: ImageCreation,
 };
-
-type AccountImage = {
-  image: Image | null,
-}
