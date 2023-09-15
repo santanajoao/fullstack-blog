@@ -69,6 +69,7 @@ Existe também uma página para uma postagem onde é possível ler o conteúdo d
   - [ ] Adicionar validação do tipo dos arquivos enviados no backend
   - [ ] Adicionar validação de tamanho máximo de um arquivo
   - [ ] Remover coluna antiga imageUrl das tabelas
+  - [ ] Corrigir imagens dos posts nas seeds do prisma após a alteração da forma que as imagens são armazenadas
 
 - [ ] Refatorações
   - [ ] Construir uma camada model no backend para isolar as queries do prisma e reutilizar código
