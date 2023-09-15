@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import accountService from '../services/account.service';
 import { mapErrorStatus } from '../utils/http';
+import { ImageCreation } from '../types/image';
 
 const handlePostAccount = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
@@ -55,10 +56,15 @@ const handlePatchPersonal = async (req: Request, res: Response) => {
   const accountId = req.body.local.account.id;
   const { username, about } = req.body;
 
+  const image: ImageCreation = {
+    buffer: req.file?.buffer, type: req.file?.mimetype,
+  };
+
   const { status, data } = await accountService.updateAccountPersonalInfos({
     id: accountId,
     username,
     about,
+    image,
   });
   
   if (status !== 'SUCCESS') {

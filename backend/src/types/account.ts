@@ -1,10 +1,14 @@
-import { Account } from "@prisma/client";
+import { Account, Image } from "@prisma/client";
+import { ImageCreation } from "./image";
 
 export type SignInFields = Pick<Account, 'email' | 'password'>;
 
 export type AccountCreation = SignInFields & Pick<Account, 'username'>;
 
-export type AccountPublicFields = Omit<Account, 'password'>;
+
+export type AccountWithImage = Account & AccountImage
+
+export type AccountPublicFields = Omit<Account, 'password' | 'imageId'>;
 
 export type SignResponse = {
   token: string;
@@ -16,3 +20,11 @@ export type AccountCredentials = Pick<Account, 'email' | 'id' | 'password'> & {
 };
 
 export type AccountPersonalInfos = Pick<Account, 'id' | 'about' | 'username'>;
+
+export type AccountPersonalInfosUpdate = AccountPersonalInfos & {
+  image: ImageCreation,
+};
+
+type AccountImage = {
+  image: Image | null,
+}

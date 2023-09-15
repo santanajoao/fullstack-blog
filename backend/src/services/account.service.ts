@@ -3,7 +3,7 @@ import { AsyncServiceResponse } from '../types/serviceResponse';
 import jwt from '../lib/jwt';
 import bcrypt from '../lib/bcrypt';
 import { validateSignIn } from './validations/signInValidations';
-import { AccountCreation, AccountCredentials, AccountPersonalInfos, AccountPublicFields, SignInFields, SignResponse } from '../types/account';
+import { AccountCreation, AccountCredentials, AccountPersonalInfosUpdate, AccountPublicFields, SignInFields, SignResponse } from '../types/account';
 import { getAccountPublicFields } from '../utils/account';
 import { validateSignUp } from './validations/signUpValidations';
 import { validateAccountId } from './validations/likeValidations';
@@ -18,8 +18,10 @@ const createAccount = async (
   if (validation.status !== 'SUCCESS') return validation;
 
   const passwordHash = await bcrypt.encrypt(password);
-  const createdAccount = await prisma.account
-    .create({ data: { username, email, password: passwordHash } });
+  const createdAccount = await prisma.account.create({
+    data: { username, email, password: passwordHash },
+    include: { image: true },
+  });
 
   const accountPublicFields = getAccountPublicFields(createdAccount);
   const token = jwt.createToken(accountPublicFields);
@@ -71,6 +73,7 @@ const updateAccountCredentials = async ({
       password: newPasswordHash,
       email,
     },
+    include: { image: true },
   });
 
   const accountPublicFields = getAccountPublicFields(updatedAccount);
@@ -78,8 +81,8 @@ const updateAccountCredentials = async ({
 };
 
 const updateAccountPersonalInfos = async ({
-  id, username, about
-}: AccountPersonalInfos): AsyncServiceResponse<AccountPublicFields> => {
+  id, username, about, image,
+}: AccountPersonalInfosUpdate): AsyncServiceResponse<AccountPublicFields> => {
   const fieldsValidation = validateSchemaFields(accountPersonalInfosSchema, {
     username, about,
   });
@@ -90,7 +93,11 @@ const updateAccountPersonalInfos = async ({
     data: {
       username,
       about,
+      image: {
+        update: image,
+      },
     },
+    include: { image: true },
   });
 
   const accountPublicFields = getAccountPublicFields(updatedAccount);  

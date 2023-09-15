@@ -5,7 +5,7 @@ import { Account } from '@prisma/client';
 import { AsyncServiceResponse } from '../../types/serviceResponse';
 import prisma from '../../lib/prisma';
 import bcrypt from '../../lib/bcrypt';
-import { SignInFields } from '../../types/account';
+import { AccountWithImage, SignInFields } from '../../types/account';
 
 export const validatePassword = async (
   hash: string,
@@ -25,8 +25,12 @@ export const validateSignInFields = (
   return validateSchema(signInSchema, { email, password });
 };
 
-export const validateEmailExistance = async (email: string): AsyncServiceResponse<Account> => {
-  const account = await prisma.account.findUnique({ where: { email } });
+export const validateEmailExistance = async (email: string): AsyncServiceResponse<AccountWithImage> => {
+  const account = await prisma.account.findUnique({
+    where: { email },
+    include: { image: true },
+  });
+
   if (!account) {
     return {
       status: 'NOT_FOUND',
@@ -38,7 +42,7 @@ export const validateEmailExistance = async (email: string): AsyncServiceRespons
 
 export const validateSignIn = async (
   { email, password }: SignInFields
-): AsyncServiceResponse<Account> => {
+): AsyncServiceResponse<AccountWithImage> => {
   const fieldsValidation = validateSignInFields(email, password);
   if (fieldsValidation.status !== 'SUCCESS') return fieldsValidation;
 
