@@ -37,6 +37,7 @@ Existe também uma página para uma postagem onde é possível ler o conteúdo d
 - mocha
 - helmet
 - cors
+- Multer
 
 ### Geral
 
@@ -64,18 +65,15 @@ Existe também uma página para uma postagem onde é possível ler o conteúdo d
 
 ### Próximos passos
 
-- [ ] Página de perfil (em desenvolvimento)
-  - [X] Interface
-  - [X] Back-end
-  - [X] Alteração das informações pessoais
-  - [X] Alteração das informações credenciais
-  - [X] Upload da imagem de perfil para o banco de dados
+- [ ] Upload de imagens
+  - [ ] Adicionar validação do tipo dos arquivos enviados no backend
+  - [ ] Adicionar validação de tamanho máximo de um arquivo
+  - [ ] Remover coluna antiga imageUrl das tabelas
 
-- [ ] Página para escrever um post / Editor de posts
-  - [X] Interface
-  - [X] Back-end
-  - [X] Criação de um post
-  - [X] Upload da imagem do post para o banco de dados
+- [ ] Refatorações
+  - [ ] Construir uma camada model no backend para isolar as queries do prisma e reutilizar código
+  - [ ] Reorganizar alguns arquivos e funções de forma mais semântica
+  - [ ] Replicar a estratégia de submit utilizado na página Write na página de perfil
 
 - [ ] Adicionar forma do usuário logado gerenciar suas publicações
 
