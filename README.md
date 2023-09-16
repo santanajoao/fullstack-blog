@@ -72,8 +72,8 @@ Existe também uma página para uma postagem onde é possível ler o conteúdo d
   - [ ] Corrigir imagens dos posts nas seeds do prisma após a alteração da forma que as imagens são armazenadas
 
 - [ ] Refatorações
-  - [ ] Construir uma camada model no backend para isolar as queries do prisma e reutilizar código
-  - [ ] Reorganizar alguns arquivos e funções de forma mais semântica
+  - [X] Construir uma camada model no backend para isolar as queries do prisma e reutilizar código
+  - [X] Reorganizar alguns arquivos e funções de forma mais semântica
   - [ ] Replicar a estratégia de submit utilizado na página Write na página de perfil
 
 - [ ] Adicionar forma do usuário logado gerenciar suas publicações
