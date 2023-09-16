@@ -11,6 +11,7 @@ import validateSchemaFields from './validations/validateSchemaFields';
 import { accountCredentialsSchema, accountPersonalInfosSchema } from './validations/schemas/account.schema';
 import { validatePasswordChange } from './validations/accountValidations';
 import { Account } from '@prisma/client';
+import * as accountModel from '../models/account.model';
 
 const createAccount = async (
   { username, email, password }: AccountCreation
@@ -19,15 +20,15 @@ const createAccount = async (
   if (validation.status !== 'SUCCESS') return validation;
 
   const passwordHash = await bcrypt.encrypt(password);
-  const createdAccount = await prisma.account.create({
-    data: { username, email, password: passwordHash },
-    include: { image: true },
-  });
+  const createdAccount = await accountModel
+    .createAccount({ password: passwordHash, username, email });
 
-  const accountPublicFields = getAccountPublicFields(createdAccount);
-  const token = jwt.createToken(accountPublicFields);
+  const createdAccountPublicFields = getAccountPublicFields(createdAccount);
+  const token = jwt.createToken(createdAccountPublicFields);
   
-  return { status: 'SUCCESS', data: { token, account: accountPublicFields } };
+  return {
+    status: 'SUCCESS', data: { token, account: createdAccountPublicFields },
+  };
 };
 
 const signIn = async ({
