@@ -1,3 +1,4 @@
+import prisma from "../../lib/prisma";
 import { TPostCreation } from "../../types/post";
 import { AsyncServiceResponse } from "../../types/serviceResponse";
 import { validateAccountId } from "./accountValidations";
@@ -17,3 +18,17 @@ export const validatePost = async ({
 
   return { status: 'SUCCESS', data: null };
 }
+
+export const validatePostId = async (postId: string): AsyncServiceResponse<null> => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: postId,
+    },
+  });
+
+  if (!post) {
+    return { status: 'NOT_FOUND', data: { message: 'Post não encontrado' } };
+  }
+
+  return { status: 'SUCCESS', data: null };
+};

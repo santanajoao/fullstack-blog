@@ -2,20 +2,6 @@ import { Likes } from '@prisma/client';
 import prisma from '../../lib/prisma';
 import { AsyncServiceResponse } from '../../types/serviceResponse';
 
-export const validatePostId = async (postId: string): AsyncServiceResponse<null> => {
-  const post = await prisma.post.findUnique({
-    where: {
-      id: postId,
-    },
-  });
-
-  if (!post) {
-    return { status: 'NOT_FOUND', data: { message: 'Post não encontrado' } };
-  }
-
-  return { status: 'SUCCESS', data: null };
-};
-
 export const checkForLike = async (
   accountId: string, postId: string
 ): AsyncServiceResponse<Likes> => {

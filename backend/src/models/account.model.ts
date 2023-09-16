@@ -1,11 +1,3 @@
-/*
-  Models:
-    - create account, include image
-    - find account by email, include image
-    - find account by id, include image
-    - update account by id, include image
-*/
-
 import prisma from '../lib/prisma';
 import { AccountCreation, AccountWithImage, AccountUpdate } from '../types/account';
 import { createImage, deleteImageByAccountId } from './image.model';
