@@ -5,8 +5,11 @@ export type SignInFields = Pick<Account, 'email' | 'password'>;
 
 export type AccountCreation = SignInFields & Pick<Account, 'username'>;
 
-
 export type AccountWithImage = Account & ImageKey
+
+export type AccountUpdate = Omit<Account, 'id'> & {
+  image: ImageCreation,
+};
 
 export type AccountPublicFields = Omit<Account, 'password' | 'imageId'>;
 

@@ -10,7 +10,6 @@ import { validateAccountId } from './validations/accountValidations';
 import validateSchema from './validations/validateSchemaFields';
 import { accountCredentialsSchema, accountPersonalInfosSchema } from './validations/schemas/account.schema';
 import { validateAccountPasswordById } from './validations/accountValidations';
-import { Account } from '@prisma/client';
 import * as accountModel from '../models/account.model';
 
 const createAccount = async (
@@ -67,51 +66,27 @@ const updateAccountCredentials = async (
   const newPasswordHash = await bcrypt.encrypt(newPassword);
   const updatedAccount = await accountModel.updateAccountById(
     id, { email, password: newPasswordHash },
-  ) as AccountWithImage;
+  );
 
-  const accountPublicFields = getAccountPublicFields(updatedAccount);
+  const accountPublicFields = getAccountPublicFields(updatedAccount!);
   return { status: 'SUCCESS', data: accountPublicFields };
-};
-
-const deleteAccountImage = async (accountId: string): AsyncServiceResponse<null> => {
-  const account = await prisma.account.findUnique({
-    where: { id: accountId },
-  }) as Account;
-
-  if (account.imageId) {
-    await prisma.image.delete({
-      where: {
-        id: account.imageId,
-      }
-    });
-  }
-  
-  return { data: null, status: 'SUCCESS'  };
 };
 
 const updateAccountPersonalInfos = async ({
   id, username, about, image,
 }: AccountPersonalInfosUpdate): AsyncServiceResponse<AccountPublicFields> => {
-  const fieldsValidation = validateSchema(accountPersonalInfosSchema, {
-    username, about,
-  });
+  const fieldsValidation = validateSchema(
+    accountPersonalInfosSchema, { username, about },
+  );
   if (fieldsValidation.status !== 'SUCCESS') return fieldsValidation;
+  
+  const existanceValidation = await validateAccountId(id);
+  if (existanceValidation.status !== 'SUCCESS') return existanceValidation;
 
-  if (image) {
-    await deleteAccountImage(id);
-  }
+  const updatedAccount = await accountModel
+    .updateAccountById(id, { username, about, image });
 
-  const updatedAccount = await prisma.account.update({
-    where: { id },
-    data: {
-      username,
-      about,
-      image: image ? { create: image } : undefined,
-    },
-    include: { image: true },
-  });
-
-  const accountPublicFields = getAccountPublicFields(updatedAccount);  
+  const accountPublicFields = getAccountPublicFields(updatedAccount!);  
   return { status: 'SUCCESS', data: accountPublicFields }
 };
 

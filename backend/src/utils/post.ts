@@ -7,7 +7,7 @@ export const buildPostWithImageUrl = (postWithImage: PostWithImage): Post => {
 
   let imageUrl = '';
   if (image) {
-    imageUrl = buildImageUrl(image?.type, image?.buffer)
+    imageUrl = buildImageUrl(image.type, image.buffer)
   }
 
   return { ...post, imageUrl };
