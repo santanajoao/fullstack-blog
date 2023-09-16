@@ -29,3 +29,21 @@ export const deleteLikeByIds = async (accountId: string, postId: string): Promis
 export const countLikesByPostId = async (postId: string): Promise<number> => {
   return await prisma.likes.count({ where: { postId } });
 };
+
+export const countLikesByTopicId = async (topicId: string): Promise<number> => {
+  return prisma.likes.count({
+    where: {
+      post: {
+        topics: {
+          some: {
+            id: topicId,
+          },
+        },
+      },
+    },
+  });
+};
+
+export const countPostLikesByAccountId = async (accountId: string) => {
+  return prisma.likes.count({ where: { post: { accountId } } });
+};

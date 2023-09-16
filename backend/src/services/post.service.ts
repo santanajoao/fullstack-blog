@@ -9,6 +9,7 @@ import { TPostCreation } from '../types/post';
 import { validatePost } from './validations/postValidations';
 import { validateTopics } from './validations/topicValidations';
 import { buildPostWithImageUrl } from '../utils/post';
+import * as likeModel from '../models/like.model';
 
 const getWeekPopularPosts = async (
   quantity: number,
@@ -111,22 +112,6 @@ const countPostsByTopic = async (topicId: string): Promise<number> => {
   return postCount;
 };
 
-const countLikesByTopic = async (topicId: string): Promise<number> => {
-  const likeCount = await prisma.likes.count({
-    where: {
-      post: {
-        topics: {
-          some: {
-            id: topicId,
-          },
-        },
-      },
-    },
-  });
-
-  return likeCount;
-};
-
 type PostInfos = {
   topic: Topic,
   posts: {
@@ -143,7 +128,7 @@ const getTopicPostsInfos = async (
 
   const [postCount, likeCount] = await Promise.all([
     countPostsByTopic(topicId),
-    countLikesByTopic(topicId),
+    likeModel.countLikesByTopicId(topicId),
   ]);
 
   const posts = {
@@ -261,14 +246,7 @@ const countPostInfos = async (
   accountId: string,
 ): AsyncServiceResponse<PostCountsResponse> => {
   const [likeCount, postCount] = await Promise.all([
-    prisma.likes.count({
-      where: {
-        post: {
-          accountId,
-        },
-      },
-    }),
-  
+    likeModel.countPostLikesByAccountId(accountId),
     prisma.post.count({ where: { accountId } }),
   ])
 
