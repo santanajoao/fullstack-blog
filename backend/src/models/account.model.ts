@@ -6,9 +6,9 @@
     - update account by id, include image
 */
 
-import { Account } from '@prisma/client';
 import prisma from '../lib/prisma';
-import { AccountCreation, AccountWithImage } from '../types/account';
+import { AccountCreation, AccountWithImage, AccountUpdate } from '../types/account';
+import { createImage, deleteImageByAccountId } from './image.model';
 
 const includeImage = { image: true };
 
@@ -31,8 +31,17 @@ export const findAccountByEmail = async (
 };
 
 export const updateAccountById = async (
-  id: string, data: Partial<Account>
+  id: string, data: Partial<AccountUpdate>,
 ): Promise<AccountWithImage | null> => {
+  const { image, ...otherData } = data;
 
-  return prisma.account.update({ where: { id }, data, include: includeImage });
+  if (image) {
+    await deleteImageByAccountId(id);
+    
+    const createdImage = await createImage(image);
+    otherData.imageId = createdImage.id;
+  }
+
+  return prisma.account
+    .update({ where: { id }, data: otherData, include: includeImage });
 };
