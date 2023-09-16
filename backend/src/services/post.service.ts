@@ -133,21 +133,7 @@ const getPostByAccount = async (
   const idValidation = await validateAccountId(accountId);
   if (idValidation.status !== 'SUCCESS') return idValidation;
   
-  const posts = await prisma.post.findMany({
-    where: {
-      accountId,
-    },
-    include: {
-      account: {
-        select: {
-          username: true,
-        },
-      },
-      image: true,
-    },
-    orderBy: [
-      { createdAt: 'desc' },
-    ],
+  const posts = await postModel.findPostByAccountId(accountId, {
     take: quantity,
     skip: page * quantity,
   });

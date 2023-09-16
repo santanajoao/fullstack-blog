@@ -24,12 +24,20 @@ export const createPost = async (data: ModelPostCreation) => {
 };
 
 type FindOptions = {
-  orderBy: Prisma.PostFindManyArgs['orderBy'],
-  take: number;
-  skip: number;
+  orderBy?: Prisma.PostFindManyArgs['orderBy'],
+  take?: number;
+  skip?: number;
 }
 
-export const findPostsByTopicId = async (topicId: string, options: FindOptions) => {
+const defaultOptions = {
+  orderBy: undefined,
+  take: undefined,
+  skip: undefined,
+}
+
+export const findPostsByTopicId = async (
+  topicId: string, options: FindOptions = defaultOptions
+) => {
   const { orderBy, take, skip } = options;
 
   return prisma.post.findMany({
@@ -69,5 +77,29 @@ export const findPostById = async (id: string) => {
       },
       image: true,
     },
+  });
+};
+
+export const findPostByAccountId = async (
+  accountId: string, options: FindOptions = defaultOptions
+) => {
+  const { take, skip } = options;
+
+  return prisma.post.findMany({
+    where: {
+      accountId,
+    },
+    include: {
+      account: {
+        select: {
+          username: true,
+        },
+      },
+      image: true,
+    },
+    orderBy: [
+      { createdAt: 'desc' },
+    ],
+    take, skip,
   });
 };
