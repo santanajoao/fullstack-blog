@@ -45,3 +45,7 @@ export const getPostsByTopicId = async (topicId: string, options: FindOptions) =
     orderBy, take, skip,
   });
 };
+
+export const countPostsByTopicId = async (topicId: string): Promise<number> => {
+  return prisma.post.count({ where: { topics: { some: { id: topicId } } } });
+};

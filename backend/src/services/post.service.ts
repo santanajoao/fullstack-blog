@@ -85,20 +85,6 @@ const getPostsByTopicId = async (
   return { status: 'SUCCESS', data: postsWithImgUrl };
 };
 
-const countPostsByTopic = async (topicId: string): Promise<number> => {
-  const postCount = await prisma.post.count({
-    where: {
-      topics: {
-        some: {
-          id: topicId,
-        },
-      },
-    },
-  });
-
-  return postCount;
-};
-
 type PostInfos = {
   topic: Topic,
   posts: {
@@ -114,7 +100,7 @@ const getTopicPostsInfos = async (
   if (idValidation.status !== 'SUCCESS') return idValidation;
 
   const [postCount, likeCount] = await Promise.all([
-    countPostsByTopic(topicId),
+    postModel.countPostsByTopicId(topicId),
     likeModel.countLikesByTopicId(topicId),
   ]);
 
