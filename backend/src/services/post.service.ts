@@ -10,6 +10,7 @@ import { validatePost } from './validations/postValidations';
 import { validateTopics } from './validations/topicValidations';
 import { buildPostWithImageUrl } from '../utils/post';
 import * as likeModel from '../models/like.model';
+import * as imageModel from '../models/image.model';
 
 const getWeekPopularPosts = async (
   quantity: number,
@@ -214,10 +215,8 @@ const createPost = async ({
 
   const topicsValidation = await validateTopics(topics);
   if (topicsValidation.status !== 'SUCCESS') return topicsValidation;
-
-  const { id } = await prisma.image.create({
-    data: image,
-  });
+  
+  const { id } = await imageModel.createImage(image);
 
   const createdPost = await prisma.post.create({
     data: {
