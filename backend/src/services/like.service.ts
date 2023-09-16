@@ -1,6 +1,7 @@
 import prisma from '../lib/prisma';
 import { AsyncServiceResponse } from '../types/serviceResponse';
-import { checkForLike, validatePostId } from './validations/likeValidations';
+import { checkForLike } from './validations/likeValidations';
+import { validatePostId } from './validations/postValidations';
 import { validateAccountId } from './validations/accountValidations';
 
 const like = async (accountId: string, postId: string): AsyncServiceResponse<null> => {
