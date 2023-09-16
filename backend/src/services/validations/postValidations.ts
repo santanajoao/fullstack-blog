@@ -1,6 +1,6 @@
 import { TPostCreation } from "../../types/post";
 import { AsyncServiceResponse } from "../../types/serviceResponse";
-import { validateAccountId } from "./likeValidations";
+import { validateAccountId } from "./accountValidations";
 import { postSchema } from "./schemas/post.schema";
 import validateSchemaFields from "./validateSchemaFields";
 

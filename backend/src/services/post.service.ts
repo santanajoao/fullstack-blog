@@ -4,7 +4,7 @@ import { AsyncServiceResponse } from '../types/serviceResponse';
 import dates from '../utils/dates';
 import treatQuantity from './validations/treatQuantity';
 import validateTopicId from './validations/validateTopicId';
-import { validateAccountId } from './validations/likeValidations';
+import { validateAccountId } from './validations/accountValidations';
 import { TPostCreation } from '../types/post';
 import { validatePost } from './validations/postValidations';
 import { validateTopics } from './validations/topicValidations';

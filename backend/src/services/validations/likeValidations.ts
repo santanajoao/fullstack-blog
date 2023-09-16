@@ -1,26 +1,6 @@
 import { Likes } from '@prisma/client';
 import prisma from '../../lib/prisma';
 import { AsyncServiceResponse } from '../../types/serviceResponse';
-import { AccountWithImage } from '../../types/account';
-
-export const validateAccountId = async (
-  accountId: string,
-): AsyncServiceResponse<AccountWithImage> => {
-  const account = await prisma.account.findUnique({
-    where: {
-      id: accountId,
-    },
-    include: {
-      image: true,
-    },
-  });
-
-  if (!account) {
-    return { status: 'NOT_FOUND', data: { message: 'Conta não encontrada' } };
-  }
-
-  return { status: 'SUCCESS', data: account };
-};
 
 export const validatePostId = async (postId: string): AsyncServiceResponse<null> => {
   const post = await prisma.post.findUnique({

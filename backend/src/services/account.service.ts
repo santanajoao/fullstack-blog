@@ -2,14 +2,14 @@ import prisma from '../lib/prisma';
 import { AsyncServiceResponse } from '../types/serviceResponse';
 import jwt from '../lib/jwt';
 import bcrypt from '../lib/bcrypt';
-import { validateSignIn } from './validations/signInValidations';
+import { validateSignIn } from './validations/accountValidations';
 import { AccountCreation, AccountCredentials, AccountPersonalInfosUpdate, AccountPublicFields, SignInFields, SignResponse } from '../types/account';
 import { getAccountPublicFields } from '../utils/account';
 import { validateSignUp } from './validations/accountValidations';
-import { validateAccountId } from './validations/likeValidations';
+import { validateAccountId } from './validations/accountValidations';
 import validateSchemaFields from './validations/validateSchemaFields';
 import { accountCredentialsSchema, accountPersonalInfosSchema } from './validations/schemas/account.schema';
-import { validatePasswordChange } from './validations/accountValidations';
+import { validateAccountPasswordById } from './validations/accountValidations';
 import { Account } from '@prisma/client';
 import * as accountModel from '../models/account.model';
 
@@ -65,7 +65,7 @@ const updateAccountCredentials = async ({
   });
   if (fieldsValidation.status !== 'SUCCESS') return fieldsValidation;
 
-  const passwordValidation = await validatePasswordChange(id, password);
+  const passwordValidation = await validateAccountPasswordById(id, password);
   if (passwordValidation.status !== 'SUCCESS') return passwordValidation;
 
   const newPasswordHash = await bcrypt.encrypt(newPassword);
