@@ -11,6 +11,7 @@
 import { Prisma } from "@prisma/client";
 import { ModelPostCreation } from "../types/post";
 import prisma from "../lib/prisma";
+import dates from "../utils/dates";
 
 export const createPost = async (data: ModelPostCreation) => {
   const { topics, ...otherData } = data;
@@ -102,6 +103,31 @@ export const findPostByAccountId = async (
       image: true,
     },
     orderBy: [
+      { createdAt: 'desc' },
+    ],
+    take, skip,
+  });
+};
+
+export const findWeekPopularPosts = async (options: FindOptions = defaultOptions) => {
+  const { take, skip } = options;
+
+  return prisma.post.findMany({
+    include: {
+      account: {
+        select: {
+          username: true,
+        },
+      },
+      image: true,
+    },
+    where: {
+      createdAt: {
+        gte: dates.getDateDaysAgo(7),
+      },
+    },
+    orderBy: [
+      { likes: { _count: 'desc' } },
       { createdAt: 'desc' },
     ],
     take, skip,

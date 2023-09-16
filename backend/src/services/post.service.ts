@@ -19,39 +19,18 @@ const getWeekPopularPosts = async (
 ): AsyncServiceResponse<Post[]> => {
   const treatedQuantity = treatQuantity(quantity);
 
-  const posts = await prisma.post.findMany({
-    include: {
-      account: {
-        select: {
-          username: true,
-        },
-      },
-      image: true,
-    },
-    where: {
-      createdAt: {
-        gte: dates.getDateDaysAgo(7),
-      },
-    },
-    orderBy: [
-      { likes: { _count: 'desc' } },
-      { createdAt: 'desc' },
-    ],
+  const posts = await postModel.findWeekPopularPosts({
     take: treatedQuantity,
     skip: treatedQuantity * page,
-  });
-
+  })
+  
   const popularPosts = posts.map(buildPostWithImageUrl);
   return { status: 'SUCCESS', data: popularPosts };
 };
 
 const getOrderQuery = (orderProperty: string) => {
   const queries: Record<string, Prisma.PostFindManyArgs['orderBy']> = {
-    likes: {
-      likes: {
-        _count: 'desc'
-      },
-    },
+    likes: { likes: { _count: 'desc' } },
     creation: { createdAt: 'desc' },
     popularity: [
       { createdAt: 'desc' },
