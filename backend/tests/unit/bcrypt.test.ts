@@ -1,4 +1,4 @@
-import crypt from "../../src/lib/bcrypt";
+import crypt from '../../src/lib/bcrypt';
 import bcrypt from 'bcrypt';
 import sinon from 'sinon';
 import chai from 'chai';

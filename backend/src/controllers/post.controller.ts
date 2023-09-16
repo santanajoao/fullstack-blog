@@ -89,7 +89,7 @@ const handlePostPost = async (req: Request, res: Response) => {
   }
 
   res.status(201).json(data);
-}
+};
 
 export default {
   handleGetPopularPosts,

@@ -22,7 +22,7 @@ const handleGetTopics = async (req: Request, res: Response) => {
   const { query, excludeIds } = req.query as Record<string, string | undefined>;
 
   let idsToExclude;
-  if (excludeIds) { idsToExclude = excludeIds.split(',') };
+  if (excludeIds) { idsToExclude = excludeIds.split(','); }
 
   const { data } = await topicService.getTopics(query as string | undefined, idsToExclude);
 

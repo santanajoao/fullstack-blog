@@ -1,5 +1,5 @@
-import { Account, Image } from "@prisma/client";
-import { ImageCreation, ImageKey } from "./image";
+import { Account } from '@prisma/client';
+import { ImageCreation, ImageKey } from './image';
 
 export type SignInFields = Pick<Account, 'email' | 'password'>;
 

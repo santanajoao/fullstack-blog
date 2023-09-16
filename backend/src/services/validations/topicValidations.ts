@@ -1,6 +1,6 @@
-import { AsyncServiceResponse } from "../../types/serviceResponse";
-import prisma from "../../lib/prisma";
-import { TPostCreation } from "../../types/post";
+import { AsyncServiceResponse } from '../../types/serviceResponse';
+import prisma from '../../lib/prisma';
+import { TPostCreation } from '../../types/post';
 
 export const validateTopics = async (topicIds: TPostCreation['topics']): AsyncServiceResponse<null> => {
   const topicList = await prisma.topic.findMany({
@@ -22,4 +22,4 @@ export const validateTopics = async (topicIds: TPostCreation['topics']): AsyncSe
   }
 
   return { status: 'SUCCESS', data: null };
-}
+};

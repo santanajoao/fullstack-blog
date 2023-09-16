@@ -1,7 +1,7 @@
-import { Image } from "@prisma/client";
-import prisma from "../lib/prisma";
-import { findAccountById } from "./account.model";
-import { ImageCreation } from "../types/image";
+import { Image } from '@prisma/client';
+import prisma from '../lib/prisma';
+import { findAccountById } from './account.model';
+import { ImageCreation } from '../types/image';
 
 export const deleteImageByAccountId = async (accountId: string): Promise<Image | null> => {
   const account = await findAccountById(accountId);

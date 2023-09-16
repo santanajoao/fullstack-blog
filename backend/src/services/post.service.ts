@@ -19,7 +19,7 @@ const getWeekPopularPosts = async (
   const posts = await postModel.findWeekPopularPosts({
     take: treatedQuantity,
     skip: treatedQuantity * page,
-  })
+  });
   
   const popularPosts = posts.map(buildPostWithImageUrl);
   return { status: 'SUCCESS', data: popularPosts };
@@ -154,7 +154,7 @@ const countPostInfos = async (
   const [likeCount, postCount] = await Promise.all([
     likeModel.countPostLikesByAccountId(accountId),
     postModel.countPostsByAccoundId(accountId),
-  ])
+  ]);
 
   return { status: 'SUCCESS', data: { likes: likeCount, posts: postCount } };
 };

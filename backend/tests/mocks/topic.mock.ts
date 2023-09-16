@@ -1,4 +1,4 @@
-import { Topic } from "@prisma/client";
+import { Topic } from '@prisma/client';
 
 const topic: Topic = {
   id: 'UUID',

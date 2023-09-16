@@ -2,12 +2,21 @@ import { AsyncServiceResponse } from '../types/serviceResponse';
 import jwt from '../lib/jwt';
 import bcrypt from '../lib/bcrypt';
 import { validateSignIn } from './validations/accountValidations';
-import { AccountCreation, AccountCredentials, AccountPersonalInfosUpdate, AccountPublicFields, AccountWithImage, SignInFields, SignResponse } from '../types/account';
+import {
+  AccountCreation,
+  AccountCredentials,
+  AccountPersonalInfosUpdate,
+  AccountPublicFields,
+  SignInFields,
+  SignResponse,
+} from '../types/account';
 import { getAccountPublicFields } from '../utils/account';
 import { validateSignUp } from './validations/accountValidations';
 import { validateAccountId } from './validations/accountValidations';
 import validateSchema from './validations/validateSchemaFields';
-import { accountCredentialsSchema, accountPersonalInfosSchema } from './validations/schemas/account.schema';
+import {
+  accountCredentialsSchema, accountPersonalInfosSchema,
+} from './validations/schemas/account.schema';
 import { validateAccountPasswordById } from './validations/accountValidations';
 import * as accountModel from '../models/account.model';
 
@@ -86,7 +95,7 @@ const updateAccountPersonalInfos = async ({
     .updateAccountById(id, { username, about, image });
 
   const accountPublicFields = getAccountPublicFields(updatedAccount!);  
-  return { status: 'SUCCESS', data: accountPublicFields }
+  return { status: 'SUCCESS', data: accountPublicFields };
 };
 
 export default {

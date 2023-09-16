@@ -8,7 +8,7 @@ const getSecret = (): string => {
     throw new Error('Secret not found');
   }
   return secret;
-}
+};
 
 const createToken = (payload: AccountPublicFields): string => {
   const options = { expiresIn: '2d' };
@@ -26,7 +26,7 @@ const readToken = (token: string): ValidationResponse => {
   } catch {
     return { valid: false, data: null };
   }
-}
+};
 
 export default {
   createToken,

@@ -1,5 +1,5 @@
-import { AccountPublicFields, AccountWithImage } from "../types/account";
-import { buildImageUrl } from "./image";
+import { AccountPublicFields, AccountWithImage } from '../types/account';
+import { buildImageUrl } from './image';
 
 export const getAccountPublicFields = (
   { id, username, email, about, image }: AccountWithImage

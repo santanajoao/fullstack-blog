@@ -1,4 +1,4 @@
-import { AccountPublicFields } from "./account";
+import { AccountPublicFields } from './account';
 
 type SuccessValidation = {
   valid: true,

@@ -1,5 +1,5 @@
-import { Post, Topic } from "@prisma/client";
-import { ImageCreation, ImageKey } from "./image";
+import { Post, Topic } from '@prisma/client';
+import { ImageCreation, ImageKey } from './image';
 
 export type TPostCreation = Pick<Post, 'accountId' | 'content' | 'description' | 'title'> & {
   topics: Topic['id'][];

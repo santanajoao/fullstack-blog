@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import accountMock from '../mocks/account.mock';
 import { getAccountPublicFields } from '../../src/utils/account';
+import { Account } from '@prisma/client';
 
 chai.use(chaiHttp);
 
@@ -23,16 +24,16 @@ describe('Account routes integration tests', function () {
         findUnique: sinon.stub().resolves(null),
         create: sinon.stub().resolves(accountMock.account),
       });
-      sinon.stub(jwt, 'sign').returns('test token' as any);
+      sinon.stub(jwt, 'sign').returns('test token' as unknown as void);
       sinon.stub(bcrypt, 'hash').resolves(true);
-      const accountPublicFields = getAccountPublicFields(accountMock.account);
+      const accountPublicFields = getAccountPublicFields(accountMock.account as Account);
       
       const { status, body } = await chai
         .request(app)
         .post('/accounts/signup')
         .send(accountCreationFields);
 
-      expect(status).to.be.equal(201)
+      expect(status).to.be.equal(201);
       expect(body).to.be.deep
         .equal({ token: 'test token', account: accountPublicFields });
     });
@@ -60,12 +61,12 @@ describe('Account routes integration tests', function () {
           username: accountCreationFields.username,
         });
     
-      expect(status).to.be.equal(400)
+      expect(status).to.be.equal(400);
       expect(body).to.be.deep
         .equal({ message: 'O campo "email" é obrigatório' });
     });
 
-      it('should return bad request if password was not sent', async function () {
+    it('should return bad request if password was not sent', async function () {
       const { status, body } = await chai
         .request(app)
         .post('/accounts/signup')
@@ -74,7 +75,7 @@ describe('Account routes integration tests', function () {
           username: accountCreationFields.username,
         });
     
-      expect(status).to.be.equal(400)
+      expect(status).to.be.equal(400);
       expect(body).to.be.deep
         .equal({ message: 'O campo "password" é obrigatório' });
     });
@@ -88,7 +89,7 @@ describe('Account routes integration tests', function () {
           username: accountMock.tooShortName,
         });
     
-      expect(status).to.be.equal(422)
+      expect(status).to.be.equal(422);
       expect(body).to.be.deep
         .equal({ message: 'O nome deve ter pelo menos 3 caracteres' });
     });
@@ -102,7 +103,7 @@ describe('Account routes integration tests', function () {
           username: accountMock.tooLongName,
         });
     
-      expect(status).to.be.equal(422)
+      expect(status).to.be.equal(422);
       expect(body).to.be.deep
         .equal({ message: 'O nome deve ter 30 caracteres ou menos' });
     });
@@ -130,7 +131,7 @@ describe('Account routes integration tests', function () {
           password: accountMock.tooLongPassword,
         });
     
-      expect(status).to.be.equal(422)
+      expect(status).to.be.equal(422);
       expect(body).to.be.deep
         .equal({ message: 'A senha deve ter 126 caracteres ou menos' });
     });
@@ -144,7 +145,7 @@ describe('Account routes integration tests', function () {
           email: accountMock.invalidEmail,
         });
     
-      expect(status).to.be.equal(422)
+      expect(status).to.be.equal(422);
       expect(body).to.be.deep
         .equal({ message: 'O email deve ser válido' });
     });
@@ -159,7 +160,7 @@ describe('Account routes integration tests', function () {
         .post('/accounts/signup')
         .send(accountCreationFields);
     
-      expect(status).to.be.equal(409)
+      expect(status).to.be.equal(409);
       expect(body).to.be.deep
         .equal({ message: 'Esse email já está em uso' });
     });
@@ -171,15 +172,15 @@ describe('Account routes integration tests', function () {
         findUnique: sinon.stub().resolves(accountMock.account),
       });
       sinon.stub(bcrypt, 'compare').resolves(true);
-      sinon.stub(jwt, 'sign').returns('test token' as any);
+      sinon.stub(jwt, 'sign').returns('test token' as unknown as void);
 
       
       const { status, body } = await chai
-      .request(app)
-      .post('/accounts/signin')
-      .send(accountMock.signInFields);
+        .request(app)
+        .post('/accounts/signin')
+        .send(accountMock.signInFields);
       
-      const accountPublicFields = getAccountPublicFields(accountMock.account);
+      const accountPublicFields = getAccountPublicFields(accountMock.account as Account);
       
       expect(status).to.be.equal(200);
       expect(body).to.be.deep
@@ -252,7 +253,7 @@ describe('Account routes integration tests', function () {
           password: accountMock.tooShortPassword,
         });
     
-      expect(status).to.be.equal(422)
+      expect(status).to.be.equal(422);
       expect(body).to.be.deep
         .equal({ message: 'A senha deve ter pelo menos 8 caracteres' });
     });
@@ -266,7 +267,7 @@ describe('Account routes integration tests', function () {
           password: accountMock.tooLongPassword,
         });
     
-      expect(status).to.be.equal(422)
+      expect(status).to.be.equal(422);
       expect(body).to.be.deep
         .equal({ message: 'A senha deve ter 126 caracteres ou menos' });
     });
@@ -280,7 +281,7 @@ describe('Account routes integration tests', function () {
           email: accountMock.invalidEmail,
         });
     
-      expect(status).to.be.equal(422)
+      expect(status).to.be.equal(422);
       expect(body).to.be.deep
         .equal({ message: 'O email deve ser válido' });
     });

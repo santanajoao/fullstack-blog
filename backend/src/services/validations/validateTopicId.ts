@@ -1,7 +1,7 @@
 import { Topic } from '@prisma/client';
 import prisma from '../../lib/prisma';
 import { AsyncServiceResponse } from '../../types/serviceResponse';
-import { uuidSchema } from './schemas/uuid.schema'
+import { uuidSchema } from './schemas/uuid.schema';
 
 const validateTopicId = async (uuid: string): AsyncServiceResponse<Topic> => {
   const lengthValidation = uuidSchema.safeParse(uuid);
@@ -20,6 +20,6 @@ const validateTopicId = async (uuid: string): AsyncServiceResponse<Topic> => {
   }
 
   return { status: 'SUCCESS', data: topic };
-}
+};
 
 export default validateTopicId;

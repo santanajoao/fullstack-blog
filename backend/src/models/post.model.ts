@@ -1,17 +1,7 @@
-/*
- - find post by id
- - find popular week posts
- - find posts by topicId
- - count posts by topicId
- - find posts by accountId
- - create post
- - count posts by accountId
-*/
-
-import { Prisma } from "@prisma/client";
-import { ModelPostCreation } from "../types/post";
-import prisma from "../lib/prisma";
-import dates from "../utils/dates";
+import { Prisma } from '@prisma/client';
+import { ModelPostCreation } from '../types/post';
+import prisma from '../lib/prisma';
+import dates from '../utils/dates';
 
 export const createPost = async (data: ModelPostCreation) => {
   const { topics, ...otherData } = data;
@@ -34,7 +24,7 @@ const defaultOptions = {
   orderBy: undefined,
   take: undefined,
   skip: undefined,
-}
+};
 
 export const findPostsByTopicId = async (
   topicId: string, options: FindOptions = defaultOptions

@@ -1,4 +1,4 @@
-import { AsyncServiceResponse } from "../../types/serviceResponse";
+import { AsyncServiceResponse } from '../../types/serviceResponse';
 import { signUpSchema, signInSchema } from './schemas/account.schema';
 import validateSchema from './validateSchemaFields';
 import bcrypt from '../../lib/bcrypt';
@@ -14,7 +14,7 @@ export const validatePassword = async (
     return { status: 'UNAUTHORIZED', data: { message: 'Senha incorreta' } };
   }
   return { status: 'SUCCESS', data: null };
-}
+};
 
 export const validateAccountId = async (
   id: string,
@@ -64,7 +64,7 @@ export const validateSignUp = async (
   if (conflictValidation.status !== 'SUCCESS') return conflictValidation;
 
   return { status: 'SUCCESS', data: null };
-}
+};
 
 export const validateEmailExistance = async (email: string): AsyncServiceResponse<AccountWithImage> => {
   const account = await accountModel.findAccountByEmail(email);
@@ -92,4 +92,4 @@ export const validateSignIn = async (
   if (passwordValidation.status !== 'SUCCESS') return passwordValidation;
 
   return { status: 'SUCCESS', data: account };
-}
+};

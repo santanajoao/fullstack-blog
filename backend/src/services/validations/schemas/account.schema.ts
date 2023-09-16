@@ -44,7 +44,7 @@ export const accountCredentialsSchema = z.object({
 export const accountPersonalInfosSchema = z.object({
   username: accountNameSchema,
   about: accountAboutSchema,
-})
+});
 
 export default {
   signUpSchema,

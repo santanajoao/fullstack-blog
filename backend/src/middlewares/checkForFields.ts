@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from 'express';
 
 const checkForFields = (fields: string[]) => {  
   return (req: Request, res: Response, next: NextFunction) => {

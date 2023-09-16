@@ -8,7 +8,7 @@ const validateSchemaFields = (schema: z.ZodType, data: unknown): SyncServiceResp
     const [firstError] = validation.error.issues;
     return { status: 'INVALID_VALUE', data: { message: firstError.message } };
   }
-  return { status: 'SUCCESS', data: null }
+  return { status: 'SUCCESS', data: null };
 };
 
 export default validateSchemaFields;
