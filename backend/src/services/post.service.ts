@@ -75,27 +75,12 @@ const getPostsByTopicId = async (
   if (idValidation.status !== 'SUCCESS') return idValidation;
   
   const orderQuery = getOrderQuery(orderBy ?? '');
-  const posts = await prisma.post.findMany({
-    where: {
-      topics: {
-        some: {
-          id: topicId,
-        },
-      },
-    },
-    include: {
-      account: {
-        select: {
-          username: true,
-        },
-      },
-      image: true,
-    },
+  const posts = await postModel.getPostsByTopicId(topicId, {
     orderBy: orderQuery,
     take: quantity,
     skip: page * quantity,
   });
-
+  
   const postsWithImgUrl = posts.map(buildPostWithImageUrl);
   return { status: 'SUCCESS', data: postsWithImgUrl };
 };
