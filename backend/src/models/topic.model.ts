@@ -4,6 +4,7 @@
  - search topics
 */
 
+import { Topic } from '@prisma/client';
 import prisma from '../lib/prisma';
 import treatQuantity from '../services/validations/treatQuantity';
 import { getDateDaysAgo } from '../utils/dates';
@@ -53,4 +54,12 @@ export const findTopicsByTopicName = async (name: string, excludeIds?: string[])
     },
     take: 6,
   });
+};
+
+export const findTopicsByIds = async (ids: Topic['id'][]) => {
+  return prisma.topic.findMany({ where: { id: { in: ids } } });
+};
+
+export const findTopicById = (id: string) => {
+  return prisma.topic.findUnique({ where: { id } });
 };
