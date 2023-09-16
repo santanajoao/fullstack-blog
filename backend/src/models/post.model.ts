@@ -12,7 +12,7 @@ import { Post, Prisma } from "@prisma/client";
 import { ModelPostCreation } from "../types/post";
 import prisma from "../lib/prisma";
 
-export const createPost = async (data: ModelPostCreation): Promise<Post> => {
+export const createPost = async (data: ModelPostCreation) => {
   const { topics, ...otherData } = data;
   return prisma.post.create({
     data: {
@@ -29,7 +29,7 @@ type FindOptions = {
   skip: number;
 }
 
-export const getPostsByTopicId = async (topicId: string, options: FindOptions) => {
+export const findPostsByTopicId = async (topicId: string, options: FindOptions) => {
   const { orderBy, take, skip } = options;
 
   return prisma.post.findMany({
@@ -48,4 +48,26 @@ export const getPostsByTopicId = async (topicId: string, options: FindOptions) =
 
 export const countPostsByTopicId = async (topicId: string): Promise<number> => {
   return prisma.post.count({ where: { topics: { some: { id: topicId } } } });
+};
+
+export const findPostById = async (id: string) => {
+  return prisma.post.findUnique({
+    where: { id },
+    include: {
+      account: {
+        select: {
+          username: true,
+          imageUrl: true,
+          id: true,
+        },
+      },
+      topics: {
+        select: {
+          id: true,
+          name: true,
+        }
+      },
+      image: true,
+    },
+  });
 };

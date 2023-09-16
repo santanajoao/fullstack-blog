@@ -1,4 +1,4 @@
-import { Post, Topic } from '@prisma/client';
+import { Post, Prisma, Topic } from '@prisma/client';
 import prisma from '../lib/prisma';
 import { AsyncServiceResponse } from '../types/serviceResponse';
 import dates from '../utils/dates';
@@ -46,7 +46,7 @@ const getWeekPopularPosts = async (
 };
 
 const getOrderQuery = (orderProperty: string) => {
-  const queries: Record<string, any> = {
+  const queries: Record<string, Prisma.PostFindManyArgs['orderBy']> = {
     likes: {
       likes: {
         _count: 'desc'
@@ -75,7 +75,7 @@ const getPostsByTopicId = async (
   if (idValidation.status !== 'SUCCESS') return idValidation;
   
   const orderQuery = getOrderQuery(orderBy ?? '');
-  const posts = await postModel.getPostsByTopicId(topicId, {
+  const posts = await postModel.findPostsByTopicId(topicId, {
     orderBy: orderQuery,
     take: quantity,
     skip: page * quantity,
@@ -115,27 +115,7 @@ const getTopicPostsInfos = async (
 const getPostById = async (
   postId: string,
 ): AsyncServiceResponse<Post> => {
-  const post = await prisma.post.findUnique({
-    where: {
-      id: postId,
-    },
-    include: {
-      account: {
-        select: {
-          username: true,
-          imageUrl: true,
-          id: true,
-        },
-      },
-      topics: {
-        select: {
-          id: true,
-          name: true,
-        }
-      },
-      image: true,
-    },
-  });
+  const post = await postModel.findPostById(postId);
 
   if (!post) {
     return {
@@ -143,7 +123,6 @@ const getPostById = async (
       data: { message: 'Não foi possível encontrar esse post' },
     };
   }
-
 
   return { status: 'SUCCESS', data: buildPostWithImageUrl(post) };
 };
