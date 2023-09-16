@@ -5,7 +5,7 @@ import bcrypt from '../lib/bcrypt';
 import { validateSignIn } from './validations/signInValidations';
 import { AccountCreation, AccountCredentials, AccountPersonalInfosUpdate, AccountPublicFields, SignInFields, SignResponse } from '../types/account';
 import { getAccountPublicFields } from '../utils/account';
-import { validateSignUp } from './validations/signUpValidations';
+import { validateSignUp } from './validations/accountValidations';
 import { validateAccountId } from './validations/likeValidations';
 import validateSchemaFields from './validations/validateSchemaFields';
 import { accountCredentialsSchema, accountPersonalInfosSchema } from './validations/schemas/account.schema';
