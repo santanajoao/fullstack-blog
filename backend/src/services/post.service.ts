@@ -1,7 +1,5 @@
 import { Post, Prisma, Topic } from '@prisma/client';
-import prisma from '../lib/prisma';
 import { AsyncServiceResponse } from '../types/serviceResponse';
-import dates from '../utils/dates';
 import treatQuantity from './validations/treatQuantity';
 import validateTopicId from './validations/validateTopicId';
 import { validateAccountId } from './validations/accountValidations';
@@ -14,8 +12,7 @@ import * as imageModel from '../models/image.model';
 import * as postModel from '../models/post.model';
 
 const getWeekPopularPosts = async (
-  quantity: number,
-  page: number,
+  quantity: number, page: number,
 ): AsyncServiceResponse<Post[]> => {
   const treatedQuantity = treatQuantity(quantity);
 
