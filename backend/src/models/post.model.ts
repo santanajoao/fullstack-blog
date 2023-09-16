@@ -8,7 +8,7 @@
  - count posts by accountId
 */
 
-import { Post, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { ModelPostCreation } from "../types/post";
 import prisma from "../lib/prisma";
 
@@ -56,6 +56,10 @@ export const findPostsByTopicId = async (
 
 export const countPostsByTopicId = async (topicId: string): Promise<number> => {
   return prisma.post.count({ where: { topics: { some: { id: topicId } } } });
+};
+
+export const countPostsByAccoundId = async (accountId: string): Promise<number> => {
+  return prisma.post.count({ where: { accountId } });
 };
 
 export const findPostById = async (id: string) => {

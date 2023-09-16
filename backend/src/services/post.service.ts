@@ -177,7 +177,7 @@ const countPostInfos = async (
 ): AsyncServiceResponse<PostCountsResponse> => {
   const [likeCount, postCount] = await Promise.all([
     likeModel.countPostLikesByAccountId(accountId),
-    prisma.post.count({ where: { accountId } }),
+    postModel.countPostsByAccoundId(accountId),
   ])
 
   return { status: 'SUCCESS', data: { likes: likeCount, posts: postCount } };
