@@ -1,4 +1,3 @@
-import prisma from '../lib/prisma';
 import { AsyncServiceResponse } from '../types/serviceResponse';
 import jwt from '../lib/jwt';
 import bcrypt from '../lib/bcrypt';

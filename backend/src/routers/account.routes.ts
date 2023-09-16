@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import accountController from '../controllers/account.controller';
+import * as accountController from '../controllers/account.controller';
 import checkForSignUpFields from '../middlewares/checkForSignUpFields';
 import checkForSignInFields from '../middlewares/checkForSignInFields';
 import validateToken from '../middlewares/validateToken';
