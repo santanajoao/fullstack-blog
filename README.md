@@ -65,6 +65,10 @@ Existe também uma página para uma postagem onde é possível ler o conteúdo d
 
 ### Próximos passos
 
+- [ ] Testes
+  - [ ] Escrever testes do frontend
+  - [ ] Escrever e reescrever testes antigos do backend que não funcionam mais 
+
 - [ ] Upload de imagens
   - [ ] Adicionar validação do tipo dos arquivos enviados no backend
   - [X] Adicionar validação de tamanho máximo de um arquivo
