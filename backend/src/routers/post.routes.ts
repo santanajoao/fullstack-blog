@@ -4,6 +4,7 @@ import validateToken from '../middlewares/validateToken';
 import checkForFields from '../middlewares/checkForFields';
 import uploader from '../lib/multer';
 import checkForImage from '../middlewares/checkForImage';
+import validateFileSize from '../middlewares/validateFileSize';
 
 const postRouter = Router();
 
@@ -15,6 +16,7 @@ postRouter.post(
   '/',
   uploader.single('image'),
   checkForImage,
+  validateFileSize(2),
   checkForFields(['title', 'description', 'content', 'topics']),
   validateToken,
   postController.handlePostPost,
