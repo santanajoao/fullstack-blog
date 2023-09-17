@@ -1,22 +1,25 @@
 'use client';
 
 import Image from 'next/image';
-import React, { ChangeEvent, RefObject, useState } from 'react';
+import React, { ChangeEvent, RefObject } from 'react';
 import { BiImageAdd } from 'react-icons/bi';
+
+export type ImageChangeProps = {
+  file: File,
+  url: string,
+};
 
 interface Props {
   value: string;
   id: string;
   disabled: boolean;
   _ref?: RefObject<HTMLInputElement>;
-  onChange: (imageFile: File) => void;
+  onChange: (imageChangeProps: ImageChangeProps) => void;
 }
 
 export default function ImageInput({
-  value: _value, id, disabled, _ref: ref, onChange,
+  value, id, disabled, _ref: ref, onChange,
 }: Props) {
-  const [value, setValue] = useState<string>(_value);
-
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     if (!files) return;
@@ -25,9 +28,8 @@ export default function ImageInput({
     if (file.type.startsWith('image/')) {
       URL.revokeObjectURL(value);
       const url = URL.createObjectURL(file);
-      setValue(url);
 
-      onChange(file);
+      onChange({ file, url });
     }
   };
 
