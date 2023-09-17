@@ -67,14 +67,7 @@ Existe também uma página para uma postagem onde é possível ler o conteúdo d
 
 - [ ] Upload de imagens
   - [ ] Adicionar validação do tipo dos arquivos enviados no backend
-  - [ ] Adicionar validação de tamanho máximo de um arquivo
-  - [ ] Remover coluna antiga imageUrl das tabelas
-  - [ ] Corrigir imagens dos posts nas seeds do prisma após a alteração da forma que as imagens são armazenadas
-
-- [ ] Refatorações
-  - [X] Construir uma camada model no backend para isolar as queries do prisma e reutilizar código
-  - [X] Reorganizar alguns arquivos e funções de forma mais semântica
-  - [ ] Replicar a estratégia de submit utilizado na página Write na página de perfil
+  - [X] Adicionar validação de tamanho máximo de um arquivo
 
 - [ ] Adicionar forma do usuário logado gerenciar suas publicações
 
