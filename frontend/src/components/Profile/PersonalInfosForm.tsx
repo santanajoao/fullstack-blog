@@ -50,8 +50,21 @@ export default function PersonalInfosForm() {
     }
   }, [editing]);
 
+  const cancelEditing = () => {
+    setEditing(false);
+    clearErrors();
+    setGeneralError(null);
+    reset();
+  };
+
   const onSubmit = async (data: Fields) => {
-    if (editing) return;
+    if (
+      data.username === user?.username
+      && data.about === user.about
+      && !imageFile
+    ) {
+      return;
+    }
 
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
@@ -64,19 +77,12 @@ export default function PersonalInfosForm() {
 
     if (response.success) {
       refreshUserData();
-      setEditing(false);
       setGeneralError(null);
+      cancelEditing();
       toast.success('Informações atualizadas!');
     } else {
       setGeneralError(response.message);
     }
-  };
-
-  const cancelEditing = () => {
-    setEditing(false);
-    clearErrors();
-    setGeneralError(null);
-    reset();
   };
 
   return (
@@ -124,7 +130,7 @@ export default function PersonalInfosForm() {
       <Sign.ErrorMessage>{generalError}</Sign.ErrorMessage>
       <div className="space-x-2">
         <Sign.Button
-          onClick={editing ? () => setEditing(false) : () => setEditing(true)}
+          onClick={() => setEditing(true)}
           className="py-2"
           type="submit"
         >

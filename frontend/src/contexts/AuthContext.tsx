@@ -10,7 +10,7 @@ import { SignInFields } from '@/types/Sign/SignIn';
 import { SignResponse, User } from '@/types/Sign/SignResponse';
 import { SignUpFields } from '@/types/Sign/SignUp';
 import { usePathname, useRouter } from 'next/navigation';
-import { destroyCookie, getCookie, setCookie } from '@/lib/cookies';
+import { getCookie, setCookie } from '@/lib/cookies';
 
 type RedirectParams = {
   requireLogin: boolean;
@@ -71,7 +71,6 @@ export function AuthProvider({ children }: ChildrenProps) {
   };
 
   const signOut = () => {
-    destroyCookie('blog.session.token');
     setUser(null);
     setIsLoading(false);
   };
