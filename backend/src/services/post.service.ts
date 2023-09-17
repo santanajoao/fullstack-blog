@@ -6,9 +6,7 @@ import { validateAccountId } from './validations/accountValidations';
 import { TPostCreation } from '../types/post';
 import { validatePost } from './validations/postValidations';
 import { validateTopics } from './validations/topicValidations';
-import { buildPostWithImageUrl } from '../utils/post';
 import * as likeModel from '../models/like.model';
-import * as imageModel from '../models/image.model';
 import * as postModel from '../models/post.model';
 
 const getWeekPopularPosts = async (
@@ -21,8 +19,7 @@ const getWeekPopularPosts = async (
     skip: treatedQuantity * page,
   });
   
-  const popularPosts = posts.map(buildPostWithImageUrl);
-  return { status: 'SUCCESS', data: popularPosts };
+  return { status: 'SUCCESS', data: posts };
 };
 
 const getOrderQuery = (orderProperty: string) => {
@@ -57,8 +54,7 @@ const getPostsByTopicId = async (
     skip: page * quantity,
   });
   
-  const postsWithImgUrl = posts.map(buildPostWithImageUrl);
-  return { status: 'SUCCESS', data: postsWithImgUrl };
+  return { status: 'SUCCESS', data: posts };
 };
 
 type PostInfos = {
@@ -100,7 +96,7 @@ const getPostById = async (
     };
   }
 
-  return { status: 'SUCCESS', data: buildPostWithImageUrl(post) };
+  return { status: 'SUCCESS', data: post };
 };
 
 const getPostByAccount = async (
@@ -114,33 +110,30 @@ const getPostByAccount = async (
     skip: page * quantity,
   });
 
-  const postsWithImageUrl = posts.map(buildPostWithImageUrl);
-  return { status: 'SUCCESS', data: postsWithImageUrl };
+  return { status: 'SUCCESS', data: posts };
 };
 
 const createPost = async ({
-  accountId, title, content, description, topics, image
+  accountId, title, content, description, topics, imageUrl,
 }: TPostCreation): AsyncServiceResponse<Post> => {
   const postValidation = await validatePost({
-    title, description, content, accountId, topics, image,
+    title, description, content, accountId, topics, imageUrl,
   });
   if (postValidation.status !== 'SUCCESS') return postValidation;
 
   const topicsValidation = await validateTopics(topics);
   if (topicsValidation.status !== 'SUCCESS') return topicsValidation;
   
-  const { id } = await imageModel.createImage(image);
   const createdPost = await postModel.createPost({
     content,
     description,
     title,
     accountId,
-    imageId: id,
-    imageUrl: '',
+    imageUrl,
     topics: topics.map((topic) => ({ id: topic })),
   });
 
-  return { status: 'SUCCESS', data: buildPostWithImageUrl(createdPost) };
+  return { status: 'SUCCESS', data: createdPost };
 };
 
 type PostCountsResponse = {

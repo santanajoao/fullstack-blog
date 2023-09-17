@@ -10,7 +10,6 @@ export const createPost = async (data: ModelPostCreation) => {
       ...otherData,
       topics: { connect: topics },
     },
-    include: { image: true },
   });  
 };
 
@@ -39,7 +38,6 @@ export const findPostsByTopicId = async (
     },
     include: {
       account: { select: { username: true } },
-      image: true,
     },
     orderBy, take, skip,
   });
@@ -70,7 +68,6 @@ export const findPostById = async (id: string) => {
           name: true,
         }
       },
-      image: true,
     },
   });
 };
@@ -90,7 +87,6 @@ export const findPostByAccountId = async (
           username: true,
         },
       },
-      image: true,
     },
     orderBy: [
       { createdAt: 'desc' },
@@ -109,7 +105,6 @@ export const findWeekPopularPosts = async (options: FindOptions = defaultOptions
           username: true,
         },
       },
-      image: true,
     },
     where: {
       createdAt: {
