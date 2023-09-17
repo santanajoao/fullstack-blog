@@ -81,7 +81,7 @@ const updateAccountCredentials = async (
 };
 
 const updateAccountPersonalInfos = async ({
-  id, username, about, image,
+  id, username, about, imageUrl,
 }: AccountPersonalInfosUpdate): AsyncServiceResponse<AccountPublicFields> => {
   const fieldsValidation = validateSchema(
     accountPersonalInfosSchema, { username, about },
@@ -92,7 +92,7 @@ const updateAccountPersonalInfos = async ({
   if (existanceValidation.status !== 'SUCCESS') return existanceValidation;
 
   const updatedAccount = await accountModel
-    .updateAccountById(id, { username, about, image });
+    .updateAccountById(id, { username, about, imageUrl });
 
   const accountPublicFields = getAccountPublicFields(updatedAccount!);  
   return { status: 'SUCCESS', data: accountPublicFields };

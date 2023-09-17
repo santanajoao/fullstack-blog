@@ -2,8 +2,9 @@ import { AsyncServiceResponse } from '../../types/serviceResponse';
 import { signUpSchema, signInSchema } from './schemas/account.schema';
 import validateSchema from './validateSchemaFields';
 import bcrypt from '../../lib/bcrypt';
-import { AccountWithImage, SignInFields, AccountCreation } from '../../types/account';
+import { SignInFields, AccountCreation } from '../../types/account';
 import * as accountModel from '../../models/account.model';
+import { Account } from '@prisma/client';
 
 export const validatePassword = async (
   hash: string,
@@ -18,7 +19,7 @@ export const validatePassword = async (
 
 export const validateAccountId = async (
   id: string,
-): AsyncServiceResponse<AccountWithImage> => {
+): AsyncServiceResponse<Account> => {
   const account = await accountModel.findAccountById(id);
 
   if (!account) {
@@ -66,7 +67,7 @@ export const validateSignUp = async (
   return { status: 'SUCCESS', data: null };
 };
 
-export const validateEmailExistance = async (email: string): AsyncServiceResponse<AccountWithImage> => {
+export const validateEmailExistance = async (email: string): AsyncServiceResponse<Account> => {
   const account = await accountModel.findAccountByEmail(email);
 
   if (!account) {
@@ -80,7 +81,7 @@ export const validateEmailExistance = async (email: string): AsyncServiceRespons
 
 export const validateSignIn = async (
   { email, password }: SignInFields
-): AsyncServiceResponse<AccountWithImage> => {
+): AsyncServiceResponse<Account > => {
   const fieldsValidation = validateSchema(signInSchema, { email, password });
   if (fieldsValidation.status !== 'SUCCESS') return fieldsValidation;
 

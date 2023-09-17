@@ -1,13 +1,8 @@
-import { AccountPublicFields, AccountWithImage } from '../types/account';
-import { buildImageUrl } from './image';
+import { Account } from '@prisma/client';
+import { AccountPublicFields } from '../types/account';
 
 export const getAccountPublicFields = (
-  { id, username, email, about, image }: AccountWithImage
+  { id, username, email, about, imageUrl }: Account
 ): AccountPublicFields => {
-  let imageUrl = null;
-  if (image) {
-    imageUrl = buildImageUrl(image.type, image.buffer);
-  }
-
   return { id, username, email, imageUrl, about };
 };
