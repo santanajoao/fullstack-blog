@@ -14,7 +14,9 @@ import { TPostCreation } from '@/types/Post';
 import { Topic } from '@/types/Topic';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import React, { useContext, useEffect, useState } from 'react';
+import React, {
+  BaseSyntheticEvent, useContext, useEffect, useState,
+} from 'react';
 import { useForm } from 'react-hook-form';
 
 export default function WritePage() {
@@ -34,6 +36,7 @@ export default function WritePage() {
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageError, setImageError] = useState<string | null>(null);
+  const [generalError, setGeneralError] = useState<string | null>(null);
   const { redirect, isLoading } = useContext(AuthContext);
   const router = useRouter();
 
@@ -41,16 +44,32 @@ export default function WritePage() {
     redirect({ requireLogin: true, to: '/signin', getBack: true });
   }, [redirect]);
 
-  const onSubmit = async (data: TPostCreation): Promise<void> => {
+  const onSubmit = async (
+    data: TPostCreation,
+    event: BaseSyntheticEvent | any,
+  ): Promise<void> => {
     const token = getCookie('blog.session.token');
-    if (token) {
-      const response = await createPost(data, token);
+
+    if (!token || imageError) return;
+    const formData = new FormData(event.target as HTMLFormElement);
+    formData.append('image', imageFile as File);
+    formData.append('topics', JSON.stringify(data.topics));
+
+    const response = await createPost(formData, token);
+
+    if (response.success) {
       router.push(`post/${response.data?.id}`);
+    } else {
+      setGeneralError(response.message);
     }
   };
 
   const checkForImage = () => {
-    if (!imageFile) { setImageError('A imagem do post é obrigatória'); }
+    if (!imageFile) {
+      setImageError('A imagem do post é obrigatória');
+    } else {
+      setImageError(null);
+    }
   };
 
   const handleImageChange = (image: File): void => {
@@ -106,6 +125,8 @@ export default function WritePage() {
             <MarkdownInput value={watch('content')} register={register} name="content" />
             <Sign.ErrorMessage>{errors.content?.message}</Sign.ErrorMessage>
           </Sign.Field>
+
+          <Sign.ErrorMessage>{generalError}</Sign.ErrorMessage>
 
           <Sign.Button onClick={checkForImage} type="submit">Publicar</Sign.Button>
         </Sign.Form>

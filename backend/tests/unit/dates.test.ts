@@ -1,4 +1,4 @@
-import dates from "../../src/utils/dates";
+import dates from '../../src/utils/dates';
 import chai from 'chai';
 
 const { expect } = chai;
@@ -14,8 +14,8 @@ describe('dates util unit tests', function () {
       const result = dates.getDateDaysAgo(daysAgo);
       const resultDay = result.getDate();
   
-      expect(resultDay).to.be.equal(todayDay - daysAgo)
-    })
+      expect(resultDay).to.be.equal(todayDay - daysAgo);
+    });
   });
 
   describe('getDateBetweenNowAnd', function () {

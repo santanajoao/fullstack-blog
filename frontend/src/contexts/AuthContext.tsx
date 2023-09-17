@@ -10,12 +10,12 @@ import { SignInFields } from '@/types/Sign/SignIn';
 import { SignResponse, User } from '@/types/Sign/SignResponse';
 import { SignUpFields } from '@/types/Sign/SignUp';
 import { usePathname, useRouter } from 'next/navigation';
-import { destroyCookie, getCookie, setCookie } from '@/lib/cookies';
+import { getCookie, setCookie } from '@/lib/cookies';
 
 type RedirectParams = {
   requireLogin: boolean;
   to: string;
-  getBack: boolean;
+  getBack?: boolean;
 };
 
 interface ContextValues {
@@ -71,7 +71,6 @@ export function AuthProvider({ children }: ChildrenProps) {
   };
 
   const signOut = () => {
-    destroyCookie('blog.session.token');
     setUser(null);
     setIsLoading(false);
   };
@@ -90,7 +89,7 @@ export function AuthProvider({ children }: ChildrenProps) {
     setIsLoading(false);
   };
 
-  const redirect = async ({ requireLogin, to, getBack = false }: RedirectParams) => {
+  const redirect = ({ requireLogin, to, getBack = false }: RedirectParams) => {
     const requiredAndNotFound = requireLogin && !user;
     const notRequiredAndFound = !requireLogin && user;
 

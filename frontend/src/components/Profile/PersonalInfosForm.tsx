@@ -1,6 +1,7 @@
 'use client';
 
 import React, {
+  BaseSyntheticEvent,
   useContext,
   useEffect, useRef, useState,
 } from 'react';
@@ -14,7 +15,7 @@ import { updatePersonalInfos } from '@/services/account';
 import { AuthContext } from '@/contexts/AuthContext';
 import { toast } from 'react-toastify';
 import Textarea from './Textarea';
-import ImageInput from './ImageInput';
+import ImageInput, { ImageChangeProps } from './ImageInput';
 
 type Fields = {
   imageUrl: string;
@@ -35,6 +36,8 @@ export default function PersonalInfosForm() {
     formState: { errors },
     clearErrors,
     reset,
+    setValue,
+    watch,
   } = useForm<Fields>({
     defaultValues: {
       about: user?.about ?? '',
@@ -50,27 +53,34 @@ export default function PersonalInfosForm() {
     }
   }, [editing]);
 
-  const onSubmit = async (data: Fields) => {
-    if (editing) return;
-
-    const token = getCookie('blog.session.token') as string;
-    const response = await updatePersonalInfos(data, token);
-
-    if (response.success) {
-      refreshUserData();
-      setEditing(false);
-      setGeneralError(null);
-      toast.success('Informações atualizadas!');
-    } else {
-      setGeneralError(response.message);
-    }
-  };
-
   const cancelEditing = () => {
     setEditing(false);
     clearErrors();
     setGeneralError(null);
     reset();
+  };
+
+  const handleImageChange = ({ file, url }: ImageChangeProps) => {
+    setImageFile(file);
+    setValue('imageUrl', url);
+  };
+
+  const onSubmit = async (_data: Fields, event: BaseSyntheticEvent | any) => {
+    const formData = new FormData(event.target);
+    formData.append('image', imageFile ?? '');
+    formData.delete('imageUrl');
+
+    const token = getCookie('blog.session.token') as string;
+    const response = await updatePersonalInfos(formData, token);
+
+    if (response.success) {
+      refreshUserData();
+      setGeneralError(null);
+      cancelEditing();
+      toast.success('Informações atualizadas!');
+    } else {
+      setGeneralError(response.message);
+    }
   };
 
   return (
@@ -80,9 +90,9 @@ export default function PersonalInfosForm() {
         <ImageInput
           disabled={!editing}
           id="image-input"
-          value={user?.imageUrl || defaultProfile}
+          value={watch('imageUrl') || defaultProfile}
           _ref={firstInputRef}
-          onChange={(newImageFile) => setImageFile(newImageFile)}
+          onChange={handleImageChange}
         />
       </Sign.Field>
 
@@ -107,7 +117,7 @@ export default function PersonalInfosForm() {
             name="about"
             register={register}
             disabled={!editing}
-            placeholder={user?.about ?? 'Esse usuário ainda não definiu um "about"'}
+            placeholder={user?.about || 'Esse usuário ainda não definiu um "about"'}
           />
           <Sign.ErrorMessage>
             {errors.about?.message}
@@ -117,13 +127,26 @@ export default function PersonalInfosForm() {
 
       <Sign.ErrorMessage>{generalError}</Sign.ErrorMessage>
       <div className="space-x-2">
-        <Sign.Button
-          onClick={editing ? () => setEditing(false) : () => setEditing(true)}
-          className="py-2"
-          type="submit"
-        >
-          {editing ? 'Salvar' : 'Editar'}
-        </Sign.Button>
+        {editing && (
+          <Sign.Button
+            className="py-2"
+            type="submit"
+            key="save-changes-button"
+          >
+            Salvar
+          </Sign.Button>
+        )}
+
+        {!editing && (
+          <Sign.Button
+            className="py-2"
+            type="button"
+            key="edit-infos-button"
+            onClick={() => setEditing(true)}
+          >
+            Editar
+          </Sign.Button>
+        )}
 
         {editing && (
           <Sign.Button

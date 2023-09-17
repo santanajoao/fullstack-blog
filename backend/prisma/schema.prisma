@@ -24,7 +24,7 @@ model Account {
   about    String?  @db.VarChar(200)
   email    String  @unique
   password String
-  imageUrl String?
+  imageUrl String? @db.MediumText
 
   posts Post[]
   likes Likes[]
@@ -34,7 +34,7 @@ model Account {
 
 model Post {
   id          String   @id @default(uuid())
-  imageUrl    String   @map("image_url") @db.VarChar(300)
+  imageUrl    String   @map("image_url") @db.MediumText
   title       String   @db.VarChar(70)
   description String   @db.VarChar(200)
   content     String   @db.VarChar(4000)

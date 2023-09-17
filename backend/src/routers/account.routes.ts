@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import accountController from '../controllers/account.controller';
+import * as accountController from '../controllers/account.controller';
 import checkForSignUpFields from '../middlewares/checkForSignUpFields';
 import checkForSignInFields from '../middlewares/checkForSignInFields';
 import validateToken from '../middlewares/validateToken';
 import checkForFields from '../middlewares/checkForFields';
+import uploader from '../lib/multer';
+import validateFileSize from '../middlewares/validateFileSize';
 
 const accountRouter = Router();
 
@@ -24,7 +26,9 @@ accountRouter.patch(
 );
 accountRouter.patch(
   '/me/personal',
-  checkForFields(['username', 'about']),
+  uploader.single('image'),
+  validateFileSize(2),
+  checkForFields(['username']),
   validateToken,
   accountController.handlePatchPersonal,
 );

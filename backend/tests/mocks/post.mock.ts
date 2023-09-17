@@ -1,6 +1,4 @@
-import { Post } from "@prisma/client";
-
-const post: Post = {
+const post = {
   id: 'UUID',
   createdAt: new Date(),
   description: 'Description',
@@ -9,7 +7,7 @@ const post: Post = {
   accountId: 'UUID',
 };
 
-const postList: Post[] = [post];
+const postList = [post];
 
 // na resposta json os valores são convertidos 
 const postListResponse = postList.map((post) => ({

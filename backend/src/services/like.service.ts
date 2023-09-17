@@ -1,7 +1,8 @@
-import { Likes } from '@prisma/client';
-import prisma from '../lib/prisma';
 import { AsyncServiceResponse } from '../types/serviceResponse';
-import { checkForLike, validateAccountId, validatePostId } from './validations/likeValidations';
+import { checkForLike } from './validations/likeValidations';
+import { validatePostId } from './validations/postValidations';
+import { validateAccountId } from './validations/accountValidations';
+import * as likeModel from '../models/like.model';
 
 const like = async (accountId: string, postId: string): AsyncServiceResponse<null> => {
   const accountValidation = await validateAccountId(accountId);
@@ -10,15 +11,7 @@ const like = async (accountId: string, postId: string): AsyncServiceResponse<nul
   const postValidation = await validatePostId(postId);
   if (postValidation.status != 'SUCCESS') return postValidation;
 
-  await prisma.likes.upsert({
-    create: { accountId, postId },
-    update: {},
-    where: {
-      accountId_postId: {
-        accountId, postId
-      },
-    },
-  });
+  await likeModel.createLike(accountId, postId);
 
   return { status: 'SUCCESS', data: null };
 };
@@ -27,13 +20,7 @@ const deslike = async (accountId: string, postId: string): AsyncServiceResponse<
   const existanceValidation = await checkForLike(accountId, postId);
   if (existanceValidation.status !== 'SUCCESS') return existanceValidation;
 
-  await prisma.likes.delete({
-    where: {
-      accountId_postId: {
-        accountId, postId,
-      },
-    },
-  });
+  await likeModel.deleteLikeByIds(accountId, postId);
 
   return { status: 'SUCCESS', data: null };
 };
@@ -50,18 +37,10 @@ const getPostLikes = async (accountId: string, postId: string): AsyncServiceResp
   const existanceValidation = await checkForLike(accountId, postId);
   const userLiked = existanceValidation.status === 'SUCCESS';
 
-  const likeCount = await prisma.likes.count({
-    where: {
-      postId,
-    },
-  });
+  const likeCount = await likeModel.countLikesByPostId(postId);
   
-  return {
-    status: 'SUCCESS',
-    data: { postLikes: likeCount, userLiked },
-  };
+  return { status: 'SUCCESS', data: { postLikes: likeCount, userLiked } };
 };
-
 
 export default {
   like,

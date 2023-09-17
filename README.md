@@ -37,6 +37,7 @@ Existe também uma página para uma postagem onde é possível ler o conteúdo d
 - mocha
 - helmet
 - cors
+- Multer
 
 ### Geral
 
@@ -64,18 +65,9 @@ Existe também uma página para uma postagem onde é possível ler o conteúdo d
 
 ### Próximos passos
 
-- [ ] Página de perfil (em desenvolvimento)
-  - [X] Interface
-  - [X] Back-end
-  - [X] Alteração das informações pessoais
-  - [X] Alteração das informações credenciais
-  - [ ] Upload da imagem de perfil para o banco de dados
-
-- [ ] Página para escrever um post / Editor de posts
-  - [X] Interface
-  - [X] Back-end
-  - [X] Criação de um post
-  - [ ] Upload da imagem do post para o banco de dados
+- [ ] Upload de imagens
+  - [ ] Adicionar validação do tipo dos arquivos enviados no backend
+  - [X] Adicionar validação de tamanho máximo de um arquivo
 
 - [ ] Adicionar forma do usuário logado gerenciar suas publicações
 

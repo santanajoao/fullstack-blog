@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 import accountService from '../services/account.service';
 import { mapErrorStatus } from '../utils/http';
+import { buildImageUrl } from '../utils/image';
 
-const handlePostAccount = async (req: Request, res: Response) => {
+export const handlePostAccount = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
 
   const { status, data } = await accountService
@@ -14,7 +15,7 @@ const handlePostAccount = async (req: Request, res: Response) => {
   res.status(201).json(data);
 };
 
-const handlePostSignIn = async (req: Request, res: Response) => {
+export const handlePostSignIn = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   const { status, data } = await accountService.signIn({ email, password });
@@ -24,7 +25,7 @@ const handlePostSignIn = async (req: Request, res: Response) => {
   res.status(200).json(data);
 };
 
-const handleGetAccountById = async (req: Request, res: Response) => {
+export const handleGetAccountById = async (req: Request, res: Response) => {
   const accountId = req.body.local ? req.body.local.account.id : req.params.id;
   
   const { status, data } = await accountService.getAccountById(accountId);
@@ -34,7 +35,7 @@ const handleGetAccountById = async (req: Request, res: Response) => {
   res.status(200).json(data);
 };
 
-const handlePatchCredentials = async (req: Request, res: Response) => {
+export const handlePatchCredentials = async (req: Request, res: Response) => {
   const accountId = req.body.local.account.id;
   const { email, password, newPassword } = req.body;
 
@@ -51,26 +52,25 @@ const handlePatchCredentials = async (req: Request, res: Response) => {
   res.status(200).json(data);
 };
 
-const handlePatchPersonal = async (req: Request, res: Response) => {
+export const handlePatchPersonal = async (req: Request, res: Response) => {
   const accountId = req.body.local.account.id;
   const { username, about } = req.body;
 
+  const imageUrl = req.file
+    ? buildImageUrl(req.file.mimetype, req.file.buffer)
+    : null;
+
+  console.log(req.file);
+    
   const { status, data } = await accountService.updateAccountPersonalInfos({
     id: accountId,
     username,
     about,
+    imageUrl,
   });
   
   if (status !== 'SUCCESS') {
     return res.status(mapErrorStatus(status)).json(data);
   }
   res.status(200).json(data);
-};
-
-export default {
-  handlePatchCredentials,
-  handlePostAccount,
-  handlePostSignIn,
-  handleGetAccountById,
-  handlePatchPersonal,
 };

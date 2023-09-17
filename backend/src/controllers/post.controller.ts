@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import postService from '../services/post.service';
 import { mapErrorStatus } from '../utils/http';
+import { buildImageUrl } from '../utils/image';
 
 const handleGetPopularPosts = async (req: Request, res: Response) => {
   const quantity = Number(req.query.quantity);
@@ -73,17 +74,21 @@ const handleGetAccountPostsCount = async (req: Request, res: Response) => {
 
 const handlePostPost = async (req: Request, res: Response) => {
   const { title, description, content, topics } = req.body;
+  const topicList = JSON.parse(topics);
   const accountId = req.body.local.account.id;
 
-  const { status, data } = await postService
-    .createPost({ title, description, content, accountId, topics });
+  const imageUrl = buildImageUrl(req.file!.mimetype, req.file!.buffer);
+
+  const { status, data } = await postService.createPost({
+    title, description, content, accountId, topics: topicList, imageUrl
+  });
 
   if (status !== 'SUCCESS') {
     return res.status(mapErrorStatus(status)).json(data);
   }
 
   res.status(201).json(data);
-}
+};
 
 export default {
   handleGetPopularPosts,

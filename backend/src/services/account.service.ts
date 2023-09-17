@@ -1,15 +1,24 @@
-import prisma from '../lib/prisma';
 import { AsyncServiceResponse } from '../types/serviceResponse';
 import jwt from '../lib/jwt';
 import bcrypt from '../lib/bcrypt';
-import { validateSignIn } from './validations/signInValidations';
-import { AccountCreation, AccountCredentials, AccountPersonalInfos, AccountPublicFields, SignInFields, SignResponse } from '../types/account';
+import { validateSignIn } from './validations/accountValidations';
+import {
+  AccountCreation,
+  AccountCredentials,
+  AccountPersonalInfosUpdate,
+  AccountPublicFields,
+  SignInFields,
+  SignResponse,
+} from '../types/account';
 import { getAccountPublicFields } from '../utils/account';
-import { validateSignUp } from './validations/signUpValidations';
-import { validateAccountId } from './validations/likeValidations';
-import validateSchemaFields from './validations/validateSchemaFields';
-import { accountCredentialsSchema, accountPersonalInfosSchema } from './validations/schemas/account.schema';
-import { validatePasswordChange } from './validations/accountValidations';
+import { validateSignUp } from './validations/accountValidations';
+import { validateAccountId } from './validations/accountValidations';
+import validateSchema from './validations/validateSchemaFields';
+import {
+  accountCredentialsSchema, accountPersonalInfosSchema,
+} from './validations/schemas/account.schema';
+import { validateAccountPasswordById } from './validations/accountValidations';
+import * as accountModel from '../models/account.model';
 
 const createAccount = async (
   { username, email, password }: AccountCreation
@@ -18,13 +27,15 @@ const createAccount = async (
   if (validation.status !== 'SUCCESS') return validation;
 
   const passwordHash = await bcrypt.encrypt(password);
-  const createdAccount = await prisma.account
-    .create({ data: { username, email, password: passwordHash } });
+  const createdAccount = await accountModel
+    .createAccount({ password: passwordHash, username, email });
 
-  const accountPublicFields = getAccountPublicFields(createdAccount);
-  const token = jwt.createToken(accountPublicFields);
+  const createdAccountPublicFields = getAccountPublicFields(createdAccount);
+  const token = jwt.createToken(createdAccountPublicFields);
   
-  return { status: 'SUCCESS', data: { token, account: accountPublicFields } };
+  return {
+    status: 'SUCCESS', data: { token, account: createdAccountPublicFields },
+  };
 };
 
 const signIn = async ({
@@ -34,8 +45,7 @@ const signIn = async ({
   if (validation.status !== 'SUCCESS') return validation;
 
   const accountPublicFields = getAccountPublicFields(validation.data);
-  const token = jwt
-    .createToken(accountPublicFields);
+  const token = jwt.createToken(accountPublicFields);
 
   return { status: 'SUCCESS', data: { token, account: accountPublicFields } };
 };
@@ -50,51 +60,42 @@ const getAccountById = async (accountId: string): AsyncServiceResponse<AccountPu
   return { status: 'SUCCESS', data: accountPublicFields };
 };
 
-const updateAccountCredentials = async ({
-  id,
-  email,
-  newPassword,
-  password,
-}: AccountCredentials): AsyncServiceResponse<AccountPublicFields> => {
-  const fieldsValidation = validateSchemaFields(accountCredentialsSchema, {
+const updateAccountCredentials = async (
+  { id, email, newPassword, password }: AccountCredentials
+): AsyncServiceResponse<AccountPublicFields> => {
+  const fieldsValidation = validateSchema(accountCredentialsSchema, {
     email, password, newPassword,
   });
   if (fieldsValidation.status !== 'SUCCESS') return fieldsValidation;
 
-  const passwordValidation = await validatePasswordChange(id, password);
+  const passwordValidation = await validateAccountPasswordById(id, password);
   if (passwordValidation.status !== 'SUCCESS') return passwordValidation;
 
   const newPasswordHash = await bcrypt.encrypt(newPassword);
-  const updatedAccount = await prisma.account.update({
-    where: { id },
-    data: {
-      password: newPasswordHash,
-      email,
-    },
-  });
+  const updatedAccount = await accountModel.updateAccountById(
+    id, { email, password: newPasswordHash },
+  );
 
-  const accountPublicFields = getAccountPublicFields(updatedAccount);
+  const accountPublicFields = getAccountPublicFields(updatedAccount!);
   return { status: 'SUCCESS', data: accountPublicFields };
 };
 
 const updateAccountPersonalInfos = async ({
-  id, username, about
-}: AccountPersonalInfos): AsyncServiceResponse<AccountPublicFields> => {
-  const fieldsValidation = validateSchemaFields(accountPersonalInfosSchema, {
-    username, about,
-  });
+  id, username, about, imageUrl,
+}: AccountPersonalInfosUpdate): AsyncServiceResponse<AccountPublicFields> => {
+  const fieldsValidation = validateSchema(
+    accountPersonalInfosSchema, { username, about },
+  );
   if (fieldsValidation.status !== 'SUCCESS') return fieldsValidation;
+  
+  const existanceValidation = await validateAccountId(id);
+  if (existanceValidation.status !== 'SUCCESS') return existanceValidation;
 
-  const updatedAccount = await prisma.account.update({
-    where: { id },
-    data: {
-      username,
-      about,
-    },
-  });
+  const updatedAccount = await accountModel
+    .updateAccountById(id, { username, about, imageUrl });
 
-  const accountPublicFields = getAccountPublicFields(updatedAccount);  
-  return { status: 'SUCCESS', data: accountPublicFields }
+  const accountPublicFields = getAccountPublicFields(updatedAccount!);  
+  return { status: 'SUCCESS', data: accountPublicFields };
 };
 
 export default {

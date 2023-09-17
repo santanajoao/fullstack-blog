@@ -1,15 +1,9 @@
-import { AsyncServiceResponse } from "../../types/serviceResponse";
-import prisma from "../../lib/prisma";
-import { TPostCreation } from "../../types/post";
+import { AsyncServiceResponse } from '../../types/serviceResponse';
+import { TPostCreation } from '../../types/post';
+import * as topicModel from '../../models/topic.model';
 
 export const validateTopics = async (topicIds: TPostCreation['topics']): AsyncServiceResponse<null> => {
-  const topicList = await prisma.topic.findMany({
-    where: {
-      id: {
-        in: topicIds,
-      },
-    },
-  });
+  const topicList = await topicModel.findTopicsByIds(topicIds);
 
   if (topicList.length !== topicIds.length) {
     const invalidTopic = topicList.find((topic) => !(topic.id in topicIds));
@@ -22,4 +16,4 @@ export const validateTopics = async (topicIds: TPostCreation['topics']): AsyncSe
   }
 
   return { status: 'SUCCESS', data: null };
-}
+};

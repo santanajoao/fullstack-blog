@@ -22,7 +22,7 @@ describe('Post routes integration tests', function () {
         .request(app)
         .get('/posts/popular');
     
-      expect(status).to.be.equal(200)
+      expect(status).to.be.equal(200);
       expect(body).to.be.deep.equal(postMock.postListResponse);
     });
   });
