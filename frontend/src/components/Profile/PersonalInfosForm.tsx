@@ -37,7 +37,7 @@ export default function PersonalInfosForm() {
   } = useForm<Fields>({
     defaultValues: {
       about: user?.about ?? '',
-      username: user?.username ?? '',
+      username: user!.username,
       imageUrl: user?.imageUrl ?? defaultProfile,
     },
     resolver: zodResolver(profilePersonalSchema),
@@ -66,15 +66,21 @@ export default function PersonalInfosForm() {
   };
 
   const onSubmit = async ({ username, about }: Fields) => {
-    const success = await updateProfile({
+    const response = await updateProfile({
       username,
       about,
       image: imageFile,
     });
 
-    if (success) {
+    if (response.success) {
       setEditing(false);
       toast.success('Informações atualizadas!');
+
+      reset({
+        about: response.data?.about || undefined,
+        imageUrl: response.data?.imageUrl || defaultProfile,
+        username: response.data.username,
+      });
     }
   };
 

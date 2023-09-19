@@ -28,7 +28,7 @@ export default function CredentialsForm() {
     reset,
   } = useForm<Fields>({
     defaultValues: {
-      email: user?.email,
+      email: user!.email,
       password: '',
       newPassword: '',
     },
@@ -36,12 +36,13 @@ export default function CredentialsForm() {
   });
 
   const onSubmit = async (data: Fields) => {
-    const success = await updateCredentials(data);
+    const response = await updateCredentials(data);
 
-    if (success) {
+    if (response.success) {
       setEditing(false);
-      reset();
       toast.success('Informações atualizadas!');
+
+      reset({ email: response.data.email, password: '', newPassword: '' });
     }
   };
 

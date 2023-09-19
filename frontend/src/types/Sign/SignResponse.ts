@@ -1,12 +1,6 @@
-export type User = {
-  id: string;
-  username: string;
-  email: string;
-  imageUrl: string | null;
-  about: string | null;
-};
+import { Account } from '../Account';
 
 export type SignResponse = {
   token: string;
-  account: User;
+  account: Account;
 };

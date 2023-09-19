@@ -2,7 +2,7 @@
 
 import { destroyCookie, getCookie, setCookie } from '@/lib/cookies';
 import { requestSignIn, requestSignUp, requestUserData } from '@/services/sign';
-import { SignResponse, User } from '@/types/Sign/SignResponse';
+import { SignResponse } from '@/types/Sign/SignResponse';
 import { useRouter } from 'next/navigation';
 import React, {
   useEffect, useState, createContext, useMemo, useContext,
@@ -11,7 +11,7 @@ import ServiceResponse from '@/types/ServiceResponse';
 import { SignUpFields } from '@/types/Sign/SignUp';
 import { SignInFields } from '@/types/Sign/SignIn';
 import { ChildrenProps } from '@/types/ChildrenProps';
-import { AccountPersonalInfos, AccountCredentials } from '@/types/Account';
+import { AccountPersonalInfos, AccountCredentials, Account } from '@/types/Account';
 import {
   updatePersonalInfos,
   updateCredentials as updateCredentialsService,
@@ -33,15 +33,15 @@ type AuthorizeProps = GetBackProps | RedirectToProps;
 
 interface ContextValues {
   error: string | null;
-  user: User | null;
+  user: Account | null;
   isLoading: boolean;
   signIn(fields: SignInFields): Promise<void>;
   signUp(fields: SignUpFields): Promise<void>;
   signOut(): void;
   authorize(redirectParams: AuthorizeProps): void;
   clearError(): void;
-  updateProfile(fields: AccountPersonalInfos): Promise<boolean>;
-  updateCredentials(fields: AccountCredentials): Promise<boolean>;
+  updateProfile(fields: AccountPersonalInfos): Promise<ServiceResponse<Account>>;
+  updateCredentials(fields: AccountCredentials): Promise<ServiceResponse<Account>>;
 }
 
 export const AuthContext = createContext({} as ContextValues);
@@ -49,7 +49,7 @@ export const AuthContext = createContext({} as ContextValues);
 const sessionTokenName = 'blog.session.token';
 
 export function AuthProvider({ children }: ChildrenProps) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<Account | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -114,7 +114,7 @@ export function AuthProvider({ children }: ChildrenProps) {
 
   const updateProfile = async (
     { username, about, image }: AccountPersonalInfos,
-  ): Promise<boolean> => {
+  ): Promise<ServiceResponse<Account>> => {
     const formData = new FormData();
     formData.append('username', username);
 
@@ -128,12 +128,12 @@ export function AuthProvider({ children }: ChildrenProps) {
     }
     setError(response.message);
 
-    return response.success;
+    return response;
   };
 
   const updateCredentials = async (
     data: AccountCredentials,
-  ): Promise<boolean> => {
+  ): Promise<ServiceResponse<Account>> => {
     const token = getCookie(sessionTokenName) as string;
     const response = await updateCredentialsService(data, token);
 
@@ -142,7 +142,7 @@ export function AuthProvider({ children }: ChildrenProps) {
     }
     setError(response.message);
 
-    return response.success;
+    return response;
   };
 
   const clearError = () => { setError(null); };
