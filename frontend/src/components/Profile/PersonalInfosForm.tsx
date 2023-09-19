@@ -7,6 +7,7 @@ import { aboutMaxLength, profilePersonalSchema } from '@/lib/schemas/account.sch
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useUser } from '@/contexts/AuthContext';
+import { toast } from 'react-toastify';
 import Textarea from './Textarea';
 import ImageInput, { ImageChangeProps } from './ImageInput';
 
@@ -73,6 +74,7 @@ export default function PersonalInfosForm() {
 
     if (success) {
       setEditing(false);
+      toast.success('Informações atualizadas!');
     }
   };
 

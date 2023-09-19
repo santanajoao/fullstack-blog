@@ -6,7 +6,7 @@ import ImageInput from '@/components/Write/ImageInput';
 import MarkdownInput from '@/components/Write/MarkdownInput';
 import Textarea from '@/components/Write/Textarea';
 import TopicInput from '@/components/Write/TopicInput';
-import { AuthContext } from '@/contexts/AuthContext';
+import { useUser } from '@/contexts/AuthContext';
 import { getCookie } from '@/lib/cookies';
 import { postSchema } from '@/lib/schemas/post.schema';
 import { createPost } from '@/services/posts';
@@ -14,9 +14,7 @@ import { TPostCreation } from '@/types/Post';
 import { Topic } from '@/types/Topic';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import React, {
-  BaseSyntheticEvent, useContext, useEffect, useState,
-} from 'react';
+import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 export default function WritePage() {
@@ -37,12 +35,13 @@ export default function WritePage() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageError, setImageError] = useState<string | null>(null);
   const [generalError, setGeneralError] = useState<string | null>(null);
-  const { redirect, isLoading } = useContext(AuthContext);
+
+  const { isLoading, user, authorize } = useUser();
   const router = useRouter();
 
   useEffect(() => {
-    redirect({ requireLogin: true, to: '/signin', getBack: true });
-  }, [redirect]);
+    authorize({ required: true, redirectTo: '/signup' });
+  }, [user, isLoading]);
 
   const onSubmit = async (
     data: TPostCreation,
@@ -84,7 +83,7 @@ export default function WritePage() {
     setValue('topics', topicIds, { shouldValidate: true });
   };
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading || !user) return <h1>Loading...</h1>;
 
   return (
     <>

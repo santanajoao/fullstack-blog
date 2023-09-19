@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { SignInFields } from '@/types/Sign/SignIn';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signInSchema } from '@/lib/schemas/sign.schema';
-import { AuthContext } from '@/contexts/AuthContext';
+import { useUser } from '@/contexts/AuthContext';
 import ErrorMessage from './ErrorMessage';
 import Sign from '.';
 
@@ -18,9 +18,17 @@ export default function SignInForm() {
     resolver: zodResolver(signInSchema),
   });
 
-  const { error, signIn, clearError } = useContext(AuthContext);
+  const {
+    error, signIn, clearError, authorize, user, isLoading,
+  } = useUser();
 
-  useEffect(() => clearError, []);
+  useEffect(() => {
+    authorize({ required: false, getBack: true });
+  }, [user, isLoading]);
+
+  useEffect(() => {
+    clearError();
+  }, []);
 
   const onSubmit = async ({ email, password }: SignInFields) => {
     signIn({ email, password });
