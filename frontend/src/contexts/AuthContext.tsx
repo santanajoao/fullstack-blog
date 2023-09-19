@@ -1,22 +1,33 @@
 'use client';
 
-import React, {
-  createContext, useEffect, useMemo, useState,
-} from 'react';
+import { destroyCookie, getCookie, setCookie } from '@/lib/cookies';
 import { requestSignIn, requestSignUp, requestUserData } from '@/services/sign';
-import { ChildrenProps } from '@/types/ChildrenProps';
-import ServiceResponse from '@/types/ServiceResponse';
-import { SignInFields } from '@/types/Sign/SignIn';
 import { SignResponse, User } from '@/types/Sign/SignResponse';
+import { useRouter } from 'next/navigation';
+import React, {
+  useEffect, useState, createContext, useMemo, useContext,
+} from 'react';
+import ServiceResponse from '@/types/ServiceResponse';
 import { SignUpFields } from '@/types/Sign/SignUp';
-import { usePathname, useRouter } from 'next/navigation';
-import { getCookie, setCookie } from '@/lib/cookies';
+import { SignInFields } from '@/types/Sign/SignIn';
+import { ChildrenProps } from '@/types/ChildrenProps';
+import { AccountPersonalInfos } from '@/types/Account';
+import { updatePersonalInfos } from '@/services/account';
+import { toast } from 'react-toastify';
 
-type RedirectParams = {
-  requireLogin: boolean;
-  to: string;
-  getBack?: boolean;
+type GetBackProps = {
+  required: boolean;
+  getBack?: true;
+  redirectTo?: undefined;
 };
+
+type RedirectToProps = {
+  required: boolean;
+  redirectTo?: string;
+  getBack?: undefined;
+};
+
+type AuthorizeProps = GetBackProps | RedirectToProps;
 
 interface ContextValues {
   error: string | null;
@@ -25,41 +36,56 @@ interface ContextValues {
   signIn(fields: SignInFields): Promise<void>;
   signUp(fields: SignUpFields): Promise<void>;
   signOut(): void;
-  refreshUserData(): void;
-  redirect(redirectParams: RedirectParams): boolean;
+  authorize(redirectParams: AuthorizeProps): void;
   clearError(): void;
+  updateProfile(fields: AccountPersonalInfos): Promise<boolean>;
 }
 
 export const AuthContext = createContext({} as ContextValues);
 
+const sessionTokenName = 'blog.session.token';
+
 export function AuthProvider({ children }: ChildrenProps) {
-  const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [redirectBack, setRedirectBack] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const router = useRouter();
-  const pathname = usePathname();
 
-  const clearError = () => { setError(null); };
+  const fetchUser = async () => {
+    const token = getCookie(sessionTokenName);
+    if (token) {
+      const { success, data, message } = await requestUserData(token);
 
-  const handleSignData = ({ success, data, message }: ServiceResponse<SignResponse>) => {
-    if (success) {
-      setCookie('blog.session.token', data.token, 60 * 60 * 24 * 2); // 2 days
-      setUser(data.account);
-      clearError();
+      if (success) {
+        setUser(data);
+      } else {
+        setError(message);
+        destroyCookie(sessionTokenName);
+      }
+    }
 
-      router.push('/');
-    } else {
-      setError(message);
+    setIsLoading(false);
+  };
+
+  const authorize = ({ required, redirectTo, getBack }: AuthorizeProps) => {
+    if (isLoading) return;
+
+    if ((required && user) || (!required && !user)) return;
+
+    if (redirectTo) {
+      router.push(redirectTo);
+    } else if (getBack) {
+      router.back();
     }
   };
 
-  const signIn = async ({ email, password }: SignInFields) => {
-    setIsLoading(true);
-    const signResponse = await requestSignIn({ email, password });
-
-    handleSignData(signResponse);
-    setIsLoading(false);
+  const handleSignData = ({ success, data, message }: ServiceResponse<SignResponse>) => {
+    if (success) {
+      setCookie(sessionTokenName, data.token, 60 * 60 * 24 * 2); // 2 days
+      setUser(data.account);
+    }
+    setError(message);
   };
 
   const signUp = async ({ email, password, username }: SignUpFields) => {
@@ -70,59 +96,50 @@ export function AuthProvider({ children }: ChildrenProps) {
     setIsLoading(false);
   };
 
+  const signIn = async ({ email, password }: SignInFields) => {
+    setIsLoading(true);
+    const signResponse = await requestSignIn({ email, password });
+
+    handleSignData(signResponse);
+    setIsLoading(false);
+  };
+
   const signOut = () => {
     setUser(null);
-    setIsLoading(false);
+    destroyCookie(sessionTokenName);
   };
 
-  const refreshUserData = async () => {
-    const token = getCookie('blog.session.token');
-    if (token) {
-      setIsLoading(true);
-      const { success, data } = await requestUserData(token);
-      if (success) {
-        setUser(data);
-      } else {
-        signOut();
-      }
+  const updateProfile = async (
+    { username, about, image }: AccountPersonalInfos,
+  ): Promise<boolean> => {
+    const formData = new FormData();
+    formData.append('username', username);
+
+    if (image) formData.append('image', image);
+    if (about) formData.append('about', about);
+
+    const token = getCookie(sessionTokenName) as string;
+    const response = await updatePersonalInfos(formData, token);
+    if (response.success) {
+      setUser(response.data);
+      toast.success('Informações atualizadas!');
     }
-    setIsLoading(false);
+    setError(response.message);
+
+    return response.success;
   };
 
-  const redirect = ({ requireLogin, to, getBack = false }: RedirectParams) => {
-    const requiredAndNotFound = requireLogin && !user;
-    const notRequiredAndFound = !requireLogin && user;
+  const updateCredentials = () => {};
 
-    if (requiredAndNotFound || notRequiredAndFound) {
-      if (redirectBack) {
-        router.back();
-      } else {
-        router.push(to);
-      }
-
-      setRedirectBack(getBack);
-
-      return true;
-    }
-
-    return false;
-  };
+  const clearError = () => { setError(null); };
 
   useEffect(() => {
-    refreshUserData();
-  }, [pathname]);
+    fetchUser();
+  }, []);
 
   const values = useMemo(() => ({
-    error,
-    user,
-    isLoading,
-    signIn,
-    signUp,
-    signOut,
-    refreshUserData,
-    redirect,
-    clearError,
-  }), [error, user, isLoading]);
+    user, isLoading, signOut, error, signUp, signIn, authorize, clearError, updateProfile,
+  }), [user, isLoading, error]);
 
   return (
     <AuthContext.Provider value={values}>
@@ -130,3 +147,5 @@ export function AuthProvider({ children }: ChildrenProps) {
     </AuthContext.Provider>
   );
 }
+
+export const useUser = () => useContext(AuthContext);
