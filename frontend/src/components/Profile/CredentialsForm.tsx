@@ -1,14 +1,12 @@
 'use client';
 
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import Sign from '@/components/Sign';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { profileCredentialsSchema } from '@/lib/schemas/account.schema';
-import { updateCredentials } from '@/services/account';
-import { getCookie } from '@/lib/cookies';
-import { AuthContext } from '@/contexts/AuthContext';
 import { toast } from 'react-toastify';
+import { useUser } from '@/contexts/AuthContext';
 
 type Fields = {
   email: string;
@@ -17,9 +15,10 @@ type Fields = {
 };
 
 export default function CredentialsForm() {
-  const { user } = useContext(AuthContext);
   const [editing, setEditing] = useState(false);
   const [generalError, setGeneralError] = useState<null | string>(null);
+
+  const { user, updateCredentials } = useUser();
 
   const {
     register,
@@ -37,16 +36,12 @@ export default function CredentialsForm() {
   });
 
   const onSubmit = async (data: Fields) => {
-    const token = getCookie('blog.session.token') as string;
-    const response = await updateCredentials(data, token);
+    const success = await updateCredentials(data);
 
-    if (response.success) {
+    if (success) {
       setEditing(false);
-      setGeneralError(null);
-      reset({ password: '', newPassword: '' });
+      reset();
       toast.success('Informações atualizadas!');
-    } else {
-      setGeneralError(response.message);
     }
   };
 
@@ -103,13 +98,26 @@ export default function CredentialsForm() {
 
       <Sign.ErrorMessage>{generalError}</Sign.ErrorMessage>
       <div className="space-x-2">
-        <Sign.Button
-          type="submit"
-          className="py-2"
-          onClick={editing ? undefined : () => setEditing(true)}
-        >
-          {editing ? 'Salvar' : 'Editar'}
-        </Sign.Button>
+        {editing && (
+          <Sign.Button
+            className="py-2"
+            type="submit"
+            key="save-changes-button"
+          >
+            Salvar
+          </Sign.Button>
+        )}
+
+        {!editing && (
+          <Sign.Button
+            className="py-2"
+            type="button"
+            key="edit-infos-button"
+            onClick={() => setEditing(true)}
+          >
+            Editar
+          </Sign.Button>
+        )}
 
         {editing && (
           <Sign.Button

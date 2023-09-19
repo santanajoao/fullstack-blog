@@ -11,9 +11,11 @@ import ServiceResponse from '@/types/ServiceResponse';
 import { SignUpFields } from '@/types/Sign/SignUp';
 import { SignInFields } from '@/types/Sign/SignIn';
 import { ChildrenProps } from '@/types/ChildrenProps';
-import { AccountPersonalInfos } from '@/types/Account';
-import { updatePersonalInfos } from '@/services/account';
-import { toast } from 'react-toastify';
+import { AccountPersonalInfos, AccountCredentials } from '@/types/Account';
+import {
+  updatePersonalInfos,
+  updateCredentials as updateCredentialsService,
+} from '@/services/account';
 
 type GetBackProps = {
   required: boolean;
@@ -39,6 +41,7 @@ interface ContextValues {
   authorize(redirectParams: AuthorizeProps): void;
   clearError(): void;
   updateProfile(fields: AccountPersonalInfos): Promise<boolean>;
+  updateCredentials(fields: AccountCredentials): Promise<boolean>;
 }
 
 export const AuthContext = createContext({} as ContextValues);
@@ -122,14 +125,25 @@ export function AuthProvider({ children }: ChildrenProps) {
     const response = await updatePersonalInfos(formData, token);
     if (response.success) {
       setUser(response.data);
-      toast.success('Informações atualizadas!');
     }
     setError(response.message);
 
     return response.success;
   };
 
-  const updateCredentials = () => {};
+  const updateCredentials = async (
+    data: AccountCredentials,
+  ): Promise<boolean> => {
+    const token = getCookie(sessionTokenName) as string;
+    const response = await updateCredentialsService(data, token);
+
+    if (response.success) {
+      setUser(response.data);
+    }
+    setError(response.message);
+
+    return response.success;
+  };
 
   const clearError = () => { setError(null); };
 
@@ -138,7 +152,16 @@ export function AuthProvider({ children }: ChildrenProps) {
   }, []);
 
   const values = useMemo(() => ({
-    user, isLoading, signOut, error, signUp, signIn, authorize, clearError, updateProfile,
+    user,
+    isLoading,
+    error,
+    authorize,
+    signUp,
+    signIn,
+    signOut,
+    updateProfile,
+    updateCredentials,
+    clearError,
   }), [user, isLoading, error]);
 
   return (
