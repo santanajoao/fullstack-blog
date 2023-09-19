@@ -126,7 +126,7 @@ export default function PersonalInfosForm() {
         </Sign.Field>
       </Sign.FieldsWrapper>
 
-      <Sign.ErrorMessage>{error}</Sign.ErrorMessage>
+      <Sign.ErrorMessage>{editing && error}</Sign.ErrorMessage>
       <div className="space-x-2">
         {editing && (
           <Sign.Button

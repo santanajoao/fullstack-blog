@@ -16,9 +16,10 @@ type Fields = {
 
 export default function CredentialsForm() {
   const [editing, setEditing] = useState(false);
-  const [generalError, setGeneralError] = useState<null | string>(null);
 
-  const { user, updateCredentials } = useUser();
+  const {
+    user, updateCredentials, error, clearError,
+  } = useUser();
 
   const {
     register,
@@ -49,7 +50,7 @@ export default function CredentialsForm() {
   const cancelEditing = () => {
     setEditing(false);
     clearErrors();
-    setGeneralError(null);
+    clearError();
     reset();
   };
 
@@ -97,7 +98,7 @@ export default function CredentialsForm() {
 
       </Sign.FieldsWrapper>
 
-      <Sign.ErrorMessage>{generalError}</Sign.ErrorMessage>
+      <Sign.ErrorMessage>{editing && error}</Sign.ErrorMessage>
       <div className="space-x-2">
         {editing && (
           <Sign.Button
