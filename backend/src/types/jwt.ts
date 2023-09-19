@@ -10,4 +10,6 @@ type ErrorValidation = {
   data: null;
 };
 
+export type Payload = Omit<AccountPublicFields, 'imageUrl'>;
+
 export type ValidationResponse = SuccessValidation | ErrorValidation;

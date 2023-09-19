@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import { ValidationResponse } from '../types/jwt';
+import { Payload, ValidationResponse } from '../types/jwt';
 import { AccountPublicFields } from '../types/account';
 
 const getSecret = (): string => {
@@ -10,10 +10,10 @@ const getSecret = (): string => {
   return secret;
 };
 
-const createToken = (payload: AccountPublicFields): string => {
+const createToken = ({ id, username, email, about }: Payload): string => {
   const options = { expiresIn: '2d' };
   const secret = getSecret();
-  const token = jwt.sign(payload, secret, options);
+  const token = jwt.sign({ id, username, email, about }, secret, options);
   return token;
 };
 
