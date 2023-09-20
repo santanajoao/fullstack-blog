@@ -49,13 +49,13 @@ export default function PostListPagination({
   };
 
   useEffect(() => {
-    appendPosts();
+    if (posts.length) {
+      appendPosts();
+    }
   }, [page]);
 
   useEffect(() => {
-    if (posts.length) {
-      getPosts();
-    }
+    getPosts();
   }, [orderBy]);
 
   const showMoreButton = posts.length > 0 && !postsEnded;
