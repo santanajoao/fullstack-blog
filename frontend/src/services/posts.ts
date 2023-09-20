@@ -1,4 +1,4 @@
-import { TPost, TPostCreation } from '@/types/Post';
+import { TPost } from '@/types/Post';
 import TServiceResponse from '@/types/ServiceResponse';
 import axios from 'axios';
 import { treatAxiosResponse, treatFetchResponse } from './errorHandling';

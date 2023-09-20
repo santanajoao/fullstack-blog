@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useContext } from 'react';
+import React from 'react';
 import { Account } from '@/types/Account';
 import defaultPicture from '@/assets/profile.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AiFillEdit } from 'react-icons/ai';
-import { AuthContext } from '@/contexts/AuthContext';
+import { useUser } from '@/contexts/AuthContext';
 import PostLikeCount from '../PostLikeCount';
 
 interface Props {
@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default function Hero({ author, count }: Props) {
-  const { user } = useContext(AuthContext);
+  const { user } = useUser();
   const authorIsUser = user?.id === author.id;
 
   return (

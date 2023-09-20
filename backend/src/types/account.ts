@@ -4,10 +4,9 @@ export type SignInFields = Pick<Account, 'email' | 'password'>;
 
 export type AccountCreation = SignInFields & Pick<Account, 'username'>;
 
-
 export type AccountUpdate = Omit<Account, 'id'>;
 
-export type AccountPublicFields = Omit<Account, 'password' | 'imageId'>;
+export type AccountPublicFields = Omit<Account, 'password'>;
 
 export type SignResponse = {
   token: string;

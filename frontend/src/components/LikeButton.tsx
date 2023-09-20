@@ -1,9 +1,10 @@
 'use client';
 
-import { AuthContext } from '@/contexts/AuthContext';
+import { useUser } from '@/contexts/AuthContext';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import { parseCookies } from 'nookies';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineHeart, AiFillHeart, AiOutlineLoading } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 
@@ -17,11 +18,12 @@ type LikesReponse = {
 };
 
 export default function LikeButton({ postId }: Params) {
+  const { user, isLoading } = useUser();
+  const router = useRouter();
+
   const [likeCount, setLikeCount] = useState(0);
   const [liked, setLiked] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  const { user, redirect } = useContext(AuthContext);
+  const [loading, setLoading] = useState(isLoading);
 
   const checkForLike = async () => {
     setLoading(true);
@@ -44,9 +46,7 @@ export default function LikeButton({ postId }: Params) {
   }, [user]);
 
   const handleLike = async () => {
-    if (redirect({ requireLogin: true, to: '/signin', getBack: true })) {
-      return null;
-    }
+    if (!user) return router.push('/signup');
 
     setLoading(true);
 

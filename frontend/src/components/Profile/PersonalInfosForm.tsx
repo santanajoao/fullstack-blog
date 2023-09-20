@@ -1,18 +1,12 @@
 'use client';
 
-import React, {
-  BaseSyntheticEvent,
-  useContext,
-  useEffect, useRef, useState,
-} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Sign from '@/components/Sign';
 import defaultProfile from '@/assets/profile.svg';
 import { aboutMaxLength, profilePersonalSchema } from '@/lib/schemas/account.schema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { getCookie } from '@/lib/cookies';
-import { updatePersonalInfos } from '@/services/account';
-import { AuthContext } from '@/contexts/AuthContext';
+import { useUser } from '@/contexts/AuthContext';
 import { toast } from 'react-toastify';
 import Textarea from './Textarea';
 import ImageInput, { ImageChangeProps } from './ImageInput';
@@ -24,11 +18,13 @@ type Fields = {
 };
 
 export default function PersonalInfosForm() {
-  const { user, refreshUserData } = useContext(AuthContext);
   const [editing, setEditing] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
+
+  const {
+    user, updateProfile, error, clearError,
+  } = useUser();
   const firstInputRef = useRef<HTMLInputElement>(null);
-  const [generalError, setGeneralError] = useState<null | string>(null);
 
   const {
     register,
@@ -41,7 +37,7 @@ export default function PersonalInfosForm() {
   } = useForm<Fields>({
     defaultValues: {
       about: user?.about ?? '',
-      username: user?.username ?? '',
+      username: user!.username,
       imageUrl: user?.imageUrl ?? defaultProfile,
     },
     resolver: zodResolver(profilePersonalSchema),
@@ -53,10 +49,14 @@ export default function PersonalInfosForm() {
     }
   }, [editing]);
 
-  const cancelEditing = () => {
+  const clearAllErrors = () => {
     setEditing(false);
     clearErrors();
-    setGeneralError(null);
+    clearError();
+  };
+
+  const cancelEditing = () => {
+    clearAllErrors();
     reset();
   };
 
@@ -65,21 +65,22 @@ export default function PersonalInfosForm() {
     setValue('imageUrl', url);
   };
 
-  const onSubmit = async (_data: Fields, event: BaseSyntheticEvent | any) => {
-    const formData = new FormData(event.target);
-    formData.append('image', imageFile ?? '');
-    formData.delete('imageUrl');
-
-    const token = getCookie('blog.session.token') as string;
-    const response = await updatePersonalInfos(formData, token);
+  const onSubmit = async ({ username, about }: Fields) => {
+    const response = await updateProfile({
+      username,
+      about,
+      image: imageFile,
+    });
 
     if (response.success) {
-      refreshUserData();
-      setGeneralError(null);
-      cancelEditing();
+      setEditing(false);
       toast.success('Informações atualizadas!');
-    } else {
-      setGeneralError(response.message);
+
+      reset({
+        about: response.data?.about || undefined,
+        imageUrl: response.data?.imageUrl || defaultProfile,
+        username: response.data.username,
+      });
     }
   };
 
@@ -125,7 +126,7 @@ export default function PersonalInfosForm() {
         </Sign.Field>
       </Sign.FieldsWrapper>
 
-      <Sign.ErrorMessage>{generalError}</Sign.ErrorMessage>
+      <Sign.ErrorMessage>{editing && error}</Sign.ErrorMessage>
       <div className="space-x-2">
         {editing && (
           <Sign.Button

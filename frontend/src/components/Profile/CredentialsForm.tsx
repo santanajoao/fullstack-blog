@@ -1,14 +1,12 @@
 'use client';
 
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import Sign from '@/components/Sign';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { profileCredentialsSchema } from '@/lib/schemas/account.schema';
-import { updateCredentials } from '@/services/account';
-import { getCookie } from '@/lib/cookies';
-import { AuthContext } from '@/contexts/AuthContext';
 import { toast } from 'react-toastify';
+import { useUser } from '@/contexts/AuthContext';
 
 type Fields = {
   email: string;
@@ -17,9 +15,11 @@ type Fields = {
 };
 
 export default function CredentialsForm() {
-  const { user } = useContext(AuthContext);
   const [editing, setEditing] = useState(false);
-  const [generalError, setGeneralError] = useState<null | string>(null);
+
+  const {
+    user, updateCredentials, error, clearError,
+  } = useUser();
 
   const {
     register,
@@ -29,7 +29,7 @@ export default function CredentialsForm() {
     reset,
   } = useForm<Fields>({
     defaultValues: {
-      email: user?.email,
+      email: user!.email,
       password: '',
       newPassword: '',
     },
@@ -37,23 +37,20 @@ export default function CredentialsForm() {
   });
 
   const onSubmit = async (data: Fields) => {
-    const token = getCookie('blog.session.token') as string;
-    const response = await updateCredentials(data, token);
+    const response = await updateCredentials(data);
 
     if (response.success) {
       setEditing(false);
-      setGeneralError(null);
-      reset({ password: '', newPassword: '' });
       toast.success('Informações atualizadas!');
-    } else {
-      setGeneralError(response.message);
+
+      reset({ email: response.data.email, password: '', newPassword: '' });
     }
   };
 
   const cancelEditing = () => {
     setEditing(false);
     clearErrors();
-    setGeneralError(null);
+    clearError();
     reset();
   };
 
@@ -101,15 +98,28 @@ export default function CredentialsForm() {
 
       </Sign.FieldsWrapper>
 
-      <Sign.ErrorMessage>{generalError}</Sign.ErrorMessage>
+      <Sign.ErrorMessage>{editing && error}</Sign.ErrorMessage>
       <div className="space-x-2">
-        <Sign.Button
-          type="submit"
-          className="py-2"
-          onClick={editing ? undefined : () => setEditing(true)}
-        >
-          {editing ? 'Salvar' : 'Editar'}
-        </Sign.Button>
+        {editing && (
+          <Sign.Button
+            className="py-2"
+            type="submit"
+            key="save-changes-button"
+          >
+            Salvar
+          </Sign.Button>
+        )}
+
+        {!editing && (
+          <Sign.Button
+            className="py-2"
+            type="button"
+            key="edit-infos-button"
+            onClick={() => setEditing(true)}
+          >
+            Editar
+          </Sign.Button>
+        )}
 
         {editing && (
           <Sign.Button

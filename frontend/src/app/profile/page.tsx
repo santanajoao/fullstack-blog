@@ -1,20 +1,20 @@
 'use client';
 
-import { AuthContext } from '@/contexts/AuthContext';
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import HomeHeader from '@/components/Header/HomeHeader';
 import Container from '@/components/Container';
 import PersonalInfosForm from '@/components/Profile/PersonalInfosForm';
 import CredentialsForm from '@/components/Profile/CredentialsForm';
+import { useUser } from '@/contexts/AuthContext';
 
 export default function ProfilePage() {
-  const { isLoading, redirect } = useContext(AuthContext);
+  const { isLoading, user, authorize } = useUser();
 
   useEffect(() => {
-    redirect({ requireLogin: true, to: '/signin', getBack: true });
-  }, [redirect]);
+    authorize({ required: true, redirectTo: '/signup' });
+  }, [isLoading, user]);
 
-  if (isLoading) return <h1>Loading</h1>;
+  if (isLoading || !user) return <h1>Loading</h1>;
 
   return (
     <>

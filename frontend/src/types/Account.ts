@@ -11,4 +11,6 @@ export type AccountCredentials = Pick<Account, 'email'> & {
   newPassword: string;
 };
 
-export type AccountPersonalInfos = Pick<Account, 'about' | 'username'>;
+export type AccountPersonalInfos = Pick<Account, 'about' | 'username'> & {
+  image: File | null,
+};

@@ -1,17 +1,16 @@
 'use client';
 
-import React, {
-  useContext, useEffect, useRef, useState,
-} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import userPicture from '@/assets/profile.svg';
-import { AuthContext } from '@/contexts/AuthContext';
+import { useUser } from '@/contexts/AuthContext';
 import SignLinks from './SignLinks';
 
 export default function UserCard() {
   const [isOpen, setIsOpen] = useState(false);
-  const { signOut, user, isLoading } = useContext(AuthContext);
+  const { user, isLoading, signOut } = useUser();
+
   const userCard = useRef(null);
 
   const closeOnClickOut = (event: MouseEvent) => {
