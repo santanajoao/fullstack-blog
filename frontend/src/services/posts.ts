@@ -2,7 +2,9 @@ import { TPost } from '@/types/Post';
 import TServiceResponse from '@/types/ServiceResponse';
 import axios from 'axios';
 import { treatAxiosResponse, treatFetchResponse } from './errorHandling';
-import { clientApiUrl } from './constants';
+import { clientApiUrl, serverApiUrl } from './constants';
+import { Account } from '@/types/Account';
+import { TopicWithoutImage } from '@/types/Topic';
 
 export const requestTopicPosts = async (
   topicId: string,
@@ -50,5 +52,19 @@ export const requestPosts = async ({
     return await treatFetchResponse<TPost[]>(response);
   } catch (error) {
     return treatFetchResponse<TPost[]>(error);
+  }
+};
+
+type PostData = TPost & {
+  account: Account;
+  topics: TopicWithoutImage[],
+};
+
+export const requestPostById = async (id: string): Promise<TServiceResponse<PostData>> => {
+  try {
+    const response = await fetch(`${serverApiUrl}/posts/${id}`);
+    return await treatFetchResponse<PostData>(response);
+  } catch (error) {
+    return await treatFetchResponse<PostData>(error);
   }
 };

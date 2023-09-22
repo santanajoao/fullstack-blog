@@ -7,6 +7,7 @@ import Post from '@/components/Post';
 import Container from '@/components/Container';
 import { TopicWithoutImage } from '@/types/Topic';
 import { serverApiUrl } from '@/services/constants';
+import { requestPostById } from '@/services/posts';
 
 interface Params {
   params: {
@@ -20,13 +21,15 @@ type PostData = TPost & {
 };
 
 export default async function PostPage({ params }: Params) {
-  const response = await fetch(`${serverApiUrl}/posts/${params.id}`);
+  const response = await requestPostById(params.id);
 
   if (response.status === 404) {
     return <Post.NotFound />;
   }
 
-  const postData = await response.json() as PostData;
+  if (!response.success) return null;
+  
+  const postData = response.data;
   
   return (
     <>
