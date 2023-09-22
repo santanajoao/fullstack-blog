@@ -26,7 +26,7 @@ export default async function PostPage({ params }: Params) {
   }
 
   const postData = await response.json() as PostData;
-
+  
   return (
     <>
       <HomeHeader />
