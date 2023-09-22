@@ -19,7 +19,7 @@ export default function TopicPosts({ topicId }: Props) {
 
   return (
     <Container.Article>
-      <div className="space-x-5 pl-1 mb-3 sm:mb-5">
+      <div className="gap-x-5 gap-y-2 flex flex-wrap pl-1 mb-3 sm:mb-5">
         <label htmlFor="sort-posts">Ordenar por:</label>
         <select
           name="filter"
