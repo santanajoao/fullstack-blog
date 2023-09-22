@@ -11,7 +11,7 @@ export default function RouteErrorButtons() {
       <button
         onClick={() => router.back()}
         type="button"
-        className="bg-zinc-800 px-2 py-1 rounded-md"
+        className="bg-zinc-800 px-2 py-1"
       >
         Voltar
       </button>
@@ -19,7 +19,7 @@ export default function RouteErrorButtons() {
       <button
         onClick={() => router.refresh()}
         type="button"
-        className="bg-zinc-800 px-2 py-1 rounded-md"
+        className="bg-zinc-800 px-2 py-1"
       >
         Recarregar
       </button>
