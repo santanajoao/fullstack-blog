@@ -1,7 +1,7 @@
 'use client';
 
 import { useUser } from '@/contexts/AuthContext';
-import { clientApiUrl } from '@/services';
+import { clientApiUrl } from '@/services/constants';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { parseCookies } from 'nookies';
