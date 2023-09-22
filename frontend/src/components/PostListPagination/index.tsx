@@ -31,6 +31,7 @@ export default function PostListPagination({
 
     setLoading(false);
     if (!response.success) return toast.error(response.message);
+    if (response.data.length < quantity) setPostsEnded(true);
 
     return setPosts(response.data);
   };
@@ -40,7 +41,6 @@ export default function PostListPagination({
       endpoint: apiEndpoint, page, quantity, orderBy,
     });
     setLoading(false);
-
     if (!response.success) return toast.error(response.message);
     if (response.data.length < quantity) setPostsEnded(true);
     if (response.data.length === 0 && posts.length > 0) return toast.info('Não há mais publicações');
@@ -63,7 +63,7 @@ export default function PostListPagination({
   if (loading) {
     return <Skeleton items={9} />;
   }
-
+  
   if (posts.length === 0 && postsEnded) {
     return <p>{emptyPostsMessage}</p>;
   }
