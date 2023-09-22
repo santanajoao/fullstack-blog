@@ -6,7 +6,6 @@ import { Account } from '@/types/Account';
 import Post from '@/components/Post';
 import Container from '@/components/Container';
 import { TopicWithoutImage } from '@/types/Topic';
-import { serverApiUrl } from '@/services/constants';
 import { requestPostById } from '@/services/posts';
 
 interface Params {
@@ -15,11 +14,6 @@ interface Params {
   };
 }
 
-type PostData = TPost & {
-  account: Account;
-  topics: TopicWithoutImage[],
-};
-
 export default async function PostPage({ params }: Params) {
   const response = await requestPostById(params.id);
 
@@ -27,6 +21,7 @@ export default async function PostPage({ params }: Params) {
     return <Post.NotFound />;
   }
 
+  // Uma tela de erro faz sentido aqui
   if (!response.success) return null;
   
   const postData = response.data;

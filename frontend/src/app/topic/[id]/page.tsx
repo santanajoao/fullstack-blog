@@ -13,9 +13,11 @@ interface Params {
 
 export default async function TopicPage({ params }: Params) {
   const response = await requestTopicInfos(params.id);
-  if (!response.success) {
-    return <NotFound />;
-  }
+
+  if (response.status === 404) return <NotFound />;
+
+  // uma página de erro faz sentido aqui
+  if (!response.success) return null;
 
   const { posts, topic } = response.data;
 
