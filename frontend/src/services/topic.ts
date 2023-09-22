@@ -2,6 +2,7 @@ import { Topic } from '@/types/Topic';
 import TServiceResponse from '@/types/ServiceResponse';
 import axios from 'axios';
 import { treatAxiosResponse, treatFetchResponse } from './errorHandling';
+import { clientApiUrl, serverApiUrl } from './constants';
 
 type TopicInfos = {
   topic: Topic,
@@ -16,7 +17,7 @@ export const requestTopicInfos = async (
 ): Promise<TServiceResponse<TopicInfos>> => {
   try {
     const response = await fetch(
-      `http://backend:3001/topics/${topicId}/posts/infos`,
+      `${serverApiUrl}/topics/${topicId}/posts/infos`,
     );
 
     return await treatFetchResponse<TopicInfos>(response);
@@ -31,7 +32,7 @@ export const requestTopics = async (
 ): Promise<TServiceResponse<Topic[]>> => {
   const idsParam = idsToExclude && idsToExclude.join(',');
   const response = await treatAxiosResponse<Topic[]>(() => (
-    axios.get(`http://localhost:3001/topics?query=${query}&excludeIds=${idsParam}`)
+    axios.get(`${clientApiUrl}/topics?query=${query}&excludeIds=${idsParam}`)
   ));
 
   return response;

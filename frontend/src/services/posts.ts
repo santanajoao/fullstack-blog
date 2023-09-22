@@ -2,6 +2,7 @@ import { TPost } from '@/types/Post';
 import TServiceResponse from '@/types/ServiceResponse';
 import axios from 'axios';
 import { treatAxiosResponse, treatFetchResponse } from './errorHandling';
+import { clientApiUrl } from './constants';
 
 export const requestTopicPosts = async (
   topicId: string,
@@ -9,7 +10,7 @@ export const requestTopicPosts = async (
 ): Promise<TServiceResponse<TPost[]>> => {
   try {
     const response = await fetch(
-      `http://localhost:3001/topics/${topicId}/posts?orderBy=${orderBy}`,
+      `${clientApiUrl}/topics/${topicId}/posts?orderBy=${orderBy}`,
     );
 
     return await treatFetchResponse<TPost[]>(response);
@@ -23,7 +24,7 @@ export const createPost = async (
   token: string,
 ): Promise<TServiceResponse<TPost>> => {
   const response = await treatAxiosResponse<TPost>(
-    () => axios.post('http://localhost:3001/posts', formData, {
+    () => axios.post(`${clientApiUrl}/posts`, formData, {
       headers: { Authorization: token },
     }),
   );
@@ -43,7 +44,7 @@ export const requestPosts = async ({
 }: RequestPostsParams): Promise<TServiceResponse<TPost[]>> => {
   try {
     const response = await fetch(
-      `http://localhost:3001${endpoint}?quantity=${quantity}&page=${page}&orderBy=${orderBy}`,
+      `${clientApiUrl}${endpoint}?quantity=${quantity}&page=${page}&orderBy=${orderBy}`,
     );
 
     return await treatFetchResponse<TPost[]>(response);

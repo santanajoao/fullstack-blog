@@ -1,6 +1,7 @@
 import { Account, AccountCredentials } from '@/types/Account';
 import TServiceResponse from '@/types/ServiceResponse';
 import axios from 'axios';
+import { clientApiUrl } from './constants';
 import { treatAxiosResponse } from './errorHandling';
 
 export const updateCredentials = async (
@@ -10,7 +11,7 @@ export const updateCredentials = async (
   const { email, password, newPassword } = credentials;
 
   const response = await treatAxiosResponse(
-    () => axios.patch('http://localhost:3001/accounts/me/credentials', {
+    () => axios.patch(`${clientApiUrl}/accounts/me/credentials`, {
       email, password, newPassword,
     }, { headers: { Authorization: token } }),
   );
@@ -23,7 +24,7 @@ export const updatePersonalInfos = async (
   token: string,
 ): Promise<TServiceResponse<Account>> => {
   const response = await treatAxiosResponse(
-    () => axios.patch('http://localhost:3001/accounts/me/personal', formData, {
+    () => axios.patch(`${clientApiUrl}/accounts/me/personal`, formData, {
       headers: { Authorization: token },
     }),
   );

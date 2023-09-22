@@ -4,8 +4,9 @@ import { SignInFields } from '@/types/Sign/SignIn';
 import { SignUpFields } from '@/types/Sign/SignUp';
 import { SignResponse, User } from '@/types/Sign/SignResponse';
 import { treatAxiosResponse } from './errorHandling';
+import { clientApiUrl } from './constants';
 
-const signRoute = 'http://localhost:3001/accounts';
+const signRoute = `${clientApiUrl}/accounts`;
 
 export const requestSignIn = async (
   signInFields: SignInFields,

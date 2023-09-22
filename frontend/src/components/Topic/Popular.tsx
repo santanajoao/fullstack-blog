@@ -2,10 +2,11 @@ import React from 'react';
 import { Topic } from '@/types/Topic';
 import TopicLink from './TopicLink';
 import Container from '../Container';
+import { serverApiUrl } from '@/services/constants';
 
 export default async function PopularTopics() {
   const response = await fetch(
-    'http://backend:3001/topics/popular?quantity=12',
+    `${serverApiUrl}/topics/popular?quantity=12`,
   );
   const popularTopics: Topic[] = await response.json();
 
