@@ -74,8 +74,9 @@ Existe também uma página para uma postagem onde é possível ler o conteúdo d
   - [X] Adicionar validação de tamanho máximo de um arquivo
 
 - [ ] Bugs
-  - [ ] Re-checar responsividade mobile em todas as páginas
-  - [ ] Imagem de perfil não aparecendo na página de autor 
+  - [ ] Verificar se a imagem de perfil está aparecendo na página de autor no deploy
+
+- [ ] Tornar tópicos dos posts e pagina do autor em links
 
 - [ ] Adicionar forma do usuário logado gerenciar suas publicações
 
