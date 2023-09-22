@@ -41,8 +41,12 @@ export const requestTopics = async (
 export const requestPopularTopics = async (
   quantity: number,
 ): Promise<TServiceResponse<Topic[]>> => {
-  const response = await fetch(
-    `${serverApiUrl}/topics/popular?quantity=${quantity}`,
-  );
-  return await treatFetchResponse<Topic[]>(response);
+  try {
+    const response = await fetch(
+      `${serverApiUrl}/topics/popular?quantity=${quantity}`,
+    );
+    return await treatFetchResponse<Topic[]>(response);
+  } catch (error) {
+    return await treatFetchResponse<Topic[]>(error);
+  }
 }
