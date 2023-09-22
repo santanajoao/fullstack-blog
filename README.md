@@ -73,6 +73,10 @@ Existe também uma página para uma postagem onde é possível ler o conteúdo d
   - [ ] Adicionar validação do tipo dos arquivos enviados no backend
   - [X] Adicionar validação de tamanho máximo de um arquivo
 
+- [ ] Bugs
+  - [ ] Re-checar responsividade mobile em todas as páginas
+  - [ ] Imagem de perfil não aparecendo na página de autor 
+
 - [ ] Adicionar forma do usuário logado gerenciar suas publicações
 
 - [ ] Página sobre o uso de cookies
