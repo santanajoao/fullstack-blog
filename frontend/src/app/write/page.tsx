@@ -83,7 +83,7 @@ export default function WritePage() {
     setValue('topics', topicIds, { shouldValidate: true });
   };
 
-  if (isLoading || !user) return <h1>Loading...</h1>;
+  if (isLoading || !user) return null;
 
   return (
     <>
