@@ -37,3 +37,12 @@ export const requestTopics = async (
 
   return response;
 };
+
+export const requestPopularTopics = async (
+  quantity: number,
+): Promise<TServiceResponse<Topic[]>> => {
+  const response = await fetch(
+    `${serverApiUrl}/topics/popular?quantity=${quantity}`,
+  );
+  return await treatFetchResponse<Topic[]>(response);
+}
