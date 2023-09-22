@@ -6,7 +6,6 @@ import Container from '../Container';
 export default async function PopularTopics() {
   const response = await fetch(
     'http://backend:3001/topics/popular?quantity=12',
-    { next: { revalidate: 60 * 15 } }, // 15 minutos
   );
   const popularTopics: Topic[] = await response.json();
 

@@ -17,7 +17,6 @@ export const requestTopicInfos = async (
   try {
     const response = await fetch(
       `http://backend:3001/topics/${topicId}/posts/infos`,
-      { next: { revalidate: 60 * 15 } },
     );
 
     return await treatFetchResponse<TopicInfos>(response);
