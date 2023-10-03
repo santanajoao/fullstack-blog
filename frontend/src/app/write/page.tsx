@@ -4,6 +4,7 @@ import HomeHeader from '@/components/Header/HomeHeader';
 import Sign from '@/components/Sign';
 import ImageInput from '@/components/Write/ImageInput';
 import MarkdownInput from '@/components/Write/MarkdownInput';
+import MarkdownTutorialModal from '@/components/Write/MarkdownTutorialModal';
 import Textarea from '@/components/Write/Textarea';
 import TopicInput from '@/components/Write/TopicInput';
 import { useUser } from '@/contexts/AuthContext';
@@ -87,6 +88,7 @@ export default function WritePage() {
 
   return (
     <>
+      <MarkdownTutorialModal />
       <HomeHeader />
       <main className="w-full max-w-2xl mx-auto py-5 px-4">
         <Sign.Form onSubmit={handleSubmit(onSubmit)}>
