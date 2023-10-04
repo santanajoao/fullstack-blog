@@ -19,15 +19,15 @@ Para criar um título, você precisa usar um ou mais símbolos de cerquilha (#) 
 # Título 1
 ## Título 2
 ...
+#### Título 4
 ##### Título 5
-###### Título 6
 \`\`\`
 
 **Isso vai gerar o seguinte resultado:**
 # Título 1
 ## Título 2
+#### Título 4
 ##### Título 5
-###### Título 6
 
 ## Ênfase
 
