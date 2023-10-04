@@ -1,5 +1,6 @@
 'use client';
 
+import BlurModalContainer from '@/components/Container/BlurModalContainer';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { BiDotsVertical, BiSolidUpvote, BiUpvote } from 'react-icons/bi';
@@ -42,53 +43,54 @@ export default function CommentCard({
           <span className="font-medium">{username}</span>
         </a>
 
-        <span className="flex items-center text-base gap-2">
-          <button
-            type="button"
-            className="flex items-center"
-            aria-label="gostar"
-            onClick={() => setUpvoted((prev) => !prev)}
-          >
-            <span className="text-sm">{upvotes}</span>
-
-            {upvoted ? <BiSolidUpvote /> : <BiUpvote />}
-          </button>
-
-          {showActions && (
+        <BlurModalContainer onBlur={() => setIsOpen(false)}>
+          <span className="flex items-center text-base gap-2">
             <button
-              aria-label="Abrir menu de ações"
               type="button"
-              onClick={() => setIsOpen((prev) => !prev)}
+              className="flex items-center"
+              aria-label="gostar"
+              onClick={() => setUpvoted((prev) => !prev)}
             >
-              <BiDotsVertical />
+              <span className="text-sm">{upvotes}</span>
+              {upvoted ? <BiSolidUpvote /> : <BiUpvote />}
             </button>
+            {showActions && (
+              <button
+                aria-label="Abrir menu de ações"
+                type="button"
+                onClick={() => setIsOpen((prev) => !prev)}
+              >
+                <BiDotsVertical />
+              </button>
+            )}
+          </span>
+          {showActions && (
+            <ul
+              className={`
+                ${isOpen ? 'visible opacity-100' : 'invisible opacity-0'}
+                absolute overflow-hidden z-20 right-0 -translate-x-[35%] top-0
+                -translate-y-1/2 transition-opacity border border-black/10 rounded-md
+              `}
+            >
+              <li>
+                <button
+                  type="button"
+                  className="p-2 border-b border-black/10 px-4 bg-white hover:brightness-95 w-full"
+                >
+                  Editar
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className="p-2 border-b border-black/10 px-4 bg-white hover:brightness-95 w-full"
+                >
+                  Apagar
+                </button>
+              </li>
+            </ul>
           )}
-        </span>
-
-        {showActions && (
-          <ul className={`
-            ${isOpen ? 'visible opacity-100' : 'invisible opacity-0'}
-            transition-opacity border border-black/10 absolute rounded-md overflow-hidden z-20 right-0 -translate-x-[35%] top-0 -translate-y-1/2
-          `}
-          >
-            <li>
-              <button
-                type="button"
-                className="p-2 border-b border-black/10 px-4 bg-white hover:brightness-95 w-full"
-              >
-                Editar
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                className="p-2 border-b border-black/10 px-4 bg-white hover:brightness-95 w-full"
-              >
-                Apagar
-              </button>
-            </li>
-          </ul>
-        )}
+        </BlurModalContainer>
       </header>
 
       <p className="px-2 py-2">{comment}</p>

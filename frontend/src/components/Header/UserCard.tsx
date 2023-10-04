@@ -1,33 +1,16 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import userPicture from '@/assets/profile.svg';
 import { useUser } from '@/contexts/AuthContext';
 import SignLinks from './SignLinks';
+import BlurModalContainer from '../Container/BlurModalContainer';
 
 export default function UserCard() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, isLoading, signOut } = useUser();
-
-  const userCard = useRef(null);
-
-  const closeOnClickOut = (event: MouseEvent) => {
-    if (!userCard.current) return null;
-
-    const userCardEl = userCard.current as Node;
-    const eventEl = event.target as Node;
-    const clickedOut = userCardEl !== eventEl && !userCardEl.contains(eventEl);
-    if (clickedOut) {
-      setIsOpen(false);
-    }
-    return null;
-  };
-
-  useEffect(() => {
-    document.addEventListener('click', closeOnClickOut);
-  }, []);
 
   if (!isLoading && !user) {
     return <SignLinks />;
@@ -45,7 +28,7 @@ export default function UserCard() {
   ];
 
   return (
-    <div className="relative" ref={userCard}>
+    <BlurModalContainer className="relative " onBlur={() => setIsOpen(false)}>
       <button
         type="button"
         className="peer flex items-center space-x-1 rounded-full p-1 hover:bg-black/5"
@@ -88,6 +71,6 @@ export default function UserCard() {
           </li>
         </ul>
       )}
-    </div>
+    </BlurModalContainer>
   );
 }
