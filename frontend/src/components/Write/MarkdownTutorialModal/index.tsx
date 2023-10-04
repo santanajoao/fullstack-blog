@@ -62,7 +62,7 @@ export default function MarkdownTutorialModal() {
 
       <div className="mt-5 flex gap-3 text-base font-medium flex-wrap justify-center text-center">
         <Link
-          href="/post/post-id"
+          href="/post/e0a0110f-7bf0-4274-9559-1d6453e7f7bc"
           className="px-2 py-1 bg-primaryGreen rounded-sm w-full sm:w-auto"
         >
           Aprender!
