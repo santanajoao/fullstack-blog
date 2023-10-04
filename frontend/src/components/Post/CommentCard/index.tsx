@@ -10,6 +10,7 @@ interface Props {
   comment: string;
   showActions: boolean;
   authorId: string;
+  upvotes: number;
 }
 
 // fechar modal de opções ao desfocar o elemento
@@ -18,7 +19,7 @@ interface Props {
 // replicar lógica dos likes no upvote
 
 export default function CommentCard({
-  profilePicture, username, comment, authorId, showActions,
+  profilePicture, username, comment, authorId, showActions, upvotes,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [upvoted, setUpvoted] = useState(false);
@@ -42,13 +43,23 @@ export default function CommentCard({
         </a>
 
         <span className="flex items-center text-base gap-2">
-          <button type="button" className="flex items-center" onClick={() => setUpvoted((prev) => !prev)}>
-            <span className="text-sm">3</span>
+          <button
+            type="button"
+            className="flex items-center"
+            aria-label="gostar"
+            onClick={() => setUpvoted((prev) => !prev)}
+          >
+            <span className="text-sm">{upvotes}</span>
+
             {upvoted ? <BiSolidUpvote /> : <BiUpvote />}
           </button>
 
           {showActions && (
-            <button type="button" onClick={() => setIsOpen((prev) => !prev)}>
+            <button
+              aria-label="Abrir menu de ações"
+              type="button"
+              onClick={() => setIsOpen((prev) => !prev)}
+            >
               <BiDotsVertical />
             </button>
           )}
