@@ -135,7 +135,7 @@ print(soma(3, 5))
 
 Neste post, você aprendeu como usar markdown para criar posts incríveis no seu blog. Você viu como formatar textos, inserir imagens, criar listas, tabelas, blocos de código e muito mais.`,
     accountId: accounts[0].id,
-    topics: { connect: [{ id: topics[8].id }, { id: topics[17].id }] },
+    topics: { connect: [{ id: topics[8].id }, { id: topics[18].id }] },
   },
   {
     id: 'a6f1e012-fed2-4ff7-b6cf-d0ddfce219e3',

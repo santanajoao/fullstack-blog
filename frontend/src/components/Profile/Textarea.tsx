@@ -2,14 +2,13 @@ import React, { ComponentProps } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 
 interface Props extends ComponentProps<'textarea'> {
-  maxLength: number;
   name: string;
   register: UseFormRegister<any>;
 }
 
 export default function Textarea(props: Props) {
   const {
-    maxLength, className, name, register, ...other
+    className, name, register, ...other
   } = props;
 
   return (
