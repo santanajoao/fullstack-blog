@@ -22,7 +22,7 @@ export default function CommentCard(
   const [upvoted, setUpvoted] = useState(false);
 
   return (
-    <div className="bg-black/10">
+    <div className="bg-neutral-200 border rounded-md border-black/10">
       <header className="items-center px-2 py-1 border-b-2 border-black/10 flex justify-between relative">
         <a href="/" className="flex w-fit items-center gap-1 overflow-hidden">
           <Image

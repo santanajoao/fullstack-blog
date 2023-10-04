@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import PostList from '../PostList';
 import PostItemLink from '../PostItemLink';
 import Skeleton from './Skeleton';
+import Button from './Button';
 
 interface Props {
   apiEndpoint: string;
@@ -63,7 +64,7 @@ export default function PostListPagination({
   if (loading) {
     return <Skeleton items={9} />;
   }
-  
+
   if (posts.length === 0 && postsEnded) {
     return <p>{emptyPostsMessage}</p>;
   }
@@ -86,13 +87,9 @@ export default function PostListPagination({
       </PostList.List>
 
       {showMoreButton && (
-        <button
-          type="button"
-          className="border-zinc-300 border rounded-md py-2 px-4 hover:bg-zinc-300 font-bold"
-          onClick={() => setPage((prev) => prev + 1)}
-        >
+        <Button type="button" onClick={() => setPage((prev) => prev + 1)}>
           Ver mais
-        </button>
+        </Button>
       )}
     </div>
   );

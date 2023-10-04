@@ -7,6 +7,7 @@ import { requestPostById } from '@/services/posts';
 import CommentForm from '@/components/Post/CommentForm';
 import CommentCard from '@/components/Post/CommentCard';
 import profilePicture from '@/assets/profile.svg';
+import Button from '@/components/PostListPagination/Button';
 
 interface Params {
   params: {
@@ -62,6 +63,10 @@ export default async function PostPage({ params }: Params) {
               />
             </li>
           </ul>
+
+          <Button type="button">
+            Ver mais comentários
+          </Button>
         </section>
       </main>
       <Footer />
