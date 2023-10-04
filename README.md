@@ -4,7 +4,7 @@
 
 Um blog comunitário desenvolvido utilizando Next.js, Express, MySQL, Prisma e Tailwind.
 
-<img src="images/blog-screenshot.png" alt="captura da tela inicial do blog" />
+<img src="images/blog-screenshot.webp" alt="captura da tela inicial do blog" />
 
 ## Sobre 🔍
 
