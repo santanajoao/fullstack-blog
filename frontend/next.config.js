@@ -3,8 +3,9 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: 'img.freepik.com',
-      },
+        protocol: 'https',
+        hostname: '*',
+      }
     ],
   },
 };
