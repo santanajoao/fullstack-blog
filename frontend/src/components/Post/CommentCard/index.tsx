@@ -43,7 +43,7 @@ export default function CommentCard({
           <span className="font-medium">{username}</span>
         </a>
 
-        <BlurModalContainer onBlur={() => setIsOpen(false)}>
+        <BlurModalContainer isActive={showActions && isOpen} onBlur={() => setIsOpen(false)}>
           <span className="flex items-center text-base gap-2">
             <button
               type="button"

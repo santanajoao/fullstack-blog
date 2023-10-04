@@ -28,7 +28,11 @@ export default function UserCard() {
   ];
 
   return (
-    <BlurModalContainer className="relative " onBlur={() => setIsOpen(false)}>
+    <BlurModalContainer
+      isActive={isOpen}
+      className="relative"
+      onBlur={() => setIsOpen(false)}
+    >
       <button
         type="button"
         className="peer flex items-center space-x-1 rounded-full p-1 hover:bg-black/5"
