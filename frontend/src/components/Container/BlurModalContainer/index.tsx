@@ -14,25 +14,24 @@ interface Props extends ChildrenProps {
 export default function BlurModalContainer({
   children, onBlur, className, isActive = true,
 }: Props) {
-  const containerEl = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const closeOnClickOut = useCallback((event: MouseEvent) => {
-    if (!isActive || !containerEl.current) return null;
+  const verifyBlur = useCallback((event: MouseEvent) => {
+    if (!isActive || !containerRef.current) return;
 
-    const userCardEl = containerEl.current as Node;
-    const eventEl = event.target as Node;
-    const clickedOut = userCardEl !== eventEl && !userCardEl.contains(eventEl);
+    const containerEl = containerRef.current as Node;
+    const clickedEl = event.target as Node;
+    const clickedOut = containerEl !== clickedEl && !containerEl.contains(clickedEl);
     if (clickedOut) {
       onBlur();
     }
-    return null;
-  }, [onBlur]);
+  }, [onBlur, isActive]);
 
   useEffect(() => {
-    document.addEventListener('click', closeOnClickOut);
-  }, [closeOnClickOut]);
+    document.addEventListener('click', verifyBlur);
+  }, [containerRef, verifyBlur]);
 
   return (
-    <div ref={containerEl} className={className}>{children}</div>
+    <div ref={containerRef} className={className}>{children}</div>
   );
 }
