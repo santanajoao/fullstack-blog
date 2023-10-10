@@ -1,10 +1,10 @@
 import { TPost } from '@/types/Post';
 import TServiceResponse from '@/types/ServiceResponse';
 import axios from 'axios';
-import { treatAxiosResponse, treatFetchResponse } from './errorHandling';
-import { clientApiUrl, serverApiUrl } from './constants';
 import { Account } from '@/types/Account';
 import { TopicWithoutImage } from '@/types/Topic';
+import { treatAxiosResponse, treatFetchResponse } from './errorHandling';
+import { clientApiUrl, serverApiUrl } from './constants';
 
 export const requestTopicPosts = async (
   topicId: string,

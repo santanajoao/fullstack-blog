@@ -4,43 +4,64 @@ import BlurModalContainer from '@/components/Container/BlurModalContainer';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { BiDotsVertical, BiSolidUpvote, BiUpvote } from 'react-icons/bi';
+import EditionForm, { FormFields } from '../EditionForm';
 
 interface Props {
-  profilePicture: string;
-  username: string;
-  comment: string;
-  showActions: boolean;
-  authorId: string;
-  upvotes: number;
+  comment: {
+    id: string,
+    profilePicture: string;
+    username: string;
+    comment: string;
+    authorId: string;
+    upvotes: number;
+  },
+  showActions?: boolean;
+  onDelete?: (id: string) => void;
+  onEdit?: (fields: FormFields) => boolean;
 }
-
-// fechar modal de opções ao desfocar o elemento
-// replicar oque foi feito no UserCard
 
 // replicar lógica dos likes no upvote
 
 export default function CommentCard({
-  profilePicture, username, comment, authorId, showActions, upvotes,
+  showActions = false,
+  comment,
+  onDelete,
+  onEdit,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [upvoted, setUpvoted] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleDelete = () => {
+    if (onDelete) {
+      onDelete(comment.id);
+    }
+  };
+
+  const handleSave = (fields: FormFields) => {
+    const success = onEdit ? onEdit(fields) : true;
+
+    if (success) {
+      setIsEditing(false);
+    }
+  };
 
   return (
     <div className="bg-neutral-200 border rounded-md border-black/10">
       <header className="items-center px-2 py-1 border-b-2 border-black/10 flex justify-between relative">
         <a
-          href={`/author/${authorId}`}
+          href={`/author/${comment.authorId}`}
           className="flex w-fit items-center gap-1 overflow-hidden"
         >
           <Image
-            src={profilePicture}
+            src={comment.profilePicture}
             width={30}
             height={30}
             alt=""
             className="rounded-full border-2 overflow-ellipsis overflow-hidden border-primaryGreen"
           />
 
-          <span className="font-medium">{username}</span>
+          <span className="font-medium">{comment.username}</span>
         </a>
 
         <BlurModalContainer isActive={showActions && isOpen} onBlur={() => setIsOpen(false)}>
@@ -51,7 +72,7 @@ export default function CommentCard({
               aria-label="gostar"
               onClick={() => setUpvoted((prev) => !prev)}
             >
-              <span className="text-sm">{upvotes}</span>
+              <span className="text-sm">{comment.upvotes}</span>
               {upvoted ? <BiSolidUpvote /> : <BiUpvote />}
             </button>
             {showActions && (
@@ -64,6 +85,7 @@ export default function CommentCard({
               </button>
             )}
           </span>
+
           {showActions && (
             <ul
               className={`
@@ -76,6 +98,7 @@ export default function CommentCard({
                 <button
                   type="button"
                   className="p-2 border-b border-black/10 px-4 bg-white hover:brightness-95 w-full"
+                  onClick={() => setIsEditing(true)}
                 >
                   Editar
                 </button>
@@ -84,6 +107,7 @@ export default function CommentCard({
                 <button
                   type="button"
                   className="p-2 border-b border-black/10 px-4 bg-white hover:brightness-95 w-full"
+                  onClick={handleDelete}
                 >
                   Apagar
                 </button>
@@ -93,7 +117,15 @@ export default function CommentCard({
         </BlurModalContainer>
       </header>
 
-      <p className="px-2 py-2">{comment}</p>
+      {isEditing ? (
+        <EditionForm
+          onCancel={() => setIsEditing(false)}
+          onSave={handleSave}
+          initialValues={{ comment: comment.comment }}
+        />
+      ) : (
+        <p className="px-2 py-2">{comment.comment}</p>
+      )}
     </div>
   );
 }

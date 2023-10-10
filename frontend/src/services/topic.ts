@@ -49,4 +49,4 @@ export const requestPopularTopics = async (
   } catch (error) {
     return await treatFetchResponse<Topic[]>(error);
   }
-}
+};

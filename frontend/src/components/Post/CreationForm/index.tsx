@@ -20,9 +20,7 @@ export default function CommentForm() {
     resolver: zodResolver(commentFieldsSchema),
   });
 
-  const onSubmit = (fields: CommentFields): void => {
-    console.log(fields);
-  };
+  const onSubmit = () => {};
 
   return (
     <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>

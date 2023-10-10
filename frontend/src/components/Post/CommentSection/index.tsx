@@ -1,11 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@/components/PostListPagination/Button';
 import profilePicture from '@/assets/profile.svg';
 import { useUser } from '@/contexts/AuthContext';
-import CommentForm from '../CommentForm';
+import CreationForm from '../CreationForm';
 import CommentCard from '../CommentCard';
+import { FormFields } from '../EditionForm';
 
 const commentsMock = [
   {
@@ -51,7 +52,27 @@ const commentsMock = [
 ];
 
 export default function CommentSection() {
+  const [comments, setComments] = useState(commentsMock);
+
   const { user } = useUser();
+
+  const deleteComment = (id: string) => {
+    setComments((prev) => prev.filter((comment) => comment.id !== id));
+  };
+
+  const handleEdit = (id: string) => (fields: FormFields): boolean => {
+    setComments((prev) => prev.map((comment) => {
+      if (comment.id === id) {
+        return {
+          ...comment,
+          comment: fields.comment,
+        };
+      }
+      return comment;
+    }));
+
+    return true;
+  };
 
   return (
     <section className="mt-10">
@@ -64,18 +85,16 @@ export default function CommentSection() {
         </span>
       </header>
 
-      <CommentForm />
+      <CreationForm />
 
       <ul className="mt-4 flex flex-col gap-2">
-        {commentsMock.map((comment) => (
+        {comments.map((comment) => (
           <li key={comment.id}>
             <CommentCard
-              authorId={comment.authorId}
               showActions={user?.id === comment.authorId}
-              username={comment.username}
-              profilePicture={comment.profilePicture}
-              comment={comment.comment}
-              upvotes={comment.upvotes}
+              onDelete={deleteComment}
+              onEdit={handleEdit(comment.id)}
+              comment={comment}
             />
           </li>
         ))}

@@ -1,7 +1,7 @@
 import React from 'react';
+import { requestPopularTopics } from '@/services/topic';
 import TopicLink from './TopicLink';
 import Container from '../Container';
-import { requestPopularTopics } from '@/services/topic';
 
 export default async function PopularTopics() {
   const response = await requestPopularTopics(12);

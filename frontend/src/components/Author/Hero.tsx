@@ -20,7 +20,7 @@ interface Props {
 export default function Hero({ author, count }: Props) {
   const { user } = useUser();
   const authorIsUser = user?.id === author.id;
-  
+
   return (
     <header className="relative bg-primaryGreen px-3 pt-5 sm:px-5 sm:pt-7 flex gap-3 sm:gap-5 flex-col sm:flex-row items-start sm:items-end mb-8">
       <Image
