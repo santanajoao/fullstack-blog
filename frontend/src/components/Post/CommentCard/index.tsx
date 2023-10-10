@@ -18,6 +18,7 @@ interface Props {
   showActions?: boolean;
   onDelete?: (id: string) => void;
   onEdit?: (fields: FormFields) => boolean;
+  onUpvote?: (isUpvoted: boolean) => boolean;
 }
 
 // replicar lógica dos likes no upvote
@@ -27,6 +28,7 @@ export default function CommentCard({
   comment,
   onDelete,
   onEdit,
+  onUpvote,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [upvoted, setUpvoted] = useState(false);
@@ -45,6 +47,19 @@ export default function CommentCard({
       setIsEditing(false);
     }
   };
+
+  const handleUpvote = () => {
+    const success = onUpvote ? onUpvote(upvoted) : true;
+
+    if (success) {
+      setUpvoted((prev) => !prev);
+    }
+  }
+
+  const modalActions = [
+    { name: 'Editar', onClick: () => setIsEditing(true) },
+    { name: 'Apagar', onClick: handleDelete },
+  ];
 
   return (
     <div className="bg-neutral-200 border rounded-md border-black/10">
@@ -70,11 +85,12 @@ export default function CommentCard({
               type="button"
               className="flex items-center"
               aria-label="gostar"
-              onClick={() => setUpvoted((prev) => !prev)}
+              onClick={handleUpvote}
             >
               <span className="text-sm">{comment.upvotes}</span>
               {upvoted ? <BiSolidUpvote /> : <BiUpvote />}
             </button>
+
             {showActions && (
               <button
                 aria-label="Abrir menu de ações"
@@ -94,24 +110,17 @@ export default function CommentCard({
                 -translate-y-1/2 transition-opacity border border-black/10 rounded-md
               `}
             >
-              <li>
-                <button
-                  type="button"
-                  className="p-2 border-b border-black/10 px-4 bg-white hover:brightness-95 w-full"
-                  onClick={() => setIsEditing(true)}
-                >
-                  Editar
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  className="p-2 border-b border-black/10 px-4 bg-white hover:brightness-95 w-full"
-                  onClick={handleDelete}
-                >
-                  Apagar
-                </button>
-              </li>
+              {modalActions.map((action) => (
+                <li>
+                  <button
+                    type="button"
+                    className="p-2 border-b border-black/10 px-4 bg-white hover:brightness-95 w-full"
+                    onClick={action.onClick}
+                  >
+                    {action.name}
+                  </button>
+                </li>
+              ))}
             </ul>
           )}
         </BlurModalContainer>
