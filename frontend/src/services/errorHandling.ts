@@ -12,7 +12,8 @@ export const treatFetchResponse = async <T>(
   } as unknown as TServiceResponse<T>;
 
   if (!(requestInfos instanceof Response)) {
-    throw new Error('Algo inesperado aconteceu');
+    console.error('Algo inesperado aconteceu');
+    return result;
   }
 
   result.status = requestInfos.status;
@@ -57,7 +58,8 @@ export const treatAxiosResponse = async <T>(
       return result;
     }
 
-    throw new Error('Algo inesperado aconteceu');
+    console.error('Algo inesperado aconteceu');
+    return result;
   }
 
   return result;

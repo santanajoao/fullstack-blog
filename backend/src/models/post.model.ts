@@ -68,6 +68,7 @@ export const findPostById = async (id: string) => {
           name: true,
         }
       },
+      comments: true,
     },
   });
 };

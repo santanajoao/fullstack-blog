@@ -54,7 +54,7 @@ export default function CommentCard({
     if (success) {
       setUpvoted((prev) => !prev);
     }
-  }
+  };
 
   const modalActions = [
     { name: 'Editar', onClick: () => setIsEditing(true) },
