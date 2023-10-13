@@ -6,8 +6,9 @@ import { useUser } from '@/contexts/AuthContext';
 import CreationForm from '../CreationForm';
 import CommentCard from '../CommentCard';
 import { Comment } from '@/types/Comment';
-import { requestPostComments } from '@/services/posts';
+import { requestDeleteCommentById, requestPostComments } from '@/services/posts';
 import { toast } from 'react-toastify';
+import { getCookie } from '@/lib/cookies';
 
 interface Props {
   postId: string;
@@ -17,18 +18,19 @@ export default function CommentSection({ postId }: Props) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [page, setPage] = useState(0);
   const [commentsEnded, setCommentsEnded] = useState(false);
+  const commentQuantity = 6;
 
   const { user } = useUser();
 
   const fetchComments = async () => {
     const response = await requestPostComments(
-      postId, { page, quantity: 2 },
+      postId, { page, quantity: commentQuantity },
     );
 
-    console.log(response);
-
     if (!response.success) return toast.error(response.message);
-    if (response.data.length === 0) return setCommentsEnded(true);
+    if (response.data.length === 0 || response.data.length < commentQuantity) {
+      setCommentsEnded(true);
+    }
     setComments(response.data);
   };
 
@@ -36,15 +38,25 @@ export default function CommentSection({ postId }: Props) {
     if (!comments || comments.length === 0) return;
 
     const response = await requestPostComments(
-      postId, { page, quantity: 2 },
+      postId, { page, quantity: commentQuantity },
     );
 
     if (!response.success) return toast.error(response.message);
-    if (response.data.length === 0) {
-      setCommentsEnded(true);
-      return toast.info('Não há mais comentários');
-    }
+    if (response.data.length < commentQuantity) setCommentsEnded(true);
+    if (response.data.length === 0) return toast.info('Não há mais comentários');
+
     setComments((prev) => [...prev, ...response.data]);
+  };
+
+  const handleDelete = async (commentId: string) => {
+    const token = getCookie('blog.session.token');
+    const response = await requestDeleteCommentById(token || '', commentId);
+
+    if (response.success) {
+      setComments((prev) => prev.filter((comment) => comment.id !== commentId));
+    } else {
+      toast.error('Erro ao apagar comentário');
+    }
   };
 
   useEffect(() => {
@@ -73,7 +85,7 @@ export default function CommentSection({ postId }: Props) {
           <li key={comment.id}>
             <CommentCard
               showActions={user?.id === comment.account.id}
-              onDelete={() => {}}
+              onDelete={handleDelete}
               onEdit={() => true}
               comment={comment}
             />

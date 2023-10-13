@@ -84,3 +84,13 @@ export const requestPostComments = async (
 
   return response;
 };
+
+export const requestDeleteCommentById = async (token: string, id: string) => {
+  const response = await treatAxiosResponse<Comment>(
+    () => axios.delete(`${clientApiUrl}/comments/${id}`, {
+      headers: { Authorization: token },
+    }),
+  );
+
+  return response;
+};
