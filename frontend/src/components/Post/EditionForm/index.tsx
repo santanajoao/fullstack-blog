@@ -6,17 +6,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-export type FormFields = {
+export type CommentFields = {
   comment: string;
 };
 
 interface Props {
-  initialValues?: FormFields,
+  initialValues?: CommentFields,
   onCancel: () => void;
-  onSave: (fields: FormFields) => void;
+  onSave: (fields: CommentFields) => void | Promise<void>;
 }
 
-const defaultValues: FormFields = {
+const defaultValues: CommentFields = {
   comment: '',
 };
 
@@ -29,7 +29,7 @@ export default function EditionForm({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormFields>({
+  } = useForm<CommentFields>({
     resolver: zodResolver(commentFieldsSchema),
     values: initialValues,
   });

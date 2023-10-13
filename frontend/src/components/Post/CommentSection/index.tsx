@@ -6,9 +6,10 @@ import { useUser } from '@/contexts/AuthContext';
 import CreationForm from '../CreationForm';
 import CommentCard from '../CommentCard';
 import { Comment } from '@/types/Comment';
-import { requestDeleteCommentById, requestPostComments } from '@/services/posts';
+import { requestDeleteCommentById, requestPostComments, requestPutCommentById } from '@/services/posts';
 import { toast } from 'react-toastify';
 import { getCookie } from '@/lib/cookies';
+import { CommentFields } from '../EditionForm';
 
 interface Props {
   postId: string;
@@ -59,6 +60,23 @@ export default function CommentSection({ postId }: Props) {
     }
   };
 
+  const handleEdit = async (
+    id: string, fields: CommentFields,
+  ): Promise<boolean> => {
+    const token = getCookie('blog.session.token');
+    const response = await requestPutCommentById(token || '', id, fields.comment);
+
+    if (response.success) {
+      setComments((prev) => prev.map(
+        (comment) => comment.id === id ? response.data : comment),
+      );
+      return true;
+    }
+
+    toast.error('Erro ao editar comentário');
+    return false;
+  };
+
   useEffect(() => {
     fetchComments();
   }, []);
@@ -86,7 +104,7 @@ export default function CommentSection({ postId }: Props) {
             <CommentCard
               showActions={user?.id === comment.account.id}
               onDelete={handleDelete}
-              onEdit={() => true}
+              onEdit={handleEdit}
               comment={comment}
             />
           </li>

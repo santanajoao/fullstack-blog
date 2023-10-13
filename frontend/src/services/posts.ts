@@ -94,3 +94,17 @@ export const requestDeleteCommentById = async (token: string, id: string) => {
 
   return response;
 };
+
+export const requestPutCommentById = async (
+  token: string, id: string, comment: string,
+) => {
+  const response = await treatAxiosResponse<Comment>(
+    () => axios.put(
+      `${clientApiUrl}/comments/${id}`,
+      { comment },
+      { headers: { Authorization: token } },
+    ),
+  );
+
+  return response;
+};

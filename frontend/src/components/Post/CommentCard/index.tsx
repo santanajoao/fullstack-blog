@@ -4,7 +4,7 @@ import BlurModalContainer from '@/components/Container/BlurModalContainer';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { BiDotsVertical, BiSolidUpvote, BiUpvote } from 'react-icons/bi';
-import EditionForm, { FormFields } from '../EditionForm';
+import EditionForm, { CommentFields } from '../EditionForm';
 import { Comment } from '@/types/Comment';
 import profilePicture from '@/assets/profile.svg';
 
@@ -12,7 +12,7 @@ interface Props {
   comment: Comment,
   showActions?: boolean;
   onDelete?: (id: string) => void;
-  onEdit?: (fields: FormFields) => boolean;
+  onEdit?: (id: string, fields: CommentFields) => boolean | Promise<boolean>;
   onUpvote?: (isUpvoted: boolean) => boolean;
 }
 
@@ -35,8 +35,8 @@ export default function CommentCard({
     }
   };
 
-  const handleSave = (fields: FormFields) => {
-    const success = onEdit ? onEdit(fields) : true;
+  const handleSave = async (fields: CommentFields) => {
+    const success = onEdit ? await onEdit(comment.id, fields) : true;
 
     if (success) {
       setIsEditing(false);

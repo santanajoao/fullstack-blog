@@ -9,7 +9,7 @@ import { commentSchema } from './validations/schemas/comment.schema';
 import { validateCommentId } from './validations/commentValidations';
 import { Options } from './post.service';
 
-export const updateCommentById = async (id: string, comment: string): AsyncServiceResponse<Comment> => {
+export const updateCommentById = async (id: string, comment: string): AsyncServiceResponse<unknown> => {
   const schemaValidation = validateSchemaFields(commentSchema, comment);
   if (schemaValidation.status !== 'SUCCESS') return schemaValidation;
 
