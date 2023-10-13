@@ -7,6 +7,7 @@ import { validatePostId } from './validations/postValidations';
 import validateSchemaFields from './validations/validateSchemaFields';
 import { commentSchema } from './validations/schemas/comment.schema';
 import { validateCommentId } from './validations/commentValidations';
+import { Options } from './post.service';
 
 export const updateCommentById = async (id: string, comment: string): AsyncServiceResponse<Comment> => {
   const schemaValidation = validateSchemaFields(commentSchema, comment);
@@ -39,4 +40,16 @@ export const createComment = async (comment: CommentCreation): AsyncServiceRespo
 
   const createdComment = await commentModel.createComment(comment);
   return { status: 'SUCCESS', data: createdComment };
+};
+
+export const getCommentsByPostId = async (postId: string, options: Options): AsyncServiceResponse<unknown> => {
+  const postValidation = await validatePostId(postId);
+  if (postValidation.status !== 'SUCCESS') return postValidation;
+
+  const comments = await commentModel.findCommentsByPostId(postId, {
+    skip: options.page * options.quantity,
+    take: options.quantity,
+  });
+
+  return { status: 'SUCCESS', data: comments };
 };

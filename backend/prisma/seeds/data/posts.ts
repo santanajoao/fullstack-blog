@@ -137,10 +137,10 @@ Neste post, você aprendeu como usar markdown para criar posts incríveis no seu
     accountId: accounts[0].id,
     topics: { connect: [{ id: topics[8].id }, { id: topics[18].id }] },
     comments: { create: [
-      { content: 'Muito bom meu post, né?', accountId: accounts[0].id },
-      { content: 'Que legal!', accountId: accounts[7].id },
-      { content: 'Muito bom! Vou começar a postar agora.', accountId: accounts[4].id },
-      { content: 'Dá pra colocar vídeos?', accountId: accounts[13].id },
+      { comment: 'Muito bom meu post, né?', accountId: accounts[0].id },
+      { comment: 'Que legal!', accountId: accounts[7].id },
+      { comment: 'Muito bom! Vou começar a postar agora.', accountId: accounts[4].id },
+      { comment: 'Dá pra colocar vídeos?', accountId: accounts[13].id },
     ] },
   },
   {

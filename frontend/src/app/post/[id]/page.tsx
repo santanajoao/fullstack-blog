@@ -23,7 +23,6 @@ export default async function PostPage({ params }: Params) {
   if (!response.success) return null;
 
   const postData = response.data;
-
   return (
     <>
       <HomeHeader />
@@ -36,7 +35,7 @@ export default async function PostPage({ params }: Params) {
           </Container.Markdown>
         </section>
 
-        <CommentSection />
+        <CommentSection postId={params.id} />
       </main>
       <Footer />
     </>

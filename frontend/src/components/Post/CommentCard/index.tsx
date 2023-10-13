@@ -5,16 +5,11 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import { BiDotsVertical, BiSolidUpvote, BiUpvote } from 'react-icons/bi';
 import EditionForm, { FormFields } from '../EditionForm';
+import { Comment } from '@/types/Comment';
+import profilePicture from '@/assets/profile.svg';
 
 interface Props {
-  comment: {
-    id: string,
-    profilePicture: string;
-    username: string;
-    comment: string;
-    authorId: string;
-    upvotes: number;
-  },
+  comment: Comment,
   showActions?: boolean;
   onDelete?: (id: string) => void;
   onEdit?: (fields: FormFields) => boolean;
@@ -65,18 +60,18 @@ export default function CommentCard({
     <div className="bg-neutral-200 border rounded-md border-black/10">
       <header className="items-center px-2 py-1 border-b-2 border-black/10 flex justify-between relative">
         <a
-          href={`/author/${comment.authorId}`}
+          href={`/author/${comment.account.id}`}
           className="flex w-fit items-center gap-1 overflow-hidden"
         >
           <Image
-            src={comment.profilePicture}
+            src={comment.account.imageUrl ?? profilePicture}
             width={30}
             height={30}
             alt=""
             className="rounded-full border-2 overflow-ellipsis overflow-hidden border-primaryGreen"
           />
 
-          <span className="font-medium">{comment.username}</span>
+          <span className="font-medium">{comment.account.username}</span>
         </a>
 
         <BlurModalContainer isActive={showActions && isOpen} onBlur={() => setIsOpen(false)}>
@@ -87,7 +82,7 @@ export default function CommentCard({
               aria-label="gostar"
               onClick={handleUpvote}
             >
-              <span className="text-sm">{comment.upvotes}</span>
+              <span className="text-sm">0</span>
               {upvoted ? <BiSolidUpvote /> : <BiUpvote />}
             </button>
 
@@ -111,7 +106,7 @@ export default function CommentCard({
               `}
             >
               {modalActions.map((action) => (
-                <li>
+                <li key={action.name}>
                   <button
                     type="button"
                     className="p-2 border-b border-black/10 px-4 bg-white hover:brightness-95 w-full"

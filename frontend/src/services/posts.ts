@@ -5,6 +5,7 @@ import { Account } from '@/types/Account';
 import { TopicWithoutImage } from '@/types/Topic';
 import { treatAxiosResponse, treatFetchResponse } from './errorHandling';
 import { clientApiUrl, serverApiUrl } from './constants';
+import { Comment } from '@/types/Comment';
 
 export const requestTopicPosts = async (
   topicId: string,
@@ -34,10 +35,13 @@ export const createPost = async (
   return response;
 };
 
-type RequestPostsParams = {
+type PaginationParams = {
+  page?: number;
+  quantity?: number;
+};
+
+type RequestPostsParams = PaginationParams & {
   endpoint: string;
-  quantity: number;
-  page: number;
   orderBy?: string;
 };
 
@@ -67,4 +71,16 @@ export const requestPostById = async (id: string): Promise<TServiceResponse<Post
   } catch (error) {
     return await treatFetchResponse<PostData>(error);
   }
+};
+
+export const requestPostComments = async (
+  postId: string, { page, quantity }: PaginationParams,
+): Promise<TServiceResponse<Comment[]>> => {
+  const response = await treatAxiosResponse<Comment[]>(
+    () => axios.get(
+      `${clientApiUrl}/posts/${postId}/comments?quantity=${quantity}&page=${page}`,
+    )
+  );
+
+  return response;
 };

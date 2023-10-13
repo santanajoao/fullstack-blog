@@ -2,8 +2,9 @@ import { Request, Response } from 'express';
 import postService from '../services/post.service';
 import { mapErrorStatus } from '../utils/http';
 import { buildImageUrl } from '../utils/image';
+import * as commentService from '../services/comment.service';
 
-const handleGetPopularPosts = async (req: Request, res: Response) => {
+export const handleGetPopularPosts = async (req: Request, res: Response) => {
   const quantity = Number(req.query.quantity);
   const page = Number(req.query.page) || 0;
   const { data } = await postService.getWeekPopularPosts(quantity, page);
@@ -11,7 +12,7 @@ const handleGetPopularPosts = async (req: Request, res: Response) => {
   res.status(200).json(data);
 };
 
-const handleGetPostsByTopicId = async (req: Request, res: Response) => {
+export const handleGetPostsByTopicId = async (req: Request, res: Response) => {
   const { id } = req.params;
   const quantity = Number(req.query.quantity);
   const page = Number(req.query.page) || 0;
@@ -25,7 +26,7 @@ const handleGetPostsByTopicId = async (req: Request, res: Response) => {
   res.status(200).json(data);
 };
 
-const handleGetTopicPosts = async (req: Request, res: Response) => {
+export const handleGetTopicPosts = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   const { status, data } = await postService.getTopicPostsInfos(id);
@@ -36,7 +37,7 @@ const handleGetTopicPosts = async (req: Request, res: Response) => {
   res.status(200).json(data);
 };
 
-const handleGetPostById = async (req: Request, res: Response) => {
+export const handleGetPostById = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   const { status, data } = await postService.getPostById(id);
@@ -47,7 +48,7 @@ const handleGetPostById = async (req: Request, res: Response) => {
   res.status(200).json(data);
 };
 
-const handleGetPostsByAccount = async (req: Request, res: Response) => {
+export const handleGetPostsByAccount = async (req: Request, res: Response) => {
   const { id } = req.params;
   const quantity = Number(req.query.quantity);
   const page = Number(req.query.page) || 0;
@@ -61,7 +62,7 @@ const handleGetPostsByAccount = async (req: Request, res: Response) => {
 };
 
 
-const handleGetAccountPostsCount = async (req: Request, res: Response) => {
+export const handleGetAccountPostsCount = async (req: Request, res: Response) => {
   const accountId = req.params.id;
 
   const { status, data } = await postService.countPostInfos(accountId);
@@ -72,7 +73,7 @@ const handleGetAccountPostsCount = async (req: Request, res: Response) => {
   res.status(200).json(data);
 };
 
-const handlePostPost = async (req: Request, res: Response) => {
+export const handlePostPost = async (req: Request, res: Response) => {
   const { title, description, content, topics } = req.body;
   const topicList = JSON.parse(topics);
   const accountId = req.body.local.account.id;
@@ -90,12 +91,17 @@ const handlePostPost = async (req: Request, res: Response) => {
   res.status(201).json(data);
 };
 
-export default {
-  handleGetPopularPosts,
-  handleGetPostsByTopicId,
-  handleGetTopicPosts,
-  handleGetPostById,
-  handleGetPostsByAccount,
-  handlePostPost,
-  handleGetAccountPostsCount,
+export const handleGetPostComments= async (req: Request, res: Response) => {
+  const quantity = Number(req.query.quantity || 20);
+  const page = Number(req.query.page) || 0;
+  const { id } = req.params;
+
+  const { status, data } = await commentService
+    .getCommentsByPostId(id, { quantity, page });
+
+  if (status !== 'SUCCESS') {
+    return res.status(mapErrorStatus(status)).json(data);
+  }
+  
+  return res.status(200).json(data ?? []);
 };

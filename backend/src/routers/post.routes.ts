@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import postController from '../controllers/post.controller';
+import * as postController from '../controllers/post.controller';
 import validateToken from '../middlewares/validateToken';
 import checkForFields from '../middlewares/checkForFields';
 import uploader from '../lib/multer';
@@ -21,5 +21,6 @@ postRouter.post(
   validateToken,
   postController.handlePostPost,
 );
+postRouter.get('/:id/comments', postController.handleGetPostComments);
 
 export default postRouter;

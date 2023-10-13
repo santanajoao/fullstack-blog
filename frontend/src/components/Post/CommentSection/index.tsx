@@ -1,85 +1,66 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@/components/PostListPagination/Button';
-import profilePicture from '@/assets/profile.svg';
 import { useUser } from '@/contexts/AuthContext';
 import CreationForm from '../CreationForm';
 import CommentCard from '../CommentCard';
-import { FormFields } from '../EditionForm';
+import { Comment } from '@/types/Comment';
+import { requestPostComments } from '@/services/posts';
+import { toast } from 'react-toastify';
 
-const commentsMock = [
-  {
-    id: 'kajsd9123ksja91',
-    username: 'Maria Carla',
-    comment: 'Que post legal! Continue postando.',
-    authorId: '1kasdjasd123',
-    upvotes: 2,
-    profilePicture,
-  },
-  {
-    id: '19asjdk012jkasd0',
-    username: 'Zeca Pagodinho',
-    comment: 'Agora eu começo a fazer minhas publicações',
-    authorId: 'kaskjd12jkask',
-    upvotes: 3,
-    profilePicture,
-  },
-  {
-    id: 'jasdkj912jkas',
-    username: 'MrBlog',
-    comment: 'Meu post é muito bom, né?',
-    upvotes: 0,
-    authorId: '30758187-bd56-4230-94fe-504c921e72e5',
-    profilePicture,
-  },
-  {
-    id: 'kascxm4i19xjk',
-    username: 'Jhon Doe',
-    comment: 'No hablo português. Didnt understand',
-    authorId: 'asjkdjaad',
-    upvotes: 1,
-    profilePicture,
-  },
-  {
-    id: 'askjk19jsd91j',
-    username: 'MrBlog',
-    comment: 'Me again',
-    upvotes: 0,
-    authorId: '30758187-bd56-4230-94fe-504c921e72e5',
-    profilePicture,
-  },
-];
+interface Props {
+  postId: string;
+}
 
-export default function CommentSection() {
-  const [comments, setComments] = useState(commentsMock);
+export default function CommentSection({ postId }: Props) {
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [page, setPage] = useState(0);
+  const [commentsEnded, setCommentsEnded] = useState(false);
 
   const { user } = useUser();
 
-  const deleteComment = (id: string) => {
-    setComments((prev) => prev.filter((comment) => comment.id !== id));
+  const fetchComments = async () => {
+    const response = await requestPostComments(
+      postId, { page, quantity: 2 },
+    );
+
+    console.log(response);
+
+    if (!response.success) return toast.error(response.message);
+    if (response.data.length === 0) return setCommentsEnded(true);
+    setComments(response.data);
   };
 
-  const handleEdit = (id: string) => (fields: FormFields): boolean => {
-    setComments((prev) => prev.map((comment) => {
-      if (comment.id === id) {
-        return {
-          ...comment,
-          comment: fields.comment,
-        };
-      }
-      return comment;
-    }));
+  const appendComments = async () => {
+    if (!comments || comments.length === 0) return;
 
-    return true;
+    const response = await requestPostComments(
+      postId, { page, quantity: 2 },
+    );
+
+    if (!response.success) return toast.error(response.message);
+    if (response.data.length === 0) {
+      setCommentsEnded(true);
+      return toast.info('Não há mais comentários');
+    }
+    setComments((prev) => [...prev, ...response.data]);
   };
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
+
+  useEffect(() => {
+    appendComments();
+  }, [page]);
 
   return (
     <section className="mt-10">
       <header className="flex items-center p-1 border-t-2 border-black/10 justify-between">
         <h2 className="text-xl font-bold">Comentários</h2>
         <span className="font-medium text-sm">
-          {commentsMock.length}
+          {comments.length}
           {' '}
           Comentários
         </span>
@@ -91,18 +72,20 @@ export default function CommentSection() {
         {comments.map((comment) => (
           <li key={comment.id}>
             <CommentCard
-              showActions={user?.id === comment.authorId}
-              onDelete={deleteComment}
-              onEdit={handleEdit(comment.id)}
+              showActions={user?.id === comment.account.id}
+              onDelete={() => {}}
+              onEdit={() => true}
               comment={comment}
             />
           </li>
         ))}
       </ul>
 
-      <Button type="button">
-        Ver mais comentários
-      </Button>
+      {!commentsEnded && (
+        <Button type="button" onClick={() => setPage((prev) => prev + 1)}>
+          Ver mais comentários
+        </Button>
+      )}
     </section>
   );
 }

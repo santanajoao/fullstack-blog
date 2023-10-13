@@ -13,7 +13,7 @@ export const createPost = async (data: ModelPostCreation) => {
   });  
 };
 
-type FindOptions = {
+export type FindOptions = {
   orderBy?: Prisma.PostFindManyArgs['orderBy'],
   take?: number;
   skip?: number;
@@ -68,7 +68,6 @@ export const findPostById = async (id: string) => {
           name: true,
         }
       },
-      comments: true,
     },
   });
 };

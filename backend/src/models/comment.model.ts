@@ -1,9 +1,31 @@
 import { Comment } from '@prisma/client';
 import prisma from '../lib/prisma';
 import { CommentCreation } from '../types/comment';
+import { FindOptions } from './post.model';
 
-export const findCommentById = (id: string): Promise<Comment | null> => {
+export const findCommentById = async (id: string): Promise<Comment | null> => {
   return prisma.comment.findUnique({ where: { id } });
+};
+
+export const findCommentsByPostId = async (postId: string, options: FindOptions) => {
+  const { take, skip } = options;
+
+  return prisma.comment.findMany({
+    where: { postId },
+    select: {
+      id: true,
+      comment: true,
+      account: {
+        select: {
+          id: true,
+          imageUrl: true,
+          username: true,
+        },
+      },
+    },
+    take,
+    skip,
+  });
 };
 
 export const createComment = async (
