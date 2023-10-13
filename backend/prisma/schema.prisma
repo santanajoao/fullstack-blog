@@ -54,7 +54,7 @@ model Post {
 
 model Comment {
   id String @id @default(uuid())
-  content String
+  comment String
 
   accountId String  @map("account_id")
   account   Account @relation(fields: [accountId], references: [id])
