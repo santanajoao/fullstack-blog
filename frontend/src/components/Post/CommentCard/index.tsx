@@ -82,7 +82,7 @@ export default function CommentCard({
               aria-label="gostar"
               onClick={handleUpvote}
             >
-              <span className="text-sm">0</span>
+              <span className="text-sm">{ comment.upvotes }</span>
               {upvoted ? <BiSolidUpvote /> : <BiUpvote />}
             </button>
 
