@@ -30,12 +30,23 @@ export const findCommentsByPostId = async (postId: string, options: FindOptions)
 
 export const createComment = async (
   { comment, postId, accountId }: CommentCreation,
-): Promise<Comment> => {
+) => {
   return prisma.comment.create({
     data: {
       comment,
       postId,
       accountId,
+    },
+    select: {
+      id: true,
+      comment: true,
+      account: {
+        select: {
+          id: true,
+          imageUrl: true,
+          username: true,
+        },
+      },
     },
   });
 };

@@ -91,7 +91,7 @@ export const handlePostPost = async (req: Request, res: Response) => {
   res.status(201).json(data);
 };
 
-export const handleGetPostComments= async (req: Request, res: Response) => {
+export const handleGetPostComments = async (req: Request, res: Response) => {
   const quantity = Number(req.query.quantity || 20);
   const page = Number(req.query.page) || 0;
   const { id } = req.params;
@@ -104,4 +104,19 @@ export const handleGetPostComments= async (req: Request, res: Response) => {
   }
   
   return res.status(200).json(data ?? []);
+};
+
+export const handlePostComment = async (req: Request, res: Response) => {
+  const postId = req.params.id;
+  const accountId = req.body.local.account.id;
+  const { comment } = req.body;
+
+  const { status, data } = await commentService
+    .createComment({ comment, accountId, postId });
+
+  if (status !== 'SUCCESS') {
+    return res.status(mapErrorStatus(status)).json(data);
+  }
+
+  return res.status(201).json(data);
 };

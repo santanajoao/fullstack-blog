@@ -12,6 +12,8 @@ postRouter.get('/popular', postController.handleGetPopularPosts);
 postRouter.get('/:id', postController.handleGetPostById);
 postRouter.get('/account/:id', postController.handleGetPostsByAccount);
 postRouter.get('/account/:id/count', postController.handleGetAccountPostsCount);
+postRouter.get('/:id/comments', postController.handleGetPostComments);
+
 postRouter.post(
   '/',
   uploader.single('image'),
@@ -21,6 +23,12 @@ postRouter.post(
   validateToken,
   postController.handlePostPost,
 );
-postRouter.get('/:id/comments', postController.handleGetPostComments);
+
+postRouter.post(
+  '/:id/comments',
+  validateToken,
+  checkForFields(['comment']),
+  postController.handlePostComment,
+);
 
 export default postRouter;

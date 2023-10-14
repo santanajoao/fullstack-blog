@@ -1,39 +1,51 @@
 'use client';
 
 import Textarea from '@/components/Profile/Textarea';
-import React from 'react';
+import React, { FormEventHandler, useState } from 'react';
 import Sign from '@/components/Sign';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { commentFieldsSchema } from '@/lib/schemas/comment.schema';
+import { commentMaxLength, commentMinLength } from '@/lib/schemas/comment.schema';
 
-type CommentFields = {
-  comment: string;
+type FormFunctions = {
+  clearError: () => void;
+  setError: (error: string) => void;
 };
 
-export default function CommentForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<CommentFields>({
-    resolver: zodResolver(commentFieldsSchema),
-  });
+export type CommentCreationHandler = (
+  comment: string, functions: FormFunctions
+) => void | Promise<void>;
 
-  const onSubmit = () => {};
+interface Props {
+  onSubmit: CommentCreationHandler;
+}
+
+export default function CommentForm({ onSubmit }: Props) {
+  const [comment, setComment] = useState('');
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const clearError = () => setSubmitError(null);
+  const setError = (error: string) => setSubmitError(error);
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+
+    onSubmit(comment, { clearError, setError });
+  }
+
+  const isDisabled = comment.length < commentMinLength
+    || comment.length > commentMaxLength;
 
   return (
-    <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col" onSubmit={handleSubmit}>
       <Textarea
         aria-label="Deixe seu comentário"
         placeholder="Deixe aqui seu comentário"
         name="comment"
-        register={register}
+        onChange={(e) => setComment(e.target.value)}
       />
 
-      <Sign.ErrorMessage>{errors.comment?.message}</Sign.ErrorMessage>
+      <Sign.ErrorMessage>{submitError}</Sign.ErrorMessage>
 
-      <Sign.Button className="py-2 w-fit mt-1" type="submit">Comentar</Sign.Button>
+      <Sign.Button disabled={isDisabled} className="py-2 w-fit mt-1" type="submit">Comentar</Sign.Button>
     </form>
   );
 }

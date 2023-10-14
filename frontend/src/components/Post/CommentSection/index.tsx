@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@/components/PostListPagination/Button';
 import { useUser } from '@/contexts/AuthContext';
-import CreationForm from '../CreationForm';
+import CreationForm, { CommentCreationHandler } from '../CreationForm';
 import CommentCard from '../CommentCard';
 import { Comment } from '@/types/Comment';
-import { requestDeleteCommentById, requestPostComments, requestPutCommentById } from '@/services/posts';
+import { requestDeleteCommentById, requestPostComment, requestPostComments, requestPutCommentById } from '@/services/posts';
 import { toast } from 'react-toastify';
 import { getCookie } from '@/lib/cookies';
 import { CommentFields } from '../EditionForm';
@@ -77,6 +77,18 @@ export default function CommentSection({ postId }: Props) {
     return false;
   };
 
+  const handleComment: CommentCreationHandler =  async (comment, functions) => {
+    const token = getCookie('blog.session.token');
+    const response = await requestPostComment(token || '', postId, comment);
+    
+    if (response.success) {
+      setComments((prev) => [...prev, response.data]);
+      functions.clearError();
+    } else {
+      functions.setError(response.message);
+    }
+  };
+
   useEffect(() => {
     fetchComments();
   }, []);
@@ -96,7 +108,7 @@ export default function CommentSection({ postId }: Props) {
         </span>
       </header>
 
-      <CreationForm />
+      <CreationForm onSubmit={handleComment} />
 
       <ul className="mt-4 flex flex-col gap-2">
         {comments.map((comment) => (

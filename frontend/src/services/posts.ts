@@ -108,3 +108,18 @@ export const requestPutCommentById = async (
 
   return response;
 };
+
+export const requestPostComment = async (
+  token: string, postId: string, comment: string,
+) => {
+  const response = await treatAxiosResponse<Comment>(
+    () => axios.post(
+      `${clientApiUrl}/posts/${postId}/comments`,
+      { comment },
+      { headers: { Authorization: token } },
+    ),
+  );
+
+  return response;
+};
+

@@ -5,13 +5,6 @@ import checkForFields from '../middlewares/checkForFields';
 
 const commentRouter = Router();
 
-commentRouter.post(
-  '/',
-  checkForFields(['comment', 'postId']),
-  validateToken,
-  commentController.handlePostComment,
-);
-
 commentRouter.put(
   '/:id',
   checkForFields(['comment']),

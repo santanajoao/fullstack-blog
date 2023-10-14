@@ -28,7 +28,7 @@ export const deleteCommentById = async (id: string): AsyncServiceResponse<Commen
   return { status: 'SUCCESS', data: deletedComment };
 };
 
-export const createComment = async (comment: CommentCreation): AsyncServiceResponse<Comment> => {
+export const createComment = async (comment: CommentCreation): AsyncServiceResponse<unknown> => {
   const accountValidation = await validateAccountId(comment.accountId);
   if (accountValidation.status !== 'SUCCESS') return accountValidation;
 
