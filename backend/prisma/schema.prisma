@@ -28,7 +28,7 @@ model Account {
 
   posts    Post[]
   likes    Likes[]
-  upvotes Upvote[]
+  upvotes Vote[]
   comments Comment[]
 
   @@map("accounts")
@@ -63,7 +63,7 @@ model Comment {
   postId String @map("post_id")
   post   Post   @relation(fields: [postId], references: [id])
 
-  upvotes Upvote[]
+  upvotes Vote[]
 }
 
 model PostTopic {
@@ -88,7 +88,7 @@ model Likes {
   @@map("likes")
 }
 
-model Upvote {
+model Vote {
   accountId String  @map("account_id")
   account   Account @relation(fields: [accountId], references: [id])
 
@@ -96,5 +96,5 @@ model Upvote {
   commet   Comment   @relation(fields: [commentId], references: [id])
 
   @@id([accountId, commentId])
-  @@map("upvote")
+  @@map("vote")
 }

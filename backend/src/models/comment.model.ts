@@ -10,11 +10,16 @@ export const findCommentById = async (id: string): Promise<Comment | null> => {
 export const findCommentsByPostId = async (postId: string, options: FindOptions) => {
   const { take, skip } = options;
 
-  return prisma.comment.findMany({
+  return await prisma.comment.findMany({
     where: { postId },
     select: {
       id: true,
       comment: true,
+      _count: {
+        select: {
+          upvotes: true,
+        }
+      },
       account: {
         select: {
           id: true,
