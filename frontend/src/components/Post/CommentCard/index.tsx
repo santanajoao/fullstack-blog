@@ -13,7 +13,7 @@ interface Props {
   showActions?: boolean;
   onDelete?: (id: string) => void;
   onEdit?: (id: string, fields: CommentFields) => boolean | Promise<boolean>;
-  onUpvote?: (isUpvoted: boolean) => boolean;
+  onUpvote?: (commentId: string, isUpvoted: boolean) => boolean | Promise<boolean>;
 }
 
 // replicar lógica dos likes no upvote
@@ -43,8 +43,8 @@ export default function CommentCard({
     }
   };
 
-  const handleUpvote = () => {
-    const success = onUpvote ? onUpvote(upvoted) : true;
+  const handleUpvote = async () => {
+    const success = onUpvote ? await onUpvote(comment.id, upvoted) : true;
 
     if (success) {
       setUpvoted((prev) => !prev);

@@ -6,10 +6,11 @@ import { useUser } from '@/contexts/AuthContext';
 import CreationForm, { CommentCreationHandler } from '../CreationForm';
 import CommentCard from '../CommentCard';
 import { Comment } from '@/types/Comment';
-import { requestDeleteCommentById, requestPostComment, requestPostComments, requestPutCommentById } from '@/services/posts';
+import { requestDeleteCommentById, requestDeleteVote, requestPostComment, requestPostComments, requestPostVote, requestPutCommentById } from '@/services/posts';
 import { toast } from 'react-toastify';
 import { getCookie } from '@/lib/cookies';
 import { CommentFields } from '../EditionForm';
+import { number } from 'zod';
 
 interface Props {
   postId: string;
@@ -89,6 +90,36 @@ export default function CommentSection({ postId }: Props) {
     }
   };
 
+  const calculateUpvotes = (commentId: string, difference: number) => {
+    setComments((prev) => prev.map((comment) => {
+      if (comment.id === commentId) {
+        return { ...comment, upvotes: comment.upvotes + difference };
+      }
+      return comment;
+    }));
+  };
+
+  const handleUpvote = async (
+    commentId: string, isUpvoted: boolean,
+  ): Promise<boolean> => {
+    const token = getCookie('blog.session.token');
+    let response;
+    let difference;
+
+    if (isUpvoted) {
+      response = await requestDeleteVote(token ?? '', commentId);
+      difference = -1
+    } else {
+      response = await requestPostVote(token ?? '', commentId);
+      difference = 1;
+    }
+
+    if (!response.success) toast.error(response.message);
+    calculateUpvotes(commentId, difference)
+
+    return response.success;
+  };
+
   useEffect(() => {
     fetchComments();
   }, []);
@@ -117,6 +148,7 @@ export default function CommentSection({ postId }: Props) {
               showActions={user?.id === comment.account.id}
               onDelete={handleDelete}
               onEdit={handleEdit}
+              onUpvote={handleUpvote}
               comment={comment}
             />
           </li>

@@ -123,3 +123,26 @@ export const requestPostComment = async (
   return response;
 };
 
+export const requestPostVote = async (token: string, commentId: string) => {
+  const response = await treatAxiosResponse<Comment>(
+    () => axios.post(
+      `${clientApiUrl}/comments/${commentId}/votes`,
+      null,
+      { headers: { Authorization: token } },
+    ),
+  );
+
+  return response;
+};
+
+export const requestDeleteVote = async (token: string, commentId: string) => {
+  const response = await treatAxiosResponse<Comment>(
+    () => axios.post(
+      `${clientApiUrl}/comments/${commentId}/votes`,
+      null,
+      { headers: { Authorization: token } },
+    ),
+  );
+
+  return response;
+};

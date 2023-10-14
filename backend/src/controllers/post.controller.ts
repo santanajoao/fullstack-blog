@@ -121,29 +121,3 @@ export const handlePostComment = async (req: Request, res: Response) => {
 
   return res.status(201).json(data);
 };
-
-export const handlePostVote = async (req: Request, res: Response) => {
-  const postId = req.params.id;
-  const accountId = req.body.local.account.id;
-
-  const { status, data } = await voteService.upvote(accountId, postId);
-  
-  if (status !== 'SUCCESS') {
-    return res.status(mapErrorStatus(status)).json(data);
-  }
-
-  return res.status(201).json(data);
-};
-
-export const handleDeleteVote = async (req: Request, res: Response) => {
-  const postId = req.params.id;
-  const accountId = req.body.local.account.id;
-
-  const { status, data } = await voteService.downvote(accountId, postId);
-
-  if (status !== 'SUCCESS') {
-    return res.status(mapErrorStatus(status)).json(data);
-  }
-
-  return res.status(200).json(data);
-};
