@@ -24,50 +24,47 @@ export default function PostListPagination({
   const [loading, setLoading] = useState(true);
   const [postsEnded, setPostsEnded] = useState(false);
 
-  const getPosts = async (): Promise<any> => {
-    const postsQuantity = page * quantity || quantity;
-    const response = await requestPosts({
-      endpoint: apiEndpoint, page: 0, quantity: postsQuantity, orderBy,
-    });
-
-    setLoading(false);
-    if (!response.success) return toast.error(response.message);
-    if (response.data.length < quantity) setPostsEnded(true);
-
-    return setPosts(response.data);
-  };
-
-  const appendPosts = async () => {
+  const fetchPosts = async (): Promise<TPost[] | null> => {
     const response = await requestPosts({
       endpoint: apiEndpoint, page, quantity, orderBy,
     });
     setLoading(false);
-    if (!response.success) return toast.error(response.message);
-    if (response.data.length < quantity) setPostsEnded(true);
-    if (response.data.length === 0 && posts.length > 0) return toast.info('Não há mais publicações');
 
-    return setPosts((prev) => [...prev, ...response.data]);
+    if (!response.success) { toast.error(response.message); return null; }
+    if (response.data.length < quantity) setPostsEnded(true);
+    return response.data;
+  };
+
+  const getPosts = async (): Promise<any> => {
+    const fetchedPosts = await fetchPosts();
+    if (fetchedPosts) setPosts(fetchedPosts);
+  };
+
+  const appendPosts = async () => {
+    if (!posts.length) return;
+
+    const fetchedPosts = await fetchPosts();
+    if (!fetchedPosts) return;
+
+    if (fetchedPosts.length > 0) {
+      setPosts((prev) => [...prev, ...fetchedPosts]);
+    } else {
+      toast.info('Não há mais publicações');
+    }
   };
 
   useEffect(() => {
-    if (posts.length) {
-      appendPosts();
-    }
+    appendPosts();
   }, [page]);
 
   useEffect(() => {
     getPosts();
   }, [orderBy]);
 
+  if (loading) return <Skeleton items={9} />;
+  if (posts.length === 0 && postsEnded) return <p>{emptyPostsMessage}</p>;
+
   const showMoreButton = posts.length > 0 && !postsEnded;
-
-  if (loading) {
-    return <Skeleton items={9} />;
-  }
-
-  if (posts.length === 0 && postsEnded) {
-    return <p>{emptyPostsMessage}</p>;
-  }
 
   return (
     <div className="flex flex-col space-y-3">
