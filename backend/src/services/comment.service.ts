@@ -51,7 +51,7 @@ export const getCommentsByPostId = async (postId: string, options: Options): Asy
     take: options.quantity,
   });
   const treatedComments = comments
-    .map(({ _count, ...others }) => ({ ...others, upvotes: _count.upvotes }));
+    .map(({ _count, ...others }) => ({ ...others, upvotes: _count.votes }));
 
   return { status: 'SUCCESS', data: treatedComments };
 };

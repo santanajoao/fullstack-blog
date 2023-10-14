@@ -17,8 +17,8 @@ export const findCommentsByPostId = async (postId: string, options: FindOptions)
       comment: true,
       _count: {
         select: {
-          upvotes: true,
-        }
+          votes: true,
+        },
       },
       account: {
         select: {
