@@ -28,6 +28,7 @@ model Account {
 
   posts    Post[]
   likes    Likes[]
+  upvotes Upvote[]
   comments Comment[]
 
   @@map("accounts")
@@ -61,6 +62,8 @@ model Comment {
 
   postId String @map("post_id")
   post   Post   @relation(fields: [postId], references: [id])
+
+  upvotes Upvote[]
 }
 
 model PostTopic {
@@ -83,4 +86,15 @@ model Likes {
 
   @@id([accountId, postId])
   @@map("likes")
+}
+
+model Upvote {
+  accountId String  @map("account_id")
+  account   Account @relation(fields: [accountId], references: [id])
+
+  commentId String @map("post_id")
+  commet   Comment   @relation(fields: [commentId], references: [id])
+
+  @@id([accountId, commentId])
+  @@map("upvote")
 }

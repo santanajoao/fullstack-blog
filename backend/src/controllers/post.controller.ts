@@ -3,6 +3,7 @@ import postService from '../services/post.service';
 import { mapErrorStatus } from '../utils/http';
 import { buildImageUrl } from '../utils/image';
 import * as commentService from '../services/comment.service';
+import * as voteService from '../services/vote.service';
 
 export const handleGetPopularPosts = async (req: Request, res: Response) => {
   const quantity = Number(req.query.quantity);
@@ -119,4 +120,30 @@ export const handlePostComment = async (req: Request, res: Response) => {
   }
 
   return res.status(201).json(data);
+};
+
+export const handlePostVote = async (req: Request, res: Response) => {
+  const postId = req.params.id;
+  const accountId = req.body.local.account.id;
+
+  const { status, data } = await voteService.upvote(accountId, postId);
+  
+  if (status !== 'SUCCESS') {
+    return res.status(mapErrorStatus(status)).json(data);
+  }
+
+  return res.status(201).json(data);
+};
+
+export const handleDeleteVote = async (req: Request, res: Response) => {
+  const postId = req.params.id;
+  const accountId = req.body.local.account.id;
+
+  const { status, data } = await voteService.downvote(accountId, postId);
+
+  if (status !== 'SUCCESS') {
+    return res.status(mapErrorStatus(status)).json(data);
+  }
+
+  return res.status(200).json(data);
 };

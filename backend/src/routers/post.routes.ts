@@ -14,6 +14,9 @@ postRouter.get('/account/:id', postController.handleGetPostsByAccount);
 postRouter.get('/account/:id/count', postController.handleGetAccountPostsCount);
 postRouter.get('/:id/comments', postController.handleGetPostComments);
 
+postRouter.post('/:id/votes', validateToken, postController.handlePostVote);
+postRouter.post('/:id/votes', validateToken, postController.handleDeleteVote);
+
 postRouter.post(
   '/',
   uploader.single('image'),
