@@ -3,7 +3,6 @@ import postService from '../services/post.service';
 import { mapErrorStatus } from '../utils/http';
 import { buildImageUrl } from '../utils/image';
 import * as commentService from '../services/comment.service';
-import * as voteService from '../services/vote.service';
 
 export const handleGetPopularPosts = async (req: Request, res: Response) => {
   const quantity = Number(req.query.quantity);

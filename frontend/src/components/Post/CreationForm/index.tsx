@@ -29,7 +29,7 @@ export default function CommentForm({ onSubmit }: Props) {
     event.preventDefault();
 
     onSubmit(comment, { clearError, setError });
-  }
+  };
 
   const isDisabled = comment.length < commentMinLength
     || comment.length > commentMaxLength;

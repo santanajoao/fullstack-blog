@@ -4,9 +4,9 @@ import BlurModalContainer from '@/components/Container/BlurModalContainer';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { BiDotsVertical, BiSolidUpvote, BiUpvote } from 'react-icons/bi';
-import EditionForm, { CommentFields } from '../EditionForm';
 import { Comment } from '@/types/Comment';
 import profilePicture from '@/assets/profile.svg';
+import EditionForm, { CommentFields } from '../EditionForm';
 
 interface Props {
   comment: Comment,

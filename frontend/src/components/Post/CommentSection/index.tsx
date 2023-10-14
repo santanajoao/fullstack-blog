@@ -3,14 +3,20 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@/components/PostListPagination/Button';
 import { useUser } from '@/contexts/AuthContext';
-import CreationForm, { CommentCreationHandler } from '../CreationForm';
-import CommentCard from '../CommentCard';
 import { Comment } from '@/types/Comment';
-import { requestDeleteCommentById, requestDeleteVote, requestPostComment, requestPostComments, requestPostVote, requestPutCommentById } from '@/services/posts';
+import {
+  requestDeleteCommentById,
+  requestDeleteVote,
+  requestPostComment,
+  requestPostComments,
+  requestPostVote,
+  requestPutCommentById,
+} from '@/services/posts';
 import { toast } from 'react-toastify';
 import { getCookie } from '@/lib/cookies';
 import { CommentFields } from '../EditionForm';
-import { number } from 'zod';
+import CommentCard from '../CommentCard';
+import CreationForm, { CommentCreationHandler } from '../CreationForm';
 
 interface Props {
   postId: string;
@@ -25,27 +31,27 @@ export default function CommentSection({ postId }: Props) {
   const { user } = useUser();
 
   const fetchComments = async () => {
-    const response = await requestPostComments(
-      postId, { page, quantity: commentQuantity },
-    );
+    const response = await requestPostComments(postId, { page, quantity: commentQuantity });
 
     if (!response.success) return toast.error(response.message);
     if (response.data.length === 0 || response.data.length < commentQuantity) {
       setCommentsEnded(true);
     }
-    setComments(response.data);
+    return setComments(response.data);
   };
 
   const appendComments = async () => {
     if (!comments || comments.length === 0) return;
 
-    const response = await requestPostComments(
-      postId, { page, quantity: commentQuantity },
-    );
+    const response = await requestPostComments(postId, { page, quantity: commentQuantity });
 
-    if (!response.success) return toast.error(response.message);
+    if (!response.success) { toast.error(response.message); return; }
     if (response.data.length < commentQuantity) setCommentsEnded(true);
-    if (response.data.length === 0) return toast.info('Não há mais comentários');
+
+    if (response.data.length === 0) {
+      toast.info('Não há mais comentários');
+      return;
+    }
 
     setComments((prev) => [...prev, ...response.data]);
   };
@@ -61,16 +67,14 @@ export default function CommentSection({ postId }: Props) {
     }
   };
 
-  const handleEdit = async (
-    id: string, fields: CommentFields,
-  ): Promise<boolean> => {
+  const handleEdit = async (id: string, fields: CommentFields): Promise<boolean> => {
     const token = getCookie('blog.session.token');
     const response = await requestPutCommentById(token || '', id, fields.comment);
 
     if (response.success) {
       setComments((prev) => prev.map(
-        (comment) => comment.id === id ? response.data : comment),
-      );
+        (comment) => (comment.id === id ? response.data : comment),
+      ));
       return true;
     }
 
@@ -78,10 +82,10 @@ export default function CommentSection({ postId }: Props) {
     return false;
   };
 
-  const handleComment: CommentCreationHandler =  async (comment, functions) => {
+  const handleComment: CommentCreationHandler = async (comment, functions) => {
     const token = getCookie('blog.session.token');
     const response = await requestPostComment(token || '', postId, comment);
-    
+
     if (response.success) {
       setComments((prev) => [...prev, response.data]);
       functions.clearError();
@@ -99,23 +103,21 @@ export default function CommentSection({ postId }: Props) {
     }));
   };
 
-  const handleUpvote = async (
-    commentId: string, isUpvoted: boolean,
-  ): Promise<boolean> => {
+  const handleUpvote = async (commentId: string, isUpvoted: boolean): Promise<boolean> => {
     const token = getCookie('blog.session.token');
     let response;
     let difference;
 
     if (isUpvoted) {
       response = await requestDeleteVote(token ?? '', commentId);
-      difference = -1
+      difference = -1;
     } else {
       response = await requestPostVote(token ?? '', commentId);
       difference = 1;
     }
 
     if (!response.success) toast.error(response.message);
-    calculateUpvotes(commentId, difference)
+    calculateUpvotes(commentId, difference);
 
     return response.success;
   };

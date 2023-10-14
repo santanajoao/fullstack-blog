@@ -3,9 +3,9 @@ import TServiceResponse from '@/types/ServiceResponse';
 import axios from 'axios';
 import { Account } from '@/types/Account';
 import { TopicWithoutImage } from '@/types/Topic';
+import { Comment } from '@/types/Comment';
 import { treatAxiosResponse, treatFetchResponse } from './errorHandling';
 import { clientApiUrl, serverApiUrl } from './constants';
-import { Comment } from '@/types/Comment';
 
 export const requestTopicPosts = async (
   topicId: string,
@@ -74,12 +74,13 @@ export const requestPostById = async (id: string): Promise<TServiceResponse<Post
 };
 
 export const requestPostComments = async (
-  postId: string, { page, quantity }: PaginationParams,
+  postId: string,
+  { page, quantity }: PaginationParams,
 ): Promise<TServiceResponse<Comment[]>> => {
   const response = await treatAxiosResponse<Comment[]>(
     () => axios.get(
       `${clientApiUrl}/posts/${postId}/comments?quantity=${quantity}&page=${page}`,
-    )
+    ),
   );
 
   return response;
@@ -95,9 +96,7 @@ export const requestDeleteCommentById = async (token: string, id: string) => {
   return response;
 };
 
-export const requestPutCommentById = async (
-  token: string, id: string, comment: string,
-) => {
+export const requestPutCommentById = async (token: string, id: string, comment: string) => {
   const response = await treatAxiosResponse<Comment>(
     () => axios.put(
       `${clientApiUrl}/comments/${id}`,
@@ -109,9 +108,7 @@ export const requestPutCommentById = async (
   return response;
 };
 
-export const requestPostComment = async (
-  token: string, postId: string, comment: string,
-) => {
+export const requestPostComment = async (token: string, postId: string, comment: string) => {
   const response = await treatAxiosResponse<Comment>(
     () => axios.post(
       `${clientApiUrl}/posts/${postId}/comments`,
