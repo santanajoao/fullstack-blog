@@ -10,7 +10,12 @@
     "db:start": "prisma migrate dev",
     "test": "mocha tests/**/*.test.ts --exit",
     "coverage": "nyc npm run test",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "init": "prisma generate",
+    "build": "npm run init && tsc",
+    "seed": "node prisma/seeds/seed.js",
+    "prestart": "prisma migrate deploy && npm run seed",
+    "start": "node src/server.js"
   },
   "prisma": {
     "seed": "ts-node prisma/seeds/seed.ts"

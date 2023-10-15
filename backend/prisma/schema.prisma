@@ -28,7 +28,7 @@ model Account {
 
   posts    Post[]
   likes    Likes[]
-  votes Vote[]
+  votes    Vote[]
   comments Comment[]
 
   @@map("accounts")
@@ -54,7 +54,7 @@ model Post {
 }
 
 model Comment {
-  id String @id @default(uuid())
+  id      String @id @default(uuid())
   comment String
 
   accountId String  @map("account_id")
@@ -92,8 +92,8 @@ model Vote {
   accountId String  @map("account_id")
   account   Account @relation(fields: [accountId], references: [id])
 
-  commentId String @map("post_id")
-  commet   Comment   @relation(fields: [commentId], references: [id])
+  commentId String  @map("post_id")
+  commet    Comment @relation(fields: [commentId], references: [id])
 
   @@id([accountId, commentId])
   @@map("vote")

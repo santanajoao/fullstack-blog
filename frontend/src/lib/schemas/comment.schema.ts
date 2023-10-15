@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const commentMinLength = 2;
 export const commentMaxLength = 300;
