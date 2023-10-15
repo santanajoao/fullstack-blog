@@ -14,6 +14,7 @@ import {
 } from '@/services/posts';
 import { toast } from 'react-toastify';
 import { getCookie } from '@/lib/cookies';
+import { useRouter } from 'next/navigation';
 import { CommentFields } from '../EditionForm';
 import CommentCard from '../CommentCard';
 import CreationForm, { CommentCreationHandler } from '../CreationForm';
@@ -26,9 +27,11 @@ export default function CommentSection({ postId }: Props) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [page, setPage] = useState(0);
   const [commentsEnded, setCommentsEnded] = useState(false);
-  const commentQuantity = 6;
 
+  const router = useRouter();
   const { user } = useUser();
+
+  const commentQuantity = 6;
 
   const fetchComments = async () => {
     const response = await requestPostComments(postId, { page, quantity: commentQuantity });
@@ -82,16 +85,17 @@ export default function CommentSection({ postId }: Props) {
     return false;
   };
 
-  const handleComment: CommentCreationHandler = async (comment, functions) => {
+  const handleComment: CommentCreationHandler = async (comment, functions): Promise<void> => {
     const token = getCookie('blog.session.token');
+
+    if (!token) return router.push('/signin');
+
     const response = await requestPostComment(token || '', postId, comment);
 
-    if (response.success) {
-      setComments((prev) => [...prev, response.data]);
-      functions.clearError();
-    } else {
-      functions.setError(response.message);
-    }
+    if (!response.success) return functions.setError(response.message);
+
+    setComments((prev) => [...prev, response.data]);
+    functions.clearError();
   };
 
   const calculateUpvotes = (commentId: string, difference: number) => {
