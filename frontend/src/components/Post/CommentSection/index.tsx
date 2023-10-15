@@ -89,7 +89,7 @@ export default function CommentSection({ postId }: Props) {
     return false;
   };
 
-  const handleComment: CommentCreationHandler = async (comment, functions): Promise<void> => {
+  const handleComment: CommentCreationHandler = async (comment, functions) => {
     const token = getCookie('blog.session.token');
 
     if (!token) return router.push('/signin');
@@ -98,8 +98,8 @@ export default function CommentSection({ postId }: Props) {
 
     if (!response.success) return functions.setError(response.message);
 
+    functions.clear();
     setComments((prev) => [...prev, response.data]);
-    functions.clearError();
   };
 
   const handleUpvote = async (commentId: string, isUpvoted: boolean): Promise<boolean> => {

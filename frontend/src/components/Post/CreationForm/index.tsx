@@ -6,7 +6,7 @@ import Sign from '@/components/Sign';
 import { commentMaxLength, commentMinLength } from '@/lib/schemas/comment.schema';
 
 type FormFunctions = {
-  clearError: () => void;
+  clear: () => void;
   setError: (error: string) => void;
 };
 
@@ -22,13 +22,17 @@ export default function CommentForm({ onSubmit }: Props) {
   const [comment, setComment] = useState('');
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const clearError = () => setSubmitError(null);
   const setError = (error: string) => setSubmitError(error);
+
+  const clear = () => {
+    setSubmitError(null);
+    setComment('');
+  };
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
-    onSubmit(comment, { clearError, setError });
+    onSubmit(comment, { clear, setError });
   };
 
   const isDisabled = comment.length < commentMinLength
@@ -40,6 +44,7 @@ export default function CommentForm({ onSubmit }: Props) {
         aria-label="Deixe seu comentário"
         placeholder="Deixe aqui seu comentário"
         name="comment"
+        value={comment}
         onChange={(e) => setComment(e.target.value)}
       />
 

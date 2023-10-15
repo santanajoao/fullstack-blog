@@ -9,6 +9,16 @@ import { commentSchema } from './validations/schemas/comment.schema';
 import { validateCommentId } from './validations/commentValidations';
 import { Options } from './post.service';
 
+type CommentWithCount = Comment & {
+  _count: {
+    votes: number;
+  }
+}
+
+const commentDto = ({ _count, ...others }: Partial<CommentWithCount>) => {
+  return { ...others, upvotes: _count?.votes ?? 0 };
+};
+
 export const updateCommentById = async (id: string, comment: string): AsyncServiceResponse<unknown> => {
   const schemaValidation = validateSchemaFields(commentSchema, comment);
   if (schemaValidation.status !== 'SUCCESS') return schemaValidation;
@@ -17,7 +27,7 @@ export const updateCommentById = async (id: string, comment: string): AsyncServi
   if (commentValidation.status !== 'SUCCESS') return commentValidation;
 
   const updatedComment = await commentModel.updateCommentById(id, comment);
-  return { status: 'SUCCESS', data: updatedComment };
+  return { status: 'SUCCESS', data: commentDto(updatedComment) };
 };
 
 export const deleteCommentById = async (id: string): AsyncServiceResponse<Comment> => {
@@ -39,7 +49,7 @@ export const createComment = async (comment: CommentCreation): AsyncServiceRespo
   if (schemaValidation.status !== 'SUCCESS') return schemaValidation;
 
   const createdComment = await commentModel.createComment(comment);
-  return { status: 'SUCCESS', data: createdComment };
+  return { status: 'SUCCESS', data: commentDto(createdComment) };
 };
 
 export const getCommentsByPostId = async (postId: string, options: Options): AsyncServiceResponse<unknown> => {
@@ -50,8 +60,7 @@ export const getCommentsByPostId = async (postId: string, options: Options): Asy
     skip: options.page * options.quantity,
     take: options.quantity,
   });
-  const treatedComments = comments
-    .map(({ _count, ...others }) => ({ ...others, upvotes: _count.votes }));
+  const treatedComments = comments.map(commentDto);
 
   return { status: 'SUCCESS', data: treatedComments };
 };
