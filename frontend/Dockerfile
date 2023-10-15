@@ -8,11 +8,11 @@ RUN npm install
 
 COPY . .
 
-# RUN npm run build
+RUN npm run build
 
 EXPOSE 3000
 
 ENTRYPOINT [ "npm", "run" ]
 
-# CMD [ "start" ]
-CMD [ "dev" ]
+CMD [ "start" ]
+# CMD [ "dev" ]
