@@ -70,14 +70,18 @@ export default function CommentSection({ postId }: Props) {
     }
   };
 
+  const updateComment = (commentId: string, comment: Comment) => {
+    setComments((prev) => prev.map(
+      (_comment) => (_comment.id === commentId ? comment : _comment),
+    ));
+  };
+
   const handleEdit = async (id: string, fields: CommentFields): Promise<boolean> => {
     const token = getCookie('blog.session.token');
     const response = await requestPutCommentById(token || '', id, fields.comment);
 
     if (response.success) {
-      setComments((prev) => prev.map(
-        (comment) => (comment.id === id ? response.data : comment),
-      ));
+      updateComment(id, response.data);
       return true;
     }
 
@@ -98,30 +102,22 @@ export default function CommentSection({ postId }: Props) {
     functions.clearError();
   };
 
-  const calculateUpvotes = (commentId: string, difference: number) => {
-    setComments((prev) => prev.map((comment) => {
-      if (comment.id === commentId) {
-        return { ...comment, upvotes: comment.upvotes + difference };
-      }
-      return comment;
-    }));
-  };
-
   const handleUpvote = async (commentId: string, isUpvoted: boolean): Promise<boolean> => {
     const token = getCookie('blog.session.token');
-    let response;
-    let difference;
+    const response = isUpvoted
+      ? await requestDeleteVote(token ?? '', commentId)
+      : await requestPostVote(token ?? '', commentId);
 
-    if (isUpvoted) {
-      response = await requestDeleteVote(token ?? '', commentId);
-      difference = -1;
+    if (response.success) {
+      setComments((prev) => prev.map((comment) => {
+        if (comment.id === commentId) {
+          return { ...comment, upvotes: comment.upvotes + 1 };
+        }
+        return comment;
+      }));
     } else {
-      response = await requestPostVote(token ?? '', commentId);
-      difference = 1;
+      toast.error(response.message);
     }
-
-    if (!response.success) toast.error(response.message);
-    calculateUpvotes(commentId, difference);
 
     return response.success;
   };
