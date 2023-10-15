@@ -161,7 +161,7 @@ export default function CommentSection({ postId }: Props) {
         ))}
       </ul>
 
-      {!commentsEnded && (
+      {comments.length !== 0 && !commentsEnded && (
         <Button type="button" onClick={() => setPage((prev) => prev + 1)}>
           Ver mais comentários
         </Button>
