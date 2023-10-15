@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { TPost } from '@/types/Post';
 import { requestPosts } from '@/services/posts';
 import { toast } from 'react-toastify';
+import { useRouter, useSearchParams } from 'next/navigation';
 import PostList from '../PostList';
 import PostItemLink from '../PostItemLink';
 import Skeleton from './Skeleton';
@@ -19,10 +20,13 @@ interface Props {
 export default function PostListPagination({
   apiEndpoint, quantity, orderBy, emptyPostsMessage,
 }: Props) {
-  const [page, setPage] = useState(0);
   const [posts, setPosts] = useState<TPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [postsEnded, setPostsEnded] = useState(false);
+
+  const params = useSearchParams();
+  const page = parseInt(params.get('page') || '0', 10);
+  const router = useRouter();
 
   const fetchPosts = async (): Promise<TPost[] | null> => {
     const response = await requestPosts({
@@ -84,7 +88,10 @@ export default function PostListPagination({
       </PostList.List>
 
       {showMoreButton && (
-        <Button type="button" onClick={() => setPage((prev) => prev + 1)}>
+        <Button
+          type="button"
+          onClick={() => router.push(`?page=${page + 1}`, { scroll: false })}
+        >
           Ver mais
         </Button>
       )}

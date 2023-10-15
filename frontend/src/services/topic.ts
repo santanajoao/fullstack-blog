@@ -44,6 +44,7 @@ export const requestPopularTopics = async (
   try {
     const response = await fetch(
       `${serverApiUrl}/topics/popular?quantity=${quantity}`,
+      { next: { revalidate: 1 } },
     );
     return await treatFetchResponse<Topic[]>(response);
   } catch (error) {

@@ -6,7 +6,6 @@ import Container from '../Container';
 export default async function PopularTopics() {
   const response = await requestPopularTopics(12);
 
-  // emitir um toast e exibir um skeleton
   if (!response.success) return null;
 
   const popularTopics = response.data;
