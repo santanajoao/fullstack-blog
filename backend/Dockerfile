@@ -1,21 +1,28 @@
-FROM node:18.16.1
+FROM node:18.16.1 as build
 
-WORKDIR /home/node/app
+WORKDIR /home/app
 
-COPY package*.json .
-
-RUN chown -R node:node package*.json
+COPY package*.json ./
 
 RUN npm install
 
-RUN chown -R node:node .
-
-USER node
-
 COPY . .
+
+RUN npm run build
+
+FROM node:18.16.1
+
+WORKDIR /home/app
+
+COPY --from=build /home/app/build/ ./
+COPY --from=build /home/app/prisma/migrations/ ./prisma/migrations/
+COPY --from=build /home/app/prisma/schema.prisma ./prisma/
+COPY --from=build /home/app/package*.json ./
+
+RUN npm install --omit=dev
 
 EXPOSE 3001
 
-ENTRYPOINT [ "npm", "run" ]
+ENTRYPOINT [ "npm" ]
 
-CMD [ "dev" ]
+CMD [ "run", "start" ]

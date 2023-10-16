@@ -21,13 +21,15 @@ model Topic {
 model Account {
   id       String  @id @default(uuid())
   username String
-  about    String?  @db.VarChar(200)
+  about    String? @db.VarChar(200)
   email    String  @unique
   password String
   imageUrl String? @db.MediumText
 
-  posts Post[]
-  likes Likes[]
+  posts    Post[]
+  likes    Likes[]
+  votes    Vote[]
+  comments Comment[]
 
   @@map("accounts")
 }
@@ -46,8 +48,22 @@ model Post {
   topics     Topic[]
   postTopics PostTopic[]
   likes      Likes[]
+  comments   Comment[]
 
   @@map("posts")
+}
+
+model Comment {
+  id      String @id @default(uuid())
+  comment String
+
+  accountId String  @map("account_id")
+  account   Account @relation(fields: [accountId], references: [id])
+
+  postId String @map("post_id")
+  post   Post   @relation(fields: [postId], references: [id])
+
+  votes Vote[]
 }
 
 model PostTopic {
@@ -70,4 +86,15 @@ model Likes {
 
   @@id([accountId, postId])
   @@map("likes")
+}
+
+model Vote {
+  accountId String  @map("account_id")
+  account   Account @relation(fields: [accountId], references: [id])
+
+  commentId String  @map("post_id")
+  commet    Comment @relation(fields: [commentId], references: [id])
+
+  @@id([accountId, commentId])
+  @@map("vote")
 }

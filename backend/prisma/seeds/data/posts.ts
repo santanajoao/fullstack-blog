@@ -4,6 +4,164 @@ import { getDateBetweenNowAnd } from '../../../src/utils/dates';
 
 const posts = [
   {
+    id: 'e0a0110f-7bf0-4274-9559-1d6453e7f7bc',
+    imageUrl: 'https://th.bing.com/th/id/OIG.7ojYiMyA2XJ4OLHFrEdn?pid=ImgGn',
+    createdAt: new Date('2023-10-3'),
+    title: 'Como usar markdown para criar posts incríveis',
+    description: 'Aprenda como utilizar markdown, uma linguagem de marcação poderosa que te permite formatar e dar significado a sua publicação, criar títulos, listas, tabelas e muito mais.',
+    content: `> **IMPORTANTE:** A imagem desse post foi gerada pela IA Dall-E.
+
+# Títulos
+
+Para criar um título, você precisa usar um ou mais símbolos de cerquilha (#) no início da linha. O número de cerquilhas indica o nível do título. Por exemplo:
+
+\`\`\`
+# Título 1
+## Título 2
+...
+#### Título 4
+##### Título 5
+\`\`\`
+
+**Isso vai gerar o seguinte resultado:**
+# Título 1
+## Título 2
+#### Título 4
+##### Título 5
+
+## Ênfase
+
+Para enfatizar uma parte do texto, você pode usar asteriscos (*) ou sublinhados (_) para criar itálico ou negrito. Para criar itálico, você precisa envolver o texto com um asterisco ou sublinhado. Para criar negrito, você precisa envolver o texto com dois asteriscos ou sublinhados. Por exemplo:
+\`\`\`Este é um texto *em itálico*.
+Este é um texto _em itálico_.
+Este é um texto **em negrito**.
+Este é um texto __em negrito__.
+Este é um texto ***em itálico e negrito***.
+Este é um texto ___em itálico e negrito___.
+\`\`\`
+**Isso vai gerar o seguinte resultado:**
+
+Este é um texto *em itálico*.  
+Este é um texto _em itálico_.  
+Este é um texto **em negrito**.  
+Este é um texto __em negrito__.  
+Este é um texto ***em itálico e negrito***.  
+Este é um texto ___em itálico e negrito___.
+## Links
+Para criar um link, você precisa usar colchetes ([]) para escrever o texto do link e parênteses (()) para escrever o endereço do link. Por exemplo:
+\`\`\`
+Este é um [link](https://www.bing.com) para o Bing.
+\`\`\`
+**Isso vai gerar o seguinte resultado:**
+
+Este é um [link](https://www.bing.com) para o Bing.
+## Imagens
+Para inserir uma imagem, você precisa usar um ponto de exclamação (!) seguido de colchetes ([]) para escrever o texto alternativo da imagem e parênteses (()) para escrever o endereço da imagem. Por exemplo:
+\`\`\`
+![Uma flor](https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sunflower_from_Silesia2.jpg/320px-Sunflower_from_Silesia2.jpg)
+\`\`\`
+**Isso vai gerar o seguinte resultado:**
+![Uma flor](https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sunflower_from_Silesia2.jpg/320px-Sunflower_from_Silesia2.jpg)
+## Listas
+Para criar uma lista não ordenada, você precisa usar asteriscos (*), sinais de mais (+) ou hífens (-) no início da linha. Para criar uma lista ordenada, você precisa usar números seguidos de pontos (.) no início da linha. Para criar uma lista aninhada, você precisa indentar as linhas com espaços ou tabulações. Por exemplo:
+\`\`\`
+* Item 1
+    * Subitem 1.1
++ Item 2
+    + Subitem 2.1
+- Item 3
+    - Subitem 3.1
+
+1. Item 1
+    1. Subitem 1.1
+    2. Subitem 1.2
+2. Item 2
+\`\`\`
+**Isso vai gerar o seguinte resultado:**
+* Item 1
+    * Subitem 1.1
++ Item 2
+    + Subitem 2.1
+- Item 3
+    - Subitem 3.1
+1. Item 1
+    1. Subitem 1.1
+    2. Subitem 1.2
+2. Item 2
+
+## Tabelas
+
+Para criar uma tabela, você precisa usar barras verticais (|) para separar as colunas e hífens (-) para separar o cabeçalho do corpo da tabela. Você também pode usar dois pontos (:) para alinhar o texto das colunas à esquerda, ao centro ou à direita. Por exemplo:
+
+\`\`\`
+| Nome | Idade | Profissão |
+| :--- | :---: | -------: |
+| Ana | 25 | Médica |
+| Bruno | 32 | Advogado |
+| Carla | 28 | Professora |
+\`\`\`
+
+**Isso vai gerar o seguinte resultado:**
+
+| Nome | Idade | Profissão |
+| :--- | :---: | -------: |
+| Ana | 25 | Médica |
+| Bruno | 32 | Advogado |
+| Carla | 28 | Professora |
+
+## Blocos de código
+
+Para criar um bloco de código, você precisa usar três crases (\`) no início e no final da linha ou do bloco de texto que você quer formatar como código. Por exemplo:
+
+&#96;print("Olá mundo!")&#96;
+
+&#96;&#96;&#96;def soma(a, b):
+    return a + b
+
+print(soma(3, 5))&#96;&#96;&#96;
+
+**Isso vai gerar o seguinte resultado:**
+
+\`print("Olá, mundo!")\`
+
+\`\`\`
+def soma(a, b):
+    return a + b
+
+print(soma(3, 5))
+\`\`\`
+
+## Conclusão
+
+Neste post, você aprendeu como usar markdown para criar posts incríveis no seu blog. Você viu como formatar textos, inserir imagens, criar listas, tabelas, blocos de código e muito mais.`,
+    accountId: accounts[0].id,
+    topics: { connect: [{ id: topics[8].id }, { id: topics[18].id }] },
+    comments: {
+      create: [
+        {
+          comment: 'Muito bom meu post, né?',
+          accountId: accounts[0].id,
+          votes: { create: [{ accountId: accounts[1].id }] },
+        },
+        {
+          comment: 'Que legal!',
+          accountId: accounts[7].id,
+          votes: { create: [{ accountId: accounts[3].id }, { accountId: accounts[4].id }] },
+        },
+        {
+          comment: 'Muito bom! Vou começar a postar agora.',
+          accountId: accounts[4].id,
+          votes: { create: [{ accountId: accounts[7].id }] },
+        },
+        {
+          comment: 'Dá pra colocar vídeos?',
+          accountId: accounts[13].id,
+          votes: { create: [{ accountId: accounts[14].id }] },
+        },
+      ]
+    },
+  },
+  {
     id: 'a6f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
     imageUrl: topics[19].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
@@ -36,7 +194,7 @@ Depois de tirar as suas fotos, você pode editar as suas imagens usando aplicati
 Essas foram as nossas dicas de como tirar fotos incríveis com o seu celular. Esperamos que você tenha gostado e que coloque em prática as nossas sugestões. Se você quiser ver mais conteúdos como este, siga o nosso blog e compartilhe com os seus amigos. Até a próxima!`,
     accountId: accounts[18].id,
     topics: { connect: [{ id: topics[19].id }, { id: topics[8].id }] },
-    likes: { create: [{ accountId: accounts[0].id }, { accountId: accounts[1].id }] }
+    likes: { create: [{ accountId: accounts[2].id }, { accountId: accounts[1].id }] }
   },
   {
     id: 'b7f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
@@ -461,7 +619,7 @@ O quinto passo é editar e publicar o seu podcast. A edição consiste em cortar
 O sexto passo é divulgar e monetizar o seu podcast. A divulgação consiste em promover o seu podcast nas redes sociais, nos sites especializados, nos grupos de interesse e nos eventos relacionados ao seu tema. Você também pode pedir para os seus ouvintes compartilharem, comentarem e avaliarem o seu podcast. A monetização consiste em gerar receita com o seu podcast através de anúncios, patrocínios, doações ou vendas de produtos ou serviços.`,
     accountId: accounts[4].id,
     topics: { connect: [{ id: topics[4].id }, { id: topics[8].id }] },
-    likes: { create: [{ accountId: accounts[0].id }] }
+    likes: { create: [{ accountId: accounts[2].id }] }
   },
   {
     id: 'o0f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
@@ -664,7 +822,7 @@ Esses foram os passos para tocar violão em 30 dias. Esperamos que você tenha g
     likes: { create: [{ accountId: accounts[2].id }] }
   },
   {
-    id: 't5f1e012-fed2-4ff7-b6cf-d0ddfce219e3',
+    id: 'cc35a188-f5ac-4327-8f3a-6d44abf64b12',
     imageUrl: topics[13].imageUrl,
     createdAt: getDateBetweenNowAnd(7),
     title: 'Como cuidar do seu cabelo cacheado com produtos naturais',
@@ -705,7 +863,7 @@ Como fazer: Para fazer esse gel caseiro, você vai precisar de:
 Coloque as sementes de linhaça e a água em uma panela e leve ao fogo médio. Mexa até ferver e formar uma espuma. Desligue o fogo e coe a mistura em uma peneira ou em um tecido fino. Guarde o gel em um pote fechado na geladeira por até uma semana. Aplique nos cabelos úmidos ou secos, amassando os cachos com as mãos. Deixe secar naturalmente ou use um difusor³.
 
 Essas foram as minhas dicas de como cuidar do seu cabelo cacheado com produtos naturais. Espero que você tenha gostado e que coloque em prática as minhas sugestões. Se você quiser ver mais conteúdos como este, siga o meu blog e compartilhe com os seus amigos. Até a próxima!`,
-    accountId: accounts[0].id,
+    accountId: accounts[1].id,
     topics: { connect: [{ id: topics[13].id }] },
     likes: { create: [{ accountId: accounts[1].id }] }
   },

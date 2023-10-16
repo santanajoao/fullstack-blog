@@ -35,7 +35,7 @@ const getOrderQuery = (orderProperty: string) => {
   return queries[orderProperty] ?? queries.popularity;
 };
 
-type Options = {
+export type Options = {
   orderBy?: string;
   page: number;
   quantity: number;

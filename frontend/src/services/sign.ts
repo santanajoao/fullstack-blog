@@ -2,10 +2,12 @@ import axios from 'axios';
 import ServiceResponse from '@/types/ServiceResponse';
 import { SignInFields } from '@/types/Sign/SignIn';
 import { SignUpFields } from '@/types/Sign/SignUp';
-import { SignResponse, User } from '@/types/Sign/SignResponse';
+import { SignResponse } from '@/types/Sign/SignResponse';
+import { Account } from '@/types/Account';
 import { treatAxiosResponse } from './errorHandling';
+import { clientApiUrl } from './constants';
 
-const signRoute = 'http://localhost:3001/accounts';
+const signRoute = `${clientApiUrl}/accounts`;
 
 export const requestSignIn = async (
   signInFields: SignInFields,
@@ -29,8 +31,8 @@ export const requestSignUp = async (
 
 export const requestUserData = async (
   token: string,
-): Promise<ServiceResponse<User>> => {
-  const response = await treatAxiosResponse<User>(
+): Promise<ServiceResponse<Account>> => {
+  const response = await treatAxiosResponse<Account>(
     () => axios.get(`${signRoute}/me`, { headers: { Authorization: token } }),
   );
 

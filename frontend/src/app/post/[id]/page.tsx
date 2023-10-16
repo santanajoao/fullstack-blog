@@ -1,11 +1,10 @@
 import React from 'react';
 import HomeHeader from '@/components/Header/HomeHeader';
-import { TPost } from '@/types/Post';
 import Footer from '@/components/Footer';
-import { Account } from '@/types/Account';
 import Post from '@/components/Post';
 import Container from '@/components/Container';
-import { TopicWithoutImage } from '@/types/Topic';
+import { requestPostById } from '@/services/posts';
+import CommentSection from '@/components/Post/CommentSection';
 
 interface Params {
   params: {
@@ -13,29 +12,30 @@ interface Params {
   };
 }
 
-type PostData = TPost & {
-  account: Account;
-  topics: TopicWithoutImage[],
-};
-
 export default async function PostPage({ params }: Params) {
-  const response = await fetch(`http://backend:3001/posts/${params.id}`);
+  const response = await requestPostById(params.id);
 
   if (response.status === 404) {
     return <Post.NotFound />;
   }
 
-  const postData = await response.json() as PostData;
+  // Uma tela de erro faz sentido aqui
+  if (!response.success) return null;
 
+  const postData = response.data;
   return (
     <>
       <HomeHeader />
       <main className="w-full max-w-2xl mx-auto py-5 px-4">
-        <Post.Hero account={postData.account} post={postData} />
+        <section>
+          <Post.Hero account={postData.account} post={postData} />
 
-        <Container.Markdown className="pt-3">
-          {postData.content}
-        </Container.Markdown>
+          <Container.Markdown className="pt-3">
+            {postData.content}
+          </Container.Markdown>
+        </section>
+
+        <CommentSection postId={params.id} />
       </main>
       <Footer />
     </>

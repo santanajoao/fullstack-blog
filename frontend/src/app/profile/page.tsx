@@ -14,7 +14,7 @@ export default function ProfilePage() {
     authorize({ required: true, redirectTo: '/signup' });
   }, [isLoading, user]);
 
-  if (isLoading || !user) return <h1>Loading</h1>;
+  if (isLoading || !user) return null;
 
   return (
     <>

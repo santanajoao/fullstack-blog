@@ -60,15 +60,13 @@ export const handlePatchPersonal = async (req: Request, res: Response) => {
     ? buildImageUrl(req.file.mimetype, req.file.buffer)
     : null;
 
-  console.log(req.file);
-    
   const { status, data } = await accountService.updateAccountPersonalInfos({
     id: accountId,
     username,
     about,
     imageUrl,
   });
-  
+
   if (status !== 'SUCCESS') {
     return res.status(mapErrorStatus(status)).json(data);
   }

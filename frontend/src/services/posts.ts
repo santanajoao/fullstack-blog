@@ -1,7 +1,11 @@
 import { TPost } from '@/types/Post';
 import TServiceResponse from '@/types/ServiceResponse';
 import axios from 'axios';
+import { Account } from '@/types/Account';
+import { TopicWithoutImage } from '@/types/Topic';
+import { Comment } from '@/types/Comment';
 import { treatAxiosResponse, treatFetchResponse } from './errorHandling';
+import { clientApiUrl, serverApiUrl } from './constants';
 
 export const requestTopicPosts = async (
   topicId: string,
@@ -9,7 +13,7 @@ export const requestTopicPosts = async (
 ): Promise<TServiceResponse<TPost[]>> => {
   try {
     const response = await fetch(
-      `http://localhost:3001/topics/${topicId}/posts?orderBy=${orderBy}`,
+      `${clientApiUrl}/topics/${topicId}/posts?orderBy=${orderBy}`,
     );
 
     return await treatFetchResponse<TPost[]>(response);
@@ -23,7 +27,7 @@ export const createPost = async (
   token: string,
 ): Promise<TServiceResponse<TPost>> => {
   const response = await treatAxiosResponse<TPost>(
-    () => axios.post('http://localhost:3001/posts', formData, {
+    () => axios.post(`${clientApiUrl}/posts`, formData, {
       headers: { Authorization: token },
     }),
   );
@@ -31,10 +35,13 @@ export const createPost = async (
   return response;
 };
 
-type RequestPostsParams = {
+type PaginationParams = {
+  page?: number;
+  quantity?: number;
+};
+
+type RequestPostsParams = PaginationParams & {
   endpoint: string;
-  quantity: number;
-  page: number;
   orderBy?: string;
 };
 
@@ -43,11 +50,96 @@ export const requestPosts = async ({
 }: RequestPostsParams): Promise<TServiceResponse<TPost[]>> => {
   try {
     const response = await fetch(
-      `http://localhost:3001${endpoint}?quantity=${quantity}&page=${page}&orderBy=${orderBy}`,
+      `${clientApiUrl}${endpoint}?quantity=${quantity}&page=${page}&orderBy=${orderBy}`,
     );
 
     return await treatFetchResponse<TPost[]>(response);
   } catch (error) {
     return treatFetchResponse<TPost[]>(error);
   }
+};
+
+type PostData = TPost & {
+  account: Account;
+  topics: TopicWithoutImage[],
+};
+
+export const requestPostById = async (id: string): Promise<TServiceResponse<PostData>> => {
+  try {
+    const response = await fetch(`${serverApiUrl}/posts/${id}`);
+    return await treatFetchResponse<PostData>(response);
+  } catch (error) {
+    return await treatFetchResponse<PostData>(error);
+  }
+};
+
+export const requestPostComments = async (
+  postId: string,
+  { page, quantity }: PaginationParams,
+): Promise<TServiceResponse<Comment[]>> => {
+  const response = await treatAxiosResponse<Comment[]>(
+    () => axios.get(
+      `${clientApiUrl}/posts/${postId}/comments?quantity=${quantity}&page=${page}`,
+    ),
+  );
+
+  return response;
+};
+
+export const requestDeleteCommentById = async (token: string, id: string) => {
+  const response = await treatAxiosResponse<Comment>(
+    () => axios.delete(`${clientApiUrl}/comments/${id}`, {
+      headers: { Authorization: token },
+    }),
+  );
+
+  return response;
+};
+
+export const requestPutCommentById = async (token: string, id: string, comment: string) => {
+  const response = await treatAxiosResponse<Comment>(
+    () => axios.put(
+      `${clientApiUrl}/comments/${id}`,
+      { comment },
+      { headers: { Authorization: token } },
+    ),
+  );
+
+  return response;
+};
+
+export const requestPostComment = async (token: string, postId: string, comment: string) => {
+  const response = await treatAxiosResponse<Comment>(
+    () => axios.post(
+      `${clientApiUrl}/posts/${postId}/comments`,
+      { comment },
+      { headers: { Authorization: token } },
+    ),
+  );
+
+  return response;
+};
+
+export const requestPostVote = async (token: string, commentId: string) => {
+  const response = await treatAxiosResponse<Comment>(
+    () => axios.post(
+      `${clientApiUrl}/comments/${commentId}/votes`,
+      null,
+      { headers: { Authorization: token } },
+    ),
+  );
+
+  return response;
+};
+
+export const requestDeleteVote = async (token: string, commentId: string) => {
+  const response = await treatAxiosResponse<Comment>(
+    () => axios.post(
+      `${clientApiUrl}/comments/${commentId}/votes`,
+      null,
+      { headers: { Authorization: token } },
+    ),
+  );
+
+  return response;
 };

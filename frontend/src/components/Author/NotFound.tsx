@@ -5,7 +5,7 @@ import RouteErrorButtons from '../RouteErrorButtons';
 
 export default function NotFound() {
   return (
-    <main className="flex items-center justify-center flex-col gap-4 h-screen text-zinc-800 bg-slate-200">
+    <main className="flex items-center justify-center flex-col gap-4 h-screen text-zinc-800">
       <Image
         src={notProfile}
         height={160}

@@ -22,7 +22,8 @@ export const accountPasswordSchema = z
 
 export const accountAboutSchema = z
   .string()
-  .max(aboutMaxLength, `O about teve ter no máximo ${aboutMaxLength} caracteres`);
+  .max(aboutMaxLength, `O about teve ter no máximo ${aboutMaxLength} caracteres`)
+  .nullish();
 
 export const signUpSchema = z.object({
   username: accountNameSchema,

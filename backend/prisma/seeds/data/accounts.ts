@@ -7,6 +7,14 @@ const encrypt = (
 
 const accounts: Account[] = [
   {
+    id: '30758187-bd56-4230-94fe-504c921e72e5',
+    username: 'MrBlog',
+    email: 'joaopedrosantanacostadev@gmail.com',
+    password: encrypt('admin@password'),
+    imageUrl: null,
+    about: 'Conta oficial de administração do Blog: Um blog comunitário onde todos podem libertar sua criatividade, escrever e compartilhar suas ideias',
+  },
+  {
     id: 'b5a2c7e0-7c5a-4a1e-bd6b-7cfe8c8a7bde',
     username: 'Carla Lorena',
     email: 'carla.lorena@mail.com',

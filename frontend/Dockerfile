@@ -1,21 +1,18 @@
-FROM node:18.16.1-alpine3.18
+FROM node:18.16.1
 
-WORKDIR /home/node/app
+WORKDIR /home/app
 
 COPY package*.json .
 
-RUN chown -R node:node package*.json
-
 RUN npm install
 
-RUN chown -R node:node .
-
-USER node
-
 COPY . .
+
+RUN npm run build
 
 EXPOSE 3000
 
 ENTRYPOINT [ "npm", "run" ]
 
-CMD [ "dev" ]
+CMD [ "start" ]
+# CMD [ "dev" ]

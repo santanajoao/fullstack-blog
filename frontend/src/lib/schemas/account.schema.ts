@@ -7,7 +7,8 @@ export const aboutSchema = z
   .string()
   .max(aboutMaxLength, {
     message: 'O seu sobre deve ter no máximo 200 caracteres',
-  });
+  })
+  .nullish();
 
 export const profilePersonalSchema = z.object({
   username: signNameSchema,

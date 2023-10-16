@@ -2,6 +2,7 @@ import { Topic } from '@/types/Topic';
 import TServiceResponse from '@/types/ServiceResponse';
 import axios from 'axios';
 import { treatAxiosResponse, treatFetchResponse } from './errorHandling';
+import { clientApiUrl, serverApiUrl } from './constants';
 
 type TopicInfos = {
   topic: Topic,
@@ -16,8 +17,7 @@ export const requestTopicInfos = async (
 ): Promise<TServiceResponse<TopicInfos>> => {
   try {
     const response = await fetch(
-      `http://backend:3001/topics/${topicId}/posts/infos`,
-      { next: { revalidate: 60 * 15 } },
+      `${serverApiUrl}/topics/${topicId}/posts/infos`,
     );
 
     return await treatFetchResponse<TopicInfos>(response);
@@ -32,8 +32,22 @@ export const requestTopics = async (
 ): Promise<TServiceResponse<Topic[]>> => {
   const idsParam = idsToExclude && idsToExclude.join(',');
   const response = await treatAxiosResponse<Topic[]>(() => (
-    axios.get(`http://localhost:3001/topics?query=${query}&excludeIds=${idsParam}`)
+    axios.get(`${clientApiUrl}/topics?query=${query}&excludeIds=${idsParam}`)
   ));
 
   return response;
+};
+
+export const requestPopularTopics = async (
+  quantity: number,
+): Promise<TServiceResponse<Topic[]>> => {
+  try {
+    const response = await fetch(
+      `${serverApiUrl}/topics/popular?quantity=${quantity}`,
+      { next: { revalidate: 1 } },
+    );
+    return await treatFetchResponse<Topic[]>(response);
+  } catch (error) {
+    return await treatFetchResponse<Topic[]>(error);
+  }
 };

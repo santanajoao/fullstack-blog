@@ -4,9 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { TPost } from '@/types/Post';
 import { requestPosts } from '@/services/posts';
 import { toast } from 'react-toastify';
+import { useRouter, useSearchParams } from 'next/navigation';
 import PostList from '../PostList';
 import PostItemLink from '../PostItemLink';
 import Skeleton from './Skeleton';
+import Button from './Button';
 
 interface Props {
   apiEndpoint: string;
@@ -18,55 +20,55 @@ interface Props {
 export default function PostListPagination({
   apiEndpoint, quantity, orderBy, emptyPostsMessage,
 }: Props) {
-  const [page, setPage] = useState(0);
   const [posts, setPosts] = useState<TPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [postsEnded, setPostsEnded] = useState(false);
 
-  const getPosts = async (): Promise<any> => {
-    const postsQuantity = page * quantity || quantity;
-    const response = await requestPosts({
-      endpoint: apiEndpoint, page: 0, quantity: postsQuantity, orderBy,
-    });
+  const params = useSearchParams();
+  const page = parseInt(params.get('page') || '0', 10);
+  const router = useRouter();
 
-    setLoading(false);
-    if (!response.success) return toast.error(response.message);
-
-    return setPosts(response.data);
-  };
-
-  const appendPosts = async () => {
+  const fetchPosts = async (): Promise<TPost[] | null> => {
     const response = await requestPosts({
       endpoint: apiEndpoint, page, quantity, orderBy,
     });
     setLoading(false);
 
-    if (!response.success) return toast.error(response.message);
+    if (!response.success) { toast.error(response.message); return null; }
     if (response.data.length < quantity) setPostsEnded(true);
-    if (response.data.length === 0 && posts.length > 0) return toast.info('Não há mais publicações');
+    return response.data;
+  };
 
-    return setPosts((prev) => [...prev, ...response.data]);
+  const getPosts = async (): Promise<any> => {
+    const fetchedPosts = await fetchPosts();
+    if (fetchedPosts) setPosts(fetchedPosts);
+  };
+
+  const appendPosts = async () => {
+    if (!posts.length) return;
+
+    const fetchedPosts = await fetchPosts();
+    if (!fetchedPosts) return;
+
+    if (fetchedPosts.length > 0) {
+      setPosts((prev) => [...prev, ...fetchedPosts]);
+    } else {
+      toast.info('Não há mais publicações');
+    }
   };
 
   useEffect(() => {
-    if (posts.length) {
-      appendPosts();
-    }
+    appendPosts();
   }, [page]);
 
   useEffect(() => {
     getPosts();
   }, [orderBy]);
 
+  if (loading) return <Skeleton items={9} />;
+  if (posts.length === 0 && postsEnded) return <p>{emptyPostsMessage}</p>;
+
   const showMoreButton = posts.length > 0 && !postsEnded;
-
-  if (loading) {
-    return <Skeleton items={9} />;
-  }
-
-  if (posts.length === 0 && postsEnded) {
-    return <p>{emptyPostsMessage}</p>;
-  }
 
   return (
     <div className="flex flex-col space-y-3">
@@ -86,13 +88,12 @@ export default function PostListPagination({
       </PostList.List>
 
       {showMoreButton && (
-        <button
+        <Button
           type="button"
-          className="border-zinc-300 border rounded-md py-2 px-4 hover:bg-zinc-300 font-bold"
-          onClick={() => setPage((prev) => prev + 1)}
+          onClick={() => router.push(`?page=${page + 1}`, { scroll: false })}
         >
           Ver mais
-        </button>
+        </Button>
       )}
     </div>
   );

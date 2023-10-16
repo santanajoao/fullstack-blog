@@ -1,6 +1,7 @@
 'use client';
 
 import { useUser } from '@/contexts/AuthContext';
+import { clientApiUrl } from '@/services/constants';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { parseCookies } from 'nookies';
@@ -30,7 +31,7 @@ export default function LikeButton({ postId }: Params) {
 
     try {
       const { data } = await axios.get<LikesReponse>(
-        `http://localhost:3001/likes/${user?.id}/${postId}`,
+        `${clientApiUrl}/likes/${user?.id}/${postId}`,
       );
       setLiked(data.userLiked);
       setLikeCount(data.postLikes);
@@ -56,9 +57,9 @@ export default function LikeButton({ postId }: Params) {
       const headers = { Authorization: token };
 
       if (liked) {
-        await axios.delete('http://localhost:3001/likes', { data, headers });
+        await axios.delete(`${clientApiUrl}/likes`, { data, headers });
       } else {
-        await axios.post('http://localhost:3001/likes', data, { headers });
+        await axios.post(`${clientApiUrl}/likes`, data, { headers });
       }
 
       setLikeCount((prev) => (liked ? prev - 1 : prev + 1));

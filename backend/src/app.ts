@@ -17,6 +17,7 @@ app.use('/topics', routers.topicRoutes);
 app.use('/posts', routers.postRoutes);
 app.use('/accounts', routers.accountRoutes);
 app.use('/likes', routers.likeRoutes);
+app.use('/comments', routers.commentRoutes);
 
 app.get('/status', (_req: Request, res: Response) => {
   res.status(200).json('OK');

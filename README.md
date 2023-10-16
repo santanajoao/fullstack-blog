@@ -4,7 +4,7 @@
 
 Um blog comunitário desenvolvido utilizando Next.js, Express, MySQL, Prisma e Tailwind.
 
-<img src="images/blog-screenshot.png" alt="captura da tela inicial do blog" />
+<img src="images/blog-screenshot.webp" alt="captura da tela inicial do blog" />
 
 ## Sobre 🔍
 
@@ -72,6 +72,11 @@ Existe também uma página para uma postagem onde é possível ler o conteúdo d
 - [ ] Upload de imagens
   - [ ] Adicionar validação do tipo dos arquivos enviados no backend
   - [X] Adicionar validação de tamanho máximo de um arquivo
+
+- [ ] Bugs
+  - [ ] Verificar se a imagem de perfil está aparecendo na página de autor no deploy
+
+- [ ] Tornar tópicos dos posts e pagina do autor em links
 
 - [ ] Adicionar forma do usuário logado gerenciar suas publicações
 

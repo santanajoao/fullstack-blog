@@ -13,7 +13,7 @@ export const createPost = async (data: ModelPostCreation) => {
   });  
 };
 
-type FindOptions = {
+export type FindOptions = {
   orderBy?: Prisma.PostFindManyArgs['orderBy'],
   take?: number;
   skip?: number;

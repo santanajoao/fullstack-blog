@@ -18,11 +18,23 @@ export default function Footer() {
 
       <div>
         <div className="flex space-x-3">
-          <a href="https://github.com/santanajoao" target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-zinc-700">
+          <a
+            href="https://github.com/santanajoao"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Github do desenvolvedor"
+            className="text-2xl hover:text-zinc-700"
+          >
             <BsGithub />
           </a>
 
-          <a href="https://www.linkedin.com/in/joaopedrosantanac/" target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-zinc-700">
+          <a
+            href="https://www.linkedin.com/in/joaopedrosantanac/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Linkedin do desenvolvedor"
+            className="text-2xl hover:text-zinc-700"
+          >
             <BsLinkedin />
           </a>
         </div>

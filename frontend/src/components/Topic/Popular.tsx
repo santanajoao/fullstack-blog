@@ -1,14 +1,14 @@
 import React from 'react';
-import { Topic } from '@/types/Topic';
+import { requestPopularTopics } from '@/services/topic';
 import TopicLink from './TopicLink';
 import Container from '../Container';
 
 export default async function PopularTopics() {
-  const response = await fetch(
-    'http://backend:3001/topics/popular?quantity=12',
-    { next: { revalidate: 60 * 15 } }, // 15 minutos
-  );
-  const popularTopics: Topic[] = await response.json();
+  const response = await requestPopularTopics(12);
+
+  if (!response.success) return null;
+
+  const popularTopics = response.data;
 
   return (
     <Container.Section>
