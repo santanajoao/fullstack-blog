@@ -21,7 +21,7 @@ type Responses = [Account, AuthorPostsCount, Topic[]];
 
 export default async function AuthorPage({ params }: Props) {
   const [author, count, topics]: Responses = await Promise.all([
-    fetch(`${serverApiUrl}/accounts/${params.id}`).then((res) => res.json()),
+    fetch(`${serverApiUrl}/accounts/${params.id}`, { next: { revalidate: 1 } }).then((res) => res.json()),
     fetch(`${serverApiUrl}/posts/account/${params.id}/count`).then((res) => res.json()),
     fetch(`${serverApiUrl}/topics/account/${params.id}`).then((res) => res.json()),
   ]);
