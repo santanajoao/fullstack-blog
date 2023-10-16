@@ -4,7 +4,7 @@ import React from 'react';
 import Container from '@/components/Container';
 import { Topic } from '@/types/Topic';
 import Author from '@/components/Author';
-import { clientApiUrl } from '@/services/constants';
+import { serverApiUrl } from '@/services/constants';
 
 interface Props {
   params: {
@@ -21,9 +21,9 @@ type Responses = [Account, AuthorPostsCount, Topic[]];
 
 export default async function AuthorPage({ params }: Props) {
   const [author, count, topics]: Responses = await Promise.all([
-    fetch(`${clientApiUrl}/accounts/${params.id}`).then((res) => res.json()),
-    fetch(`${clientApiUrl}/posts/account/${params.id}/count`).then((res) => res.json()),
-    fetch(`${clientApiUrl}/topics/account/${params.id}`).then((res) => res.json()),
+    fetch(`${serverApiUrl}/accounts/${params.id}`, { next: { revalidate: 1 } }).then((res) => res.json()),
+    fetch(`${serverApiUrl}/posts/account/${params.id}/count`).then((res) => res.json()),
+    fetch(`${serverApiUrl}/topics/account/${params.id}`).then((res) => res.json()),
   ]);
 
   if (!author.id) {
