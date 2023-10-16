@@ -1,0 +1,46 @@
+services:
+  frontend:
+    volumes:
+      - ./frontend:/home/app
+    build: 
+      context: frontend
+      dockerfile: dev.Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+    environment:
+      - API_PORT=3001
+    restart: on-failure
+  backend:
+    volumes:
+      - ./backend:/home/app
+    build: 
+      context: backend
+      dockerfile: dev.Dockerfile
+    ports:
+      - ${API_PORT}:${API_PORT}
+    depends_on:
+      - database
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://backend:${API_PORT}/status"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    environment:
+      - API_PORT=${API_PORT}
+      - DATABASE_URL=${DB}://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+      - JWT_SECRET=${JWT_SECRET}
+    restart: on-failure
+  database:
+    image: mysql:8.0.33
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-P", "3306", "-u", "root", "-p${DB_PASSWORD}"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    restart: on-failure
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
