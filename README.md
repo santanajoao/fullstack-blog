@@ -69,18 +69,11 @@ Existe também uma página para uma postagem onde é possível ler o conteúdo d
   - [ ] Escrever testes do frontend
   - [ ] Escrever e reescrever testes antigos do backend que não funcionam mais 
 
-- [ ] Upload de imagens
-  - [ ] Adicionar validação do tipo dos arquivos enviados no backend
-  - [X] Adicionar validação de tamanho máximo de um arquivo
-
-- [ ] Bugs
-  - [ ] Verificar se a imagem de perfil está aparecendo na página de autor no deploy
-
 - [ ] Tornar tópicos dos posts e pagina do autor em links
 
 - [ ] Adicionar forma do usuário logado gerenciar suas publicações
 
 - [ ] Página sobre o uso de cookies
 
-- ❓ Página de listagem e busca por todos os tópicos ❓
-- ❓ Adicionar filtro nas publicações da página do autor ❓
+- [ ] Página de listagem e busca por todos os tópicos
+- [ ] Adicionar filtro nas publicações da página do autor
