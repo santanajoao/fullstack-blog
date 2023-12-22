@@ -61,15 +61,15 @@ Existe também uma página para uma postagem onde é possível ler o conteúdo d
 
 4. Rode `docker compose up -d`
 
-5. Acesse http://localhost:3000
+5. Espere até os containers subirem e inicializarem
+
+6. Acesse http://localhost:3000
 
 ### Próximos passos
 
 - [ ] Testes
   - [ ] Escrever testes do frontend
   - [ ] Escrever e reescrever testes antigos do backend que não funcionam mais 
-
-- [ ] Tornar tópicos dos posts e pagina do autor em links
 
 - [ ] Adicionar forma do usuário logado gerenciar suas publicações
 
