@@ -18,7 +18,7 @@ export default async function PopularTopics() {
 
       <ul className="grid grid-flow-col grid-rows-3 gap-2 sm:grid-rows-2 lg:grid-rows-1">
         {popularTopics.map(({ name, id, imageUrl }) => (
-          <li key={id} className="w-full aspect-square rounded-2xl overflow-hidden relative group">
+          <li key={id} className="w-full aspect-square relative group">
             <TopicLink image={`${imageUrl}?size=320`} link={`/topic/${id}`} topic={name} />
           </li>
         ))}

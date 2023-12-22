@@ -10,7 +10,7 @@ interface Props {
 
 export default function TopicLink({ link, image, topic }: Props) {
   return (
-    <Link href={link} className="h-full w-full">
+    <Link href={link} className="h-full w-full rounded-2xl block overflow-hidden">
       <Image
         width={320}
         src={image}
